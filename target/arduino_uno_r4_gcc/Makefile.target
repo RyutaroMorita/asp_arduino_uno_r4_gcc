@@ -1,0 +1,133 @@
+#
+#		Makefile のターゲット依存部（Arduino UNO R4用）
+#
+
+#
+#  ボード名, チップ名，コア名，開発環境名の定義
+#
+BOARD = arduino_uno_r4
+CHIP  = ra4m1
+PRC   = arm_m
+TOOL  = gcc
+
+#
+#  FPUを使用するか
+#
+FPU_USAGE = FPU_LAZYSTACKING
+FPU_ARCH_MACRO := __TARGET_FPU_FPV4_SP
+FPU_ABI := hard
+
+#
+#  コンパイルオプション
+#
+INCLUDES := $(INCLUDES) \
+			-I$(TARGETDIR) \
+			-I$(TARGETDIR)/ra/arm/CMSIS_5/CMSIS/Core/Include \
+			-I$(TARGETDIR)/ra/fsp/inc/api \
+			-I$(TARGETDIR)/ra/fsp/inc/instances \
+			-I$(TARGETDIR)/ra_cfg/fsp_cfg \
+			-I$(TARGETDIR)/ra_cfg/fsp_cfg/bsp \
+			-I$(TARGETDIR)/ra_gen
+CDEFS := $(CDEFS) -D_RENESAS_RA_
+COPTS := $(COPTS)
+LDFLAGS := $(LDFLAGS)
+CFG1_OUT_LDFLAGS := -nostdlib $(CFG1_OUT_LDFLAGS)
+
+#
+# ファイルサイズ削減のためのオプション
+#
+COPTS   := $(COPTS) -std=c99
+LDFLAGS := $(LDFLAGS) -Wl,--gc-sections -specs=rdimon.specs -specs=nano.specs
+
+#
+#  カーネルに関する定義
+#
+KERNEL_DIR := $(KERNEL_DIR) \
+			$(TARGETDIR) \
+			$(TARGETDIR)/ra/fsp/src/bsp/mcu/all \
+			$(TARGETDIR)/ra/fsp/src/r_ioport \
+			$(TARGETDIR)/ra_gen \
+			$(TARGETDIR)/src
+KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) chip_start.o
+KERNEL_COBJS := $(KERNEL_COBJS) \
+			bsp_clocks.o \
+			bsp_common.o \
+			bsp_io.o \
+			bsp_irq.o \
+			bsp_register_protection.o \
+			r_ioport.o \
+			common_data.o \
+			pin_data.o \
+			hal_entry.o \
+			target_config.o
+KERNEL_CFLAGS := $(KERNEL_CFLAGS)
+
+#
+#  システムサービスに関する定義
+#
+SYSSVC_DIR := $(SYSSVC_DIR)
+SYSSVC_COBJS := $(SYSSVC_COBJS) usart.o
+
+#
+#  GNU開発環境のターゲットアーキテクチャの定義
+#
+GCC_TARGET = arm-none-eabi
+
+#
+#  リンカスクリプトの定義
+#
+LDSCRIPT = $(SRCDIR)/target/$(BOARD)_$(TOOL)/arduino_uno_r4.ld
+
+#
+#  依存関係の定義
+#
+kernel_cfg.timestamp: $(TARGETDIR)/target.tf
+$(OBJFILE): $(TARGETDIR)/target_check.tf
+
+#
+#  チップ依存部のインクルード
+#
+include $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/Makefile.chip
+
+#
+#  フラッシュへの書き込み
+#
+UNAME_TARGET = Cygwin
+OPENOCD_PATH = /cygdrive/c/arm/OpenOCD/0.10.0-201510281129-dev/bin/openocd.exe
+OPENOCD_SCRIPT_PATH = c:/arm/OpenOCD/0.10.0-201510281129-dev/scripts
+OPENOCD_SCRIPT  = c:/arm/OpenOCD/0.10.0-201510281129-dev/scripts/board/stm32f4discovery.cfg
+
+ifeq ($(UNAME_TARGET), Cygwin)
+	GDB = arm-gdb_m0.exe
+else
+	GDB = $(ARDUINO_BASE_DIR_WIN)\hardware\tools\gcc-arm-none-eabi-4.8.3-2014q1\bin\arm-none-eabi-gdb
+endif
+
+run: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	"`cygpath -u "$(OPENOCD_PATH)"`" -s "$(OPENOCD_SCRIPT_PATH)" -f "$(OPENOCD_SCRIPT)" -c "program ./$(OBJNAME).bin verify 0x08000000 reset exit"
+#-c "flash probe 0; flash write_image erase ./$(OBJNAME).axf 0x08000000 reset exit"
+else
+	"$(OPENOCD_PATH)" -s "$(OPENOCD_SCRIPT_PATH)" -f "$(OPENOCD_SCRIPT)" -c "program ./$(OBJNAME).bin verify 0x4000 reset exit"
+endif
+
+ocd: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	cygstart "$(OPENOCD_PATH)" '-s "$(OPENOCD_SCRIPT_PATH)"' '-f "$(OPENOCD_SCRIPT)"'
+else
+	start /MIN "" "$(OPENOCD_PATH)" -s "$(OPENOCD_SCRIPT_PATH)" -f "$(OPENOCD_SCRIPT)"
+endif
+
+db: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	$(GDB) $(OBJFILE) -x $(TARGETDIR)/gdb.ini
+else
+	$(GDB) $(OBJFILE) -x $(TARGETDIR)/gdb.ini
+endif
+
+d: $(OBJNAME).bin
+ifeq ($(UNAME_TARGET), Cygwin)
+	$(GDB) $(OBJFILE) -x $(TARGETDIR)/gdb_noflash.ini
+else
+
+endif
