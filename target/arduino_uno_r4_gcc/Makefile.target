@@ -23,6 +23,7 @@ FPU_ABI := hard
 INCLUDES := $(INCLUDES) \
 			-I$(TARGETDIR) \
 			-I$(TARGETDIR)/ra/arm/CMSIS_5/CMSIS/Core/Include \
+			-I$(TARGETDIR)/ra/fsp/inc \
 			-I$(TARGETDIR)/ra/fsp/inc/api \
 			-I$(TARGETDIR)/ra/fsp/inc/instances \
 			-I$(TARGETDIR)/ra_cfg/fsp_cfg \
@@ -52,6 +53,7 @@ KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) chip_start.o
 KERNEL_COBJS := $(KERNEL_COBJS) \
 			bsp_clocks.o \
 			bsp_common.o \
+			bsp_delay.o \
 			bsp_io.o \
 			bsp_irq.o \
 			bsp_register_protection.o \
