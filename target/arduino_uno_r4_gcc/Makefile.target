@@ -23,6 +23,7 @@ FPU_ABI := hard
 INCLUDES := $(INCLUDES) \
 			-I$(TARGETDIR) \
 			-I$(TARGETDIR)/ra/arm/CMSIS_5/CMSIS/Core/Include \
+			-I$(TARGETDIR)/ra/arm/CMSIS_6/CMSIS/Core/Include \
 			-I$(TARGETDIR)/ra/fsp/inc \
 			-I$(TARGETDIR)/ra/fsp/inc/api \
 			-I$(TARGETDIR)/ra/fsp/inc/instances \
