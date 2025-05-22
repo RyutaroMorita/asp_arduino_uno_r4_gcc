@@ -7,50 +7,50 @@
  *  Copyright (C) 2004-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: sil.h 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�V�X�e���C���^�t�F�[�X���C��
+ *		システムインタフェースレイヤ
  *
- *  �V�X�e���C���^�t�F�[�X���C���̃T�[�r�X�R�[���̒�`�E�錾�ƃ}�N����
- *  �ǂ̒�`���܂ރw�b�_�t�@�C���D
+ *  システムインタフェースレイヤのサービスコールの定義・宣言とマクロな
+ *  どの定義を含むヘッダファイル．
  *
- *  �A�Z���u������̃\�[�X�t�@�C�����炱�̃t�@�C�����C���N���[�h���鎞
- *  �́CTOPPERS_MACRO_ONLY���`���Ă������ƂŁC�}�N����`�ȊO�̋L�q��
- *  �������Ƃ��ł���D
+ *  アセンブリ言語のソースファイルからこのファイルをインクルードする時
+ *  は，TOPPERS_MACRO_ONLYを定義しておくことで，マクロ定義以外の記述を
+ *  除くことができる．
  *
- *  ���̃t�@�C�����C���N���[�h����O�ɃC���N���[�h���Ă����ׂ��t�@�C��
- *  �͂Ȃ��D
+ *  このファイルをインクルードする前にインクルードしておくべきファイル
+ *  はない．
  */
 
 #ifndef TOPPERS_SIL_H
@@ -61,31 +61,31 @@ extern "C" {
 #endif
 
 /*
- *	TOPPERS���ʂ̃f�[�^�^�E�萔�E�}�N��
+ *	TOPPERS共通のデータ型・定数・マクロ
  */
 #include <t_stddef.h>
 
 /*
- *  �^�[�Q�b�g�ˑ���
+ *  ターゲット依存部
  */
 #include "target_sil.h"
 
 #ifndef TOPPERS_MACRO_ONLY
 
 /*
- *  �S�����݃��b�N��Ԃ̐���
+ *  全割込みロック状態の制御
  *
- *  SIL_PRE_LOC�CSIL_LOC_INT()�CSIL_UNL_INT()�́C�^�[�Q�b�g�ˑ����ŗp
- *  �ӂ���D�f�t�H���g�̒�`�͗p�ӂ��Ă��Ȃ��D
+ *  SIL_PRE_LOC，SIL_LOC_INT()，SIL_UNL_INT()は，ターゲット依存部で用
+ *  意する．デフォルトの定義は用意していない．
  */
 
 /*
- *  �������ԑ҂�
+ *  微少時間待ち
  */
 extern void	sil_dly_nse(ulong_t dlytim) throw();
 
 /*
- *  �G���f�B�A���̔��]
+ *  エンディアンの反転
  */
 #ifndef TOPPERS_SIL_REV_ENDIAN_UINT16
 #define	TOPPERS_SIL_REV_ENDIAN_UINT16(data) \
@@ -99,12 +99,12 @@ extern void	sil_dly_nse(ulong_t dlytim) throw();
 #endif /* TOPPERS_SIL_REV_ENDIAN_UINT32 */
 
 /*
- *  ��������ԃA�N�Z�X�֐�
+ *  メモリ空間アクセス関数
  */
 #ifndef TOPPERS_OMIT_SIL_ACCESS
 
 /*
- *  8�r�b�g�P�ʂ̓Ǐo���^������
+ *  8ビット単位の読出し／書込み
  */
 #ifdef UINT8_MAX
 
@@ -126,7 +126,7 @@ sil_wrb_mem(uint8_t *mem, uint8_t data)
 #endif /* UINT8_MAX */
 
 /*
- *  16�r�b�g�P�ʂ̓Ǐo���^������
+ *  16ビット単位の読出し／書込み
  */
 
 Inline uint16_t
@@ -144,7 +144,7 @@ sil_wrh_mem(uint16_t *mem, uint16_t data)
 	*((volatile uint16_t *) mem) = data;
 }
 
-#ifdef SIL_ENDIAN_BIG			/* �r�b�O�G���f�B�A���v���Z�b�T */
+#ifdef SIL_ENDIAN_BIG			/* ビッグエンディアンプロセッサ */
 
 #define	sil_reh_bem(mem)		sil_reh_mem(mem)
 #define	sil_wrh_bem(mem, data)	sil_wrh_mem(mem, data)
@@ -171,7 +171,7 @@ sil_wrh_lem(uint16_t *mem, uint16_t data)
 
 #endif /* TOPPERS_OMIT_SIL_WRH_LEM */
 #else /* SIL_ENDIAN_BIG */
-#ifdef SIL_ENDIAN_LITTLE		/* ���g���G���f�B�A���v���Z�b�T */
+#ifdef SIL_ENDIAN_LITTLE		/* リトルエンディアンプロセッサ */
 
 #define	sil_reh_lem(mem)		sil_reh_mem(mem)
 #define	sil_wrh_lem(mem, data)	sil_wrh_mem(mem, data)
@@ -205,7 +205,7 @@ sil_wrh_bem(uint16_t *mem, uint16_t data)
 #endif /* SIL_ENDIAN_BIG */
 
 /*
- *  32�r�b�g�P�ʂ̓Ǐo���^������
+ *  32ビット単位の読出し／書込み
  */
 
 Inline uint32_t
@@ -223,7 +223,7 @@ sil_wrw_mem(uint32_t *mem, uint32_t data)
 	*((volatile uint32_t *) mem) = data;
 }
 
-#ifdef SIL_ENDIAN_BIG			/* �r�b�O�G���f�B�A���v���Z�b�T */
+#ifdef SIL_ENDIAN_BIG			/* ビッグエンディアンプロセッサ */
 
 #define	sil_rew_bem(mem)		sil_rew_mem(mem)
 #define	sil_wrw_bem(mem, data)	sil_wrw_mem(mem, data)
@@ -249,7 +249,7 @@ sil_wrw_lem(uint32_t *mem, uint32_t data)
 }
 
 #endif /* TOPPERS_OMIT_SIL_WRW_LEM */
-#else /* SIL_ENDIAN_BIG */		/* ���g���G���f�B�A���v���Z�b�T */
+#else /* SIL_ENDIAN_BIG */		/* リトルエンディアンプロセッサ */
 
 #define	sil_rew_lem(mem)		sil_rew_mem(mem)
 #define	sil_wrw_lem(mem, data)	sil_wrw_mem(mem, data)

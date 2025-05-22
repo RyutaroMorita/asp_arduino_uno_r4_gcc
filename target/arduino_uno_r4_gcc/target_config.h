@@ -8,34 +8,34 @@
  *  Copyright (C) 2005-2017 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  *
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  *
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  *
  */
 
@@ -43,47 +43,47 @@
 #define TOPPERS_TARGET_CONFIG_H
 
 /*
- *  �^�[�Q�b�g�ˑ������W���[���iArduino UNO R4�p�j
+ *  ターゲット依存部モジュール（Arduino UNO R4用）
  *
- *  �J�[�l���̃^�[�Q�b�g�ˑ����̃C���N���[�h�t�@�C���Dkernel_impl.h�̃^�[
- *  �Q�b�g�ˑ����̈ʒu�t���ƂȂ��D
+ *  カーネルのターゲット依存部のインクルードファイル．kernel_impl.hのター
+ *  ゲット依存部の位置付けとなす．
  */
 #ifndef TOPPERS_MACRO_ONLY
 #include "hal_data.h"
 #endif /* TOPPERS_MACRO_ONLY */
 
 /*
- *  TBITW_IPRI �̒�`�̂��ߓǂݍ���
+ *  TBITW_IPRI の定義のため読み込み
  */
 #include <sil.h>
 
 /*
- *  �����ݐ�
+ *  割込み数
  */
 #define TMAX_INTNO (31 + 16)
 
 /*
- *  �f�t�H���g�̔�^�X�N�R���e�L�X�g�p�̃X�^�b�N�̈�̒�`
+ *  デフォルトの非タスクコンテキスト用のスタック領域の定義
  */
 #define DEFAULT_ISTKSZ			(0x1000)		/* 4KByte */
 
 /*
- *  �������ԑ҂��̂��߂̒�`�i�{����SIL�̃^�[�Q�b�g�ˑ����j
+ *  微少時間待ちのための定義（本来はSILのターゲット依存部）
  */
 #define SIL_DLY_TIM1    162
 #define SIL_DLY_TIM2    100
 
 /*
- *  �N���b�N
+ *  クロック
  */
 #define SYS_CLOCK		48000000
 
 /*
- * IDLE�����̒�`
+ * IDLE処理の定義
  *
- * �T�X�y���h����OpenOCD�f�o�b�O�c�[�����g���Ȃ��Ȃ���̑Ή�
- * WFI���ŃT�X�y���h���Ă���v���O�����ɑ΂��āC�t���b�V��ROM
- * �������݂��o���Ȃ��Ȃ邽�߁CIDEL�����ύX�D
+ * サスペンド時にOpenOCDデバッグツールが使えなくなる問題の対応
+ * WFI等でサスペンドしているプログラムに対して，フラッシュROM
+ * 書き込みも出来なくなるため，IDEL処理変更．
  */
 #define TOPPERS_CUSTOM_IDLE
 #define toppers_asm_custom_idle		\
@@ -94,21 +94,21 @@
 #ifndef TOPPERS_MACRO_ONLY
 
 /*
- *  �^�[�Q�b�g�V�X�e���ˑ��̏�����
+ *  ターゲットシステム依存の初期化
  */
 extern void	target_initialize(void);
 
 /*
- *  �^�[�Q�b�g�V�X�e���̏I��
+ *  ターゲットシステムの終了
  *
- *  �V�X�e�����I�����鎞�Ɏg���D
+ *  システムを終了する時に使う．
  */
 extern void	target_exit(void) NoReturn;
 
 #endif /* TOPPERS_MACRO_ONLY */
 
 /*
- *  �`�b�v�ˑ����W���[��
+ *  チップ依存モジュール
  */
 #include <chip_config.h>
 

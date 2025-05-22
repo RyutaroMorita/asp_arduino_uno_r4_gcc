@@ -1,12 +1,12 @@
 
-		TOPPERS/ASP�J�[�l��
-		�@�\�g���E�`���[�j���O�K�C�h
+		TOPPERS/ASPカーネル
+		機能拡張・チューニングガイド
 
-		�Ή��o�[�W����: Release 1.9.2
-		�ŏI�X�V: 2014�N1��2��
+		対応バージョン: Release 1.9.2
+		最終更新: 2014年1月2日
 
-���̃h�L�������g�́CTOPPERS/ASP�J�[�l�����C�@�\�g���E�`���[�j���O���邽
-�߂̕��@�i�܂��̓q���g�j�����������̂ł���D
+このドキュメントは，TOPPERS/ASPカーネルを，機能拡張・チューニングするた
+めの方法（またはヒント）を説明するものである．
 
 ----------------------------------------------------------------------
  TOPPERS/ASP Kernel
@@ -16,274 +16,274 @@
  Copyright (C) 2005-2014 by Embedded and Real-Time Systems Laboratory
              Graduate School of Information Science, Nagoya Univ., JAPAN
  
- ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
-     ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
-     �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
-     �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
-     �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
-     �̖��ۏ؋K����f�ڂ��邱�ƁD
- (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
-     �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
-     �ƁD
-   (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
-       �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
-   (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
-       �񍐂��邱�ƁD
- (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
-     �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
-     �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
-     �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
-     �Ɛӂ��邱�ƁD
+ 上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ 変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+     権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+     スコード中に含まれていること．
+ (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+     用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+     者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+     の無保証規定を掲載すること．
+ (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+     用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+     と．
+   (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+       作権表示，この利用条件および下記の無保証規定を掲載すること．
+   (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+       報告すること．
+ (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+     害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+     また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+     由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+     免責すること．
  
- �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- �̐ӔC�𕉂�Ȃ��D
+ 本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ の責任を負わない．
  
  $Id: extension.txt 2728 2015-12-30 01:46:11Z ertl-honda $
 ----------------------------------------------------------------------
 
-���ڎ�
+○目次
 
-�E�G���[�`�F�b�N�̏ȗ�
-�E�^�C���e�B�b�N�̎����̕ύX
-�E����ړI�̃��W�X�^�̈���
-�E�g���p�b�P�[�W�̎g����
-	- �~���[�e�b�N�X�@�\�g���p�b�P�[�W
-	- ���b�Z�[�W�o�b�t�@�@�\�g���p�b�P�[�W
-	- �I�[�o�����n���h���@�\�g���p�b�P�[�W
-	- �^�X�N�D��x�g���p�b�P�[�W
-	- ����^�X�N�g���p�b�P�[�W
-	- ���I�����@�\�g���p�b�P�[�W
-�ECPU��O�n���h���̒��ڌďo��
-	- TA_DIRECT�����̓���
-	- �^�[�Q�b�g�ˑ����̏C���ӏ�
+・エラーチェックの省略
+・タイムティックの周期の変更
+・特殊目的のレジスタの扱い
+・拡張パッケージの使い方
+	- ミューテックス機能拡張パッケージ
+	- メッセージバッファ機能拡張パッケージ
+	- オーバランハンドラ機能拡張パッケージ
+	- タスク優先度拡張パッケージ
+	- 制約タスク拡張パッケージ
+	- 動的生成機能拡張パッケージ
+・CPU例外ハンドラの直接呼出し
+	- TA_DIRECT属性の導入
+	- ターゲット依存部の修正箇所
 
 
-���G���[�`�F�b�N�̏ȗ�
+○エラーチェックの省略
 
-�T�[�r�X�R�[���̃I�[�o�w�b�h���팸���邽�߂ɁC�ÓI�ȃG���[�̃`�F�b�N��
-�ȗ�����ꍇ������DASP�J�[�l���ɂ����ẮC�ÓI�ȃG���[�̃`�F�b�N�͂���
-��CHECK�}�N����p���čs���Ă��邽�߁Ckernel/check.h����CHECK�}�N�����
-�W���邱�ƂŁC�ÓI�ȃG���[�̃`�F�b�N���ȗ����邱�Ƃ��ł���D
+サービスコールのオーバヘッドを削減するために，静的なエラーのチェックを
+省略する場合がある．ASPカーネルにおいては，静的なエラーのチェックはすべ
+てCHECKマクロを用いて行っているため，kernel/check.h中のCHECKマクロを編
+集することで，静的なエラーのチェックを省略することができる．
 
-�Ⴆ�΁C�^�X�NID�̃`�F�b�N���ȗ��������ꍇ�ɂ́CCHECK_TSKID�}�N����
-CHECK_TSKID_SELF�}�N�����C���̂悤�ɏC������΂悢�D
+例えば，タスクIDのチェックを省略したい場合には，CHECK_TSKIDマクロと
+CHECK_TSKID_SELFマクロを，次のように修正すればよい．
 
 #define CHECK_TSKID(tskid)			((void)(tskid))
 #define CHECK_TSKID_SELF(tskid)		((void)(tskid))
 
-�����̃}�N���̒�`����ɂ�����@�����邪�C�p�����[�^�ɕ���p�̂��鎮
-��������Ă���\�����l����Ɓi����p�̂��鎮�͏����ׂ��ł͂Ȃ����C��
-����Ă���R�[�h�������Ă���\�����S���Ȃ��Ƃ͌����Ȃ��j�C��̒�`��
-�������S�ł���D����p�̂Ȃ����ł���΁C�œK���ɂ���č폜���邱�Ƃ���
-���邽�߁C���s�������ɂ͉e�����Ȃ��Ɗ��҂ł���D�������C�œK���ɂ����
-�폜����Ȃ��ꍇ�ɂ́C����p�̂��鎮��������Ă��Ȃ����Ƃ��m�F������ŁC
-�}�N���̒�`����ɂ��Ă��悢�D
+これらのマクロの定義を空にする方法もあるが，パラメータに副作用のある式
+が書かれている可能性を考えると（副作用のある式は書くべきではないが，書
+かれているコードが入ってくる可能性が全くないとは言えない），上の定義の
+方が安全である．副作用のない式であれば，最適化によって削除することがで
+きるため，実行時効率には影響がないと期待できる．ただし，最適化によって
+削除されない場合には，副作用のある式が書かれていないことを確認した上で，
+マクロの定義を空にしてもよい．
 
 
-���^�C���e�B�b�N�̎����̕ύX
+○タイムティックの周期の変更
 
-ASP�J�[�l���ł́C�J�[�l���փ^�C���e�B�b�N���������������1�~���b���W��
-�ƂȂ��Ă��邪�C�ᑬ�ȃv���Z�b�T�ł�1�~���b���Ɋ����݂���������I�[�o�w�b
-�h�����ɂȂ�ꍇ������D�����ŁC�A�v���P�[�V�������K�v�Ƃ��鎞�Ԑ��x
-���e���ꍇ�ɂ́C�^�C���e�B�b�N�̎����𒷂����邱�ƂŁC�v���Z�b�T�̏���
-���ׂ�ጸ������@������D
+ASPカーネルでは，カーネルへタイムティックを供給する周期は1ミリ秒が標準
+となっているが，低速なプロセッサでは1ミリ秒毎に割込みを処理するオーバヘッ
+ドが問題になる場合がある．そこで，アプリケーションが必要とする時間精度
+が粗い場合には，タイムティックの周期を長くすることで，プロセッサの処理
+負荷を低減する方法がある．
 
-�^�C���e�B�b�N�̎����̗^�����̓^�[�Q�b�g�ˑ��ł��邽�߁C���ꂪ�ύX�ł�
-�邩�ǂ����́C�^�[�Q�b�g�ˑ����̃^�C�}�h���C�o�̎����𒲂ׂ�K�v������D
-�W���I�ɂ́Ctarget_kernel.h�i�܂��͂�������C���N���[�h�����t�@�C���j
-���ɒ�`����Ă���TIC_NUME��TIC_DENO�����������邱�ƂŁC�ύX�ł���悤
-�Ɏ�������Ă���D
-
-
-������ړI�̃��W�X�^�̈���
-
-FPU���W�X�^��DSP���W�X�^�Ȃǂ̓���ړI�̃��W�X�^�i�ȉ��C���ꃌ�W�X�^�j
-�����v���Z�b�T�ł́C���W�X�^�̈����ɂ��đ傫������3�̕��@���l����
-���D
-
-(1) ���ꃌ�W�X�^���^�X�N�̃R���e�L�X�g�Ɋ܂߂Ȃ�
-
-1�̃^�X�N�݂̂����ꃌ�W�X�^���g�p����ꍇ�ɂ́C���ꃌ�W�X�^���^�X�N��
-�R���e�L�X�g�Ɋ܂߂�K�v���Ȃ��C�J�[�l���ŊǗ�����K�v���Ȃ��D
-
-(2) ���ꃌ�W�X�^���^�X�N�̃R���e�L�X�g�Ɋ܂߂�
-
-�����̃^�X�N�����ꃌ�W�X�^���g�p����ꍇ�ɂ́C���ꃌ�W�X�^���^�X�N�̃R
-���e�L�X�g�Ɋ܂߂���@���ł��P���ł���D���̂��߂ɂ́C�^�X�N�f�B�X�p�b
-�`���Ɗ����݃n���h��/CPU��O�n���h���̏o�����ŁC���ꃌ�W�X�^��ۑ�/���A
-����R�[�h��ǉ�����K�v������D���ۂ̕ۑ�/���A�ꏊ�́C�X�N���b�`���W�X
-�^�Ƃ���ȊO�̃��W�X�^�ňقȂ邽�߁C���ӂ��K�v�ł���D
-
-(3) ���ꃌ�W�X�^���R���e�L�X�g�Ɋ܂߂邩�ǂ������^�X�N���Ɏw�肷��
-
-���ꃌ�W�X�^���g�p����^�X�N�Ǝg�p���Ȃ��^�X�N������ꍇ�ŁC���ׂẴ^
-�X�N�̃R���e�L�X�g�ɓ��ꃌ�W�X�^���܂߂���@�ł̓I�[�o�w�b�h�����ɂ�
-��ꍇ�ɂ́C���ꃌ�W�X�^���R���e�L�X�g�Ɋ܂߂邩�ǂ������^�X�N���Ɏw��
-������@���L�͂ł���D���������������@�͎��̒ʂ�ł���D
-
-�܂��C���ꃌ�W�X�^���R���e�L�X�g�Ɋ܂߂邩�ǂ������w�肷��^�X�N������
-�݂���D�Ⴆ�΁CFPU���W�X�^�ł���΁C�^�X�N������TA_FPU��݂���D�^�X�N
-�f�B�X�p�b�`���ł́C�^�X�N���������āC���̑������ݒ肳��Ă���Γ��ꃌ
-�W�X�^��ۑ�/���A����D
-
-�n�[�h�E�F�A�I�ɓ��ꃌ�W�X�^���f�B�X�G�[�u���ł���ꍇ�ɂ́C���̑�����
-�ݒ肳��Ă��Ȃ��^�X�N�ɐ؂芷���鎞�ɓ��ꃌ�W�X�^���f�B�X�G�[�u������
-�ƁC����ē��ꃌ�W�X�^���g�����ꍇ�����o�ł���D
-
-����ɁC�����݃n���h���iISR�C�����n���h���C�A���[���n���h�����܂ށj��
-CPU��O�n���h���œ��ꃌ�W�X�^���g�p����ꍇ�ɂ́C�����̏����P�ʂɂ�
-���ꃌ�W�X�^���g�p���邩�ǂ����̑�����݂�����@���l������D
-
-�����ŁC�^�X�N�i�܂��͑��̏����P�ʁj�����ꃌ�W�X�^���g�p���邩�ǂ����́C
-�R���p�C���⃉�C�u�����Ɉˑ�����ꍇ�����邽�߁C���ӂ��K�v�ł���D�Ⴆ
-�΁C���������_���Z���܂܂Ȃ��v���O�����ł����Ă��C�R���p�C�������̕���
-���\�������Ɣ��f����΁C���������_���߂𐶐�����ꍇ������D
+タイムティックの周期の与え方はターゲット依存であるため，これが変更でき
+るかどうかは，ターゲット依存部のタイマドライバの実装を調べる必要がある．
+標準的には，target_kernel.h（またはそこからインクルードされるファイル）
+中に定義されているTIC_NUMEとTIC_DENOを書き換えることで，変更できるよう
+に実装されている．
 
 
-���g���p�b�P�[�W�̎g����
+○特殊目的のレジスタの扱い
 
-ASP�J�[�l���ł́C�������̊g���@�\���������邽�߂ɁC�g���p�b�P�[�W���T
-�|�[�g���Ă���D�g���p�b�P�[�W�́Cextension�f�B���N�g���ɒu���Ă���D
+FPUレジスタやDSPレジスタなどの特殊目的のレジスタ（以下，特殊レジスタ）
+を持つプロセッサでは，レジスタの扱いについて大きく次の3つの方法が考えら
+れる．
 
-�g���p�b�P�[�W���g�p����ꍇ�ɂ́CUNIX�ł���΁CASP�J�[�l���̃\�[�X�t�@
-�C���̃g�b�v�f�B���N�g���ŁC
+(1) 特殊レジスタをタスクのコンテキストに含めない
 
-	% cp -r extension/<�g���p�b�P�[�W�̃f�B���N�g����>/* .
+1つのタスクのみが特殊レジスタを使用する場合には，特殊レジスタをタスクの
+コンテキストに含める必要がなく，カーネルで管理する必要がない．
 
-�����s����D���̎��C���́i�g���O�́j�\�[�X�t�@�C���͏㏑������Ă��܂�
-���߁C�g�����Ȃ��J�[�l�����g�p�������ꍇ�ɂ́C�ʂ̃f�B���N�g���Ƀ\�[�X
-�t�@�C����W�J���āC��̃R�}���h�����s���邱�ƁD
+(2) 特殊レジスタをタスクのコンテキストに含める
 
-�����̊g���p�b�P�[�W���g�����Ƃ͍l�����Ă��Ȃ����C�ȉ��ɏq�ׂ�P�[�X��
-�����ẮC���Ƃɂ�蕡���̊g���p�b�P�[�W���}�[�W���邱�Ƃ͉\�ł���D
-�����_�ł́C�~���[�e�b�N�X�@�\�g���p�b�P�[�W�Ɛ���^�X�N�g���p�b�P�[�W
-���}�[�W���邱�Ƃ͂ł��Ȃ��D�܂��C���I�����@�\�g���p�b�P�[�W�𑼂̊g��
-�p�b�P�[�W�ƃ}�[�W���邱�Ƃ͍l�����Ă��Ȃ��D
+複数のタスクが特殊レジスタを使用する場合には，特殊レジスタをタスクのコ
+ンテキストに含める方法が最も単純である．そのためには，タスクディスパッ
+チャと割込みハンドラ/CPU例外ハンドラの出入口で，特殊レジスタを保存/復帰
+するコードを追加する必要がある．実際の保存/復帰場所は，スクラッチレジス
+タとそれ以外のレジスタで異なるため，注意が必要である．
 
-���~���[�e�b�N�X�@�\�g���p�b�P�[�W
+(3) 特殊レジスタをコンテキストに含めるかどうかをタスク毎に指定する
 
-�~���[�e�b�N�X�@�\�g���p�b�P�[�W�́C�~���[�e�b�N�X�@�\��ǉ����邽�߂�
-�g���p�b�P�[�W�ł���D�������C�D��x�t�]�𐧌䂷�邽�߂̎d�g�݂Ƃ��āC
-�D��x����~���[�e�b�N�X�iTA_CEILING�����̃~���[�e�b�N�X�j�݂̂��T�|�[
-�g���C�D��x�p���~���[�e�b�N�X�iTA_INHERIT�����̃~���[�e�b�N�X�j�̓T�|�[
-�g���Ă��Ȃ��D�~���[�e�b�N�X�@�\�g���p�b�P�[�W�́Cextension/mutex�f�B��
-�N�g���ɒu���Ă���D
+特殊レジスタを使用するタスクと使用しないタスクがある場合で，すべてのタ
+スクのコンテキストに特殊レジスタを含める方法ではオーバヘッドが問題にな
+る場合には，特殊レジスタをコンテキストに含めるかどうかをタスク毎に指定
+する方法が有力である．これを実現する方法は次の通りである．
 
-�~���[�e�b�N�X�@�\�g���p�b�P�[�W�ł́CTOPPERS_SUPPORT_MUTEX��kernel.h��
-�Œ�`����Ă���̂ŁC�����p���ă~���[�e�b�N�X�@�\���g�p�ł��邩�ǂ�
-���𔻕ʂ��邱�Ƃ��ł���D
+まず，特殊レジスタをコンテキストに含めるかどうかを指定するタスク属性を
+設ける．例えば，FPUレジスタであれば，タスク属性にTA_FPUを設ける．タスク
+ディスパッチャでは，タスク属性を見て，その属性が設定されていれば特殊レ
+ジスタを保存/復帰する．
 
-�����b�Z�[�W�o�b�t�@�@�\�g���p�b�P�[�W
+ハードウェア的に特殊レジスタがディスエーブルできる場合には，その属性が
+設定されていないタスクに切り換える時に特殊レジスタをディスエーブルする
+と，誤って特殊レジスタを使った場合を検出できる．
 
-���b�Z�[�W�o�b�t�@�@�\�g���p�b�P�[�W�́C���b�Z�[�W�o�b�t�@�@�\��ǉ���
-�邽�߂̊g���p�b�P�[�W�ł���D���b�Z�[�W�o�b�t�@�@�\�g���p�b�P�[�W�́C
-extension/messagebuf�f�B���N�g���ɒu���Ă���D
+さらに，割込みハンドラ（ISR，周期ハンドラ，アラームハンドラを含む）や
+CPU例外ハンドラで特殊レジスタを使用する場合には，これらの処理単位にも
+特殊レジスタを使用するかどうかの属性を設ける方法が考えられる．
 
-���b�Z�[�W�o�b�t�@�@�\�g���p�b�P�[�W�ł́CTOPPERS_SUPPORT_MESSAGEBUF��
-kernel.h���Œ�`����Ă���̂ŁC�����p���ă��b�Z�[�W�o�b�t�@�@�\���g
-�p�ł��邩�ǂ����𔻕ʂ��邱�Ƃ��ł���D
+ここで，タスク（または他の処理単位）が特殊レジスタを使用するかどうかは，
+コンパイラやライブラリに依存する場合があるため，注意が必要である．例え
+ば，浮動小数点演算を含まないプログラムであっても，コンパイラがその方が
+性能が高いと判断すれば，浮動小数点命令を生成する場合がある．
 
-���I�[�o�����n���h���@�\�g���p�b�P�[�W
 
-�I�[�o�����n���h���@�\�g���p�b�P�[�W�́C�I�[�o�����n���h���@�\��ǉ���
-�邽�߂̊g���p�b�P�[�W�ł���D�������C���̊g���p�b�P�[�W���g�����߂ɂ́C
-�^�[�Q�b�g�ˑ������Ή����Ă���K�v������D�I�[�o�����n���h���@�\�g���p�b
-�P�[�W�́Cextension/ovrhdr�f�B���N�g���ɒu���Ă���D
+○拡張パッケージの使い方
 
-�I�[�o�����n���h���@�\�g���p�b�P�[�W�ŁC�^�[�Q�b�g�ˑ������g���p�b�P�[
-�W�ɑΉ����Ă���ꍇ�ɂ́CTOPPERS_SUPPORT_OVRHDR��kernel.h���Œ�`����
-��̂ŁC�����p���ăI�[�o�����^�C�}�@�\���g�p�ł��邩�ǂ����𔻕ʂ���
-���Ƃ��ł���D
+ASPカーネルでは，いくつかの拡張機能を実装するために，拡張パッケージをサ
+ポートしている．拡張パッケージは，extensionディレクトリに置いてある．
 
-���^�X�N�D��x�g���p�b�P�[�W
+拡張パッケージを使用する場合には，UNIXであれば，ASPカーネルのソースファ
+イルのトップディレクトリで，
 
-�^�X�N�D��x�g���p�b�P�[�W�́C�^�X�N�D��x���ő�256�i�K�Ɋg�����邽�߂�
-�g���p�b�P�[�W�ł���D���̊g���p�b�P�[�W�́C�^�X�N�D��x�ɉ����āC�f�[
-�^�D��x�C���b�Z�[�W�D��x�C�����݃T�[�r�X���[�`���D��x��256�i�K�Ɋg��
-����D�^�X�N�D��x�g���p�b�P�[�W�́Cextension/pri_level�f�B���N�g���ɒu
-���Ă���D
+	% cp -r extension/<拡張パッケージのディレクトリ名>/* .
 
-�^�X�N�D��x�g���p�b�P�[�W�ł́CTOPPERS_SUPPORT_PRI_LEVEL��kernel.h����
-��`����Ă���̂ŁC�����p���ă^�X�N�D��x�͈̔͂��g������Ă��邩��
-�����𔻕ʂ��邱�Ƃ��ł���D
+を実行する．この時，元の（拡張前の）ソースファイルは上書きされてしまう
+ため，拡張しないカーネルも使用したい場合には，別のディレクトリにソース
+ファイルを展開して，上のコマンドを実行すること．
 
-������^�X�N�g���p�b�P�[�W
+複数の拡張パッケージを使うことは考慮していないが，以下に述べるケースを
+除いては，手作業により複数の拡張パッケージをマージすることは可能である．
+現時点では，ミューテックス機能拡張パッケージと制約タスク拡張パッケージ
+をマージすることはできない．また，動的生成機能拡張パッケージを他の拡張
+パッケージとマージすることは考慮していない．
 
-����^�X�N�g���p�b�P�[�W�́C����^�X�N�̋@�\��ǉ����邽�߂̊g���p�b�P�[
-�W�ł���DTOPPERS�V����J�[�l�������d�l���ɋK�肳�ꂽ����^�X�N�̋@�\��
-�����āC���^�X�N�̃x�[�X�D��x��ύX����T�[�r�X�R�[��ras_pri����������
-����D����^�X�N�g���p�b�P�[�W�́Cextension/rstr_task�f�B���N�g���ɒu��
-�Ă���D
+●ミューテックス機能拡張パッケージ
 
-����^�X�N�g���p�b�P�[�W�ł́CTOPPERS_SUPPORT_RSTR_TASK��kernel.h���Œ�
-�`����Ă���̂ŁC�����p���Đ���^�X�N�̋@�\���g�p�ł��邩�ǂ�����
-�ʂ��邱�Ƃ��ł���D
+ミューテックス機能拡張パッケージは，ミューテックス機能を追加するための
+拡張パッケージである．ただし，優先度逆転を制御するための仕組みとして，
+優先度上限ミューテックス（TA_CEILING属性のミューテックス）のみをサポー
+トし，優先度継承ミューテックス（TA_INHERIT属性のミューテックス）はサポー
+トしていない．ミューテックス機能拡張パッケージは，extension/mutexディレ
+クトリに置いてある．
+
+ミューテックス機能拡張パッケージでは，TOPPERS_SUPPORT_MUTEXがkernel.h中
+で定義されているので，これを用いてミューテックス機能を使用できるかどう
+かを判別することができる．
+
+●メッセージバッファ機能拡張パッケージ
+
+メッセージバッファ機能拡張パッケージは，メッセージバッファ機能を追加す
+るための拡張パッケージである．メッセージバッファ機能拡張パッケージは，
+extension/messagebufディレクトリに置いてある．
+
+メッセージバッファ機能拡張パッケージでは，TOPPERS_SUPPORT_MESSAGEBUFが
+kernel.h中で定義されているので，これを用いてメッセージバッファ機能を使
+用できるかどうかを判別することができる．
+
+●オーバランハンドラ機能拡張パッケージ
+
+オーバランハンドラ機能拡張パッケージは，オーバランハンドラ機能を追加す
+るための拡張パッケージである．ただし，この拡張パッケージを使うためには，
+ターゲット依存部が対応している必要がある．オーバランハンドラ機能拡張パッ
+ケージは，extension/ovrhdrディレクトリに置いてある．
+
+オーバランハンドラ機能拡張パッケージで，ターゲット依存部が拡張パッケー
+ジに対応している場合には，TOPPERS_SUPPORT_OVRHDRがkernel.h中で定義され
+るので，これを用いてオーバランタイマ機能が使用できるかどうかを判別する
+ことができる．
+
+●タスク優先度拡張パッケージ
+
+タスク優先度拡張パッケージは，タスク優先度を最大256段階に拡張するための
+拡張パッケージである．この拡張パッケージは，タスク優先度に加えて，デー
+タ優先度，メッセージ優先度，割込みサービスルーチン優先度も256段階に拡張
+する．タスク優先度拡張パッケージは，extension/pri_levelディレクトリに置
+いてある．
+
+タスク優先度拡張パッケージでは，TOPPERS_SUPPORT_PRI_LEVELがkernel.h中で
+定義されているので，これを用いてタスク優先度の範囲が拡張されているかど
+うかを判別することができる．
+
+●制約タスク拡張パッケージ
+
+制約タスク拡張パッケージは，制約タスクの機能を追加するための拡張パッケー
+ジである．TOPPERS新世代カーネル統合仕様書に規定された制約タスクの機能に
+加えて，自タスクのベース優先度を変更するサービスコールras_priを実装して
+いる．制約タスク拡張パッケージは，extension/rstr_taskディレクトリに置い
+てある．
+
+制約タスク拡張パッケージでは，TOPPERS_SUPPORT_RSTR_TASKがkernel.h中で定
+義されているので，これを用いて制約タスクの機能が使用できるかどうかを判
+別することができる．
 
 ----------------------------------------------------------------------
-ras_pri		���^�X�N�̃x�[�X�D��x�̈����グ�kT�l
+ras_pri		自タスクのベース優先度の引き上げ〔T〕
 
-�yC����API�z
+【C言語API】
 	ER ercd = ras_pri(PRI tskpri)
 
-�y�p�����[�^�z
-	PRI			tskpri		�x�[�X�D��x
+【パラメータ】
+	PRI			tskpri		ベース優先度
 
-�y���^�[���p�����[�^�z
-	ER			ercd		����I���iE_OK�j�܂��̓G���[�R�[�h
+【リターンパラメータ】
+	ER			ercd		正常終了（E_OK）またはエラーコード
 
-�y�G���[�R�[�h�z
-	E_CTX		�R���e�L�X�g�G���[
-				�E��^�X�N�R���e�L�X�g����̌ďo��
-				�ECPU���b�N��Ԃ���̌ďo��
-	E_PAR		�p�����[�^�G���[
-				�Etskpri���L���͈͊O
-	E_ILUSE		�T�[�r�X�R�[���s���g�p
-				�E�����ɂ��Ă͋@�\�̍����Q��
+【エラーコード】
+	E_CTX		コンテキストエラー
+				・非タスクコンテキストからの呼出し
+				・CPUロック状態からの呼出し
+	E_PAR		パラメータエラー
+				・tskpriが有効範囲外
+	E_ILUSE		サービスコール不正使用
+				・条件については機能の項を参照
 
-�y�@�\�z
+【機能】
 
-���^�X�N�̃x�[�X�D��x���Ctskpri�Ŏw�肵���D��x�ɕύX����D��̓I�ȐU
-�����͈ȉ��̒ʂ�D
+自タスクのベース優先度を，tskpriで指定した優先度に変更する．具体的な振
+舞いは以下の通り．
 
-���^�X�N�̃x�[�X�D��x���Ctskpri�Ŏw�肵���D��x�ɕύX�����D����ɔ���
-�āC���^�X�N�̌��ݗD��x���ύX�����D�����D��x�̃^�X�N�̒��ł́C���^
-�X�N���ō��D�揇�ʂƂȂ�D
+自タスクのベース優先度が，tskpriで指定した優先度に変更される．それに伴っ
+て，自タスクの現在優先度も変更される．同じ優先度のタスクの中では，自タ
+スクが最高優先順位となる．
 
-tskpri��TPRI_INI�i��0�j���w�肷��ƁC���^�X�N�̃x�[�X�D��x���C�N�����D
-��x�ɕύX�����D
+tskpriにTPRI_INI（＝0）を指定すると，自タスクのベース優先度が，起動時優
+先度に変更される．
 
-tskpri�́C���^�X�N�̋N�����D��x�Ɠ�����������������Ȃ���΂Ȃ�Ȃ��D
-�����łȂ��ꍇ�ɂ́CE_ILUSE�G���[�ƂȂ�D
+tskpriは，自タスクの起動時優先度と同じかそれよりも高くなければならない．
+そうでない場合には，E_ILUSEエラーとなる．
 ----------------------------------------------------------------------
 
-�����I�����@�\�g���p�b�P�[�W
+●動的生成機能拡張パッケージ
 
-���I�����@�\�g���p�b�P�[�W�́C�I�u�W�F�N�g�̓��I�����@�\��ǉ����邽��
-�̊g���p�b�P�[�W�ł���DTOPPERS�V����J�[�l�������d�l���ɋK�肳�ꂽ�ȉ�
-�̃I�u�W�F�N�g�����^�폜�̂��߂̃T�[�r�X�R�[���C���t���\��ID�ԍ��̐�
-���w�肷��ÓIAPI�ɉ����āC�J�[�l��������t���郁�����̈��ݒ肷��ÓI
-API DEF_KMM���������Ă���D���I�����@�\�g���p�b�P�[�W�́Cextension/dcre
-�f�B���N�g���ɒu���Ă���D
+動的生成機能拡張パッケージは，オブジェクトの動的生成機能を追加するため
+の拡張パッケージである．TOPPERS新世代カーネル統合仕様書に規定された以下
+のオブジェクト生成／削除のためのサービスコール，割付け可能なID番号の数
+を指定する静的APIに加えて，カーネルが割り付けるメモリ領域を設定する静的
+API DEF_KMMを実装している．動的生成機能拡張パッケージは，extension/dcre
+ディレクトリに置いてある．
 
-�������C�J�[�l�����ł̓��I�������Ǘ��Ɋւ��ẮC�^�[�Q�b�g��ˑ����ł́C
-�������̈��擪���珇�Ɋ��蓖�āC������ꂽ�������̈���ė��p���Ȃ���
-�����Ǘ����W���[���݂̂��������Ă���D�{�i�I�ȓ��I�������Ǘ����s������
-�ꍇ�ɂ́C�^�[�Q�b�g�ˑ����܂��̓��[�U���ŁC���̂��߂̊֐���p�ӂ���K
-�v������D�p�ӂ���֐����ɂ��ẮC�uTOPPERS/ASP�J�[�l�� �^�[�Q�b�g��
-���� �|�[�e�B���O�K�C�h�v�́u6.15 ���I�������Ǘ��v�̐߂��Q�Ƃ��邱�ƁD
+ただし，カーネル内での動的メモリ管理に関しては，ターゲット非依存部では，
+メモリ領域を先頭から順に割り当て，解放されたメモリ領域を再利用しないメ
+モリ管理モジュールのみを実装している．本格的な動的メモリ管理を行いたい
+場合には，ターゲット依存部またはユーザ側で，そのための関数を用意する必
+要がある．用意する関数等については，「TOPPERS/ASPカーネル ターゲット依
+存部 ポーティングガイド」の「6.15 動的メモリ管理」の節を参照すること．
 
-���I�@�\�g���g���p�b�P�[�W�ł́CTOPPERS_SUPPORT_DYNAMIC_CRE��kernel.h��
-�Œ�`����Ă���̂ŁC�����p���ē��I�����@�\���g�p�ł��邩�ǂ�����
-�ʂ��邱�Ƃ��ł���D
+動的機能拡張拡張パッケージでは，TOPPERS_SUPPORT_DYNAMIC_CREがkernel.h中
+で定義されているので，これを用いて動的生成機能が使用できるかどうかを判
+別することができる．
 
-���I�����@�\�g���p�b�P�[�W�ɂ��ǉ������T�[�r�X�R�[��
+動的生成機能拡張パッケージにより追加されるサービスコール
 
 	ER_ID tskid = acre_tsk(const T_CTSK *pk_ctsk)
 	ER ercd = del_tsk(ID tskid)
@@ -307,7 +307,7 @@ API DEF_KMM���������Ă���D���I�����@�\�g���p�b�P�[�W�́Cextension/dcre
 	ER_ID isrid = acre_isr(const T_CISR *pk_cisr)
 	ER ercd = del_isr(ID isrid)
 
-���I�����@�\�g���p�b�P�[�W�ɂ��ǉ������ÓIAPI
+動的生成機能拡張パッケージにより追加される静的API
 
 	AID_TSK(uint_t notsk)
 	AID_SEM(uint_t nosem)
@@ -322,83 +322,83 @@ API DEF_KMM���������Ă���D���I�����@�\�g���p�b�P�[�W�́Cextension/dcre
 	DEF_KMM({ SIZE kmmsz, STK_T *kmm })
 
 ----------------------------------------------------------------------
-DEF_KMM		�J�[�l��������t���郁�����̈�̐ݒ�kSD�l
+DEF_KMM		カーネルが割り付けるメモリ領域の設定〔SD〕
 
-�y�ÓIAPI�z
+【静的API】
 	DEF_KMM({ SIZE kmmsz, STK_T *kmm })
 
-�y�p�����[�^�z
-�@���J�[�l��������t���郁�����̈�̐ݒ���
-	SIZE		kmmsz		�J�[�l��������t���郁�����̈�̃T�C�Y�i�o�C�g���j
-	STK_T		kmm			�J�[�l��������t���郁�����̈�̐擪�Ԓn
+【パラメータ】
+　＊カーネルが割り付けるメモリ領域の設定情報
+	SIZE		kmmsz		カーネルが割り付けるメモリ領域のサイズ（バイト数）
+	STK_T		kmm			カーネルが割り付けるメモリ領域の先頭番地
 
-�y�G���[�R�[�h�z
-	E_PAR		�p�����[�^�G���[
-				�Ekmmsz��0�ȉ�
-				�E���̑��̏����ɂ��Ă͋@�\�̍����Q��
-	E_OBJ		�I�u�W�F�N�g��ԃG���[
-				�E�J�[�l��������t���郁�����̈悪�ݒ�ς�
+【エラーコード】
+	E_PAR		パラメータエラー
+				・kmmszが0以下
+				・その他の条件については機能の項を参照
+	E_OBJ		オブジェクト状態エラー
+				・カーネルが割り付けるメモリ領域が設定済み
 
-�y�@�\�z
+【機能】
 
-�e�p�����[�^�Ŏw�肵���J�[�l��������t���郁�����̈�̐ݒ���ɏ]���āC
-�J�[�l��������t���郁�����̈��ݒ肷��D
+各パラメータで指定したカーネルが割り付けるメモリ領域の設定情報に従って，
+カーネルが割り付けるメモリ領域を設定する．
 
-kmmsz�͐����萔���p�����[�^�Ckmm�͈�ʒ萔���p�����[�^�ł���D
+kmmszは整数定数式パラメータ，kmmは一般定数式パラメータである．
 
-kmm��NULL�Ƃ����ꍇ�Ckmmsz�Ŏw�肵���T�C�Y�̃������̈���C�R���t�B�M��
-���[�^���m�ۂ���Dkmmsz�Ƀ^�[�Q�b�g��`�̐���ɍ��v���Ȃ��T�C�Y���w�肵
-�����ɂ́C�^�[�Q�b�g��`�̐���ɍ��v����悤�ɃT�C�Y��傫�����Ɋۂ߂�
-�m�ۂ���D
+kmmをNULLとした場合，kmmszで指定したサイズのメモリ領域を，コンフィギュ
+レータが確保する．kmmszにターゲット定義の制約に合致しないサイズを指定し
+た時には，ターゲット定義の制約に合致するようにサイズを大きい方に丸めて
+確保する．
 
-�J�[�l��������t���郁�����̈���A�v���P�[�V�����Ŋm�ۂ���ꍇ�ɂ́C
-kmmsz�Ŏw�肵���T�C�Y�̃������̈���m�ۂ��Ckmm�ɂ��̐擪�Ԓn���w�肷��D
+カーネルが割り付けるメモリ領域をアプリケーションで確保する場合には，
+kmmszで指定したサイズのメモリ領域を確保し，kmmにその先頭番地を指定する．
 
-DEF_KMM�ɂ��J�[�l��������t���郁�����̈��ݒ肵�Ȃ��ꍇ�C�J�[�l����
-����t���郁�����̈�͊m�ۂ���Ȃ��D
+DEF_KMMによりカーネルが割り付けるメモリ領域を設定しない場合，カーネルが
+割り付けるメモリ領域は確保されない．
 
-kmm��kmmsz�Ƀ^�[�Q�b�g��`�̐���ɍ��v���Ȃ��擪�Ԓn��T�C�Y���w�肵��
-���ɂ́CE_PAR�G���[�ƂȂ�D
+kmmやkmmszにターゲット定義の制約に合致しない先頭番地やサイズを指定した
+時には，E_PARエラーとなる．
 ----------------------------------------------------------------------
 
 
-��CPU��O�n���h���̒��ڌďo��
+○CPU例外ハンドラの直接呼出し
 
-CPU��O�n���h���̏o���������́CCPU��O���������Ȃ��悤�Ɏ������Ȃ����
-�Ȃ�Ȃ����C���ꂪ�h���Ȃ��^�[�Q�b�g�ɂ����ẮCCPU��O�n���h���̏o����
-�������o�R�����ɁC�A�v���P�[�V�������p�ӂ���CPU��O�n���h���𒼐ڎ��s��
-����@��p�ӂ���̂��]�܂����D������CCPU��O�n���h���̒��ڌďo���ƌĂԁD
+CPU例外ハンドラの出入口処理は，CPU例外が発生しないように実装しなければ
+ならないが，これが防げないターゲットにおいては，CPU例外ハンドラの出入口
+処理を経由せずに，アプリケーションが用意したCPU例外ハンドラを直接実行す
+る方法を用意するのが望ましい．これを，CPU例外ハンドラの直接呼出しと呼ぶ．
 
-�����ł́C�n�[�h�E�F�A�Ńx�N�^�e�[�u�������v���Z�b�T�ɂ����āC�^�[�Q�b
-�g�ˑ����݂̂̏C���ɂ��CCPU��O�n���h���̒��ڌďo���̋@�\��ǉ������
-�@�ɂ��Đ�������D
+ここでは，ハードウェアでベクタテーブルを持つプロセッサにおいて，ターゲッ
+ト依存部のみの修正により，CPU例外ハンドラの直接呼出しの機能を追加する方
+法について説明する．
 
-��TA_DIRECT�����̓���
+●TA_DIRECT属性の導入
 
-CPU��O�n���h���̒��ڌďo�����w�肷�邽�߂ɁCCPU��O�n���h�������ɁC
-TA_DIRECT�����𓱓�����D
+CPU例外ハンドラの直接呼出しを指定するために，CPU例外ハンドラ属性に，
+TA_DIRECT属性を導入する．
 
-���^�[�Q�b�g�ˑ����̏C���ӏ�
+●ターゲット依存部の修正箇所
 
-TA_DIRECT�̒l���Ctarget_kernel.h�i�܂��́C��������C���N���[�h�����t�@
-�C���j�Œ�`���C���̒l���R���t�B�M�����[�^�����o����悤�ɁC
-target_def.csv�i�܂��́C����ɑ���t�@�C���j�Ɏ��̍s��ǉ�����D
+TA_DIRECTの値を，target_kernel.h（または，そこからインクルードされるファ
+イル）で定義し，その値をコンフィギュレータが取り出せるように，
+target_def.csv（または，それに代わるファイル）に次の行を追加する．
 
 TA_DIRECT,TA_DIRECT
 
-���ɁCtarget.tf�i�܂��́C��������C���N���[�h�����t�@�C���j�ŁC
-TARGET_EXCATR�ɐݒ肳���l�ɁCTA_DIRECT��ǉ�����D�Ⴆ�΁C���̃^�[�Q�b
-�g�ˑ���CPU��O�n���h���������Ȃ��ꍇ�ɂ́C���̂悤�ɐݒ肷��D
+次に，target.tf（または，そこからインクルードされるファイル）で，
+TARGET_EXCATRに設定される値に，TA_DIRECTを追加する．例えば，他のターゲッ
+ト依存のCPU例外ハンドラ属性がない場合には，次のように設定する．
 
 $TARGET_EXCATR = TA_DIRECT$
 
-���ɁCOMIT_INITILIZE_EXCEPTION��p���āCCPU��O�n���h���̏o����������
-�����邽�߂̋L�q��CPU��O�n���h���������u���b�N�̕W���̒�`�����������
-�̂�}�~���C����ɂ���ė}�~����镔����target.tf�ɃR�s�[������ŁC�ȉ�
-�̏C����������D
+次に，OMIT_INITILIZE_EXCEPTIONを用いて，CPU例外ハンドラの出入口処理を生
+成するための記述とCPU例外ハンドラ初期化ブロックの標準の定義が生成される
+のを抑止し，それによって抑止される部分をtarget.tfにコピーした上で，以下
+の修正を加える．
 
-CPU��O�n���h���̏o���������𐶐����邽�߂̋L�q�iEXCHDR_ENTRY�̃��X�g�j
-�𐶐����镔���́C���̂悤�ɏC������D
+CPU例外ハンドラの出入口処理を生成するための記述（EXCHDR_ENTRYのリスト）
+を生成する部分は，次のように修正する．
 
 $FOREACH excno EXC.ORDER_LIST$
 	$IF (EXC.EXCATR[excno] & TA_DIRECT) == 0$
@@ -406,8 +406,8 @@ $FOREACH excno EXC.ORDER_LIST$
 	$END$
 $END$
 
-�܂��CCPU��O�n���h���������u���b�N�̒�`�𐶐����镔���́C���̂悤�ɏC
-������D
+また，CPU例外ハンドラ初期化ブロックの定義を生成する部分は，次のように修
+正する．
 
 $IF LENGTH(EXC.ORDER_LIST)$
 	const EXCINIB _kernel_excinib_table[TNUM_EXCNO] = {$NL$
@@ -423,4 +423,4 @@ $ELSE$
 	TOPPERS_EMPTY_LABEL(const EXCINIB, _kernel_excinib_table);$NL$
 $END$
 
-�ȏ�
+以上

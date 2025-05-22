@@ -1,8 +1,8 @@
 $
-$     �p�X2�̃^�[�Q�b�g�ˑ��e���v���[�g�iArduino UNO R4�p�j
+$     パス2のターゲット依存テンプレート（Arduino UNO R4用）
 $
 
 $
-$  �`�b�v�ˑ��̃e���v���[�g�t�@�C���̃C���N���[�h
+$  チップ依存のテンプレートファイルのインクルード
 $
 $INCLUDE"arm_m_gcc/ra4m1/chip.tf"$

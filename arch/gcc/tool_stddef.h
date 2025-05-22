@@ -7,75 +7,75 @@
  *  Copyright (C) 2004-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: tool_stddef.h 2243 2011-08-26 21:56:55Z ertl-hiro $
  */
 
 /*
- *		t_stddef.h�̊J�����ˑ����iGCC�p�j
+ *		t_stddef.hの開発環境依存部（GCC用）
  */
 
 #ifndef TOPPERS_TOOL_STDDEF_H
 #define TOPPERS_TOOL_STDDEF_H
 
 /*
- *  �R���p�C���̊g���@�\�̂��߂̃}�N����`
+ *  コンパイラの拡張機能のためのマクロ定義
  */
-#ifndef __cplusplus					/* C++�ɂ�inline ������ */
+#ifndef __cplusplus					/* C++にはinline がある */
 #if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L
-									/* C99�ɂ�inline ������ */
-#define inline	__inline__			/* �C�����C���֐� */
+									/* C99にはinline がある */
+#define inline	__inline__			/* インライン関数 */
 #endif /* !defined(__STDC_VERSION__) || __STDC_VERSION__ < 199901L */
 #endif /* __cplusplus */
 
-#define Inline	static __inline__	/* �C�����C���֐� */
+#define Inline	static __inline__	/* インライン関数 */
 
-#ifndef __cplusplus					/* C++�ɂ�asm������ */
-#define asm		__asm__				/* �C�����C���A�Z���u�� */
+#ifndef __cplusplus					/* C++にはasmがある */
+#define asm		__asm__				/* インラインアセンブラ */
 #endif /* __cplusplus */
 
-#define Asm		__asm__ volatile	/* �C�����C���A�Z���u���i�œK���}�~�j*/
+#define Asm		__asm__ volatile	/* インラインアセンブラ（最適化抑止）*/
 
 #define NoReturn	__attribute__((__noreturn__))
-									/* ���^�[�����Ȃ��֐� */
+									/* リターンしない関数 */
 
 /*
- *  �J�����̕W���C���N���[�h�t�@�C���̗��p
+ *  開発環境の標準インクルードファイルの利用
  *
- *  NULL�̒�`��stddef.h����CINT_MAX�CINT_MIN�CUINT_MAX�CLONG_MAX�C
- *  LONG_MIN�CULONG_MAX�CCHAR_BIT�̒�`��limits.h�����荞�ށD
+ *  NULLの定義をstddef.hから，INT_MAX，INT_MIN，UINT_MAX，LONG_MAX，
+ *  LONG_MIN，ULONG_MAX，CHAR_BITの定義をlimits.hから取り込む．
  *
- *  C++/EC++�ł́C�W���d�l��͂����̃C���N���[�h�t�@�C�����p�ӂ����
- *  ����Ƃ͌���Ȃ��̂Œ��ӂ��K�v�ł���i�قƂ�ǂ̊J�����ŗp�ӂ���
- *  �Ă���j�D
+ *  C++/EC++では，標準仕様上はこれらのインクルードファイルが用意されて
+ *  いるとは限らないので注意が必要である（ほとんどの開発環境で用意され
+ *  ている）．
  */
 #ifndef TOPPERS_MACRO_ONLY
 #include <stddef.h>
@@ -83,44 +83,44 @@
 #endif /* TOPPERS_MACRO_ONLY */
 
 /*
- *  stdint.h�̑�p�ƂȂ��`
+ *  stdint.hの代用となる定義
  *
- *  �J������stdint.h���p�ӂ���Ă��炸�C�e�����^�̃T�C�Y������p�^�[
- *  ���ɓ��Ă͂܂�ꍇ�ɁCstdint.h�̑�p�ƂȂ��`��^����D
+ *  開発環境にstdint.hが用意されておらず，各整数型のサイズがあるパター
+ *  ンに当てはまる場合に，stdint.hの代用となる定義を与える．
  *
- *  TOPPERS_STDINT_TYPE1: char/short/int/long long�̃r�b�g�������ꂼ��
- *                        8/16/32/64�r�b�g�ŁC�|�C���^�̃r�b�g����long
- *                        �̃r�b�g���ƈ�v����ꍇ
+ *  TOPPERS_STDINT_TYPE1: char/short/int/long longのビット長がそれぞれ
+ *                        8/16/32/64ビットで，ポインタのビット長がlong
+ *                        のビット長と一致する場合
  */
 #ifdef TOPPERS_STDINT_TYPE1
 
 /*
- *  �R���p�C���ˑ��̃f�[�^�^�̒�`
+ *  コンパイラ依存のデータ型の定義
  */
 #ifndef TOPPERS_MACRO_ONLY
 
-typedef signed char			int8_t;		/* �����t��8�r�b�g���� */
-typedef unsigned char		uint8_t;	/* ��������8�r�b�g���� */
+typedef signed char			int8_t;		/* 符号付き8ビット整数 */
+typedef unsigned char		uint8_t;	/* 符号無し8ビット整数 */
 
-typedef signed short		int16_t;	/* �����t��16�r�b�g���� */
-typedef unsigned short		uint16_t;	/* ��������16�r�b�g���� */
+typedef signed short		int16_t;	/* 符号付き16ビット整数 */
+typedef unsigned short		uint16_t;	/* 符号無し16ビット整数 */
 
-typedef signed int			int32_t;	/* �����t��32�r�b�g���� */
-typedef unsigned int		uint32_t;	/* ��������32�r�b�g���� */
+typedef signed int			int32_t;	/* 符号付き32ビット整数 */
+typedef unsigned int		uint32_t;	/* 符号無し32ビット整数 */
 
-typedef signed long long	int64_t;	/* �����t��64�r�b�g���� */
-typedef unsigned long long	uint64_t;	/* ��������64�r�b�g���� */
+typedef signed long long	int64_t;	/* 符号付き64ビット整数 */
+typedef unsigned long long	uint64_t;	/* 符号無し64ビット整数 */
 
-typedef int8_t				int_least8_t;	/* 8�r�b�g�ȏ�̕����t������ */
-typedef uint8_t				uint_least8_t;	/* 8�r�b�g�ȏ�̕����������� */
+typedef int8_t				int_least8_t;	/* 8ビット以上の符号付き整数 */
+typedef uint8_t				uint_least8_t;	/* 8ビット以上の符号無し整数 */
 
-typedef long				intptr_t;	/* �|�C���^���i�[�ł��镄���t������ */
-typedef unsigned long		uintptr_t;	/* �|�C���^���i�[�ł��镄���������� */
+typedef long				intptr_t;	/* ポインタを格納できる符号付き整数 */
+typedef unsigned long		uintptr_t;	/* ポインタを格納できる符号無し整数 */
 
 #endif /* TOPPERS_MACRO_ONLY */
 
 /*
- *  �R���p�C���ˑ��̃f�[�^�^�̐����萔�����}�N��
+ *  コンパイラ依存のデータ型の整数定数を作るマクロ
  */
 #ifndef INT8_C
 #define INT8_C(val)			(val)
@@ -155,7 +155,7 @@ typedef unsigned long		uintptr_t;	/* �|�C���^���i�[�ł��镄���������� */
 #endif /* UINT64_C */
 
 /*
- *  �R���p�C���ˑ��̃f�[�^�^�Ɋi�[�ł���ő�l�ƍŏ��l�̒�`
+ *  コンパイラ依存のデータ型に格納できる最大値と最小値の定義
  */
 #define INT8_MAX			SCHAR_MAX
 #define INT8_MIN			SCHAR_MIN
@@ -180,16 +180,16 @@ typedef unsigned long		uintptr_t;	/* �|�C���^���i�[�ł��镄���������� */
 #endif /* TOPPERS_STDINT_TYPE1 */
 
 /*
- *  ���������_�^�Ɋւ����`
+ *  浮動小数点型に関する定義
  *
- *  TOPPERS_STDFLOAT_TYPE1: float��IEEE754�����̒P���x���������_���C
- *							double���{���x���������_���̏ꍇ
+ *  TOPPERS_STDFLOAT_TYPE1: floatがIEEE754準拠の単精度浮動小数点数，
+ *							doubleが倍精度浮動小数点数の場合
  */
 #ifdef TOPPERS_STDFLOAT_TYPE1
 #ifndef TOPPERS_MACRO_ONLY
 
-typedef float		float32_t;			/* IEEE754�����̒P���x���������_�� */
-typedef double		double64_t;			/* IEEE754�����̔{���x���������_�� */
+typedef float		float32_t;			/* IEEE754準拠の単精度浮動小数点数 */
+typedef double		double64_t;			/* IEEE754準拠の倍精度浮動小数点数 */
 
 #endif /* TOPPERS_MACRO_ONLY */
 

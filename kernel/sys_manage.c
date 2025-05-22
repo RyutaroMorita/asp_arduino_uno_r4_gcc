@@ -8,40 +8,40 @@
  *  Copyright (C) 2005-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: sys_manage.c 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�V�X�e����ԊǗ��@�\
+ *		システム状態管理機能
  */
 
 #include "kernel_impl.h"
@@ -49,7 +49,7 @@
 #include "task.h"
 
 /*
- *  �g���[�X���O�}�N���̃f�t�H���g��`
+ *  トレースログマクロのデフォルト定義
  */
 #ifndef LOG_ROT_RDQ_ENTER
 #define LOG_ROT_RDQ_ENTER(tskpri)
@@ -172,7 +172,7 @@
 #endif /* LOG_SNS_KER_LEAVE */
 
 /*
- *  �^�X�N�̗D�揇�ʂ̉�]
+ *  タスクの優先順位の回転
  */
 #ifdef TOPPERS_rot_rdq
 
@@ -202,7 +202,7 @@ rot_rdq(PRI tskpri)
 #endif /* TOPPERS_rot_rdq */
 
 /*
- *  �^�X�N�̗D�揇�ʂ̉�]�i��^�X�N�R���e�L�X�g�p�j
+ *  タスクの優先順位の回転（非タスクコンテキスト用）
  */
 #ifdef TOPPERS_irot_rdq
 
@@ -230,7 +230,7 @@ irot_rdq(PRI tskpri)
 #endif /* TOPPERS_irot_rdq */
 
 /*
- *  ���s��Ԃ̃^�X�NID�̎Q��
+ *  実行状態のタスクIDの参照
  */
 #ifdef TOPPERS_get_tid
 
@@ -255,7 +255,7 @@ get_tid(ID *p_tskid)
 #endif /* TOPPERS_get_tid */
 
 /*
- *  ���s��Ԃ̃^�X�NID�̎Q�Ɓi��^�X�N�R���e�L�X�g�p�j
+ *  実行状態のタスクIDの参照（非タスクコンテキスト用）
  */
 #ifdef TOPPERS_iget_tid
 
@@ -280,7 +280,7 @@ iget_tid(ID *p_tskid)
 #endif /* TOPPERS_iget_tid */
 
 /*
- *  CPU���b�N��Ԃւ̈ڍs
+ *  CPUロック状態への移行
  */
 #ifdef TOPPERS_loc_cpu
 
@@ -305,7 +305,7 @@ loc_cpu(void)
 #endif /* TOPPERS_loc_cpu */
 
 /*
- *  CPU���b�N��Ԃւ̈ڍs�i��^�X�N�R���e�L�X�g�p�j
+ *  CPUロック状態への移行（非タスクコンテキスト用）
  */
 #ifdef TOPPERS_iloc_cpu
 
@@ -330,11 +330,11 @@ iloc_cpu(void)
 #endif /* TOPPERS_iloc_cpu */
 
 /*
- *  CPU���b�N��Ԃ̉���
+ *  CPUロック状態の解除
  *
- *  CPU���b�N���́C�f�B�X�p�b�`���K�v�ƂȂ�T�[�r�X�R�[�����Ăяo����
- *  �Ƃ͂ł��Ȃ����߁CCPU���b�N��Ԃ̉������Ƀf�B�X�p�b�`�����N������
- *  �K�v�͂Ȃ��D
+ *  CPUロック中は，ディスパッチが必要となるサービスコールを呼び出すこ
+ *  とはできないため，CPUロック状態の解除時にディスパッチャを起動する
+ *  必要はない．
  */
 #ifdef TOPPERS_unl_cpu
 
@@ -359,11 +359,11 @@ unl_cpu(void)
 #endif /* TOPPERS_unl_cpu */
 
 /*
- *  CPU���b�N��Ԃ̉����i��^�X�N�R���e�L�X�g�p�j
+ *  CPUロック状態の解除（非タスクコンテキスト用）
  *
- *  CPU���b�N���́C�f�B�X�p�b�`���K�v�ƂȂ�T�[�r�X�R�[�����Ăяo����
- *  �Ƃ͂ł��Ȃ����߁CCPU���b�N��Ԃ̉������Ƀf�B�X�p�b�`���̋N����v
- *  ������K�v�͂Ȃ��D
+ *  CPUロック中は，ディスパッチが必要となるサービスコールを呼び出すこ
+ *  とはできないため，CPUロック状態の解除時にディスパッチャの起動を要
+ *  求する必要はない．
  */
 #ifdef TOPPERS_iunl_cpu
 
@@ -388,7 +388,7 @@ iunl_cpu(void)
 #endif /* TOPPERS_iunl_cpu */
 
 /*
- *  �f�B�X�p�b�`�̋֎~
+ *  ディスパッチの禁止
  */
 #ifdef TOPPERS_dis_dsp
 
@@ -414,7 +414,7 @@ dis_dsp(void)
 #endif /* TOPPERS_dis_dsp */
 
 /*
- *  �f�B�X�p�b�`�̋���
+ *  ディスパッチの許可
  */
 #ifdef TOPPERS_ena_dsp
 
@@ -445,7 +445,7 @@ ena_dsp(void)
 #endif /* TOPPERS_ena_dsp */
 
 /*
- *  �R���e�L�X�g�̎Q��
+ *  コンテキストの参照
  */
 #ifdef TOPPERS_sns_ctx
 
@@ -463,7 +463,7 @@ sns_ctx(void)
 #endif /* TOPPERS_sns_ctx */
 
 /*
- *  CPU���b�N��Ԃ̎Q��
+ *  CPUロック状態の参照
  */
 #ifdef TOPPERS_sns_loc
 
@@ -481,7 +481,7 @@ sns_loc(void)
 #endif /* TOPPERS_sns_loc */
 
 /*
- *  �f�B�X�p�b�`�֎~��Ԃ̎Q��
+ *  ディスパッチ禁止状態の参照
  */
 #ifdef TOPPERS_sns_dsp
 
@@ -499,7 +499,7 @@ sns_dsp(void)
 #endif /* TOPPERS_sns_dsp */
 
 /*
- *  �f�B�X�p�b�`�ۗ���Ԃ̎Q��
+ *  ディスパッチ保留状態の参照
  */
 #ifdef TOPPERS_sns_dpn
 
@@ -517,7 +517,7 @@ sns_dpn(void)
 #endif /* TOPPERS_sns_dpn */
 
 /*
- *  �J�[�l���񓮍��Ԃ̎Q��
+ *  カーネル非動作状態の参照
  */
 #ifdef TOPPERS_sns_ker
 

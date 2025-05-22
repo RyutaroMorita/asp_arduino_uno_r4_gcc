@@ -7,47 +7,47 @@
  *  Copyright (C) 2006-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: queue.h 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�L���[���색�C�u����
+ *		キュー操作ライブラリ
  *
- *  ���̃L���[���색�C�u�����ł́C�L���[�w�b�_���܂ރ����O�\���̃_�u��
- *  �����N�L���[�������D��̓I�ɂ́C�L���[�w�b�_�̎��G���g���̓L���[��
- *  �擪�̃G���g���C�O�G���g���̓L���[�̖����̃G���g���Ƃ���D�܂��C�L
- *  ���[�̐擪�̃G���g���̑O�G���g���ƁC�L���[�̖����̃G���g���̎��G��
- *  �g���́C�L���[�w�b�_�Ƃ���D��̃L���[�́C���G���g���C�O�G���g����
- *  ���������g���w���L���[�w�b�_�ł���킷�D
+ *  このキュー操作ライブラリでは，キューヘッダを含むリング構造のダブル
+ *  リンクキューを扱う．具体的には，キューヘッダの次エントリはキューの
+ *  先頭のエントリ，前エントリはキューの末尾のエントリとする．また，キ
+ *  ューの先頭のエントリの前エントリと，キューの末尾のエントリの次エン
+ *  トリは，キューヘッダとする．空のキューは，次エントリ，前エントリと
+ *  も自分自身を指すキューヘッダであらわす．
  */
 
 #ifndef	TOPPERS_QUEUE_H
@@ -58,17 +58,17 @@ extern "C" {
 #endif
 
 /*
- *  �L���[�̃f�[�^�\���̒�`
+ *  キューのデータ構造の定義
  */
 typedef struct queue {
-	struct queue *p_next;		/* ���G���g���ւ̃|�C���^ */
-	struct queue *p_prev;		/* �O�G���g���ւ̃|�C���^ */
+	struct queue *p_next;		/* 次エントリへのポインタ */
+	struct queue *p_prev;		/* 前エントリへのポインタ */
 } QUEUE;
 
 /*
- *  �L���[�̏�����
+ *  キューの初期化
  *
- *  p_queue�ɂ̓L���[�w�b�_���w�肷��D
+ *  p_queueにはキューヘッダを指定する．
  */
 Inline void
 queue_initialize(QUEUE *p_queue)
@@ -78,10 +78,10 @@ queue_initialize(QUEUE *p_queue)
 }
 
 /*
- *  �L���[�̑O�G���g���ւ̑}��
+ *  キューの前エントリへの挿入
  *
- *  p_queue�̑O��p_entry��}������Dp_queue�ɃL���[�w�b�_���w�肵����
- *  ���ɂ́C�L���[�̖�����p_entry��}�����邱�ƂɂȂ�D
+ *  p_queueの前にp_entryを挿入する．p_queueにキューヘッダを指定した場
+ *  合には，キューの末尾にp_entryを挿入することになる．
  */
 Inline void
 queue_insert_prev(QUEUE *p_queue, QUEUE *p_entry)
@@ -93,10 +93,10 @@ queue_insert_prev(QUEUE *p_queue, QUEUE *p_entry)
 }
 
 /*
- *  �L���[�̎��G���g���ւ̑}��
+ *  キューの次エントリへの挿入
  *
- *  p_queue�̎���p_entry��}������Dp_queue�ɃL���[�w�b�_���w�肵����
- *  ���ɂ́C�L���[�̐擪��p_entry��}�����邱�ƂɂȂ�D
+ *  p_queueの次にp_entryを挿入する．p_queueにキューヘッダを指定した場
+ *  合には，キューの先頭にp_entryを挿入することになる．
  */
 Inline void
 queue_insert_next(QUEUE *p_queue, QUEUE *p_entry)
@@ -108,9 +108,9 @@ queue_insert_next(QUEUE *p_queue, QUEUE *p_entry)
 }
 
 /*
- *  �G���g���̍폜
+ *  エントリの削除
  *
- *  p_entry���L���[����폜����D
+ *  p_entryをキューから削除する．
  */
 Inline void
 queue_delete(QUEUE *p_entry)
@@ -120,12 +120,12 @@ queue_delete(QUEUE *p_entry)
 }
 
 /*
- *  �L���[�̎��G���g���̎�o��
+ *  キューの次エントリの取出し
  *
- *  p_queue�̎��G���g�����L���[����폜���C�폜�����G���g����Ԃ��D
- *  p_queue�ɃL���[�w�b�_���w�肵���ꍇ�ɂ́C�L���[�̐擪�̃G���g����
- *  ���o�����ƂɂȂ�Dp_queue�ɋ�̃L���[���w�肵�ČĂяo���Ă͂Ȃ�
- *  �Ȃ��D
+ *  p_queueの次エントリをキューから削除し，削除したエントリを返す．
+ *  p_queueにキューヘッダを指定した場合には，キューの先頭のエントリを
+ *  取り出すことになる．p_queueに空のキューを指定して呼び出してはなら
+ *  ない．
  */
 Inline QUEUE *
 queue_delete_next(QUEUE *p_queue)
@@ -140,9 +140,9 @@ queue_delete_next(QUEUE *p_queue)
 }
 
 /*
- *  �L���[���󂩂ǂ����̃`�F�b�N
+ *  キューが空かどうかのチェック
  *
- *  p_queue�ɂ̓L���[�w�b�_���w�肷��D
+ *  p_queueにはキューヘッダを指定する．
  */
 Inline bool_t
 queue_empty(QUEUE *p_queue)

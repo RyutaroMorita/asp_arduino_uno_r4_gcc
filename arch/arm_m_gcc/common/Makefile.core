@@ -3,21 +3,21 @@
 # 
 
 #
-#		Makefile �̃v���Z�b�T�ˑ����iARM-M�p�j
+#		Makefile のプロセッサ依存部（ARM-M用）
 #
 
 # 
-#  �R�A�ˑ����f�B���N�g�����̒�` 
+#  コア依存部ディレクトリ名の定義 
 # 
 COREDIR = $(SRCDIR)/arch/$(PRC)_$(TOOL)/common
 
 #
-#  �c�[���ˑ����f�B���N�g�����̒�` 
+#  ツール依存部ディレクトリ名の定義 
 #
 TOOLDIR = $(SRCDIR)/arch/$(TOOL)
 
 #
-#  �R���p�C���I�v�V����
+#  コンパイルオプション
 #
 COPTS := $(COPTS) -mthumb 
 INCLUDES := $(INCLUDES) -I$(COREDIR) -I$(TOOLDIR)
@@ -26,14 +26,14 @@ CDEFS := $(CDEFS)
 LIBS := $(LIBS)  -lgcc
 
 #
-#  �J�[�l���Ɋւ����`
+#  カーネルに関する定義
 #
 KERNEL_DIR := $(KERNEL_DIR) $(COREDIR)
 KERNEL_ASMOBJS := $(KERNEL_ASMOBJS)
 KERNEL_COBJS := $(KERNEL_COBJS) core_config.o
 
 #
-#  �R�A�̃^�C�v�ɂ��Ⴂ
+#  コアのタイプによる違い
 #
 ifeq ($(CORE_TYPE),CORTEX_M7)
 	ARM_ARCH = ARMV7M
@@ -66,7 +66,7 @@ else ifeq ($(CORE_TYPE),CORTEX_M3)
 endif
 
 #
-#  �A�[�L�e�N�`�����ɈقȂ�ݒ�
+#  アーキテクチャ毎に異なる設定
 #
 ifeq ($(ARM_ARCH),ARMV7M)
 	KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) core_support.o
@@ -77,7 +77,7 @@ else ifeq ($(ARM_ARCH),ARMV6M)
 endif
 
 #
-#  FPU�̐ݒ�
+#  FPUの設定
 #
 ifeq ($(FPU_ABI),)
 	FPU_ABI = softfp
@@ -96,12 +96,12 @@ endif
 
 
 #
-#  �ˑ��֌W�̒�`
+#  依存関係の定義
 #
 cfg1_out.c: $(COREDIR)/core_def.csv
 kernel_cfg.timestamp: $(COREDIR)/core.tf
 
 #
-#  �R���t�B�M�����[�^�֌W�̕ϐ��̒�`
+#  コンフィギュレータ関係の変数の定義
 #
 CFG_TABS := $(CFG_TABS) --cfg1-def-table $(COREDIR)/core_def.csv

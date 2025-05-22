@@ -1,8 +1,8 @@
 $
-$     �p�X3�̃^�[�Q�b�g�ˑ��e���v���[�g�iArduino UNO R4�p�j
+$     パス3のターゲット依存テンプレート（Arduino UNO R4用）
 $
 
 $
-$  �p�X3�̃`�b�v�ˑ��̃e���v���[�g�̃C���N���[�h
+$  パス3のチップ依存のテンプレートのインクルード
 $
 $INCLUDE"arm_m_gcc/ra4m1/chip_check.tf"$

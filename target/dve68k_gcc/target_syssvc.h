@@ -8,91 +8,91 @@
  *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  *
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  *
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  *
  *  @(#) $Id: target_syssvc.h 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�V�X�e���T�[�r�X�̃^�[�Q�b�g�ˑ����iDVE-68K/40�p�j
+ *		システムサービスのターゲット依存部（DVE-68K/40用）
  *
- *  �V�X�e���T�[�r�X�̃^�[�Q�b�g�ˑ����̃C���N���[�h�t�@�C���D���̃t�@
- *  �C���̓��e�́C�R���|�[�l���g�L�q�t�@�C���ɋL�q����C���̃t�@�C����
- *  �����Ȃ錩���݁D
+ *  システムサービスのターゲット依存部のインクルードファイル．このファ
+ *  イルの内容は，コンポーネント記述ファイルに記述され，このファイルは
+ *  無くなる見込み．
  */
 
 #ifndef TOPPERS_TARGET_SYSSVC_H
 #define TOPPERS_TARGET_SYSSVC_H
 
 /*
- *  �^�[�Q�b�g�V�X�e���̃n�[�h�E�F�A�����̒�`
+ *  ターゲットシステムのハードウェア資源の定義
  */
 #include "dve68k.h"
 
 /*
- *  �g���[�X���O�Ɋւ���ݒ�
+ *  トレースログに関する設定
  */
 #ifdef TOPPERS_ENABLE_TRACE
 #include "logtrace/trace_config.h"
 #endif /* TOPPERS_ENABLE_TRACE */
 
 /*
- *  �N�����b�Z�[�W�̃^�[�Q�b�g�V�X�e����
+ *  起動メッセージのターゲットシステム名
  */
 #define TARGET_NAME	"DVE-68K/40"
 
 /*
- *  �V�X�e�����O�̒჌�x���o�͂̂��߂̕����o��
+ *  システムログの低レベル出力のための文字出力
  *
- *  �^�[�Q�b�g�ˑ��̕��@�ŁC����c��\��/�o��/�ۑ�����D
+ *  ターゲット依存の方法で，文字cを表示/出力/保存する．
  */
 extern void	target_fput_log(char c);
 
 /*
- *  �V���A���|�[�g���̒�`
+ *  シリアルポート数の定義
  */
-//#fine TNUM_PORT		2		/* �T�|�[�g����V���A���|�[�g�̐� */
-#define TNUM_PORT		1		/* �T�|�[�g����V���A���|�[�g�̐� */
+//#fine TNUM_PORT		2		/* サポートするシリアルポートの数 */
+#define TNUM_PORT		1		/* サポートするシリアルポートの数 */
 
 /*
- *  �V���A���|�[�g�̃{�[���[�g�Ɋւ����`
+ *  シリアルポートのボーレートに関する定義
  *
- *  ��PD72001�̃{�[���[�g�W�F�l���[�^�ɐݒ肷�ׂ��l�D
+ *  μPD72001のボーレートジェネレータに設定すべき値．
  */
-#define BRG1_DEF	0x00U		/* 9600bps�i��ʁj*/
-#define BRG2_DEF	0x1eU		/* 9600bps�i���ʁj*/
+#define BRG1_DEF	0x00U		/* 9600bps（上位）*/
+#define BRG2_DEF	0x1eU		/* 9600bps（下位）*/
 
 /*
- *  �V�X�e�����O�^�X�N�֘A�̒萔�̒�`
+ *  システムログタスク関連の定数の定義
  *
- *  �f�t�H���g�l�̒ʂ�D
+ *  デフォルト値の通り．
  */
 #define LOGTASK_STACK_SIZE	(512)
 

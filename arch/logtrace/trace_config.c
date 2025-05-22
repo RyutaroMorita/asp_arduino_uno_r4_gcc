@@ -7,40 +7,40 @@
  *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  $Id: trace_config.c 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�g���[�X���O�@�\
+ *		トレースログ機能
  */
 
 #include "kernel_impl.h"
@@ -49,16 +49,16 @@
 #include <sil.h>
 
 /*
- *  �g���[�X���O�o�b�t�@�Ƃ���ɃA�N�Z�X���邽�߂̃|�C���^
+ *  トレースログバッファとそれにアクセスするためのポインタ
  */
-SYSLOG	trace_buffer[TCNT_TRACE_BUFFER];	/* �g���[�X���O�o�b�t�@ */
-uint_t	trace_count;				/* �g���[�X���O�o�b�t�@���̃��O�̐� */
-uint_t	trace_head;					/* �擪�̃g���[�X���O�̊i�[�ʒu */
-uint_t	trace_tail;					/* ���̃g���[�X���O�̊i�[�ʒu */
-MODE	trace_mode;					/* �g���[�X���[�h */
+SYSLOG	trace_buffer[TCNT_TRACE_BUFFER];	/* トレースログバッファ */
+uint_t	trace_count;				/* トレースログバッファ中のログの数 */
+uint_t	trace_head;					/* 先頭のトレースログの格納位置 */
+uint_t	trace_tail;					/* 次のトレースログの格納位置 */
+MODE	trace_mode;					/* トレースモード */
 
 /*
- *  �g���[�X���O�@�\�̏�����
+ *  トレースログ機能の初期化
  */
 void
 trace_initialize(intptr_t exinf)
@@ -72,7 +72,7 @@ trace_initialize(intptr_t exinf)
 }     
 
 /*
- *  �g���[�X���O�̊J�n
+ *  トレースログの開始
  */
 ER
 trace_sta_log(MODE mode)
@@ -87,7 +87,7 @@ trace_sta_log(MODE mode)
 }     
 
 /* 
- *  �g���[�X���O�̏�����
+ *  トレースログの書込み
  */
 ER
 trace_wri_log(TRACE *p_trace)
@@ -98,16 +98,16 @@ trace_wri_log(TRACE *p_trace)
 		SIL_LOC_INT();
 
 		/*
-		 *  �g���[�X�����̐ݒ�
+		 *  トレース時刻の設定
 		 *
-		 *  LOG_WRI_LOG_ENTER����Ă΂ꂽ�ꍇ��p_trace->logtim��������
-		 *  ���Ă��܂��̂͋C�������������Cwri_log�̕��ŏ㏑�����邽�ߖ�
-		 *  ��͂Ȃ��D
+		 *  LOG_WRI_LOG_ENTERから呼ばれた場合にp_trace->logtimを書き換
+		 *  えてしまうのは気持ちが悪いが，wri_logの方で上書きするため問
+		 *  題はない．
 		 */
 		p_trace->logtim = TRACE_GET_TIM();
 
 		/*
-		 *  �g���[�X�o�b�t�@�ɋL�^
+		 *  トレースバッファに記録
 		 */
 		trace_buffer[trace_tail] = *p_trace;
 		trace_tail++;
@@ -131,7 +131,7 @@ trace_wri_log(TRACE *p_trace)
 }
 
 /*
- *  �g���[�X���O�̓Ǐo��
+ *  トレースログの読出し
  */
 ER
 trace_rea_log(TRACE *p_trace)
@@ -142,7 +142,7 @@ trace_rea_log(TRACE *p_trace)
 	SIL_LOC_INT();
 
 	/*
-	 *  �g���[�X���O�o�b�t�@����̎�o��
+	 *  トレースログバッファからの取出し
 	 */
 	if (trace_count > 0U) {
 		*p_trace = trace_buffer[trace_head];
@@ -162,7 +162,7 @@ trace_rea_log(TRACE *p_trace)
 }
 
 /*
- *  �g���[�X���O���o�͂��邽�߂̃��C�u�����֐�
+ *  トレースログを出力するためのライブラリ関数
  */
 
 void
@@ -208,8 +208,8 @@ trace_write_3(uint_t type, intptr_t arg1, intptr_t arg2, intptr_t arg3)
 }
 
 /*
- *  �A�Z���u������ŋL�q�����R�[�h����g���[�X���O���o�͂��邽�߂̊�
- *  ��
+ *  アセンブリ言語で記述されるコードからトレースログを出力するための関
+ *  数
  */
 
 void
