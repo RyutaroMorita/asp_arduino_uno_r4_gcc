@@ -1,14 +1,14 @@
 $ 
-$ 		ƒIƒtƒZƒbƒgƒtƒ@ƒCƒ‹¶¬—pƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹iM68040—pj
+$ 		ã‚ªãƒ•ã‚»ãƒƒãƒˆãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆM68040ç”¨ï¼‰
 $ 
 
 $ 
-$  •W€ƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh
+$  æ¨™æº–ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 $ 
 $INCLUDE "kernel/genoffset.tf"$
 
 $ 
-$  ƒIƒtƒZƒbƒg’l‚Ìƒ}ƒNƒ’è‹`‚Ì¶¬
+$  ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤ã®ãƒžã‚¯ãƒ­å®šç¾©ã®ç”Ÿæˆ
 $ 
 $DEFINE("TCB_p_tinib", offsetof_TCB_p_tinib)$
 $DEFINE("TCB_texptn", offsetof_TCB_texptn)$
@@ -19,6 +19,6 @@ $DEFINE("TINIB_exinf", offsetof_TINIB_exinf)$
 $DEFINE("TINIB_task", offsetof_TINIB_task)$
 
 $ 
-$  ƒrƒbƒgƒIƒtƒZƒbƒg’l“™‚Ìƒ}ƒNƒ’è‹`‚Ì¶¬
+$  ãƒ“ãƒƒãƒˆã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤ç­‰ã®ãƒžã‚¯ãƒ­å®šç¾©ã®ç”Ÿæˆ
 $ 
 $DEFINE_BIT("TCB_enatex", sizeof_TCB, "B")$

@@ -8,40 +8,40 @@
  *  Copyright (C) 2005-2009 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: prc_config.c 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�v���Z�b�T�ˑ����W���[���iM68040�p�j
+ *		プロセッサ依存モジュール（M68040用）
  */
 
 #include "kernel_impl.h"
@@ -49,25 +49,25 @@
 #include "task.h"
 
 /*
- *  CPU���b�N�t���O�����̂��߂̕ϐ�
+ *  CPUロックフラグ実現のための変数
  */
-volatile bool_t		lock_flag;		/* CPU���b�N�t���O�̒l��ێ�����ϐ� */
-volatile uint16_t	saved_iipm;		/* �����ݗD��x�}�X�N��ۑ�����ϐ� */
+volatile bool_t		lock_flag;		/* CPUロックフラグの値を保持する変数 */
+volatile uint16_t	saved_iipm;		/* 割込み優先度マスクを保存する変数 */
 
 /*
- *  �v���Z�b�T�ˑ��̏�����
+ *  プロセッサ依存の初期化
  */
 void
 prc_initialize(void)
 {
 	/*
-	 *  CPU���b�N�t���O�����̂��߂̕ϐ��̏�����
+	 *  CPUロックフラグ実現のための変数の初期化
 	 */
 	lock_flag = true;
 	saved_iipm = IIPM_ENAALL;
 
 	/*
-	 *  ��O�x�N�^�e�[�u���̏�����
+	 *  例外ベクタテーブルの初期化
 	 */
 #ifdef EXCVT_KERNEL
 	memcpy(EXCVT_KERNEL, EXCVT_ORIG, EXCVT_LEN);
@@ -76,7 +76,7 @@ prc_initialize(void)
 }
 
 /*
- *  �v���Z�b�T�ˑ��̏I������
+ *  プロセッサ依存の終了処理
  */
 void
 prc_terminate(void)
@@ -85,9 +85,9 @@ prc_terminate(void)
 	void (*volatile fp)(void) = software_term_hook;
 
 	/*
-	 *  software_term_hook�ւ̃|�C���^���C��Uvolatile�w��̂���fp�ɑ�
-	 *  �����Ă���g���̂́C0�Ƃ̔�r���œK���ō폜����Ȃ��悤�ɂ��邽
-	 *  �߂ł���D
+	 *  software_term_hookへのポインタを，一旦volatile指定のあるfpに代
+	 *  入してから使うのは，0との比較が最適化で削除されないようにするた
+	 *  めである．
 	 */
 	if (fp != 0) {
 		(*fp)();
@@ -99,10 +99,10 @@ prc_terminate(void)
 }
 
 /*
- *  CPU��O�̔����󋵂̃��O�o��
+ *  CPU例外の発生状況のログ出力
  *
- *  CPU��O�n���h���̒�����CCPU��O���|�C���^�ip_excinf�j�������Ƃ�
- *  �ČĂяo�����ƂŁCCPU��O�̔����󋵂��V�X�e�����O�ɏo�͂���D
+ *  CPU例外ハンドラの中から，CPU例外情報ポインタ（p_excinf）を引数とし
+ *  て呼び出すことで，CPU例外の発生状況をシステムログに出力する．
  */
 #ifdef SUPPORT_XLOG_SYS
 

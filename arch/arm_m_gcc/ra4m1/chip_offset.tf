@@ -1,13 +1,13 @@
 $
-$       ƒIƒtƒZƒbƒgƒtƒ@ƒCƒ‹¶¬—pƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹iArduino UNO R4—pj
+$       ã‚ªãƒ•ã‚»ãƒƒãƒˆãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆArduino UNO R4ç”¨ï¼‰
 $
 
 $
-$  •W€ƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh
+$  æ¨™æº–ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 $
 $INCLUDE "kernel/genoffset.tf"$
 
 $ 
-$  ƒRƒAˆË‘¶ƒeƒ“ƒvƒŒ[ƒg‚ÌƒCƒ“ƒNƒ‹[ƒhiARM-M—pj
+$  ã‚³ã‚¢ä¾å­˜ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ï¼ˆARM-Mç”¨ï¼‰
 $ 
 $INCLUDE"../../arch/arm_m_gcc/common/core_offset.tf"$

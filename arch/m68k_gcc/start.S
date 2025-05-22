@@ -7,40 +7,40 @@
  *  Copyright (C) 2005,2006 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: start.S 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�J�[�l���Ή��̃X�^�[�g�A�b�v���W���[���iM68040�p�j
+ *		カーネル対応のスタートアップモジュール（M68040用）
  */
 
 #define	TOPPERS_MACRO_ONLY
@@ -50,26 +50,26 @@
 	.globl start
 start:
 	/*
-	 *  �v���Z�b�T���[�h�ƃX�^�b�N�|�C���^�̏�����
+	 *  プロセッサモードとスタックポインタの初期化
 	 */
-	cinva %bc							/* ���ׂẴL���b�V���𖳌��� */
-	move.l #0x80008000, %d0				/* �����̃L���b�V����ON */
+	cinva %bc							/* すべてのキャッシュを無効化 */
+	move.l #0x80008000, %d0				/* 両方のキャッシュをON */
 	movec.l %d0, %cacr
 
 	move.w %sr, %d0
-	or.w #0x2700, %d0					/* �X�[�p�o�C�U���[�h�CIPM=7�ɐݒ� */
-	and.w #0xefff ,%d0					/* �����݃��[�h�ɐݒ� */
+	or.w #0x2700, %d0					/* スーパバイザモード，IPM=7に設定 */
+	and.w #0xefff ,%d0					/* 割込みモードに設定 */
 	move.w %d0, %sr
 
-	move.l _kernel_istk, %sp			/* �X�^�b�N�|�C���^�iSPI�j�̏����� */
+	move.l _kernel_istk, %sp			/* スタックポインタ（SPI）の初期化 */
 	add.l _kernel_istksz, %sp
-	move.l #0, %fp						/* �t���[���|�C���^�̏����� */
+	move.l #0, %fp						/* フレームポインタの初期化 */
 
 	/*
-	 *  hardware_init_hook�̌ďo���i0�łȂ��ꍇ�j
+	 *  hardware_init_hookの呼出し（0でない場合）
 	 *
-	 *  �^�[�Q�b�g�n�[�h�E�F�A�Ɉˑ����ĕK�v�ȏ���������������ꍇ�́C
-	 *  hardware_init_hook�Ƃ����֐���p�ӂ���D
+	 *  ターゲットハードウェアに依存して必要な初期化処理がある場合は，
+	 *  hardware_init_hookという関数を用意する．
 	 */
 	move.l #hardware_init_hook, %a0
 	cmp.l #0, %a0
@@ -77,7 +77,7 @@ start:
 	jsr (%a0)
 
 	/*
-	 *  bss�Z�N�V�����̃N���A
+	 *  bssセクションのクリア
 	 */
 start_1:
 	move.l #__bss_start, %a0
@@ -92,10 +92,10 @@ start_2:
 	jbcc start_2
 
 	/*
-	 *  data�Z�N�V�����̏������iROM���Ή��j
+	 *  dataセクションの初期化（ROM化対応）
 	 *
-	 *  __idata_start����__idata_end�܂ł��C__data_start�ȍ~�ɃR�s�[��
-	 *  ��D
+	 *  __idata_startから__idata_endまでを，__data_start以降にコピーす
+	 *  る．
 	 */
 start_3:
 	move.l #__idata_end, %d0
@@ -111,10 +111,10 @@ start_4:
 	jbcc start_4
 
 	/*
-	 *  software_init_hook�̌ďo���i0�łȂ��ꍇ�j
+	 *  software_init_hookの呼出し（0でない場合）
 	 *
-	 *  �\�t�g�E�F�A���i���Ƀ��C�u�����j�Ɉˑ����ĕK�v�ȏ�����������
-	 *  ����ꍇ�́Csoftware_init_hook�Ƃ����֐���p�ӂ���΂悢�D
+	 *  ソフトウェア環境（特にライブラリ）に依存して必要な初期化処理が
+	 *  ある場合は，software_init_hookという関数を用意すればよい．
 	 */
 start_5:
 	move.l #software_init_hook, %a0
@@ -123,7 +123,7 @@ start_5:
 	jsr (%a0)
 
 	/*
-	 *  �J�[�l�����N������D
+	 *  カーネルを起動する．
 	 */
 start_6:
 	jmp sta_ker

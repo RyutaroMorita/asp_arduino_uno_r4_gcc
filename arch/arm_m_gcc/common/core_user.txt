@@ -1,98 +1,98 @@
 =====================================================================
-                         ARM-M�v���Z�b�T�ˑ���
+                         ARM-Mプロセッサ依存部
                                   Last Modified:2015 Nov 23 09:31:43
 =====================================================================
 
 
-(1) �Ή����Ă���^�[�Q�b�g�V�X�e���̎�ށE�\��
+(1) 対応しているターゲットシステムの種類・構成
 
-ARM-M�ˑ����́CARMvx-M�A�[�L�e�N�`�����^�[�Q�b�g�Ƃ��Ă���DARMvx-M�́C
-ARM�Ƃ͈قȂ�CARM���߂����s�ł��Ȃ����߁CARM�ˑ����ƕ����Ă���D����
-�T�|�[�g���Ă���R�A�͎��̒ʂ�ł���D
+ARM-M依存部は，ARMvx-Mアーキテクチャをターゲットとしている．ARMvx-Mは，
+ARMとは異なり，ARM命令を実行できないため，ARM依存部と分けている．現状
+サポートしているコアは次の通りである．
 
-�ECortex-M0
-�ECortex-M0+
-�ECortex-M3
-�ECortex-M4
+・Cortex-M0
+・Cortex-M0+
+・Cortex-M3
+・Cortex-M4
 
-(2) �g�p����J�����Ɠ��쌟�؂��������i�o�[�W�����C�I�v�V�������j
+(2) 使用する開発環境と動作検証した条件（バージョン，オプション等）
 
-�J�[�l����GCC��p���ăR���p�C������D����m�F�����o�[�W�����͊e�^�[�Q
-�b�g�ˑ����̃h�L�������g�ɋL�ڂ���D
+カーネルはGCCを用いてコンパイルする．動作確認したバージョンは各ターゲ
+ット依存部のドキュメントに記載する．
 
 
-(3) �^�[�Q�b�g��`�����̋K��
+(3) ターゲット定義事項の規定
 
-(3-1) �f�[�^�^�Ɋւ���K��
+(3-1) データ型に関する規定
 
-�f�[�^�^�� arch/gcc/tool_stddef.h �Œ�`����Ă�����e�ŁCfloat�^��
-double�^�́C���ꂼ��IEEE754�����̒P���x���������_���Ɣ{���x���������_
-���ł���D
+データ型は arch/gcc/tool_stddef.h で定義されている内容で，float型と
+double型は，それぞれIEEE754準拠の単精度浮動小数点数と倍精度浮動小数点
+数である．
 
-(3-2) �����ݏ����Ɋւ���K��
+(3-2) 割込み処理に関する規定
 
-�������݃n���h���ԍ��Ɗ����ݔԍ��̊����āC���҂̑Ή�
+○割込みハンドラ番号と割込み番号の割当て，両者の対応
 
-�����݃n���h���ԍ��Ɗ����ݔԍ��́C��O��������IPSR�ɃZ�b�g������O��
-����p����DSYSTICK��15�ԂŁC�O�������݂�16�Ԃ���̔ԍ�������t�����
-�Ă���D
+割込みハンドラ番号と割込み番号は，例外発生時にIPSRにセットされる例外番
+号を用いる．SYSTICKは15番で，外部割込みは16番からの番号が割り付けられ
+ている．
 
-�������ݗD��x�̒i�K����TMIN_INTPRI�̒l
+○割込み優先度の段階数とTMIN_INTPRIの値
 
-�����ݗD��x�̒i�K���́CSoC���Ƀn�[�h�E�F�A�I�ɃT�|�[�g���銄���ݗD��
-�x�r�b�g�����قȂ�̂ŁC�^�[�Q�b�g�ˑ������ɈقȂ�D�^�[�Q�b�g�ˑ�����
-�́C�����ݗD��x�̃r�b�g���iTBITW_IPRI�j�Ƃ��̊����ݗD��x���̃T�u�D��
-�x�̃r�b�g���iTBITW_SUBPRI�j���`����D
+割込み優先度の段階数は，SoC毎にハードウェア的にサポートする割込み優先
+度ビット幅が異なるので，ターゲット依存部毎に異なる．ターゲット依存部で
+は，割込み優先度のビット幅（TBITW_IPRI）とその割込み優先度中のサブ優先
+度のビット幅（TBITW_SUBPRI）を定義する．
 
-�e�r�b�g���̒l��CFG_INT�Ŏg�p�\�Ȋ����ݗD��x�͈͎̔͂��̒ʂ�ł���D
+各ビット幅の値とCFG_INTで使用可能な割込み優先度の範囲は次の通りである．
 
-   -(2^(TBIW_IPRI)) + (2^TBITW_SUBIPRI) �` -1
+   -(2^(TBIW_IPRI)) + (2^TBITW_SUBIPRI) ～ -1
 
-�Ⴆ�ΗD��x�̃r�b�g��(TBITW_IPRI)��8bit�C�T�u�D��x�̃r�b�g��
-(TBITW_SUBIPRI) ��1bit�̏ꍇ�́C-254 �` -1 �͈̔͂ł���D
+例えば優先度のビット幅(TBITW_IPRI)が8bit，サブ優先度のビット幅
+(TBITW_SUBIPRI) が1bitの場合は，-254 ～ -1 の範囲である．
 
-�D��x�̃r�b�g��(TBITW_IPRI)��3bit�C�T�u�D��x�̃r�b�g��(TBITW_SUBIPRI) 
-��0bit�̏ꍇ�́C-8 �` -1 �͈̔͂ł���D
+優先度のビット幅(TBITW_IPRI)が3bit，サブ優先度のビット幅(TBITW_SUBIPRI) 
+が0bitの場合は，-8 ～ -1 の範囲である．
 
-�ő�D��x(3bit�̗�ł�-8)�́C�����D��x�Ƃ��Ă�"0x00"�ƂȂ�D���̗D��
-�x��CPU���b�N�ŗp����BASEPRI���W�X�^�ł̓}�X�N�ł��Ȃ����߁C�J�[�l����
-�����̊����݂̍ō��D��x�iTMIN_INTPRI�j�́C�ő�l���1�D��x���Ⴂ�l
-�ȉ��̒l���w�肷��D
+最大優先度(3bitの例では-8)は，内部優先度としては"0x00"となる．この優先
+度はCPUロックで用いるBASEPRIレジスタではマスクできないため，カーネル管
+理内の割込みの最高優先度（TMIN_INTPRI）は，最大値より1つ優先度が低い値
+以下の値を指定する．
 
-���͈̔͂ŁC�J�[�l���Ǘ����̊����݂̍ō��D��x�iTMIN_INTPRI�j���^�[�Q
-�b�g�ˑ����Őݒ肷��D
+この範囲で，カーネル管理内の割込みの最高優先度（TMIN_INTPRI）をターゲ
+ット依存部で設定する．
 
-��dis_int��ena_int�̃T�|�[�g�̗L���C���̐�������
+○dis_intとena_intのサポートの有無，その制限事項
 
-dis_int��ena_int���T�|�[�g����D���������͓��ɂȂ��D
+dis_intとena_intをサポートする．制限事項は特にない．
 
-��CFG_INT�̐��������Ɗg���i�^�[�Q�b�g��`�Ŏg�p�ł��銄���ݑ����j
+○CFG_INTの制限事項と拡張（ターゲット定義で使用できる割込み属性）
 
-CFG_INT�̐��������͂Ȃ��C�^�[�Q�b�g��`�Ŏg�p�\�Ȋ����ݑ����͓��ɂ�
-���D
+CFG_INTの制限事項はなく，ターゲット定義で使用可能な割込み属性は特にな
+い．
 
-���J�[�l���Ǘ��O�̊�����
+○カーネル管理外の割込み
 
-ARMv7-M�ł́C�J�[�l���Ǘ��O�̊����݂��T�|�[�g����D�w����@�́C������
-�D��x�̒i�K���Ŏw�肵���C�T�|�[�g���銄���ݗD��x�̍ō��l�i�ŏ��l�j��
-��CTMIN_INTPRI�̒l��傫���i�D��x��Ⴍ�j�ݒ肷��ƁCTMIN_INTPRI���
-�l�������i���D��x�j�Ȋ����ݗD��x��ݒ肵�������݂������ݗD��x�Ƃ���
-�����D
+ARMv7-Mでは，カーネル管理外の割込みをサポートする．指定方法は，割込み
+優先度の段階数で指定した，サポートする割込み優先度の最高値（最小値）よ
+り，TMIN_INTPRIの値を大きく（優先度を低く）設定すると，TMIN_INTPRIより
+値が小い（高優先度）な割込み優先度を設定した割込みを割込み優先度として
+扱う．
 
-�J�[�l���Ǘ��O�̊����݂�OS���s�����֎~�ɂȂ邱�Ƃ͂Ȃ��i�����ɂ͊�����
-�̏o���ł����Z����ԋ֎~�����j�C�����ݔ������́C�J�[�l���̃R�[�h���o
-�R�����ɌĂяo�����D
+カーネル管理外の割込みはOS実行中も禁止になることはなく（厳密には割込み
+の出口でごく短い区間禁止される），割込み発生時は，カーネルのコードを経
+由せずに呼び出される．
 
-�J�[�l���Ǘ��O�̊����݂ɑ΂���CDEF_INH,CFG_INT�̓T�|�[�g����D
+カーネル管理外の割込みに対する，DEF_INH,CFG_INTはサポートする．
 
-(3-3) CPU��O�����Ɋւ���K��
+(3-3) CPU例外処理に関する規定
 
-��CPU��O�n���h���ԍ�
+○CPU例外ハンドラ番号
 
-CPU��O�n���h���ԍ��Ƃ��ẮC��O��������IPSR�ɃZ�b�g�����C��O�ԍ�
-��p����D�e��O�̗�O�ԍ��͈ȉ��̒ʂ�ł���D
+CPU例外ハンドラ番号としては，例外発生時にIPSRにセットされる，例外番号
+を用いる．各例外の例外番号は以下の通りである．
 
-        ��O              ��O�ԍ�
+        例外              例外番号
   Reset                      1
   Non-makable Interrupt      2
   Hard Fault                 3
@@ -103,92 +103,92 @@ CPU��O�n���h���ԍ��Ƃ��ẮC��O��������IPSR�ɃZ�b�g�����C��O�ԍ�
   Debug Monitor             12
   PendSV                    14
 
-�Ȃ��CReset�ƁCSVCall(ARMv7-M)�CPendSV(ARMv6-M)�ɂ��ẮC�J�[�l����
-�g�p���邽�߁C���[�U�[�͎g�p���邱�Ƃ��ł��Ȃ��D
+なお，Resetと，SVCall(ARMv7-M)，PendSV(ARMv6-M)については，カーネルが
+使用するため，ユーザーは使用することができない．
 
-ARM-M�A�[�L�e�N�`���ł�CPU��O�ɗD��x��ݒ肷�邱�Ƃ��\�ł���D
-ARM-M�ˑ����ł́C�S�Ă�CPU��O�̗D��x��CPU���b�N�ł̓}�X�N�ł��Ȃ��}
-�X�N�o���Ȃ��l�i�����D��x0�j�ɏ��������Ă���D
+ARM-MアーキテクチャではCPU例外に優先度を設定することが可能である．
+ARM-M依存部では，全てのCPU例外の優先度をCPUロックではマスクできないマ
+スク出来ない値（内部優先度0）に初期化している．
 
-(3-4) CPU���b�N�E�����݃��b�N
+(3-4) CPUロック・割込みロック
 
-ARMv7-M�ł́CCPU���b�N�́Cbasepri��TMIN_INTPRI�̗D��x�̊����݂��֎~��
-��l�ɐݒ肷��D�����݃��b�N�́CFAULTMASK��'1'�ɐݒ肷�邱�ƂŎ������Ă�
-��D
+ARMv7-Mでは，CPUロックは，basepriをTMIN_INTPRIの優先度の割込みを禁止す
+る値に設定する．割込みロックは，FAULTMASKを'1'に設定することで実現してい
+る．
 
-ARMv6-M�ł́CCPU���b�N/�����݃��b�N����PRIMASK�ɂ��������Ă���D
+ARMv6-Mでは，CPUロック/割込みロック共にPRIMASKにより実現している．
 
-(3-5) ���\�]���p�V�X�e�������̎Q�ƂɊւ���K��
+(3-5) 性能評価用システム時刻の参照に関する規定
 
-get_utm���T�|�[�g����D���x�Ɋւ��ẮC�^�[�Q�b�g���ɈقȂ�D
+get_utmをサポートする．精度に関しては，ターゲット毎に異なる．
 
-(3-6) �X�^�[�g�A�b�v���[�`���ł̏��������e
+(3-6) スタートアップルーチンでの初期化内容
 
-�X�^�[�g�A�b�v���[�`���́CThread���[�h�ŌĂяo����邱�Ƃ�O��Ƃ��Ă�
-��D���s��C�����݃��b�N��ԂƂ���D�����݃��b�N��Ԃ́C�J�[�l���̏���
-���I�����ɋ�����D�X�^�[�g�A�b�v���[�`���ŁCMSP���A�N�e�B�u�ȃX�^�b
-�N�Ƃ��CMSP�̓��e�����������邽�߂ɂ́CINIT_MSP���^�[�Q�b�g�ˑ����Œ�
-�`����D
+スタートアップルーチンは，Threadモードで呼び出されることを前提としてい
+る．実行後，割込みロック状態とする．割込みロック状態は，カーネルの初期
+化終了時に許可する．スタートアップルーチンで，MSPをアクティブなスタッ
+クとし，MSPの内容を初期化するためには，INIT_MSPをターゲット依存部で定
+義する．
 
-(3-7) �x�N�^�e�[�u���I�t�Z�b�g�̏�����
+(3-7) ベクタテーブルオフセットの初期化
 
-�v���Z�b�T�ˑ��̏����������ŁCVector Table Offset Register ���^�[�Q�b
-�g�ˑ����̏��������[�`���Őݒ肷��D�Ȃ��C�x�N�^�[�e�[�u���́C.vector
-�̃Z�N�V�����������t������Ă��邽�߁C�����J�X�N���v�g�ł��̃Z�N�V����
-���w�肵�Ĕz�u����D
-
-
-(4) �^�C�}�h���C�o�֘A�̏��
-
-�J�[�l���̃^�C���e�B�b�N�Ƃ��āCSYSTIC���g�p����ꍇ�́Ccore_config.c 
-���R���p�C���ΏۂƂ��C�R���t�B�M�����[�V�����t�@�C���� core_config.cfg 
-���w�肷�邱�ƁD
-
-�����̊�{��1msec�Ƃ���D������CALIBRATION���W�X�^�̐ݒ���e�����Ɍv�Z
-����ꍇ�́CSYSTIC_USE_CALIBRATION ���`����DCALIBRATION���W�X�^��p
-���Ȃ��ꍇ�́C1msec�������̃J�E���g�l�� TIMER_CLOCK �ɐݒ肷��D�N���b
-�N�\�[�X�Ƃ��āC�O���N���b�N��p����ꍇ�́CSYSTIC_USE_STCLK ��p����D
+プロセッサ依存の初期化処理で，Vector Table Offset Register をターゲッ
+ト依存部の初期化ルーチンで設定する．なお，ベクターテーブルは，.vector
+のセクション属性が付加されているため，リンカスクリプトでこのセクション
+を指定して配置する．
 
 
-(5) �^�[�Q�b�g�ˑ����ł̐ݒ荀��
+(4) タイマドライバ関連の情報
 
-�^�[�Q�b�g�ˑ����ł͈ȉ��̃}�N�����`����K�v������D
+カーネルのタイムティックとして，SYSTICを使用する場合は，core_config.c 
+をコンパイル対象とし，コンフィギュレーションファイルに core_config.cfg 
+を指定すること．
 
-   �TMAX_INTNO     : �����ݔԍ��̍ő�l(�ʏ�̊����ݔԍ� + 15)
-   �TBITW_IPRI     : �����ݗD��x�̃r�b�g��
-   �TBITW_SUBIPRI  : �����ݗD��x�̃r�b�g�����̃T�u�D��x�̃r�b�g��
-   �TMIN_INTPRI    : �����ݗD��x�̍ŏ��l�i�ō��l�j
-   �TIC_NUME       : �^�C���e�B�b�N�̎����̕��q
-   �TIC_DENO       : �^�C���e�B�b�N�̎����̕���
-   �TIMER_CLOCK    : �^�C�}�l�̓����\���ƃ~���b�P�ʂƂ̕ϊ�
-   �INTPRI_TIMER   : �^�C�}�����݊����ݗD��x
-   �INTATR_TIMER   : �^�C�}�����݂̊����ݑ���
-   �INIT_MSP       : �X�^�[�g�A�b�v���[�`����MSP������������ꍇ�͒�`
-   �DEFAULT_ISTKSZ : �X�^�b�N�T�C�Y�i8byte�P�ʂŎw��j
-   �SIL_DLY_TIM1   : �������ԑ҂��̂��߂̒�`
-   �SIL_DLY_TIM2   : �������ԑ҂��̂��߂̒�`
+周期の基本は1msecとする．周期をCALIBRATIONレジスタの設定内容を元に計算
+する場合は，SYSTIC_USE_CALIBRATION を定義する．CALIBRATIONレジスタを用
+いない場合は，1msec周期分のカウント値を TIMER_CLOCK に設定する．クロッ
+クソースとして，外部クロックを用いる場合は，SYSTIC_USE_STCLK を用いる．
 
-�^�[�Q�b�g�ˑ�����Makefile�ł͈ȉ����`����K�v������D
 
-   �ECORE_TYPE     : �R�A�̎��
+(5) ターゲット依存部での設定項目
+
+ターゲット依存部では以下のマクロを定義する必要がある．
+
+   ･TMAX_INTNO     : 割込み番号の最大値(通常の割込み番号 + 15)
+   ･TBITW_IPRI     : 割込み優先度のビット幅
+   ･TBITW_SUBIPRI  : 割込み優先度のビット幅中のサブ優先度のビット幅
+   ･TMIN_INTPRI    : 割込み優先度の最小値（最高値）
+   ･TIC_NUME       : タイムティックの周期の分子
+   ･TIC_DENO       : タイムティックの周期の分母
+   ･TIMER_CLOCK    : タイマ値の内部表現とミリ秒単位との変換
+   ･INTPRI_TIMER   : タイマ割込み割込み優先度
+   ･INTATR_TIMER   : タイマ割込みの割込み属性
+   ･INIT_MSP       : スタートアップルーチンでMSPを初期化する場合は定義
+   ･DEFAULT_ISTKSZ : スタックサイズ（8byte単位で指定）
+   ･SIL_DLY_TIM1   : 微少時間待ちのための定義
+   ･SIL_DLY_TIM2   : 微少時間待ちのための定義
+
+ターゲット依存部のMakefileでは以下を定義する必要がある．
+
+   ・CORE_TYPE     : コアの種類
                      CORTEX_M4/CORTEX_M3/CORTEX_M0/CORTEX_M0PLUS/
-   �EFPU_USAGE     : FPU���g�p����ꍇ�ɂ����ꂩ�ɒ�`�D
-                     FPU_NO_PRESERV      : �R���e�L�X�g�ۑ��Ȃ�
-                     FPU_NO_LAZYSTACKING : �R���e�L�X�g�ۑ�����
-                     FPU_LAZYSTACKING    : �R���e�L�X�g�ۑ�����(Lazy stacking)                  
-   �EFPU_ABI       : FPU�g�p����ABI�����ꂩ���w��
-                     softfp : float/dobule�̈����̎󂯓n���Ɉ�ʃ��W�X�^���g�p
-                     hard   : float/dobule�̈����̎󂯓n����FPU���W�X�^���g�p
+   ・FPU_USAGE     : FPUを使用する場合にいずれかに定義．
+                     FPU_NO_PRESERV      : コンテキスト保存なし
+                     FPU_NO_LAZYSTACKING : コンテキスト保存あり
+                     FPU_LAZYSTACKING    : コンテキスト保存あり(Lazy stacking)                  
+   ・FPU_ABI       : FPU使用時のABIいずれかを指定
+                     softfp : float/dobuleの引数の受け渡しに一般レジスタを使用
+                     hard   : float/dobuleの引数の受け渡しにFPUレジスタを使用
                      
-(6) ���̑�
+(6) その他
 
-(6-1) Configureation and Control Register(CCR)��STKALIGN�̐���
+(6-1) Configureation and Control Register(CCR)のSTKALIGNの制限
 
-�V�X�e���N����i���m�ɂ�OS�̏������I����j��CCR��STKALIGN�̐ݒ�́C��
-�X���Ȃ����ƁD
+システム起動後（正確にはOSの初期化終了後）はCCRのSTKALIGNの設定は，変
+更しないこと．
 
 
-(7) �f�B���N�g���\���E�t�@�C���\��
+(7) ディレクトリ構成・ファイル構成
   ./arch/arm_m_gcc/common
     ./Makefile.core
     ./arm_m.h
@@ -214,51 +214,51 @@ get_utm���T�|�[�g����D���x�Ɋւ��ẮC�^�[�Q�b�g���ɈقȂ�D
     ./core_user.txt
     ./start.S
 
-(8)ARMCC���L�R�[�h�̋L�q���@
+(8)ARMCC共有コードの記述方法
 
-ARMCC�Ƌ��L����R�[�h�́C���̃��[���ɏ]���ăR�[�h���L�q����K�v������D
+ARMCCと共有するコードは，次のルールに従ってコードを記述する必要がある．
 
-1.�������o���A����(Asm("":::"memory"))�̃}�N����
+1.メモリバリア命令(Asm("":::"memory"))のマクロ化
 
-�^�[�Q�b�g�ˑ��� �|�[�e�B���O�K�C�h��(1-6-2)(c)�ɂ́C���̂悤�ɋL�q��
-��Ă���D
+ターゲット依存部 ポーティングガイドの(1-6-2)(c)には，次のように記述さ
+れている．
 
 -----
-(c) �N���e�B�J���Z�N�V�����̏o�������̖{���I�ȕ������C�}�N����C�����C
-	���֐��ďo���Ŏ������Ă���ꍇ�ɂ́C�N���e�B�J���Z�N�V�����ɓ��鏈
-	���̍Ō�Əo�鏈���̐擪�ɁCAsm("":::"memory")�Ƃ����L�q������D
+(c) クリティカルセクションの出入処理の本質的な部分が，マクロやインライ
+	ン関数呼出しで実現している場合には，クリティカルセクションに入る処
+	理の最後と出る処理の先頭に，Asm("":::"memory")という記述を入れる．
 -----
 
-�������o���A����(Asm("":::"memory"))�́CARMCC�ƌ݊������Ȃ����߁C����
-�L�q������ӏ��́C���̃}�N���ŋL�q����ƁC�R���p�C�����ɓK�؂ȃ������o
-���A���߂ɒu����������D
+メモリバリア命令(Asm("":::"memory"))は，ARMCCと互換性がないため，この
+記述をする箇所は，次のマクロで記述すると，コンパイル時に適切なメモリバ
+リア命令に置き換えられる．
 
   ARM_MEMORY_CHANGED
 
-2.�C���N���[�h���@
+2.インクルード方法
 
-�^�[�Q�b�g�ˑ��� �|�[�e�B���O�K�C�h��1.5�ɂ́C���̂悤�ɋL�q����Ă���D
+ターゲット依存部 ポーティングガイドの1.5には，次のように記述されている．
 
 -----
-���̑��̃w�b�_�t�@�C���́C�u#include "..."�v�ɂ��C���N���[�h����D�w�b
-�_�t�@�C�����C�J�����g�f�B���N�g����C���N���[�h����t�@�C���Ɠ����f�B
-���N�g���ȊO�̃f�B���N�g���ɒu����Ă���ꍇ�ɂ́C���̂悤�Ƀp�X�w���
-�s���D
+その他のヘッダファイルは，「#include "..."」によりインクルードする．ヘッ
+ダファイルが，カレントディレクトリやインクルードするファイルと同じディ
+レクトリ以外のディレクトリに置かれている場合には，次のようにパス指定を
+行う．
 -----
 
-GCC�ˑ�����ARMCC�ˑ����Ńw�b�_�t�@�C�������L�ł��Ȃ��ꍇ�ɂ́C���ꂼ��
-�œ������O�̃t�@�C�������D�����āC�R���p�C���I�v�V�����ŃC���N���[�h
-���ׂ��t�@�C�����Ɏw�肵�Ă���D���̂��߁CARMCC�Ƌ��L����t�@�C����
-�����̃t�@�C�����C���N���[�h����ꍇ�ɂ́C�u#include "..."�v�ł͂Ȃ��C
-�u#include <...>�v�ŋL�q���C���΃p�X�ł͂Ȃ��t�@�C�����݂̂��L�ڂ��邱
-�ƁD
+GCC依存部とARMCC依存部でヘッダファイルを共有できない場合には，それぞれ
+で同じ名前のファイルを持つ．そして，コンパイルオプションでインクルード
+すべきファイルを先に指定している．そのため，ARMCCと共有するファイルで
+これらのファイルをインクルードする場合には，「#include "..."」ではなく，
+「#include <...>」で記述し，相対パスではなくファイル名のみを記載するこ
+と．
 
-3.�A�Z���u���f�B���N�e�B�u
+3.アセンブラディレクティブ
 
-GCC��ARMCC�̃A�Z���u���f�B���N�e�B�u�͌݊������Ȃ��D���̂��߁CARMCC��
-���L����t�@�C���͎��Ɏ����}�N���f�B���N�e�B�u�ŋL�q���邱�ƁD
+GCCとARMCCのアセンブラディレクティブは互換性がない．そのため，ARMCCと
+共有するファイルは次に示すマクロディレクティブで記述すること．
 
-�}�N���f�B���N�e�B�u     GCC�f�B���N�e�B�u
+マクロディレクティブ     GCCディレクティブ
  ASECTION(name)          .section name,"a"
  ATEXT                   .text
  AGLOBAL(name)           .global name
@@ -269,305 +269,305 @@ GCC��ARMCC�̃A�Z���u���f�B���N�e�B�u�͌݊������Ȃ��D���̂��߁CARMCC��
  ATHUMB(name)            __athumb name
 
 
-(9)�A�C�h������
+(9)アイドル処理
 
-���s����ׂ��^�X�N���Ȃ��ꍇ�́C�f�B�X�p�b�`���[�Ŋ����݂������āC��
-���݂�҂idispatcher_2�j�DARM-M�ˑ����̃R�[�h�ł́C���̂悤�ɂȂ���
-����D
+実行するべきタスクがない場合は，ディスパッチャーで割込みを許可して，割
+込みを待つ（dispatcher_2）．ARM-M依存部のコードでは，次のようになって
+いる．
 
-    PRIMASK ���Z�b�g
-    �S�����݋���
+    PRIMASK をセット
+    全割込み許可
     wfi
-    PRIMASK ���N���A�i�����݂��󂯕t����j
-    CPU���b�N��Ԃ�
+    PRIMASK をクリア（割込みを受け付ける）
+    CPUロック状態へ
 
-�^�[�Q�b�g�ˑ��ŁC��L�̏����̑���ɁC�ȓd�̓��[�h���Ɉڍs���鏈����
-�L�q�������ꍇ�ɂ́C�^�[�Q�b�g�ˑ����ŁCTOPPERS_CUSTOM_IDLE���`���C
-����Ɏ��s���������� toppers_asm_custom_idle �Ƃ����A�Z���u���}�N��
-�Ƃ��ċL�q����D
+ターゲット依存で，上記の処理の代わりに，省電力モード等に移行する処理を
+記述したい場合には，ターゲット依存部で，TOPPERS_CUSTOM_IDLEを定義し，
+代わりに実行した処理を toppers_asm_custom_idle というアセンブラマクロ
+として記述する．
 
-�Ȃ��Ctoppers_asm_custom_idle �̋L�q�ɂ������ẮC���̃��W�X�^��
-oppers_asm_custom_idle�̑O��Ŏg�p���邽�߁Coppers_asm_custom_idle ��
-�Ŏg�p����ꍇ�́C�O��ŕۑ����A���邱�ƁD�����̃��W�X�^�� Calee 
-saved ���W�X�^�ł��邽�߁C oppers_asm_custom_idle �Ƃ��Ċ֐��Ăяo����
-�����ꍇ�́C�Ăяo�����֐��Ŏ����I�ɕۑ����A����邽�߁C�A�Z���u�����x
-���ł̕ۑ����A�͕K�v�Ȃ��D
+なお，toppers_asm_custom_idle の記述にあたっては，次のレジスタは
+oppers_asm_custom_idleの前後で使用するため，oppers_asm_custom_idle 内
+で使用する場合は，前後で保存復帰すること．これらのレジスタは Calee 
+saved レジスタであるため， oppers_asm_custom_idle として関数呼び出しを
+した場合は，呼び出した関数で自動的に保存復帰されるため，アセンブラレベ
+ルでの保存復帰は必要ない．
 
-���W�X�^ : ���e
+レジスタ : 内容
 r4      : '0'
 r5      : 'IIPM_LOCK'
-r6      : reqflg�̃A�h���X
-r7      : lock_flg�̃A�h���X
-sp      : ��^�X�N�R���e�L�X�g�p�̃X�^�b�N�̐擪�A�h���X(msp)
+r6      : reqflgのアドレス
+r7      : lock_flgのアドレス
+sp      : 非タスクコンテキスト用のスタックの先頭アドレス(msp)
 
-�A�Z���u���}�N����C����L�q���ɓW�J����ƃG���[�ƂȂ�Dcore_support.S ��
-�́CTOPPERS_ASM_MACRO �Ƃ����}�N�����`���Ă��邽�߁C�^�[�Q�b�g�ˑ���
-�� toppers_asm_custom_idle �A�Z���u���}�N�����`����ۂɂ́C
-TOPPERS_ASM_MACRO �������R���p�C���̏����Ƃ��ėp���邱�ƁD
+アセンブラマクロはC言語記述中に展開するとエラーとなる．core_support.S で
+は，TOPPERS_ASM_MACRO というマクロを定義しているため，ターゲット依存部
+で toppers_asm_custom_idle アセンブラマクロを定義する際には，
+TOPPERS_ASM_MACRO を条件コンパイルの条件として用いること．
 
 (10)FPU
-Cortex-M4F��FPU���T�|�[�g���Ă���DFPU�̎g�p���@�͎���3��ނ���I����
-�\�ł���D���ꂼ��Makefile����FPU_USAGE�}�N�����`���Ďw�肷��D�w��
-���Ȃ��ꍇ��FPU�𖳌��Ƃ���D
+Cortex-M4FのFPUをサポートしている．FPUの使用方法は次の3種類から選択可
+能である．それぞれMakefile内でFPU_USAGEマクロを定義して指定する．指定
+がない場合はFPUを無効とする．
 
 FPU_NO_PRESERV       
-�f�B�X�p�b�`�����ł�FPU�R���e�L�X�g�̕ۑ����A���s��Ȃ��D
-FPU���g�p�\�ȃ^�X�N��1�������́C�V�X�e�����̍ō��D��x��ISR�Q�Ŏg
-�p�\�D
+ディスパッチャ等ではFPUコンテキストの保存復帰を行わない．
+FPUを使用可能なタスクは1個もしくは，システム中の最高優先度のISR群で使
+用可能．
 
 FPU_NO_LAZYSTACKING 
-�f�B�X�p�b�`�����ł�FPU�R���e�L�X�g�̕ۑ����A���s���DLazy stacking ��
-�g�p���Ȃ��D�S�Ẵ^�X�N/ISR��FPU���g�p�\�D
+ディスパッチャ等ではFPUコンテキストの保存復帰を行う．Lazy stacking は
+使用しない．全てのタスク/ISRでFPUを使用可能．
 
 FPU_LAZYSTACKING
-�f�B�X�p�b�`�����ł�FPU�R���e�L�X�g�̕ۑ����A���s���DLazy stacking ��
-�g�p����D�S�Ẵ^�X�N/ISR��FPU���g�p�\�D
+ディスパッチャ等ではFPUコンテキストの保存復帰を行う．Lazy stacking を
+使用する．全てのタスク/ISRでFPUを使用可能．
 
-(11)���̑�
+(11)その他
 
-1. �x�N�^�[�e�[�u���̃Z�N�V�����w��
+1. ベクターテーブルのセクション指定
 
-core.tf �ňȉ��� _kernel_vector_table �̔z��̕ϐ��̐錾�̐����̍ۂɁC
-GEN_VECTOR_TABLE_VARNAME �Ƃ����֐�����`����Ă���΁Ccore.tf �ł͕�
-���̐錾�͍s�킸�CGEN_VECTOR_TABLE_VARNAME ���Ăяo���D
+core.tf で以下の _kernel_vector_table の配列の変数の宣言の生成の際に，
+GEN_VECTOR_TABLE_VARNAME という関数が定義されていれば，core.tf では変
+数の宣言は行わず，GEN_VECTOR_TABLE_VARNAME を呼び出す．
 
 const FP _kernel_vector_table[] = 
 
-GEN_VECTOR_TABLE_VARNAME ���錾����Ă���ꍇ�ł��C�z��̖{�̂̐����́C
-core.tf�ōs���D
+GEN_VECTOR_TABLE_VARNAME が宣言されている場合でも，配列の本体の生成は，
+core.tfで行う．
 
-2. ARMv6-M�ł̊����݃��b�N(SIL_LOC_INT())
+2. ARMv6-Mでの割込みロック(SIL_LOC_INT())
 
-CPU���b�N�E�����݃��b�N��PRIMASK���g�p���Ă��邽�߁CCPU���b�N�E������
-���b�N����HardwareFault�ȊO�̗�O���������Ď󂯕t�����Ȃ��Ȃ�Ƃ���
-���񂪂���D
+CPUロック・割込みロックにPRIMASKを使用しているため，CPUロック・割込み
+ロック中にHardwareFault以外の例外が発生して受け付けられなくなるという
+制約がある．
 
-(12) �o�[�W��������
+(12) バージョン履歴
 2015/11/22
-�ECortex-M4F��FPU�̃T�|�[�g��ǉ��D
+・Cortex-M4FのFPUのサポートを追加．
 
 2015/11/14
-�EARMv7-M
-  �Ecore_sil.h
-    �E�����݃��b�N(SIL_LOC_INT())��BASEPRI���g�p����悤�ɕύX�D
-    �E����FAULTMASK����FAULTMASK���Z�b�g������Ԃŗ�O����������Ɨ�O
-      ���������Ȃ����߁D
+・ARMv7-M
+  ・core_sil.h
+    ・割込みロック(SIL_LOC_INT())をBASEPRIを使用するように変更．
+    ・元のFAULTMASKだとFAULTMASKをセットした状態で例外が発生すると例外
+      が発生しないため．
 
 2015/11/04
-�EARMv6-M�Ή��Ɋւ���ύX
- �EARMv7-M�ɉe�����y�ڂ��ύX
-  �E��O�t���[���̃t�H�[�}�b�g��ύX(basepri��EXC_RETURN�̏�����ύX)
-  �E�G���g���|�C���g(_start)�����l�[���̑ΏۂɕύX�D
-    �EC���C�u������_start�Ɩ��O���d�����邽�߁D
-  �EMakefile.core�� -nostdlib ��t���Ȃ��悤�ɕύX�D
-    �E�^�[�Q�b�g�ˑ����Ŏw�肷��
+・ARMv6-M対応に関する変更
+ ・ARMv7-Mに影響を及ぼす変更
+  ・例外フレームのフォーマットを変更(basepriとEXC_RETURNの順序を変更)
+  ・エントリポイント(_start)をリネームの対象に変更．
+    ・Cライブラリの_startと名前が重複するため．
+  ・Makefile.coreで -nostdlib を付けないように変更．
+    ・ターゲット依存部で指定する
   
 2014/12/01
-�Ecore_support.S
-  2013/08/20 �̏C����PSP��ւ̊����ݗD��x�}�X�N(r2)��EXC_RETURN(lr)��
-  �ۑ���stfmd�ōs���ɂ������C�X�^�b�N�ւ̐ςݕ���lr,r2�ƂȂ��Ă��邽��
-  �C�����݁E��O�o���̃R�[�h�Ƃ̐��������Ƃ�Ă��Ȃ������Dr2,lr�ƕۑ�
-  ����悤��lr��r0�Ɉ�U�R�s�[����r0(lr),r2��stmfd�Ɏw�肷��悤�ύX�D
+・core_support.S
+  2013/08/20 の修正でPSP上への割込み優先度マスク(r2)とEXC_RETURN(lr)の
+  保存をstfmdで行うにしたが，スタックへの積み方がlr,r2となっているため
+  ，割込み・例外出口のコードとの整合性がとれていなかった．r2,lrと保存
+  するようにlrをr0に一旦コピーしてr0(lr),r2とstmfdに指定するよう変更．
     
 2014/07/23
-�Etarget_timer_probe_int()�ɂ����āCSYSTIC_CONTROL_STATUS ����x�ǂݍ�
-  �ނƃN���A����邽�߁C�����ݓ��ŕ�����ǂݍ��ގg�����ɂ͓K�����Ȃ��D
-  ���̂��߁CNVIC�̃y���f�B���O���W�X�^��ǂݍ��ނ悤�ɕύX�D
+・target_timer_probe_int()において，SYSTIC_CONTROL_STATUS を一度読み込
+  むとクリアされるため，割込み等で複数回読み込む使い方には適応しない．
+  そのため，NVICのペンディングレジスタを読み込むように変更．
 
 2012/10/17
-�E1.8.0�Ή��̂��߁Cchar_t �̉ӏ��𑼂̌^�ɕύX�D
+・1.8.0対応のため，char_t の箇所を他の型に変更．
 
 2013/08/20
-�Ecore_support.S
- ��O/�����ݗ�O��������PSP��ւ̊����ݗD��x�}�X�N(r2)��EXC_RETURN(lr)
- �̕ۑ���stmfd1���߂Ŏ��{����悤�ɕύX�D
+・core_support.S
+ 例外/割込み例外発生時のPSP上への割込み優先度マスク(r2)とEXC_RETURN(lr)
+ の保存をstmfd1命令で実施するように変更．
 
 2013/03/10
-�Ecore_support.S
-  sub/add�̓A�Z���u���ɂ��32bit���߂�sub.w/add.w�ƕϊ������D16bit��
-  �߂�subs/adds�ł����Ȃ����߁C�ύX�D
+・core_support.S
+  sub/addはアセンブラにより32bit命令ｎsub.w/add.wと変換される．16bit命
+  令のsubs/addsでも問題ないため，変更．
 
 2012/06/18
-�Exxx_stddef.h �𑊑΃p�X�ł͂Ȃ��t�@�C�����݂̂Ŏw�肷��悤�ɕύX�D
-  �ǂ̃t�@�C����p���邩�͑��̃t�@�C���Ɠ��l�ɃR���p�C���ւ̃C���N���[
-  �h�w��̏����Ƃ���D
-�Ecore.tf �� _kernel_vector_table �̔z��̕ϐ��̐錾�����𐶐�����ۂɁC
-  GEN_VECTOR_TABLE_VARNAME �Ƃ����֐�����`����Ă���΁C�Ăяo���悤
-  �ɕύX�D
-  �Z�N�V�����w����@���R���p�C�����ɈقȂ邽�ߗp�ӁD
+・xxx_stddef.h を相対パスではなくファイル名のみで指定するように変更．
+  どのファイルを用いるかは他のファイルと同様にコンパイラへのインクルー
+  ド指定の順序とする．
+・core.tf で _kernel_vector_table の配列の変数の宣言部分を生成する際に，
+  GEN_VECTOR_TABLE_VARNAME という関数が定義されていれば，呼び出すよう
+  に変更．
+  セクション指定方法がコンパイラ毎に異なるため用意．
     
 2012/02/29
-�EMakefile.core
-  �ECDEFS��TOPPERS_LABEL_ASM���w�肵�Ă������CARM�p��gcc�ł̓A�Z���u��
-    �̃V���{���̑O��_��t���Ȃ����ߍ폜�D
+・Makefile.core
+  ・CDEFSにTOPPERS_LABEL_ASMを指定していたが，ARM用のgccではアセンブラ
+    のシンボルの前に_を付けないため削除．
   
 2012/02/02
-�Ecore_config.h
-  �Ex_set_ipm()�ŁCiipm��'0'(IIPM_ENAALL)�̎��̖����C���D
-�Ecore_support.S
-  �Etoppers_asm_custom_idle�̑O��Ŏg�p���郌�W�X�^��ύX�D���̕ύX��
-    ���Ctoppers_asm_custom_idle �Ŋ֐��Ăяo��������ꍇ�́C�A�Z���u
-    �����x���ł̃��W�X�^�̕ۑ����K�v�Ȃ��Ȃ����D
+・core_config.h
+  ・x_set_ipm()で，iipmが'0'(IIPM_ENAALL)の時の問題を修正．
+・core_support.S
+  ・toppers_asm_custom_idleの前後で使用するレジスタを変更．この変更に
+    より，toppers_asm_custom_idle で関数呼び出しをする場合は，アセンブ
+    ラレベルでのレジスタの保存が必要なくなった．
     
 2012/02/23
-�Ecore_support.S
-  �Ecore_exc_entry��basepri��ǂݍ��񂾂��ƁC�S�����݃��b�N��Ԃ̃`�F
-    �b�N���߂ɏ㏑�����Ă��������C��
-  �Ecall_texrtn��call_texrtn�̌Ăяo����b���߂ŋL�q����ƁC16bit���߂�
-    ���ĉ��߂���R���p�C�������邽�߁C�������z�u�ɂ���Ă̓����W������
-    �Ȃ��Ȃ�Dbx���߂ɕύX���邱�ƂŖ����C���D
+・core_support.S
+  ・core_exc_entryでbasepriを読み込んだあと，全割込みロック状態のチェ
+    ックために上書きしていた問題を修正
+  ・call_texrtnとcall_texrtnの呼び出しをb命令で記述すると，16bit命令と
+    して解釈するコンパイラがあるため，メモリ配置によってはレンジが足り
+    なくなる．bx命令に変更することで問題を修正．
 
 2012/01/31
-�Ecore_timer.c
- �E�^�C�}�����݃n���h���ɂāCprobe_int �̂��߁CCOUNTFLAG���N���A���邽
-   �߂ɓǂݍ���ł������W�X�^������Ă��������C���D
+・core_timer.c
+ ・タイマ割込みハンドラにて，probe_int のため，COUNTFLAGをクリアするた
+   めに読み込んでいたレジスタが誤っていた問題を修正．
  
 2011/12/03
-�Ecore_test.h �̑��d�C���N���[�h�h�~�}�N���̖��̏C��
- �ECHIP �� CORE �ɏC���D
+・core_test.h の多重インクルード防止マクロの名称修正
+ ・CHIP を CORE に修正．
 
-�EARMCC�Ή��ɔ����ύX
-  �Ecore_asm.inc(�ǉ�)
-    �EGCC�̃A�Z���u���̃f�B���N�e�B�u�̒�`���L�q�����t�@�C����ǉ��D
-  �Ecore_config.h(�ύX)
-    �Ecore_insn.h �̃C���N���[�h���@��""����<>�ɕύX���āC�R���p�C����
-      �����Ŏw�肳�ꂽ���ŃC���N���[�h�t�@�C�����T�[�`����悤�ύX�D
-   �E�������o���A����(Asm("":::"memory"))���}�N��������core_insn.h ��
-     ��`���g�p����悤�ύX�D     
-  �Ecore_insn.h(�ύX)
-   �E�������o���A����(Asm("":::"memory"))�̃}�N����`��ǉ�
-  �Ecore_support.S(�ύX)
-   �EARMCC�ƃt�@�C�������L���邽�߁C�f�B���N�e�B�u���}�N���ɏ��������D      
-  �Estart.S(�ύX)
-   �EARMCC�ƃt�@�C�������L���邽�߁C�f�B���N�e�B�u���}�N���ɏ��������D  
+・ARMCC対応に伴う変更
+  ・core_asm.inc(追加)
+    ・GCCのアセンブラのディレクティブの定義を記述したファイルを追加．
+  ・core_config.h(変更)
+    ・core_insn.h のインクルード方法を""から<>に変更して，コンパイラの
+      引数で指定された順でインクルードファイルをサーチするよう変更．
+   ・メモリバリア命令(Asm("":::"memory"))をマクロ化してcore_insn.h に
+     定義を使用するよう変更．     
+  ・core_insn.h(変更)
+   ・メモリバリア命令(Asm("":::"memory"))のマクロ定義を追加
+  ・core_support.S(変更)
+   ・ARMCCとファイルを共有するため，ディレクティブをマクロに書き換え．      
+  ・start.S(変更)
+   ・ARMCCとファイルを共有するため，ディレクティブをマクロに書き換え．  
    
 2011/07/26
-�ECCR��STKALIGN��'1'�̏ꍇ�ւ̑Ή�
-  �����݁E��O�̏o���������ł́C�X�^�b�N�͏��8byte���E�ƂȂ�悤�ɕ�
-  �X�D
+・CCRのSTKALIGNが'1'の場合への対応
+  割込み・例外の出入口処理では，スタックは常に8byte境界となるように変
+  更．
   
 2011/07/25
-�ECPU��O�̗D��x�̏�����
-  CPU���b�N�Ń}�X�N�ł��Ȃ��D��x�i�����D��x0�j�ɏ��������鏈����ǉ��D
+・CPU例外の優先度の初期化
+  CPUロックでマスクできない優先度（内部優先度0）に初期化する処理を追加．
   
-�ECFG_INT�Ŏg�p�ł��銄���ݗD��x�̍ő�l�̏C��(core.tf)
-  �E�ő�l��1�傫�Ȓl�ƂȂ��Ă����D
+・CFG_INTで使用できる割込み優先度の最大値の修正(core.tf)
+  ・最大値が1つ大きな値となっていた．
   
-�E�J�[�l���Ǘ��O�̊����݂̈����̕ύX
-  �E���ʕ��ł̈����̕ύX�ɔ����ύX�D
+・カーネル管理外の割込みの扱いの変更
+  ・共通部での扱いの変更に伴う変更．
   
-�E�^�C�}�����݃n���h���ł�COUNTFLAG�̃N���A�����̏C��
-  SYSTIC_CONTROL_STATUS���W�X�^��COUNTFLAG���N���A����ɂ́C
-  SYSTIC_CURRENT_VALUE���W�X�^��ǂݍ��ޕK�v�����邪�C�����
-  SYSTIC_CONTROL_STATUS���W�X�^��ǂݍ���ł����D
+・タイマ割込みハンドラでのCOUNTFLAGのクリア処理の修正
+  SYSTIC_CONTROL_STATUSレジスタのCOUNTFLAGをクリアするには，
+  SYSTIC_CURRENT_VALUEレジスタを読み込む必要があるが，誤って
+  SYSTIC_CONTROL_STATUSレジスタを読み込んでいた．
 
-�Ecore_int_entry�ɂ�����basepri�̐ݒ�
-  NVIC�D��x�}�X�N�������I�ɐݒ肳��邽�ߗD��x�}�X�N�̓_�ł͕K�v��
-  �����Cx_get_ipm()��basepri���Q�Ƃ��邽�߁Cbasepri���X�V����悤�ύX�D
+・core_int_entryにおけるbasepriの設定
+  NVIC優先度マスクが自動的に設定されるため優先度マスクの点では必要な
+  いが，x_get_ipm()がbasepriを参照するため，basepriも更新するよう変更．
 
 2011/07/24
-�E_ret_int_2/svc_handler �̕ύX
-  �����ݗD��x�}�X�N���S������Ԃł����^�X�N��O���Ăяo���Ȃ��悤��
-  �d�l���ύX���ꂽ���߁C_ret_int_2�ł́C�����ݗD��x�}�X�N���C�S����
-  ��ԁiTIPM_ENAALL�j�ɐݒ肷��悤�ύX�D
-  svc_handler�̓^�X�N�Ƀ��^�[�����鎞��basepri��IIPM_ENAALL�ɂ���悤
-  �ɕύX�D
+・_ret_int_2/svc_handler の変更
+  割込み優先度マスクが全解除状態でしかタスク例外を呼び出さないように
+  仕様が変更されたため，_ret_int_2では，割込み優先度マスクを，全解除
+  状態（TIPM_ENAALL）に設定するよう変更．
+  svc_handlerはタスクにリターンする時にbasepriをIIPM_ENAALLにするよう
+  に変更．
   
-�Ex_config_int()/set_exc_int_priority()�̏C��  
-  x_config_int()����Cset_exc_int_priority()�ɑ΂��ĊO���D��x��������
-  ���ČĂяo���������߁C�����D��x�������ŌĂяo���悤�C���D
-  set_exc_int_priority()���󂯎��������������D��x�Ƃ��ėD��x��ݒ�
-  ����悤�ɏC���D
+・x_config_int()/set_exc_int_priority()の修正  
+  x_config_int()から，set_exc_int_priority()に対して外部優先度を引数に
+  して呼び出しいたため，内部優先度を引数で呼び出すよう修正．
+  set_exc_int_priority()も受け取った引数を内部優先度として優先度を設定
+  するように修正．
 
 2011/07/23
-�E���ʕ���1.4.0��update.
+・共通部を1.4.0にupdate.
 
-�Earm�ˑ����Ɠ��l�Ƀ`�b�v�ˑ�����u����悤�Ƀf�B���N�g���\����ύX
+・arm依存部と同様にチップ依存部を置けるようにディレクトリ構造を変更
 
-�Earm�ˑ����Ɠ��l�Ƀt�@�C�����̃v���t�B�b�N�X��core�ɕύX�D
+・arm依存部と同様にファイル名のプリフィックスをcoreに変更．
 
-�Ecall_atexit�̍폜
-  software_term_hook �̌Ăяo���́Ccore_terminate()�Ɉړ��D
+・call_atexitの削除
+  software_term_hook の呼び出しは，core_terminate()に移動．
   
-�E���ʕ���1.7.0��update.  
+・共通部を1.7.0にupdate.  
 
-�E�^�X�N�R���e�L�X�g�u���b�N�̌^���̕ύX
-  CTXB�^��TSKCTXB�^�ɖ��̕ύX�D
+・タスクコンテキストブロックの型名の変更
+  CTXB型をTSKCTXB型に名称変更．
 
-�E�^�[�Q�b�g�ˑ����ŃT�|�[�g����@�\�������}�N���̕ύX
-  TOPPERS_SUPPORT_DIS_INT��TOPPERS_TARGET_SUPPORT_DIS_INT�ɁC
-  TOPPERS_SUPPORT_ENA_INT��TOPPERS_TARGET_SUPPORT_ENA_INT�ɁC
-  �ύX�D
+・ターゲット依存部でサポートする機能を示すマクロの変更
+  TOPPERS_SUPPORT_DIS_INTをTOPPERS_TARGET_SUPPORT_DIS_INTに，
+  TOPPERS_SUPPORT_ENA_INTをTOPPERS_TARGET_SUPPORT_ENA_INTに，
+  変更．
   
-�Eexc_sense_unlock�̒�`���폜�D  
+・exc_sense_unlockの定義を削除．  
   
-�E�I�t�Z�b�g�t�@�C�����R���t�B�M�����[�^�Ő���������@�ւ̑Ή�
+・オフセットファイルをコンフィギュレータで生成する方法への対応
 
-�ECHECK_FUNC_ALIGN�CCHECK_FUNC_NONNULL�CCHECK_STACK_ALIGN�C
-  CHECK_STACK_NONNULL�CCHECK_MPF_ALIGN�CCHECK_MPF_NONNULL�̒�`���C�^
-  �[�Q�b�g�ˑ����̃e���v���[�g�t�@�C���i�p�X3�j����w�b�_�t�@�C���Ɉ�
-  ���D
+・CHECK_FUNC_ALIGN，CHECK_FUNC_NONNULL，CHECK_STACK_ALIGN，
+  CHECK_STACK_NONNULL，CHECK_MPF_ALIGN，CHECK_MPF_NONNULLの定義を，タ
+  ーゲット依存部のテンプレートファイル（パス3）からヘッダファイルに移
+  動．
 
-�E�����݂Ɨ�O�̓���������̖��O��ύX
-  int_entry��core_int_entry��exc_entry��core_exc_entry�ɕύX�D
-  �I�t�Z�b�g�̎擾���@���ύX�ƂȂ������߁C���̖��O�̂܂܂���cfg1_out.c
-  ���R���p�C���G���[�ƂȂ邽�߂ɕύX�D
+・割込みと例外の入り口処理の名前を変更
+  int_entryをcore_int_entryへexc_entryをcore_exc_entryに変更．
+  オフセットの取得方法が変更となったため，元の名前のままだとcfg1_out.c
+  がコンパイルエラーとなるために変更．
   
-�E�^�[�Q�b�g�ˑ����Œ�`���閼�̂̃��l�[���̒ǉ�
+・ターゲット依存部で定義する名称のリネームの追加
 
-�Ecall_texrtn���Ăяo�������Ɂuipmflg��true�v��ǉ�
+・call_texrtnを呼び出す条件に「ipmflgがtrue」を追加
  
-�E�J�[�l���Ǘ��O��CPU��O�̈����̕ύX
+・カーネル管理外のCPU例外の扱いの変更
 
 2011/07/22
-�Ex_disable_int() : prc_config.h �̏C��   
- �����݋֎~���W�X�^�̃A�h���X���擾����ۂɁC�x�[�X�̒l��uint32_t��
- �|�C���^�ɃL���X�g���Ă��Ȃ������߁C�������A�h���X�������ł��Ă���
- �����������C���D
+・x_disable_int() : prc_config.h の修正   
+ 割込み禁止レジスタのアドレスを取得する際に，ベースの値をuint32_tの
+ ポインタにキャストしていなったため，正しいアドレスが生成できていな
+ かった問題を修正．
  
-�E��^�X�N�R���e�L�X�g�p�̃X�^�b�N�̏����l�}�N��(TOPPERS_ISTKPT)�̏C�� 
+・非タスクコンテキスト用のスタックの初期値マクロ(TOPPERS_ISTKPT)の修正 
   : prc_config.h
- �o�C�g�P�ʂŎ擾����悤�ɁC(char_t *) �ɃL���X�g���Čf�ڂ���悤�ɏC
- ���D
+ バイト単位で取得するように，(char_t *) にキャストして掲載するように修
+ 正．
   
-�ELOG_INH_ENTRY��LOG_INH_LEAVE�̌�L : prc_support.S
-  LOG_INH_ENTRY��LOG_INH_LEAVE�ł���ׂ��ӏ��� LOG_EXC_ENTRY��
-  LOG_EXC_ENTRY�ɂȂ��Ă�������C���D
+・LOG_INH_ENTRYとLOG_INH_LEAVEの誤記 : prc_support.S
+  LOG_INH_ENTRYとLOG_INH_LEAVEであるべき箇所が LOG_EXC_ENTRYと
+  LOG_EXC_ENTRYになっている問題を修正．
 
-�ETOPPERS_CUSTOM_IDLE ��typo�̏C�� : prc_support.S
+・TOPPERS_CUSTOM_IDLE のtypoの修正 : prc_support.S
 
-�Esvn_hanlder�̏C�� :  prc_support.S
-  �ꗥEXC_FRAME_SIZE���̃X�^�b�N���̂ĂĂ������CConfigureation and 
-  Control Register(CCR)��STKALIGN��'1'�̏�  ���́C8byte���E�ɃA���C��
-  ����邽�߁C�̂Ă�T�C�Y���قȂ�D�A���C�����ꂽ���́CxPSR��9�r�b
-  �g���`�F�b�N���邱�Ƃɂ�蔻�肷��D
+・svn_hanlderの修正 :  prc_support.S
+  一律EXC_FRAME_SIZE分のスタックを捨てていたが，Configureation and 
+  Control Register(CCR)のSTKALIGNが'1'の場  合は，8byte境界にアライン
+  されるため，捨てるサイズが異なる．アラインされたかは，xPSRの9ビッ
+  トをチェックすることにより判定する．
   
-�Eprc.tf�̏C��
-  boost�̃o�[�W�����ɂ���ĕς�鋓�����z���D
+・prc.tfの修正
+  boostのバージョンによって変わる挙動を吸収．
   http://www.toppers.jp/TOPPERS-USERS/201004/msg00034.html
   
-�E_kernel_istkpt �̍폜 : prc_cfg1_out.h
-  _kernel_istkpt ���K�v�Ȃ��^�[�Q�b�g�����݂��邽�߁C�K�v�Ȃ�C�^�[�Q
-  �b�g�ˑ����Œ�`����悤�ɕύX�D
+・_kernel_istkpt の削除 : prc_cfg1_out.h
+  _kernel_istkpt が必要ないターゲットが存在するため，必要なら，ターゲ
+  ット依存部で定義するように変更．
 
 2008/08/22
-�Eprc_user.txt/prc_design.txt
-  �E2008/8/21�̋Z�p������ł̋c�_���ʂ𔽉f�D
+・prc_user.txt/prc_design.txt
+  ・2008/8/21の技術検討会での議論結果を反映．
   
-�Eprc_support.S/prc_config.c/prc_config.h/arm_m.h
-  �E�R���e�L�X�g�����exc_ncnt����A�N�e�B�u�ȃX�^�b�N�ɕύX
+・prc_support.S/prc_config.c/prc_config.h/arm_m.h
+  ・コンテキスト判定をexc_ncntからアクティブなスタックに変更
   
-�Eprc_config.c
-  �Eset_exc_int_priority() �ŃT�|�[�g�\��IRQ�̏����239�Ɋg���D
+・prc_config.c
+  ・set_exc_int_priority() でサポート可能なIRQの上限を239に拡張．
   
-�Estart.S 
-  �E�N������Thread���[�h��O��Ƃ��Ă��邱�Ƃ𖾋L�D
-  �E�u�[�g���[�_�[������N�������ꍇ��z�肵�CMSP��L���ɂ���悤��
-    �ύX�D
+・start.S 
+  ・起動時はThreadモードを前提としていることを明記．
+  ・ブートローダー等から起動される場合を想定し，MSPを有効にするように
+    変更．
     
-�Eprc_timer.c
-  �E�R�����g���C��
-  �E�f�o�b�O�p�R�[�h���폜
+・prc_timer.c
+  ・コメントを修正
+  ・デバッグ用コードを削除
 
 2008/07/11
-�E�ŏ��̃����[�X
+・最初のリリース

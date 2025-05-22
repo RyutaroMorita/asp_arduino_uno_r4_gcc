@@ -8,58 +8,58 @@
  *  Copyright (C) 2004-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: t_syslog.h 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		�V�X�e�����O�o�͂��s�����߂̒�`
+ *		システムログ出力を行うための定義
  *
- *  �V�X�e�����O�T�[�r�X�́C�V�X�e���̃��O�����o�͂��邽�߂̃T�[�r�X
- *  �ł���D�J�[�l������̃��O���̏o�͂ɂ��p���邽�߁C�����ő҂����
- *  �ɂ͂��邱�Ƃ͂Ȃ��D
+ *  システムログサービスは，システムのログ情報を出力するためのサービス
+ *  である．カーネルからのログ情報の出力にも用いるため，内部で待ち状態
+ *  にはいることはない．
  *
- *  ���O���́C�J�[�l�����̃��O�o�b�t�@�ɏ������ނ��C�჌�x���̕����o
- *  �͊֐���p���ďo�͂���D�ǂ�����g�����́C�g���T�[�r�X�R�[���Ő؂�
- *  �����邱�Ƃ��ł���D
+ *  ログ情報は，カーネル内のログバッファに書き込むか，低レベルの文字出
+ *  力関数を用いて出力する．どちらを使うかは，拡張サービスコールで切り
+ *  換えることができる．
  *
- *  ���O�o�b�t�@�̈悪�I�[�o�t���[�����ꍇ�ɂ́C�Â����O���������ď�
- *  ��������D
+ *  ログバッファ領域がオーバフローした場合には，古いログ情報を消して上
+ *  書きする．
  *
- *  �A�Z���u������̃\�[�X�t�@�C�����炱�̃t�@�C�����C���N���[�h���鎞
- *  �́CTOPPERS_MACRO_ONLY���`���Ă������ƂŁC�}�N����`�ȊO�̋L�q��
- *  �������Ƃ��ł���D
+ *  アセンブリ言語のソースファイルからこのファイルをインクルードする時
+ *  は，TOPPERS_MACRO_ONLYを定義しておくことで，マクロ定義以外の記述を
+ *  除くことができる．
  *
- *  ���̃t�@�C�����C���N���[�h����O�ɁCt_stddef.h���C���N���[�h���Ă�
- *  �����Ƃ��K�v�ł���D
+ *  このファイルをインクルードする前に，t_stddef.hをインクルードしてお
+ *  くことが必要である．
  */
 
 #ifndef TOPPERS_T_SYSLOG_H
@@ -70,69 +70,69 @@ extern "C" {
 #endif
 
 /*
- *  ���O���̎�ʂ̒�`
+ *  ログ情報の種別の定義
  */
-#define LOG_TYPE_COMMENT	UINT_C(0x01)	/* �R�����g */
-#define LOG_TYPE_ASSERT		UINT_C(0x02)	/* �A�T�[�V�����̎��s */
+#define LOG_TYPE_COMMENT	UINT_C(0x01)	/* コメント */
+#define LOG_TYPE_ASSERT		UINT_C(0x02)	/* アサーションの失敗 */
 
-#define LOG_TYPE_INH		UINT_C(0x11)	/* �����݃n���h�� */
-#define LOG_TYPE_ISR		UINT_C(0x12)	/* �����݃T�[�r�X���[�`�� */
-#define LOG_TYPE_CYC		UINT_C(0x13)	/* �����n���h�� */
-#define LOG_TYPE_ALM		UINT_C(0x14)	/* �A���[���n���h�� */
-#define LOG_TYPE_OVR		UINT_C(0x15)	/* �I�[�o�����n���h�� */
-#define LOG_TYPE_EXC		UINT_C(0x16)	/* CPU��O�n���h�� */
-#define LOG_TYPE_TEX		UINT_C(0x17)	/* �^�X�N��O�������[�`�� */
-#define LOG_TYPE_TSKSTAT	UINT_C(0x18)	/* �^�X�N��ԕω� */
-#define LOG_TYPE_DSP		UINT_C(0x19)	/* �f�B�X�p�b�`�� */
-#define LOG_TYPE_SVC		UINT_C(0x1a)	/* �T�[�r�X�R�[�� */
+#define LOG_TYPE_INH		UINT_C(0x11)	/* 割込みハンドラ */
+#define LOG_TYPE_ISR		UINT_C(0x12)	/* 割込みサービスルーチン */
+#define LOG_TYPE_CYC		UINT_C(0x13)	/* 周期ハンドラ */
+#define LOG_TYPE_ALM		UINT_C(0x14)	/* アラームハンドラ */
+#define LOG_TYPE_OVR		UINT_C(0x15)	/* オーバランハンドラ */
+#define LOG_TYPE_EXC		UINT_C(0x16)	/* CPU例外ハンドラ */
+#define LOG_TYPE_TEX		UINT_C(0x17)	/* タスク例外処理ルーチン */
+#define LOG_TYPE_TSKSTAT	UINT_C(0x18)	/* タスク状態変化 */
+#define LOG_TYPE_DSP		UINT_C(0x19)	/* ディスパッチャ */
+#define LOG_TYPE_SVC		UINT_C(0x1a)	/* サービスコール */
 
-#define LOG_ENTER			UINT_C(0x00)	/* �����^�J�n */
-#define LOG_LEAVE			UINT_C(0x80)	/* �o���^�I�� */
+#define LOG_ENTER			UINT_C(0x00)	/* 入口／開始 */
+#define LOG_LEAVE			UINT_C(0x80)	/* 出口／終了 */
 
 /*
- *  ���O���̏d�v�x�̒�`
+ *  ログ情報の重要度の定義
  */
-#define LOG_EMERG			UINT_C(0)		/* �V���b�g�_�E���ɒl����G���[ */
+#define LOG_EMERG			UINT_C(0)		/* シャットダウンに値するエラー */
 #define LOG_ALERT			UINT_C(1)
 #define LOG_CRIT			UINT_C(2)
-#define LOG_ERROR			UINT_C(3)		/* �V�X�e���G���[ */
-#define LOG_WARNING			UINT_C(4)		/* �x�����b�Z�[�W */
+#define LOG_ERROR			UINT_C(3)		/* システムエラー */
+#define LOG_WARNING			UINT_C(4)		/* 警告メッセージ */
 #define LOG_NOTICE			UINT_C(5)
 #define LOG_INFO			UINT_C(6)
-#define LOG_DEBUG			UINT_C(7)		/* �f�o�b�O�p���b�Z�[�W */
+#define LOG_DEBUG			UINT_C(7)		/* デバッグ用メッセージ */
 
 #ifndef TOPPERS_MACRO_ONLY
 
 /*
- *  ���O���̃f�[�^�\��
+ *  ログ情報のデータ構造
  */
 
 #define TMAX_LOGINFO	6
 
 typedef struct {
-	uint_t		logtype;				/* ���O���̎�� */
-	SYSTIM		logtim;					/* ���O���� */
-	intptr_t	loginfo[TMAX_LOGINFO];	/* ���̑��̃��O��� */
+	uint_t		logtype;				/* ログ情報の種別 */
+	SYSTIM		logtim;					/* ログ時刻 */
+	intptr_t	loginfo[TMAX_LOGINFO];	/* その他のログ情報 */
 } SYSLOG;
 
 /*
- *  ���O���̏d�v�x�̃r�b�g�}�b�v����邽�߂̃}�N��
+ *  ログ情報の重要度のビットマップを作るためのマクロ
  */
 #define LOG_MASK(prio)		(1U << (prio))
 #define LOG_UPTO(prio)		((1U << ((prio) + 1)) - 1)
 
 /*
- *  �p�P�b�g�`���̒�`
+ *  パケット形式の定義
  */
 typedef struct t_syslog_rlog {
-	uint_t	count;		/* ���O�o�b�t�@���̃��O�̐� */
-	uint_t	lost;		/* ����ꂽ���O�̐� */
-	uint_t	logmask;	/* ���O�o�b�t�@�ɋL�^���ׂ��d�v�x */
-	uint_t	lowmask;	/* �჌�x���o�͂��ׂ��d�v�x */
+	uint_t	count;		/* ログバッファ中のログの数 */
+	uint_t	lost;		/* 失われたログの数 */
+	uint_t	logmask;	/* ログバッファに記録すべき重要度 */
+	uint_t	lowmask;	/* 低レベル出力すべき重要度 */
 } T_SYSLOG_RLOG;
 
 /*
- *  ���O�����o�͂��邽�߂̃��C�u�����֐�
+ *  ログ情報を出力するためのライブラリ関数
  */
 
 #ifndef TOPPERS_OMIT_SYSLOG
@@ -228,14 +228,14 @@ _syslog_6(uint_t prio, uint_t type, intptr_t arg1, intptr_t arg2,
 }
 
 /*
- *  ���O���i�R�����g�j���o�͂��邽�߂̃��C�u�����֐��ivasyslog.c�j
+ *  ログ情報（コメント）を出力するためのライブラリ関数（vasyslog.c）
  */
 extern void	syslog(uint_t prio, const char *format, ...) throw();
 
 #else /* TOPPERS_OMIT_SYSLOG */
 
 /*
- *  �V�X�e�����O�o�͂�}�~����ꍇ
+ *  システムログ出力を抑止する場合
  */
 
 Inline void
@@ -285,11 +285,11 @@ syslog(uint_t prio, const char *format, ...)
 #endif /* TOPPERS_OMIT_SYSLOG */
 
 /*
- *  ���O���i�R�����g�j���o�͂��邽�߂̃}�N��
+ *  ログ情報（コメント）を出力するためのマクロ
  *
- *  format����ь㑱�̈�������쐬�������b�Z�[�W���C�d��xprio�Ń��O��
- *  ��Ƃ��ďo�͂��邽�߂̃}�N���Darg1�`argn��intptr_t�^�ɃL���X�g����
- *  ���߁Cintptr_t�^�Ɍ^�ϊ��ł���C�ӂ̌^�ł悢�D
+ *  formatおよび後続の引数から作成したメッセージを，重大度prioでログ情
+ *  報として出力するためのマクロ．arg1～argnはintptr_t型にキャストする
+ *  ため，intptr_t型に型変換できる任意の型でよい．
  */
 
 #define syslog_0(prio, format) \
@@ -318,7 +318,7 @@ syslog(uint_t prio, const char *format, ...)
 										(intptr_t)(arg4), (intptr_t)(arg5))
 
 /*
- *  ���O���i�A�T�[�V�����̎��s�j���o�͂��邽�߂̃}�N��
+ *  ログ情報（アサーションの失敗）を出力するためのマクロ
  */
 #ifndef TOPPERS_assert_fail
 #define TOPPERS_assert_fail(exp, file, line) \

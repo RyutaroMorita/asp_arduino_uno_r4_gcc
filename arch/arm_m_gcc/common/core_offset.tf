@@ -1,9 +1,9 @@
 $
-$       ƒIƒtƒZƒbƒgƒtƒ@ƒCƒ‹¶¬—pƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹iARM-M—pj
+$       ã‚ªãƒ•ã‚»ãƒƒãƒˆãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆç”¨ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆARM-Mç”¨ï¼‰
 $
 
 $
-$  ƒIƒtƒZƒbƒg’l‚Ìƒ}ƒNƒ’è‹`‚Ì¶¬
+$  ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤ã®ãƒžã‚¯ãƒ­å®šç¾©ã®ç”Ÿæˆ
 $
 $DEFINE("TCB_p_tinib", offsetof_TCB_p_tinib)$
 $DEFINE("TCB_texptn", offsetof_TCB_texptn)$
@@ -14,6 +14,6 @@ $DEFINE("TINIB_exinf", offsetof_TINIB_exinf)$
 $DEFINE("TINIB_task", offsetof_TINIB_task)$
 
 $
-$  ƒrƒbƒgƒIƒtƒZƒbƒg’l“™‚Ìƒ}ƒNƒ’è‹`‚Ì¶¬
+$  ãƒ“ãƒƒãƒˆã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤ç­‰ã®ãƒžã‚¯ãƒ­å®šç¾©ã®ç”Ÿæˆ
 $
 $DEFINE_BIT("TCB_enatex", sizeof_TCB, "B")$

@@ -5,40 +5,40 @@
  *  Copyright (C) 2005-2013 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  $Id: test_lib.h 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /* 
- *		�e�X�g�v���O�����p���C�u����
+ *		テストプログラム用ライブラリ
  */
 
 #ifndef TOPPERS_TEST_LIB_H
@@ -51,54 +51,54 @@ extern "C" {
 #include <t_stddef.h>
 
 /*
- *  �^�[�Q�b�g�ˑ��̒�`
+ *  ターゲット依存の定義
  */
 #include "target_test.h"
 
 /*
- *	���Ȑf�f�֐��̌^
+ *	自己診断関数の型
  */
 typedef ER (*BIT_FUNC)(void);
 
 /*
- *	���Ȑf�f�֐��̐ݒ�
+ *	自己診断関数の設定
  */
 extern void	set_bit_func(BIT_FUNC bit_func);
 
 /*
- *  �e�X�g�v���O�����̊J�n
+ *  テストプログラムの開始
  */
 extern void	test_start(char *progname);
 
 /*
- *  �V�X�e�����O�̏o�͏���
+ *  システムログの出力処理
  */
 extern void	syslog_flush(void);
 
 /*
- *	�e�X�g�v���O�����̏I��
+ *	テストプログラムの終了
  */
 extern void	test_finish(void);
 
 /*
- *	�`�F�b�N�|�C���g
+ *	チェックポイント
  */
 extern void	check_point(uint_t count);
 
 /*
- *	�����`�F�b�N�|�C���g
+ *	完了チェックポイント
  */
 extern void	check_finish(uint_t count);
 
 /*
- *	�����`�F�b�N
+ *	条件チェック
  */
 extern void	_check_assert(const char *expr, const char *file, int_t line);
 #define check_assert(exp) \
 	((void)(!(exp) ? (_check_assert(#exp, __FILE__, __LINE__), 0) : 0))
 
 /*
- *	�G���[�R�[�h�`�F�b�N
+ *	エラーコードチェック
  */
 extern void	_check_ercd(ER ercd, const char *file, int_t line);
 #define check_ercd(ercd, expected_ercd) \
@@ -106,7 +106,7 @@ extern void	_check_ercd(ER ercd, const char *file, int_t line);
 					(_check_ercd(ercd, __FILE__, __LINE__), 0) : 0))
 
 /*
- *	�V�X�e����Ԃ̃`�F�b�N
+ *	システム状態のチェック
  */
 Inline void
 check_state(bool_t ctx, bool_t loc, PRI ipm, bool_t dsp,
@@ -119,7 +119,7 @@ check_state(bool_t ctx, bool_t loc, PRI ipm, bool_t dsp,
 	check_assert(sns_loc() == loc);
 	if (!loc) {
 		/*
-		 *  IPM�̃`�F�b�N�́CCPU���b�N������Ԃ̏ꍇ�ɂ̂ݍs���D
+		 *  IPMのチェックは，CPUロック解除状態の場合にのみ行う．
 		 */
 		ercd = get_ipm(&intpri);
 		check_ercd(ercd, E_OK);
@@ -131,7 +131,7 @@ check_state(bool_t ctx, bool_t loc, PRI ipm, bool_t dsp,
 }
 
 /*
- *	�V�X�e����Ԃ̃`�F�b�N�i��^�X�N�R���e�L�X�g�p�j
+ *	システム状態のチェック（非タスクコンテキスト用）
  */
 Inline void
 check_state_i(bool_t ctx, bool_t loc, bool_t dsp, bool_t dpn, bool_t tex)

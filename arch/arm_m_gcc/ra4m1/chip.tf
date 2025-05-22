@@ -1,8 +1,8 @@
 $ 
-$     �p�X2�̃^�[�Q�b�g�ˑ��e���v���[�g�iArduino UNO R4�p�j
+$     パス2のターゲット依存テンプレート（Arduino UNO R4用）
 $ 
 
 $ 
-$  �R�A�ˑ��̃e���v���[�g�t�@�C���̃C���N���[�h
+$  コア依存のテンプレートファイルのインクルード
 $ 
 $INCLUDE"arm_m_gcc/common/core.tf"$

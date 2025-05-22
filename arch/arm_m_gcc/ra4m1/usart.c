@@ -6,39 +6,39 @@
  *  Copyright (C) 2007,2011,2013,2015 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  *
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  *
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  *
  */
 
 /*
- *  �V���A���h���C�o�iRA4M1 USART�p�j
+ *  シリアルドライバ（RA4M1 USART用）
  */
 
 #include <kernel.h>
@@ -48,14 +48,14 @@
 #include "hal_data.h"
 
 /*
- * ���W�X�^�ݒ�l
+ * レジスタ設定値
  */
 #define PORT2SIOPID(x)	((x) + 1)
 #define INDEX_PORT(x)	((x) - 1)
 #define GET_SIOPCB(x)	(&siopcb_table[INDEX_PORT(x)])
 
 /*
- * SCI���W�X�^��`
+ * SCIレジスタ定義
  */
 #define SCI_SMR(x)		(x + 0x00)
 #define SCI_BRR(x)		(x + 0x01)
@@ -109,11 +109,11 @@ typedef struct{
 } SIOPINIB;
 
  /*
-  *  �V���A���|�[�g�̊Ǘ��u���b�N
+  *  シリアルポートの管理ブロック
   */
 struct sio_port_control_block {
 	ID port;
-	const SIOPINIB *p_siopinib;	/* �V���A��I/O�|�[�g�������u���b�N */
+	const SIOPINIB *p_siopinib;	/* シリアルI/Oポート初期化ブロック */
 	intptr_t exinf;
 };
 
@@ -121,7 +121,7 @@ struct sio_port_control_block {
 #define IELSR4TX	31
 
 /*
- *  �V���A��I/O�|�[�g�Ǘ��u���b�N�G���A
+ *  シリアルI/Oポート管理ブロックエリア
  */
 SIOPCB siopcb_table[TNUM_PORT];
 
@@ -174,7 +174,7 @@ sio_getready(SIOPCB* siopcb)
 }
 
 /*
- *  �^�[�Q�b�g�̃V���A��������
+ *  ターゲットのシリアル初期化
  */
 void
 usart_init(ID siopid)
@@ -190,15 +190,15 @@ usart_init(ID siopid)
 	p_siopcb = GET_SIOPCB(siopid);
 	p_siopinib = p_siopcb->p_siopinib;
 
-	/* ���ɃI�[�v������Ă���ꍇ�͏��������Ȃ� */
+	/* 既にオープンされている場合は初期化しない */
 	if (siopid == SIO_PORTID) {
-		/* �X�e�[�^�X�̃N���A */
+		/* ステータスのクリア */
 		if (sil_reb_mem((void*)SCI_SSR(p_siopinib->reg)))
 			sil_wrb_mem((void*)SCI_SSR(p_siopinib->reg), 0x00U);
 		return;
 	}
 
-	/* �{�[���[�g�̌v�Z */
+	/* ボーレートの計算 */
 	for (i = 0; i < NUM_SEMR_MODE; i++) {
 		tmp = semr_mode[i].tmp;
 		for (cks = 0; cks < 3; cks++) {
@@ -215,34 +215,34 @@ usart_init(ID siopid)
 		}
 	}
 	if (brr >= 0x100)
-		while (1);	// �p�����[�^�[�G���[
+		while (1);	// パラメーターエラー
 
-    /* UART��~ */
+    /* UART停止 */
 	sil_wrb_mem((void*)SCI_SCR(p_siopinib->reg), 0x00U);
 
-	/*  8�f�[�^,1�X�g�b�v�r�b�g,no parity */
+	/*  8データ,1ストップビット,no parity */
 	sil_wrb_mem((void*)SCI_SMR(p_siopinib->reg), (uint8_t)cks);
 	sil_wrb_mem((void*)SCI_SEMR(p_siopinib->reg), semr);
 
-	/* �{�[���[�g��ݒ� */
+	/* ボーレートを設定 */
 	sil_wrb_mem((void*)SCI_BRR(p_siopinib->reg), (uint8_t)brr);
 
-	/* �X�e�[�^�X�̃N���A */
+	/* ステータスのクリア */
 	if (sil_reb_mem((void*)SCI_SSR(p_siopinib->reg)))
 		sil_wrb_mem((void*)SCI_SSR(p_siopinib->reg), 0x00U);
 
-	/* UART�J�n */
+	/* UART開始 */
 	sil_wrb_mem((void*)SCI_SCR(p_siopinib->reg), (SCI_SCR_RE | SCI_SCR_TE));
 
 	/*
-	 *  �C�x���g�i���荞�݁j�����N�ݒ�
+	 *  イベント（割り込み）リンク設定
 	 */
 	sil_wrw_mem((void*)ICU_IELSR(IELSR4RX), p_siopinib->iels_rx);
 	sil_wrw_mem((void*)ICU_IELSR(IELSR4TX), p_siopinib->iels_tei);
 }
 
 /*
- *  �^�[�Q�b�g�̃V���A���I��
+ *  ターゲットのシリアル終了
  */
 static void
 usart_term(ID siopid)
@@ -253,12 +253,12 @@ usart_term(ID siopid)
 	p_siopcb = GET_SIOPCB(siopid);
 	p_siopinib = p_siopcb->p_siopinib;
 
-    /* UART��~ */
+    /* UART停止 */
 	sil_wrb_mem((void*)SCI_SCR(p_siopinib->reg), 0x00U);
 }
 
 /*
- *  SIO������
+ *  SIO初期化
  */
 void
 sio_initialize(intptr_t exinf)
@@ -273,7 +273,7 @@ sio_initialize(intptr_t exinf)
 }
 
 /*
- *  �V���A���I�[�v��
+ *  シリアルオープン
  */
 SIOPCB
 *sio_opn_por(ID siopid, intptr_t exinf)
@@ -287,7 +287,7 @@ SIOPCB
 	p_siopcb = GET_SIOPCB(siopid);
 	p_siopcb->exinf = exinf;
 
-	/* ���ɃI�[�v������Ă���ꍇ�͏��������Ȃ� */
+	/* 既にオープンされている場合は初期化しない */
 	//if (siopid != TNUM_PORT)
 		usart_init(siopid);
 
@@ -295,7 +295,7 @@ SIOPCB
 }
 
 /*
- *  �V���A���N���[�Y
+ *  シリアルクローズ
  */
 void
 sio_cls_por(SIOPCB *p_siopcb)
@@ -304,7 +304,7 @@ sio_cls_por(SIOPCB *p_siopcb)
 }
 
 /*
- *  ��M�����݃T�[�r�X���[�`��
+ *  受信割込みサービスルーチン
  */
 void
 sio_isr_rx(intptr_t exinf)
@@ -314,8 +314,8 @@ sio_isr_rx(intptr_t exinf)
 	p_siopcb = GET_SIOPCB(exinf);
 
 	/*
-	 *  RX���荞�݌��o�̓��x�����o�̂���
-	 *  ICU��IELSR���W�X�^��IR�r�b�g���N���A����K�v������D
+	 *  RX割り込み検出はレベル検出のため
+	 *  ICUのIELSRレジスタのIRビットをクリアする必要がある．
 	 */
 	sil_andw((void*)ICU_IELSR(IELSR4RX), ~ICU_IELSR_IR);
 
@@ -325,7 +325,7 @@ sio_isr_rx(intptr_t exinf)
 }
 
 /*
- *  ���M�����݃T�[�r�X���[�`��
+ *  送信割込みサービスルーチン
  */
 void
 sio_isr_tx(intptr_t exinf)
@@ -335,8 +335,8 @@ sio_isr_tx(intptr_t exinf)
 	p_siopcb = GET_SIOPCB(exinf);
 
 	/*
-	 *  TEI���荞�݌��o�̓��x�����o�̂���
-	 *  ICU��IELSR���W�X�^��IR�r�b�g���N���A����K�v������D
+	 *  TEI割り込み検出はレベル検出のため
+	 *  ICUのIELSRレジスタのIRビットをクリアする必要がある．
 	 */
 	sil_andw((void*)ICU_IELSR(IELSR4TX), ~ICU_IELSR_IR);
 
@@ -346,7 +346,7 @@ sio_isr_tx(intptr_t exinf)
 }
 
 /*
- *  1�������M
+ *  1文字送信
  */
 bool_t
 sio_snd_chr(SIOPCB *siopcb, char c)
@@ -361,7 +361,7 @@ sio_snd_chr(SIOPCB *siopcb, char c)
 }
 
 /*
- *  1������M
+ *  1文字受信
  */
 int_t
 sio_rcv_chr(SIOPCB *siopcb)
@@ -376,7 +376,7 @@ sio_rcv_chr(SIOPCB *siopcb)
 }
 
 /*
- *  �R�[���o�b�N�̋���
+ *  コールバックの許可
  */
 void
 sio_ena_cbr(SIOPCB *siopcb, uint_t cbrtn)
@@ -396,7 +396,7 @@ sio_ena_cbr(SIOPCB *siopcb, uint_t cbrtn)
 }
 
 /*
- *  �R�[���o�b�N�̋֎~
+ *  コールバックの禁止
  */
 void
 sio_dis_cbr(SIOPCB *siopcb, uint_t cbrtn)
@@ -416,7 +416,7 @@ sio_dis_cbr(SIOPCB *siopcb, uint_t cbrtn)
 }
 
 /*
- *  1�����o�́i�|�[�����O�ł̏o�́j
+ *  1文字出力（ポーリングでの出力）
  */
 void
 sio_pol_snd_chr(char c, ID siopid)

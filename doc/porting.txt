@@ -1,13 +1,13 @@
 
-		TOPPERS/ASP�J�[�l��
-		�^�[�Q�b�g�ˑ��� �|�[�e�B���O�K�C�h
+		TOPPERS/ASPカーネル
+		ターゲット依存部 ポーティングガイド
 
-		�Ή��o�[�W����: Release 1.9.2
-		�ŏI�X�V: 2014�N11��17��
+		対応バージョン: Release 1.9.2
+		最終更新: 2014年11月17日
 
-���̃h�L�������g�́CTOPPERS/ASP�J�[�l�����C���T�|�[�g�̃^�[�Q�b�g�V�X�e
-���Ƀ|�[�e�B���O���邽�߂ɕK�v�ƂȂ�^�[�Q�b�g�ˑ����̎������@�������
-����̂ł���D
+このドキュメントは，TOPPERS/ASPカーネルを，未サポートのターゲットシステ
+ムにポーティングするために必要となるターゲット依存部の実装方法を説明す
+るものである．
 
 ----------------------------------------------------------------------
  TOPPERS/ASP Kernel
@@ -17,443 +17,443 @@
  Copyright (C) 2005-2013 by Embedded and Real-Time Systems Laboratory
              Graduate School of Information Science, Nagoya Univ., JAPAN
  
- ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
-     ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
-     �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
-     �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
-     �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
-     �̖��ۏ؋K����f�ڂ��邱�ƁD
- (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
-     �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
-     �ƁD
-   (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
-       �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
-   (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
-       �񍐂��邱�ƁD
- (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
-     �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
-     �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
-     �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
-     �Ɛӂ��邱�ƁD
+ 上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ 変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+     権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+     スコード中に含まれていること．
+ (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+     用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+     者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+     の無保証規定を掲載すること．
+ (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+     用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+     と．
+   (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+       作権表示，この利用条件および下記の無保証規定を掲載すること．
+   (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+       報告すること．
+ (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+     害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+     また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+     由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+     免責すること．
  
- �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- �̐ӔC�𕉂�Ȃ��D
+ 本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ の責任を負わない．
  
  $Id: porting.txt 2728 2015-12-30 01:46:11Z ertl-honda $
 ----------------------------------------------------------------------
 
-���ڎ�
+○目次
 
-�P�D���ʎ���
-	1.1 �^�[�Q�b�g�ˑ����̍\��
-	1.2 ���O�̏Փ˂̖h�~
-	1.3 ���d�C���N���[�h�̖h�~
-	1.4 �A�Z���u������Ƃ̃w�b�_�t�@�C���̋��p 
-	1.5 �C���N���[�h�L�q�̕��@
-	1.6 �N���e�B�J���Z�N�V�����̏o�������̎����Ɋւ��鐧��
-�Q�D�V�X�e���\�z���̃^�[�Q�b�g�ˑ���
-	2.1 �^�[�Q�b�g���̂ƃ^�[�Q�b�g�ˑ����̃f�B���N�g��
-	2.2 Makefile�̃^�[�Q�b�g�ˑ���
-	2.3 �J�������ƃR�}���h���̐ݒ�
-	2.4 �R���p�C���I�v�V�����ƃI�u�W�F�N�g�t�@�C���̐ݒ�
-	2.5 �I�t�Z�b�g�t�@�C���̐������@
-		2.5.1 �R���t�B�M�����[�^��p������@
-		2.5.2 makeoffset.c��genoffset��p������@
-	2.6 �����N���@�̐ݒ�
-	2.7 �ˑ��֌W�̒�`
-	2.8 ���̑��̐ݒ�
-�R�DTOPPERS���ʒ�`�̃^�[�Q�b�g�ˑ���
-	3.1 �^�[�Q�b�g���ʃ}�N��
-	3.2 �����^�̍ő�l�E�ŏ��l�E�r�b�g��
-	3.3 �T�C�Y�̎w�肳�ꂽ�����^�C���̍ő�l�E�ŏ��l�C�����萔�����}�N��
-	3.4 �T�C�Y�̎w�肳�ꂽ���������_�^�C���̍ő�l�E�ŏ��l�̃}�N��
-	3.5 �R���p�C���̊g���@�\�̂��߂̃}�N����`
-	3.6 �W���I�Ȓ�`�̏㏑��
-	3.7 �A�T�[�V�����̂��߂̒�`
-�S�D�V�X�e���C���^�t�F�[�X���C���iSIL�j�̃^�[�Q�b�g�ˑ���
-	4.1 �S�����݃��b�N��Ԃ̊Ǘ�
-	4.2 �������ԑ҂�
-	4.3 �v���Z�b�T�̃G���f�B�A��
-	4.4 ��������ԃA�N�Z�X�֐�
-	4.5 I/O��ԃA�N�Z�X�֐�
-�T�D�J�[�l��API�̃^�[�Q�b�g�ˑ���
-	5.1 �^�[�Q�b�g��`�ŃT�|�[�g����@�\
-	5.2 �����ݗD��x�͈̔�
-	5.3 �^�C���e�B�b�N�̒�`
-	5.4 �������̈�m�ۂ̂��߂̌^��`
-	5.5 �r�b�g�p�^�[���̃r�b�g��
-	5.6 �������̈�m�ۂ̂��߂̃}�N��
-	5.7 �I�[�o�����n���h���@�\�g���̂��߂̒�`�i�I�v�V�����j
-�U�D�J�[�l�������̃^�[�Q�b�g�ˑ���
-	6.1 �J�[�l�������̃^�[�Q�b�g�ˑ����̋��ʎ���
-		6.1.1 �J�[�l�������̃^�[�Q�b�g�ˑ����̍\���v�f
-		6.1.2 �^�[�Q�b�g�ˑ����̊֐��̖����K��
-	6.2 �g���[�X���O�@�\�ւ̑Ή�
-	6.3 �V�X�e����Ԃ̊Ǘ�
-		6.3.1 �S�����݃��b�N��Ԃ̊Ǘ�
-		6.3.2 �R���e�L�X�g�̊Ǘ�
-		6.3.3 CPU���b�N��Ԃ̊Ǘ�
-	6.4 �����݂Ɋ֘A����V�X�e����Ԃ̊Ǘ�
-		6.4.1 �����ݗD��x�}�X�N�̊Ǘ�
-		6.4.2 �����ݗv���֎~�t���O�̊Ǘ�
-		6.4.3 �����ݗv���̃N���A
-		6.4.4 �����ݗv���̃v���[�u
-		6.4.5 �����݃n���h���̐擪�����Ɩ�������
-	6.5 �^�X�N�f�B�X�p�b�`��
-		6.5.1 �^�X�N�R���e�L�X�g�u���b�N�ƃ^�X�N�������R���e�L�X�g�u���b�N
-		6.5.2 �f�B�X�p�b�`���{��
-		6.5.3 �^�X�N�R���e�L�X�g����̃f�B�X�p�b�`
-		6.5.4 �f�B�X�p�b�`���̓���J�n
-		6.5.5 ���݂̃R���e�L�X�g���̂Ăăf�B�X�p�b�`
-		6.5.6 �^�X�N�̋N������
-	6.6 �����݃n���h��
-		6.6.1 �����݃n���h���̏o��������
-		6.6.2 �����݃n���h�����̏o���������̐���
-		6.6.3 �����݃n���h���̐ݒ�
-		6.6.4 �����ݗv�����C���̑����̐ݒ�
-		6.6.5 �����݊Ǘ��@�\�̏����������̕ύX
-		6.6.6 �f�t�H���g�̊����݃n���h��
-		6.6.7 �J�[�l���Ǘ��O�̊�����
-		6.6.8 �����݃T�[�r�X���[�`���̐���
-	6.7 CPU��O�n���h����CPU��O�������̃V�X�e����Ԃ̎Q��
-		6.7.1 CPU��O�n���h���̏o��������
-		6.7.2 CPU��O�n���h���̏o���������̐���
-		6.7.3 CPU��O�n���h���̐ݒ�
-		6.7.4 CPU��O�Ǘ��@�\�̏����������̕ύX
-		6.7.5 �f�t�H���g��CPU��O�n���h��
-		6.7.6 CPU��O�������̃V�X�e����Ԃ̎Q��
-	6.8 �J�[�l���̋N���E�I���ƃX�^�b�N�̈�Ȃ�
-	6.9 �J�[�l�������̃`���[�j���O
-		6.9.1 �r�b�g�}�b�v�T�[�`
-		6.9.2 �r�b�g�t�B�[���h
-	6.10 �J�[�l�������Ɋւ��邻�̑��̒�`
-		6.10.1 �I�u�W�F�N�g�����̊g��
-		6.10.2 �G���[�`�F�b�N���@�̎w��
-		6.10.3 ��^�X�N�R���e�L�X�g�p�̃X�^�b�N�̈�
-		6.10.4 �󃉃x���̒�`
-	6.11 �g���[�X���O�@�\�Ɋւ���ݒ�
-		6.11.1 �擾�ł���g���[�X���O�̎�ނƃ}�N��
-		6.11.2 �g���[�X���O�L�^�̃T���v���R�[�h
-	6.12 �J�[�l�������̃^�[�Q�b�g�ˑ����̂��߂̃��l�[���L�q
-	6.13 �^�C�}�h���C�o
-		6.13.1 �^�C�}�h���C�o�̃t�@�C���\��
-		6.13.2 �^�C�}�̏������E�I�������E�����ݏ���
-		6.13.3 ���\�]���p�V�X�e�������̎Q�Ƃ̂��߂̋@�\
-	6.14 �I�[�o�����^�C�}�h���C�o�i�I�v�V�����j
-		6.14.1 �I�[�o�����^�C�}�h���C�o�̃t�@�C���\��
-		6.14.2 �I�[�o�����^�C�}�̑���Ɗ����ݏ���
-	6.15 ���I�������Ǘ��i�I�v�V�����j
-		6.15.1 TLSF��p�����������Ǘ����W���[���̗�
-�V�D�R���t�B�M�����[�^�ݒ�t�@�C���̃^�[�Q�b�g�ˑ���
-	7.1 �ݒ�t�@�C���ƃ^�[�Q�b�g�ˑ����̈ʒu�t��
-	7.2 �p�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ���
-		7.2.1 �^�[�Q�b�g��ˑ������C���N���[�h����O�ɒ�`���ׂ��ϐ�
-		7.2.2 �^�[�Q�b�g��ˑ����Œ�`�����ϐ�
-	7.3 �p�X3�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ���
-		7.3.1 �^�[�Q�b�g��ˑ������C���N���[�h����O�ɒ�`���ׂ��ϐ�
-		7.3.2 �^�[�Q�b�g�ˑ����ōs���ׂ��G���[�`�F�b�N
-	7.4 cfg1_out.c�̃����N�ɕK�v�ȃX�^�u�̒�`�t�@�C��
-�W�D�V�X�e���T�[�r�X���̃^�[�Q�b�g�ˑ���
-	8.0 �V�X�e���T�[�r�X�̃^�[�Q�b�g�ˑ���
-	8.1 �V�X�e�����O�@�\�̃^�[�Q�b�g�ˑ���`
-	8.2 ���O�^�X�N�̃^�[�Q�b�g�ˑ���`
-	8.3 �V���A���C���^�t�F�[�X�h���C�o�̃^�[�Q�b�g�ˑ���
-		8.3.1 �ϐ��C�f�[�^�^�C�Ǘ��֐�
-		8.3.2 �f�o�C�X�T�[�r�X���[�`��
-		8.3.3 �R�[���o�b�N���[�`��
-	8.4 �J�[�l���N�����b�Z�[�W�̏o�͂̃^�[�Q�b�g�ˑ���`
-	8.5 �T���v���v���O�����ƃe�X�g�v���O�����̃^�[�Q�b�g�ˑ���`
-	8.6 ���s���ԕ��z�W�v���W���[���̃^�[�Q�b�g�ˑ���`
-�X�D���̑�
-	9.1 �h�L�������g
-	9.2 �p�b�P�[�W�L�q�t�@�C��
-�P�O�D���t�@�����X
-	10.1 �^�[�Q�b�g�ˑ����̃t�@�C���ꗗ
+１．共通事項
+	1.1 ターゲット依存部の構成
+	1.2 名前の衝突の防止
+	1.3 多重インクルードの防止
+	1.4 アセンブリ言語とのヘッダファイルの共用 
+	1.5 インクルード記述の方法
+	1.6 クリティカルセクションの出入処理の実現に関する制約
+２．システム構築環境のターゲット依存部
+	2.1 ターゲット略称とターゲット依存部のディレクトリ
+	2.2 Makefileのターゲット依存部
+	2.3 開発環境名とコマンド名の設定
+	2.4 コンパイルオプションとオブジェクトファイルの設定
+	2.5 オフセットファイルの生成方法
+		2.5.1 コンフィギュレータを用いる方法
+		2.5.2 makeoffset.cとgenoffsetを用いる方法
+	2.6 リンク方法の設定
+	2.7 依存関係の定義
+	2.8 その他の設定
+３．TOPPERS共通定義のターゲット依存部
+	3.1 ターゲット識別マクロ
+	3.2 整数型の最大値・最小値・ビット数
+	3.3 サイズの指定された整数型，その最大値・最小値，整数定数を作るマクロ
+	3.4 サイズの指定された浮動小数点型，その最大値・最小値のマクロ
+	3.5 コンパイラの拡張機能のためのマクロ定義
+	3.6 標準的な定義の上書き
+	3.7 アサーションのための定義
+４．システムインタフェースレイヤ（SIL）のターゲット依存部
+	4.1 全割込みロック状態の管理
+	4.2 微少時間待ち
+	4.3 プロセッサのエンディアン
+	4.4 メモリ空間アクセス関数
+	4.5 I/O空間アクセス関数
+５．カーネルAPIのターゲット依存部
+	5.1 ターゲット定義でサポートする機能
+	5.2 割込み優先度の範囲
+	5.3 タイムティックの定義
+	5.4 メモリ領域確保のための型定義
+	5.5 ビットパターンのビット数
+	5.6 メモリ領域確保のためのマクロ
+	5.7 オーバランハンドラ機能拡張のための定義（オプション）
+６．カーネル実装のターゲット依存部
+	6.1 カーネル実装のターゲット依存部の共通事項
+		6.1.1 カーネル実装のターゲット依存部の構成要素
+		6.1.2 ターゲット依存部の関数の命名規則
+	6.2 トレースログ機能への対応
+	6.3 システム状態の管理
+		6.3.1 全割込みロック状態の管理
+		6.3.2 コンテキストの管理
+		6.3.3 CPUロック状態の管理
+	6.4 割込みに関連するシステム状態の管理
+		6.4.1 割込み優先度マスクの管理
+		6.4.2 割込み要求禁止フラグの管理
+		6.4.3 割込み要求のクリア
+		6.4.4 割込み要求のプローブ
+		6.4.5 割込みハンドラの先頭処理と末尾処理
+	6.5 タスクディスパッチャ
+		6.5.1 タスクコンテキストブロックとタスク初期化コンテキストブロック
+		6.5.2 ディスパッチャ本体
+		6.5.3 タスクコンテキストからのディスパッチ
+		6.5.4 ディスパッチャの動作開始
+		6.5.5 現在のコンテキストを捨ててディスパッチ
+		6.5.6 タスクの起動処理
+	6.6 割込みハンドラ
+		6.6.1 割込みハンドラの出入口処理
+		6.6.2 割込みハンドラ毎の出入口処理の生成
+		6.6.3 割込みハンドラの設定
+		6.6.4 割込み要求ラインの属性の設定
+		6.6.5 割込み管理機能の初期化処理の変更
+		6.6.6 デフォルトの割込みハンドラ
+		6.6.7 カーネル管理外の割込み
+		6.6.8 割込みサービスルーチンの生成
+	6.7 CPU例外ハンドラとCPU例外発生時のシステム状態の参照
+		6.7.1 CPU例外ハンドラの出入口処理
+		6.7.2 CPU例外ハンドラの出入口処理の生成
+		6.7.3 CPU例外ハンドラの設定
+		6.7.4 CPU例外管理機能の初期化処理の変更
+		6.7.5 デフォルトのCPU例外ハンドラ
+		6.7.6 CPU例外発生時のシステム状態の参照
+	6.8 カーネルの起動・終了とスタック領域など
+	6.9 カーネル内部のチューニング
+		6.9.1 ビットマップサーチ
+		6.9.2 ビットフィールド
+	6.10 カーネル実装に関するその他の定義
+		6.10.1 オブジェクト属性の拡張
+		6.10.2 エラーチェック方法の指定
+		6.10.3 非タスクコンテキスト用のスタック領域
+		6.10.4 空ラベルの定義
+	6.11 トレースログ機能に関する設定
+		6.11.1 取得できるトレースログの種類とマクロ
+		6.11.2 トレースログ記録のサンプルコード
+	6.12 カーネル実装のターゲット依存部のためのリネーム記述
+	6.13 タイマドライバ
+		6.13.1 タイマドライバのファイル構成
+		6.13.2 タイマの初期化・終了処理・割込み処理
+		6.13.3 性能評価用システム時刻の参照のための機能
+	6.14 オーバランタイマドライバ（オプション）
+		6.14.1 オーバランタイマドライバのファイル構成
+		6.14.2 オーバランタイマの操作と割込み処理
+	6.15 動的メモリ管理（オプション）
+		6.15.1 TLSFを用いたメモリ管理モジュールの例
+７．コンフィギュレータ設定ファイルのターゲット依存部
+	7.1 設定ファイルとターゲット依存部の位置付け
+	7.2 パス2のテンプレートファイルのターゲット依存部
+		7.2.1 ターゲット非依存部をインクルードする前に定義すべき変数
+		7.2.2 ターゲット非依存部で定義される変数
+	7.3 パス3のテンプレートファイルのターゲット依存部
+		7.3.1 ターゲット非依存部をインクルードする前に定義すべき変数
+		7.3.2 ターゲット依存部で行うべきエラーチェック
+	7.4 cfg1_out.cのリンクに必要なスタブの定義ファイル
+８．システムサービス等のターゲット依存部
+	8.0 システムサービスのターゲット依存部
+	8.1 システムログ機能のターゲット依存定義
+	8.2 ログタスクのターゲット依存定義
+	8.3 シリアルインタフェースドライバのターゲット依存部
+		8.3.1 変数，データ型，管理関数
+		8.3.2 デバイスサービスルーチン
+		8.3.3 コールバックルーチン
+	8.4 カーネル起動メッセージの出力のターゲット依存定義
+	8.5 サンプルプログラムとテストプログラムのターゲット依存定義
+	8.6 実行時間分布集計モジュールのターゲット依存定義
+９．その他
+	9.1 ドキュメント
+	9.2 パッケージ記述ファイル
+１０．リファレンス
+	10.1 ターゲット依存部のファイル一覧
 
 
-�P�D���ʎ���
+１．共通事項
 
-1.1 �^�[�Q�b�g�ˑ����̍\��
+1.1 ターゲット依存部の構成
 
-�^�[�Q�b�g�ˑ����́Ctarget�f�B���N�g���̉��ɁC�^�[�Q�b�g�n�[�h�E�F�A��
-�J�����̑g�ݍ��킹���ɗp�ӂ���D�������C�^�[�Q�b�g�ˑ����̍ė��p����
-�l�����C�v���Z�b�T�C�`�b�v�C�J�����݂̂Ɉˑ����镔�����C�v���Z�b�T��
-�����C�`�b�v�ˑ����C�J�����ˑ����Ƃ����`�Ő؂蕪���Ă��悢�D�؂蕪��
-���́C�^�[�Q�b�g�ˑ����̎����ɔC����Ă���D�v���Z�b�T�ˑ����C�`�b�v��
-�����C�J�����ˑ����́Carch�f�B���N�g���̉��ɒu���D
+ターゲット依存部は，targetディレクトリの下に，ターゲットハードウェアと
+開発環境の組み合わせ毎に用意する．ただし，ターゲット依存部の再利用性を
+考慮し，プロセッサ，チップ，開発環境のみに依存する部分を，プロセッサ依
+存部，チップ依存部，開発環境依存部という形で切り分けてもよい．切り分け
+方は，ターゲット依存部の実装に任されている．プロセッサ依存部，チップ依
+存部，開発環境依存部は，archディレクトリの下に置く．
 
-ASP�J�[�l���̃^�[�Q�b�g�ˑ����́C�V�X�e���\�z���iMakefile���j�̃^�[�Q�b
-�g�ˑ����CTOPPERS���ʒ�`�it_stddef.h�j�̃^�[�Q�b�g�ˑ����C�V�X�e���C��
-�^�t�F�[�X���C���iSIL�Csil.h�j�̃^�[�Q�b�g�ˑ����C�J�[�l��API�ikernel.h�j
-�̃^�[�Q�b�g�ˑ����C�J�[�l�������̃^�[�Q�b�g�ˑ����i�R���t�B�M�����[�^
-�ݒ�t�@�C���̃^�[�Q�b�g�ˑ������܂ށj�C�V�X�e���T�[�r�X�̃^�[�Q�b�g��
-�����C�^�[�Q�b�g�ˑ����Ɋւ���h�L�������g���ō\�������D
+ASPカーネルのターゲット依存部は，システム構築環境（Makefile等）のターゲッ
+ト依存部，TOPPERS共通定義（t_stddef.h）のターゲット依存部，システムイン
+タフェースレイヤ（SIL，sil.h）のターゲット依存部，カーネルAPI（kernel.h）
+のターゲット依存部，カーネル実装のターゲット依存部（コンフィギュレータ
+設定ファイルのターゲット依存部を含む），システムサービスのターゲット依
+存部，ターゲット依存部に関するドキュメント等で構成される．
 
-1.2 ���O�̏Փ˂̖h�~
+1.2 名前の衝突の防止
 
-TOPPERS�v���W�F�N�g���񋟂���\�t�g�E�F�A�̂��߂ɁCTOPPERS_�Ŏn�܂�V��
-�{����\�񂵂Ă���D�w�b�_�t�@�C�����ɋL�q����C�A�v���P�[�V��������Q
-�Ƃł�������V���{���́CTOPPERS_�Ŏn�܂閼�O�Ƃ���D
+TOPPERSプロジェクトが提供するソフトウェアのために，TOPPERS_で始まるシン
+ボルを予約している．ヘッダファイル中に記述され，アプリケーションから参
+照できる内部シンボルは，TOPPERS_で始まる名前とする．
 
-�܂��C_kernel_�Ŏn�܂�V���{���́C�J�[�l�������̕ϐ���֐��̂��߂ɗ\��
-���Ă���D�J�[�l�������̕ϐ���֐��̖��O�ŁC�����N���ɃA�v���P�[�V����
-�̖��O�ƏՓ˂���\����������̂́C���l�[���L�q�Ƀ��X�g�A�b�v���邱��
-�ŁC�R���p�C������_kernel_�Ŏn�܂閼�O�ɒu�������邱�ƂƂ��Ă���D
+また，_kernel_で始まるシンボルは，カーネル内部の変数や関数のために予約
+している．カーネル内部の変数や関数の名前で，リンク時にアプリケーション
+の名前と衝突する可能性があるものは，リネーム記述にリストアップすること
+で，コンパイル時に_kernel_で始まる名前に置き換えることとしている．
 
-1.3 ���d�C���N���[�h�̖h�~
+1.3 多重インクルードの防止
 
-���ׂẴw�b�_�t�@�C���́C���d�ɃC���N���[�h�����̂�h�~���邽�߂̏�
-���R���p�C���L�q�����邱�ƂƂ���D�Ⴆ�΁Ctarget_config.h�ł���΁C�t�@
-�C���̐擪��
+すべてのヘッダファイルは，多重にインクルードされるのを防止するための条
+件コンパイル記述を入れることとする．例えば，target_config.hであれば，ファ
+イルの先頭に
 
 #ifndef TOPPERS_TARGET_CONFIG_H
 #define TOPPERS_TARGET_CONFIG_H
 
-���C�t�@�C���̖�����
+を，ファイルの末尾に
 
 #endif /* TOPPERS_TARGET_CONFIG_H */
 
-���L�q����D
+を記述する．
 
-1.4 �A�Z���u������Ƃ̃w�b�_�t�@�C���̋��p 
+1.4 アセンブリ言語とのヘッダファイルの共用 
 
-ASP�J�[�l���̃w�b�_�t�@�C���̑����́C�A�Z���u������̃\�[�X�t�@�C������
-���C���N���[�h�ł���悤�ɂ��邽�߂ɁC���̃��[���ɏ]���ċL�q������̂�
-����D
+ASPカーネルのヘッダファイルの多くは，アセンブリ言語のソースファイルから
+もインクルードできるようにするために，次のルールに従って記述するものと
+する．
 
-�ETOPPERS_MACRO_ONLY���}�N����`����Ă���ꍇ�ɂ́C�A�Z���u������ł�
-�@���߂ł��Ȃ��L�q�i�}�N����`�ȊO�̋L�q�j�������悤�ɋL�q����D
+・TOPPERS_MACRO_ONLYがマクロ定義されている場合には，アセンブリ言語では
+　解釈できない記述（マクロ定義以外の記述）を除くように記述する．
 
-�E�������������^�̒萔�l�́CUINT_C��ULONG_C�Ȃǂ̐����萔����邽�߂̃}
-�@�N����p���ċL�q����D�������C�A�Z���u������̃\�[�X�t�@�C��������C
-�@���N���[�h�ł���t�@�C�����ł����Ă��CC����݂̂ŗp����萔��������
-�@�}�N�����g���ċL�q����K�v�͂Ȃ��D
+・符号無し整数型の定数値は，UINT_CやULONG_Cなどの整数定数を作るためのマ
+　クロを用いて記述する．ただし，アセンブリ言語のソースファイルからもイ
+　ンクルードできるファイル中であっても，C言語のみで用いる定数をこれらの
+　マクロを使って記述する必要はない．
 
-�܂��C�J�[�l�������ɂ����ẮC���̃��[���ɏ]�����̂Ƃ���D
+また，カーネル実装においては，次のルールに従うものとする．
 
-�E�A�Z���u�����ꂩ����p����萔�̒�`���Ɍ^�L���X�g��p����ꍇ�ɂ́C
-�@CAST�}�N����p���ċL�q����D
+・アセンブリ言語からも用いる定数の定義中に型キャストを用いる場合には，
+　CASTマクロを用いて記述する．
 
-�A�Z���u�����ꂩ��w�b�_�t�@�C�����C���N���[�h����ۂɂ́C�K�v�ɉ����āC
-TOPPERS_MACRO_ONLY�CUINC_C�CULONG_C�CCAST���}�N����`���Ă���C�C���N���[
-�h���Ȃ���΂Ȃ�Ȃ��D
+アセンブリ言語からヘッダファイルをインクルードする際には，必要に応じて，
+TOPPERS_MACRO_ONLY，UINC_C，ULONG_C，CASTをマクロ定義してから，インクルー
+ドしなければならない．
 
-1.5 �C���N���[�h�L�q�̕��@
+1.5 インクルード記述の方法
 
-�J�����ŗp�ӂ���Ă���W���w�b�_�t�@�C�������include�f�B���N�g������
-�W���w�b�_�t�@�C���́C�u#include <...>�v�ɂ��C���N���[�h����D
+開発環境で用意されている標準ヘッダファイルおよびincludeディレクトリ下の
+標準ヘッダファイルは，「#include <...>」によりインクルードする．
 
-���̑��̃w�b�_�t�@�C���́C�u#include "..."�v�ɂ��C���N���[�h����D�w�b
-�_�t�@�C�����C�J�����g�f�B���N�g����C���N���[�h����t�@�C���Ɠ����f�B
-���N�g���ȊO�̃f�B���N�g���ɒu����Ă���ꍇ�ɂ́C���̂悤�Ƀp�X�w���
-�s���D
+その他のヘッダファイルは，「#include "..."」によりインクルードする．ヘッ
+ダファイルが，カレントディレクトリやインクルードするファイルと同じディ
+レクトリ以外のディレクトリに置かれている場合には，次のようにパス指定を
+行う．
 
-�E�^�[�Q�b�g�ˑ����itarget/<�^�[�Q�b�g��>�j�̃f�B���N�g���ɒu����Ă���
-�@�ꍇ�́C�p�X�w����s�킸�C�t�@�C�����݂̂��L�q����D
-		��j#include "target_config.h"
+・ターゲット依存部（target/<ターゲット名>）のディレクトリに置かれている
+　場合は，パス指定を行わず，ファイル名のみを記述する．
+		例）#include "target_config.h"
 
-�Earch�f�B���N�g�����̃f�B���N�g���ɒu����Ă���ꍇ�ɂ́Carch�f�B���N
-�@�g������̑��΃p�X�ŋL�q����D
-		��j#include "m68k_gcc/prc_config.h"
+・archディレクトリ下のディレクトリに置かれている場合には，archディレク
+　トリからの相対パスで記述する．
+		例）#include "m68k_gcc/prc_config.h"
 
-�E���̑��̏ꍇ�ɂ́C�\�[�X�v���O�����̃��[�g�f�B���N�g���iconfigure���u
-�@����Ă���f�B���N�g���j����̑��΃p�X�ŋL�q����D
-		��j#include "pdic/upd72001/upd72001.h"
+・その他の場合には，ソースプログラムのルートディレクトリ（configureが置
+　かれているディレクトリ）からの相対パスで記述する．
+		例）#include "pdic/upd72001/upd72001.h"
 
-�E�J�[�l�����\������t�@�C������Ckernel�f�B���N�g�����̃w�b�_�t�@�C��
-�@���C���N���[�h����ꍇ�́C�p�X�w����s�킸�C�t�@�C�����݂̂��L�q����D
-		��j#include "kernel_impl.h"
+・カーネルを構成するファイルから，kernelディレクトリ下のヘッダファイル
+　をインクルードする場合は，パス指定を行わず，ファイル名のみを記述する．
+		例）#include "kernel_impl.h"
 
-1.6 �N���e�B�J���Z�N�V�����̏o�������̎����Ɋւ��鐧��
+1.6 クリティカルセクションの出入処理の実現に関する制約
 
-�J�[�l�����ŗp����N���e�B�J���Z�N�V�����̏o����������������ꍇ�ɂ́C
-����2�̏����𖞂����悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+カーネル内で用いるクリティカルセクションの出入処理を実現する場合には，
+次の2つの条件を満たすように実装しなければならない．
 
-(1-6-1) �o���������甲�������_�ł́C�����݂̋֎~�^�����������Ă��Ȃ�
-��΂Ȃ�Ȃ��D�Ⴆ�΁C�����݋֎~�^�����߂����s���Ă�����ۂɊ����݂�
-�֎~�^�������܂ŉ����߂��x������v���Z�b�T�̏ꍇ�ɂ́C�o�������̒�
-��NOP���߂�����Ȃǂ̕��@�ŁC�o�������𔲂������_�ł́C�����݂��֎~�^
-�����ꂽ��ԂɂȂ��Ă��邱�Ƃ�ۏ؂��Ȃ���΂Ȃ�Ȃ��D
+(1-6-1) 出入処理から抜けた時点では，割込みの禁止／許可が完了していなけ
+ればならない．例えば，割込み禁止／許可命令を実行してから実際に割込みが
+禁止／許可されるまで何命令か遅延するプロセッサの場合には，出入処理の中
+にNOP命令を入れるなどの方法で，出入処理を抜けた時点では，割込みが禁止／
+許可された状態になっていることを保証しなければならない．
 
-(1-6-2) ��������̃f�[�^�\���������ς��\�������邱�Ƃ��C���炩�̕�
-�@�ŃR���p�C���ɒm�点�Ȃ���΂Ȃ�Ȃ��DGNU�J�����ł́C���̂����ꂩ��
-���@�ł��̐���𖞂������Ƃ��ł���D
+(1-6-2) メモリ上のデータ構造が書き変わる可能性があることを，何らかの方
+法でコンパイラに知らせなければならない．GNU開発環境では，次のいずれかの
+方法でこの制約を満たすことができる．
 
-(a) �N���e�B�J���Z�N�V�����̏o�������̑S�̂܂��͏o�������̖{���I�ȕ���
-	�i��̓I�ɂ́C�����݋֎~�^�����鏈���j���i�C�����C���łȂ��j�ʏ�
-	�̊֐��ɂ���������D
+(a) クリティカルセクションの出入処理の全体または出入処理の本質的な部分
+	（具体的には，割込み禁止／許可する処理）を（インラインでない）通常
+	の関数により実現する．
 
-(b) �N���e�B�J���Z�N�V�����̏o�������̖{���I�ȕ������C�����C���A�Z���u
-	���ɂ���Ď������Ă���ꍇ�ɂ́C���̃C�����C���A�Z���u����clobber��
-	�����X�g��"memory"��ǉ�����D
+(b) クリティカルセクションの出入処理の本質的な部分をインラインアセンブ
+	ラによって実現している場合には，そのインラインアセンブラのclobber変
+	数リストに"memory"を追加する．
 
-(c) �N���e�B�J���Z�N�V�����̏o�������̖{���I�ȕ������C�}�N����C�����C
-	���֐��ďo���Ŏ������Ă���ꍇ�ɂ́C�N���e�B�J���Z�N�V�����ɓ��鏈
-	���̍Ō�Əo�鏈���̐擪�ɁCAsm("":::"memory")�Ƃ����L�q������D
+(c) クリティカルセクションの出入処理の本質的な部分が，マクロやインライ
+	ン関数呼出しで実現している場合には，クリティカルセクションに入る処
+	理の最後と出る処理の先頭に，Asm("":::"memory")という記述を入れる．
 
-���̂悤�Ȑ����݂��闝�R�ɂ��ẮC�uTOPPERS/ASP�J�[�l�� �݌v�����v
-�́u�J�[�l���̃f�[�^�\���ɑ΂���volatile�錾�ɂ��āv�̐߂��Q�Ƃ��邱
-�ƁD
+このような制約を設ける理由については，「TOPPERS/ASPカーネル 設計メモ」
+の「カーネルのデータ構造に対するvolatile宣言について」の節を参照するこ
+と．
 
 
-�Q�D�V�X�e���\�z���̃^�[�Q�b�g�ˑ���
+２．システム構築環境のターゲット依存部
 
-���̏͂̐����́CGNU�J�����iGCC�CGAS�CBINUTILS�CGNU Make�j��p���邱��
-��z�肵�ċL�q���Ă���D����ȊO�̊J������p����ꍇ�ɂ́C�J������
-���킹�ďC������K�v������D
+この章の説明は，GNU開発環境（GCC，GAS，BINUTILS，GNU Make）を用いること
+を想定して記述してある．それ以外の開発環境を用いる場合には，開発環境に
+あわせて修正する必要がある．
 
-2.1 �^�[�Q�b�g���̂ƃ^�[�Q�b�g�ˑ����̃f�B���N�g��
+2.1 ターゲット略称とターゲット依存部のディレクトリ
 
-�V�����^�[�Q�b�g�ˑ������쐬���鎞�́C�܂��C�^�[�Q�b�g���̂��߂�D�^�[
-�Q�b�g���̂́C�V�X�e�����̂ƊJ�������̂�"_"�ŘA���������̂Ƃ���D�V�X
-�e�����̂ɗp���镶���͉p�������Ɛ�����"_"�ɁC�J�������̂ɗp���镶����
-�p�������Ɛ����Ɍ��肷��DGNU�J�����̊J�������̂́C"gcc"�Ƃ���D��
-���΁C�V�X�e�����̂�"dve68k"�ŁCGNU�J������p����ꍇ�ɂ́C�^�[�Q�b�g
-���̂�"dve68k_gcc"�ƂȂ�D
+新しいターゲット依存部を作成する時は，まず，ターゲット略称を定める．ター
+ゲット略称は，システム略称と開発環境略称を"_"で連結したものとする．シス
+テム略称に用いる文字は英小文字と数字と"_"に，開発環境略称に用いる文字は
+英小文字と数字に限定する．GNU開発環境の開発環境略称は，"gcc"とする．例
+えば，システム略称が"dve68k"で，GNU開発環境を用いる場合には，ターゲット
+略称は"dve68k_gcc"となる．
 
-�^�[�Q�b�g�ˑ����̃t�@�C����u�����߂ɁCtarget�f�B���N�g���̉��ɁC�^�[
-�Q�b�g���̂𖼏̂Ƃ���f�B���N�g�����쐬����D������^�[�Q�b�g�ˑ����f�B
-���N�g���ƌĂԁD
+ターゲット依存部のファイルを置くために，targetディレクトリの下に，ター
+ゲット略称を名称とするディレクトリを作成する．これをターゲット依存部ディ
+レクトリと呼ぶ．
 
-�^�[�Q�b�g�ˑ�������v���Z�b�T�ˑ�����`�b�v�ˑ�����؂蕪����ꍇ�ɂ́C
-�ˑ������̂��߂�D�ˑ������̂́C�v���Z�b�T��`�b�v�̗��̂ƊJ������
-�̂�"_"�ŘA���������̂Ƃ���D�v���Z�b�T��`�b�v�̗��̂ɗp���镶���́C�p
-�������Ɛ�����"_"�Ɍ��肷��D�Ⴆ�΁C�v���Z�b�T���̂�"m68k"�ŁCGNU�J��
-����p����ꍇ�ɂ́C�ˑ������̂�"m68k_gcc"�ƂȂ�D
+ターゲット依存部からプロセッサ依存部やチップ依存部を切り分ける場合には，
+依存部略称を定める．依存部略称は，プロセッサやチップの略称と開発環境略
+称を"_"で連結したものとする．プロセッサやチップの略称に用いる文字は，英
+小文字と数字と"_"に限定する．例えば，プロセッサ略称が"m68k"で，GNU開発
+環境を用いる場合には，依存部略称は"m68k_gcc"となる．
 
-�܂��C�^�[�Q�b�g�ˑ�������J�����ˑ�����؂蕪����ꍇ�ɂ́C�J����
-���̂��ˑ������̂Ƃ���D�Ⴆ�΁CGNU�J�����ˑ����̈ˑ������̂́C"gcc"
-�ƂȂ�D
+また，ターゲット依存部から開発環境依存部を切り分ける場合には，開発環境
+略称を依存部略称とする．例えば，GNU開発環境依存部の依存部略称は，"gcc"
+となる．
 
-�����̈ˑ����̃t�@�C����u�����߂ɁCarch�f�B���N�g���̉��ɁC�ˑ�����
-�̂𖼏̂Ƃ���f�B���N�g�����쐬����D
+これらの依存部のファイルを置くために，archディレクトリの下に，依存部略
+称を名称とするディレクトリを作成する．
 
-�Ȃ��CGNU�J�����ȊO�̊J������p����ꍇ�ɂ́C�R���t�B�M�����[�V����
-�X�N���v�g�iconfigure�j�C�T���v����Makefile�isample/Makefile�j�C�ꕔ��
-���[�e�B���e�B�v���O�����iutils/makedep�j���C���̊J�����p�ɗp�ӂ���K
-�v������ꍇ������D���̏ꍇ�ɂ́C�����̃t�@�C�����C�^�[�Q�b�g�ˑ���
-�f�B���N�g�����J�����ˑ����f�B���N�g���ɒu�����̂Ƃ���D�܂��C�J����
-���p�̃v���W�F�N�g�t�@�C�����K�v�ȏꍇ�ɂ́C�^�[�Q�b�g�ˑ����f�B���N�g
-���ɒu�����̂Ƃ���D
+なお，GNU開発環境以外の開発環境を用いる場合には，コンフィギュレーション
+スクリプト（configure），サンプルのMakefile（sample/Makefile），一部の
+ユーティリティプログラム（utils/makedep）を，その開発環境用に用意する必
+要がある場合がある．その場合には，これらのファイルを，ターゲット依存部
+ディレクトリか開発環境依存部ディレクトリに置くものとする．また，開発環
+境用のプロジェクトファイルが必要な場合には，ターゲット依存部ディレクト
+リに置くものとする．
 
-2.2 Makefile�̃^�[�Q�b�g�ˑ���
+2.2 Makefileのターゲット依存部
 
-Makefile�̃^�[�Q�b�g�ˑ����́C�^�[�Q�b�g�ˑ����f�B���N�g���ɒu����
-Makefile.target�܂��͂�������C���N���[�h�����t�@�C���i�v���Z�b�T�E�`�b
-�v�E�J�����ˑ����ŗp�ӂ����t�@�C���Ȃǁj�Ɋ܂߂�D
+Makefileのターゲット依存部は，ターゲット依存部ディレクトリに置いた
+Makefile.targetまたはそこからインクルードされるファイル（プロセッサ・チッ
+プ・開発環境依存部で用意されるファイルなど）に含める．
 
-2.3 �J�������ƃR�}���h���̐ݒ�
+2.3 開発環境名とコマンド名の設定
 
-�J�������ƃR�}���h����ݒ肷�邽�߂ɁCMakefile�̃^�[�Q�b�g�ˑ����Ŏ�
-�̕ϐ����`����D
+開発環境名とコマンド名を設定するために，Makefileのターゲット依存部で次
+の変数を定義する．
 
-(2-3-1) TOOL					�J������
+(2-3-1) TOOL					開発環境名
 
-�J�������ɒ�`����DGNU�J������p����ꍇ�ɂ́Cgcc�ɒ�`����D
+開発環境名に定義する．GNU開発環境を用いる場合には，gccに定義する．
 
-(2-3-2) GCC_TARGET				GNU�J�����̃^�[�Q�b�g��
+(2-3-2) GCC_TARGET				GNU開発環境のターゲット名
 
-GNU�J������p����ꍇ�ɁCGNU�J������configure����ꍇ�Ɏw�肷��^�[
-�Q�b�g���ɒ�`����D�����Ŏw�肵���^�[�Q�b�g���́C�J�����̃R�}���h��
-�̐擪�ɕt�^����镶����ƂȂ�D�Ⴆ�΁CGCC_TARGET��m68k-unknown-elf��
-��`�����ꍇ�ɂ́C�R���p�C���Ƃ���m68k-unknown-elf-gcc���g����D����
-�ϐ�����`����Ȃ��ꍇ�ɂ́C�P�Ȃ�gcc���g����D
+GNU開発環境を用いる場合に，GNU開発環境をconfigureする場合に指定するター
+ゲット名に定義する．ここで指定したターゲット名は，開発環境のコマンド名
+の先頭に付与される文字列となる．例えば，GCC_TARGETをm68k-unknown-elfに
+定義した場合には，コンパイラとしてm68k-unknown-elf-gccが使われる．この
+変数が定義されない場合には，単なるgccが使われる．
 
-(2-3-3) CC						C�R���p�C���h���C�o�̖���
-(2-3-4) CXX						C++�R���p�C���h���C�o�̖���
-(2-3-5) AS						�A�Z���u���̖���
-(2-3-6) LD						�����J�̖���
-(2-3-7) AR						�A�[�J�C�o�̖���
-(2-3-8) NM						nm�v���O�����̖���
-(2-3-9) RANLIB					ranlib�v���O�����̖���
-(2-3-10) OBJCOPY				objcopy�v���O�����̖���
-(2-3-11) OBJDUMP				objdump�v���O�����̖���
+(2-3-3) CC						Cコンパイラドライバの名称
+(2-3-4) CXX						C++コンパイラドライバの名称
+(2-3-5) AS						アセンブラの名称
+(2-3-6) LD						リンカの名称
+(2-3-7) AR						アーカイバの名称
+(2-3-8) NM						nmプログラムの名称
+(2-3-9) RANLIB					ranlibプログラムの名称
+(2-3-10) OBJCOPY				objcopyプログラムの名称
+(2-3-11) OBJDUMP				objdumpプログラムの名称
 
-GNU�J�����ȊO�̊J������p����ꍇ�ɁC���ꂼ��̃R�}���h�̖��̂ɒ�`
-����D�Ή�����R�}���h���Ȃ��ꍇ��C�R�}���h�p�����[�^���قȂ�ꍇ�ɂ́C
-Makefile���ł��̃R�}���h���Ăяo���Ă��镔����ύX����K�v������D
+GNU開発環境以外の開発環境を用いる場合に，それぞれのコマンドの名称に定義
+する．対応するコマンドがない場合や，コマンドパラメータが異なる場合には，
+Makefile中でそのコマンドを呼び出している部分を変更する必要がある．
 
-GNU�J�����ł́C������GCC_TARGET��p���Ē�`�����̂ŁC��`����K�v
-�͂Ȃ��D
+GNU開発環境では，これらはGCC_TARGETを用いて定義されるので，定義する必要
+はない．
 
-2.4 �R���p�C���I�v�V�����ƃI�u�W�F�N�g�t�@�C���̐ݒ�
+2.4 コンパイルオプションとオブジェクトファイルの設定
 
-Makefile�̃^�[�Q�b�g�ˑ����ňȉ��Ő�������ϐ����`���鎞�ɂ́C":="��
-�p���āC����܂ł̒�`�ɒǉ�����`�ōs���D�Ⴆ�΁C�R���p�C���ɑ΂��邻
-�̑��̃I�v�V�����Ƃ��āu-Wall -g -O2�v��ǉ��������ꍇ�ɂ́C�uCOPTS :=
-$(COPTS) -Wall -g -O2�v�Ƃ����L�q��Makefile�̃^�[�Q�b�g�ˑ����Ɋ܂߂�D
+Makefileのターゲット依存部で以下で説明する変数を定義する時には，":="を
+用いて，それまでの定義に追加する形で行う．例えば，コンパイラに対するそ
+の他のオプションとして「-Wall -g -O2」を追加したい場合には，「COPTS :=
+$(COPTS) -Wall -g -O2」という記述をMakefileのターゲット依存部に含める．
 
-(2-4-1) COPTS				�R���p�C���ɑ΂��邻�̑��̃I�v�V����
-(2-4-2) CDEFS				�}�N����`�I�v�V�����i-D�I�v�V�����j
-(2-4-3) INCLUDES			�w�b�_�t�@�C���̒u���ꂽ�f�B���N�g���w��I
-							�v�V�����i-I�I�v�V�����j
-(2-4-4) LDFLAGS				�����J�ɑ΂��邻�̑��̃I�v�V����
-(2-4-5) LIBS				���C�u���������N�w��̂��߂̃I�v�V����
+(2-4-1) COPTS				コンパイラに対するその他のオプション
+(2-4-2) CDEFS				マクロ定義オプション（-Dオプション）
+(2-4-3) INCLUDES			ヘッダファイルの置かれたディレクトリ指定オ
+							プション（-Iオプション）
+(2-4-4) LDFLAGS				リンカに対するその他のオプション
+(2-4-5) LIBS				ライブラリリンク指定のためのオプション
 
-�^�[�Q�b�g�Ɉˑ����āC���ׂẴ\�[�X�t�@�C���ɋ��ʂ���R���p�C���I�v�V��
-���̒ǉ����K�v�ȏꍇ�ɂ́C�I�v�V�����̎�ޖ��ɏ�Ɏ������ϐ��ɒ�`����D
+ターゲットに依存して，すべてのソースファイルに共通するコンパイルオプショ
+ンの追加が必要な場合には，オプションの種類毎に上に示した変数に定義する．
 
-�قƂ�ǂ̏ꍇ�ɁC�^�[�Q�b�g�ˑ����f�B���N�g����Makefile.target�ɂ́C��
-���̋L�q���܂߂�K�v������D
+ほとんどの場合に，ターゲット依存部ディレクトリのMakefile.targetには，以
+下の記述を含める必要がある．
 
 ----------------------------------------
 INCLUDES := $(INCLUDES) -I$(TARGETDIR)
 ----------------------------------------
 
-������TARGETDIR�́C�^�[�Q�b�g�ˑ����f�B���N�g���ɒ�`����Ă���D�܂�
-SRCDIR�́CMakefile�ɂ����āC�\�[�X�v���O�����̃��[�g�f�B���N�g��
-�iconfigure���u����Ă���f�B���N�g���j�ɒ�`����Ă���D
+ここでTARGETDIRは，ターゲット依存部ディレクトリに定義されている．また
+SRCDIRは，Makefileにおいて，ソースプログラムのルートディレクトリ
+（configureが置かれているディレクトリ）に定義されている．
 
-�R���p�C���̖�蓙�ŁC�x�����b�Z�[�W���o�邱�Ƃ�h���Ȃ��󋵈ȊO�ł́C
-COPTS��-Werror��ǉ����邱�Ƃ𐄏�����D
+コンパイラの問題等で，警告メッセージが出ることを防げない状況以外では，
+COPTSに-Werrorを追加することを推奨する．
 
 ----------------------------------------
 COPTS := $(COPTS) -Werror
 ----------------------------------------
 
-�J�[�l���̃R���p�C�����ɁCdereferencing type-punned pointer will break
-strict-aliasing rules�Ƃ����x�����o��ꍇ�ɂ́C�ȉ���ǉ�����Ƃ悢�D��
-�̌x�����b�Z�[�W�Ɋւ���ڍׂ́C�uTOPPERS/ASP�J�[�l�� �݌v�����v�́u�^
-�L���X�g�ɔ����x�����b�Z�[�W�v�̐߂��Q�Ƃ��邱�ƁD
+カーネルのコンパイル時に，dereferencing type-punned pointer will break
+strict-aliasing rulesという警告が出る場合には，以下を追加するとよい．こ
+の警告メッセージに関する詳細は，「TOPPERS/ASPカーネル 設計メモ」の「型
+キャストに伴う警告メッセージ」の節を参照すること．
 
 ----------------------------------------
 KERNEL_CFLAGS := $(KERNEL_CFLAGS) -fno-strict-aliasing
 ----------------------------------------
 
-�܂��C�A�Z���u�����ꃌ�x���̎��ʖ����CC���ꃌ�x���̎��ʖ��̐擪��"_"��
-�t�������̂ɂȂ�ꍇ�ɂ́CCDEFS��-DTOPPERS_LABEL_ASM��ǉ�����D
+また，アセンブリ言語レベルの識別名が，C言語レベルの識別名の先頭に"_"が
+付いたものになる場合には，CDEFSに-DTOPPERS_LABEL_ASMを追加する．
 
-(2-4-6) SYSSVC_DIR			�V�X�e���T�[�r�X�̃\�[�X���u���ꂽ�f�B���N�g��
-(2-4-7) SYSSVC_ASMOBJS		�A�Z���u������ŋL�q���ꂽ�V�X�e���T�[�r�X��
-							�I�u�W�F�N�g
-(2-4-8) SYSSVC_COBJS		C����ŋL�q���ꂽ�V�X�e���T�[�r�X�̃I�u�W�F�N�g
-(2-4-9) SYSSVC_CFLAGS		�V�X�e���T�[�r�X�ɑ΂���R���p�C���I�v�V����
-(2-4-10) SYSSVC_LIBS		�V�X�e���T�[�r�X�ɑ΂��郉�C�u���������N�w��
+(2-4-6) SYSSVC_DIR			システムサービスのソースが置かれたディレクトリ
+(2-4-7) SYSSVC_ASMOBJS		アセンブリ言語で記述されたシステムサービスの
+							オブジェクト
+(2-4-8) SYSSVC_COBJS		C言語で記述されたシステムサービスのオブジェクト
+(2-4-9) SYSSVC_CFLAGS		システムサービスに対するコンパイルオプション
+(2-4-10) SYSSVC_LIBS		システムサービスに対するライブラリリンク指定
 
-�^�[�Q�b�g�Ɉˑ����āC�V�X�e���T�[�r�X�i�V�X�e�����O�^�X�N��f�o�C�X�h
-���C�o�Ȃǁj�̃\�[�X���u���ꂽ�f�B���N�g���C�V�X�e���T�[�r�X���\������
-�I�u�W�F�N�g�t�@�C���̃��X�g�C�������R���p�C������ۂɓK�p����R���p
-�C���I�v�V�����C���̍\���ɕK�v�ȃ��C�u���������N�w���ǉ�����ꍇ�ɂ́C
-��Ɏ������ϐ��ɒ�`����D
+ターゲットに依存して，システムサービス（システムログタスクやデバイスド
+ライバなど）のソースが置かれたディレクトリ，システムサービスを構成する
+オブジェクトファイルのリスト，それらをコンパイルする際に適用するコンパ
+イルオプション，その構成に必要なライブラリリンク指定を追加する場合には，
+上に示した変数に定義する．
 
-(2-4-11) KERNEL_DIR			�J�[�l���̃\�[�X���u���ꂽ�f�B���N�g��
-(2-4-12) KERNEL_ASMOBJS		�A�Z���u������ŋL�q���ꂽ�J�[�l���̃I�u�W�F�N�g
-(2-4-13) KERNEL_COBJS		C����ŋL�q���ꂽ�J�[�l���̃I�u�W�F�N�g
-(2-4-14) KERNEL_CFLAGS		�J�[�l���ɑ΂���R���p�C���I�v�V����
+(2-4-11) KERNEL_DIR			カーネルのソースが置かれたディレクトリ
+(2-4-12) KERNEL_ASMOBJS		アセンブリ言語で記述されたカーネルのオブジェクト
+(2-4-13) KERNEL_COBJS		C言語で記述されたカーネルのオブジェクト
+(2-4-14) KERNEL_CFLAGS		カーネルに対するコンパイルオプション
 
-�^�[�Q�b�g�Ɉˑ����āC�J�[�l���̃\�[�X���u���ꂽ�f�B���N�g���C�J�[�l��
-���\������I�u�W�F�N�g�t�@�C���̃��X�g�C�������R���p�C������ۂɓK�p
-����R���p�C���I�v�V������ǉ�����ꍇ�ɂ́C��Ɏ������ϐ��ɒ�`����D
+ターゲットに依存して，カーネルのソースが置かれたディレクトリ，カーネル
+を構成するオブジェクトファイルのリスト，それらをコンパイルする際に適用
+するコンパイルオプションを追加する場合には，上に示した変数に定義する．
 
-�قƂ�ǂ̏ꍇ�ɁC�^�[�Q�b�g�ˑ����f�B���N�g����Makefile.target�ɂ́C��
-���̋L�q���܂߂�K�v������D
+ほとんどの場合に，ターゲット依存部ディレクトリのMakefile.targetには，以
+下の記述を含める必要がある．
 
 ----------------------------------------
 KERNEL_DIR := $(KERNEL_DIR) $(TARGETDIR)
@@ -461,169 +461,169 @@ KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) target_support.o
 KERNEL_COBJS := $(KERNEL_COBJS) target_config.o target_timer.o
 ----------------------------------------
 
-(2-4-15) CFG_TABS			�R���t�B�M�����[�^�ɑ΂���I�v�V����
+(2-4-15) CFG_TABS			コンフィギュレータに対するオプション
 
-�^�[�Q�b�g�Ɉˑ����āC�R���t�B�M�����[�^�ɑ΂���I�v�V������ǉ������
-���ɂ́C��Ɏ������ϐ��ɒ�`����D��̓I�ɂ́C�R���t�B�M�����[�^�̒l��
-���V���{���e�[�u���̃^�[�Q�b�g�ˑ����itarget_def.csv�j������ꍇ�ɂ́C
-������w�肷��I�v�V������ǉ�����K�v������D
+ターゲットに依存して，コンフィギュレータに対するオプションを追加する場
+合には，上に示した変数に定義する．具体的には，コンフィギュレータの値取
+得シンボルテーブルのターゲット依存部（target_def.csv）がある場合には，
+それを指定するオプションを追加する必要がある．
 
-�قƂ�ǂ̏ꍇ�ɁC�^�[�Q�b�g�ˑ����f�B���N�g����Makefile.target�ɂ́C��
-���̋L�q���܂߂�K�v������D
+ほとんどの場合に，ターゲット依存部ディレクトリのMakefile.targetには，以
+下の記述を含める必要がある．
 
 ----------------------------------------
 CFG_TABS := $(CFG_TABS) --cfg1-def-table $(TARGETDIR)/target_def.csv
 ----------------------------------------
 
-(2-4-16) CFG1_OUT_LDFLAGS	cfg1_out.c�ɑ΂��郊���N�I�v�V����
+(2-4-16) CFG1_OUT_LDFLAGS	cfg1_out.cに対するリンクオプション
 
-�^�[�Q�b�g�Ɉˑ����āCcfg1_out.c�������N����ۂɓK�p����I�v�V�������
-������ꍇ�ɂ́C��Ɏ������ϐ��ɒ�`����D
+ターゲットに依存して，cfg1_out.cをリンクする際に適用するオプションを追
+加する場合には，上に示した変数に定義する．
 
-�Ȃ��CLDFLAGS�́Ccfg1_out.c�������N����ۂɂ͓K�p����Ȃ����߁CLDFLAGS
-�ɒ�`�����I�v�V�����ŁCcfg1_out.c�������N����ۂɂ��K�v�Ȃ��̂́C
-CFG1_OUT_LDFLAGS�ɂ���`����K�v������D
+なお，LDFLAGSは，cfg1_out.cをリンクする際には適用されないため，LDFLAGS
+に定義したオプションで，cfg1_out.cをリンクする際にも必要なものは，
+CFG1_OUT_LDFLAGSにも定義する必要がある．
 
-(2-4-17) CFG_ASMOBJS		�A�Z���u������ŋL�q���ꂽ�V�X�e���R���t�B
-							�M�����[�V�����̂��߂̃I�u�W�F�N�g
-(2-4-18) CFG_COBJS			C����ŋL�q���ꂽ�V�X�e���R���t�B�M�����[
-							�V�����̂��߂̃I�u�W�F�N�g
+(2-4-17) CFG_ASMOBJS		アセンブリ言語で記述されたシステムコンフィ
+							ギュレーションのためのオブジェクト
+(2-4-18) CFG_COBJS			C言語で記述されたシステムコンフィギュレー
+							ションのためのオブジェクト
 
-�^�[�Q�b�g�Ɉˑ����āC�V�X�e���R���t�B�M�����[�V�����̂��߂̃I�u�W�F�N
-�g�t�@�C�����ikernel_cfg.o�ȊO�Ɂj�ǉ�����ꍇ�ɂ́C��Ɏ������ϐ��ɒ�
-�`����D���̏ꍇ�C�ǉ������I�u�W�F�N�g�t�@�C���̍쐬���[���i�R���p�C���^
-�A�Z���u�����[���ƈˑ��֌W�쐬���[���j���CMakefile�̃^�[�Q�b�g�ˑ�����
-�L�q����K�v������D
+ターゲットに依存して，システムコンフィギュレーションのためのオブジェク
+トファイルを（kernel_cfg.o以外に）追加する場合には，上に示した変数に定
+義する．この場合，追加したオブジェクトファイルの作成ルール（コンパイル／
+アセンブルルールと依存関係作成ルール）を，Makefileのターゲット依存部に
+記述する必要がある．
 
 (2-4-19) CFG2_OUT_SRCS
 
-�^�[�Q�b�g�Ɉˑ����āC�R���t�B�M�����[�^�̃p�X2��kernel_cfg.c��
-kernel_cfg.h�ȊO�̃t�@�C���𐶐�����ꍇ�ɂ́C��Ɏ������ϐ��ɒ�`����D
+ターゲットに依存して，コンフィギュレータのパス2でkernel_cfg.cと
+kernel_cfg.h以外のファイルを生成する場合には，上に示した変数に定義する．
 
 (2-4-20) OMIT_WARNING_ALL
 (2-4-21) OMIT_OPTIMIZATION
 
-�T���v����Makefile�ł́C�R���p�C���ɑ΂���I�v�V�����Ɂu-Wall -g -O2�v
-��ǉ�����D-Wall��ǉ��������Ȃ��ꍇ�ɂ́CMakefile�̃^�[�Q�b�g�ˑ�����
-OMIT_WARNING_ALL��"true"�ɒ�`����D-O2��ǉ��������Ȃ��ꍇ�ɂ́C
-Makefile�̃^�[�Q�b�g�ˑ�����OMIT_OPTIMIZATION��"true"�ɒ�`����D
+サンプルのMakefileでは，コンパイラに対するオプションに「-Wall -g -O2」
+を追加する．-Wallを追加したくない場合には，Makefileのターゲット依存部で
+OMIT_WARNING_ALLを"true"に定義する．-O2を追加したくない場合には，
+Makefileのターゲット依存部でOMIT_OPTIMIZATIONを"true"に定義する．
 
-2.5 �I�t�Z�b�g�t�@�C���̐������@
+2.5 オフセットファイルの生成方法
 
-�A�Z���u������ŋL�q�����v���O��������CC����̍\���̂ɃA�N�Z�X�����
-���ɂ́C�\���̂̊e�t�B�[���h�̃I�t�Z�b�g�l���Q�Ƃ��邱�Ƃ��K�v�ł���D
-ASP�J�[�l���ł́C�K�v�ȃI�t�Z�b�g�l�����߂ăt�@�C���i�W���ł�offset.h�j
-�ɐ������邽�߂̎d�g�݂�p�ӂ��Ă���D
+アセンブリ言語で記述されるプログラムから，C言語の構造体にアクセスする場
+合には，構造体の各フィールドのオフセット値を参照することが必要である．
+ASPカーネルでは，必要なオフセット値を求めてファイル（標準ではoffset.h）
+に生成するための仕組みを用意している．
 
-���̎d�g�݂�p���邱�ƂŁC�Ⴆ�΁CTCB����texptn�t�B�[���h�̃I�t�Z�b�g�l
-��TCB_texptn�Ƀ}�N����`���邱�Ƃ�CTCB���̃^�X�N�R���e�L�X�g�u���b�N
-�itskctxb�j�Ɋ܂܂��pc�t�B�[���h�̃I�t�Z�b�g�l��TCB_pc�Ƀ}�N����`����
-���Ƃ��ł���D�܂��CTCB����enatex�t�B�[���h�̃I�t�Z�b�g�l�C�r�b�g�ʒu�C
-�r�b�g�}�X�N���C���ꂼ��TCB_enatex�CTCB_enatex_bit�CTCB_enatex_mask�Ƀ}
-�N����`���邱�Ƃ��ł���D
+この仕組みを用いることで，例えば，TCB中のtexptnフィールドのオフセット値
+をTCB_texptnにマクロ定義することや，TCB中のタスクコンテキストブロック
+（tskctxb）に含まれるpcフィールドのオフセット値をTCB_pcにマクロ定義する
+ことができる．また，TCB中のenatexフィールドのオフセット値，ビット位置，
+ビットマスクを，それぞれTCB_enatex，TCB_enatex_bit，TCB_enatex_maskにマ
+クロ定義することができる．
 
-offset.h�𐶐����邽�߂̎d�g�݂Ƃ��āC�����_�ł́C�R���t�B�M�����[�^��
-�p������@�ƁCmakeoffset.c��genoffset��p������@��p�ӂ��Ă���D��҂�
-���@�́CGNU�J�����ɂ����Ή����Ă��Ȃ����Ƃ���C�����̃o�[�W�����ł́C
-��҂̕��@�̃T�|�[�g����߂�v��ł���D�V���Ƀ|�[�e�B���O����ꍇ�ɂ́C
-�O�҂̕��@��p���邱�Ƃ𐄏�����D
+offset.hを生成するための仕組みとして，現時点では，コンフィギュレータを
+用いる方法と，makeoffset.cとgenoffsetを用いる方法を用意している．後者の
+方法は，GNU開発環境にしか対応していないことから，将来のバージョンでは，
+後者の方法のサポートをやめる計画である．新たにポーティングする場合には，
+前者の方法を用いることを推奨する．
 
-�����̎d�g�݂ŃI�t�Z�b�g�t�@�C���𐶐��ł��Ȃ����ɂ́Coffset.h���^�[
-�Q�b�g�ˑ����ŗp�ӂ��CMakefile�̃^�[�Q�b�g�ˑ�����OMIT_MAKEOFFSET��
-"true"�ɒ�`����D
+これらの仕組みでオフセットファイルを生成できない時には，offset.hをター
+ゲット依存部で用意し，Makefileのターゲット依存部でOMIT_MAKEOFFSETを
+"true"に定義する．
 
-�g���p�b�P�[�W�̒��ɂ́CTCB�Ƀt�B�[���h��ǉ�������̂����邽�߁CTCB��
-�̃t�B�[���h�̃I�t�Z�b�g�l�͕ω�����Doffset.h�𐶐�����ꍇ�ł��C�^�[
-�Q�b�g�ˑ����ŗp�ӂ���ꍇ�ł��C�g���p�b�P�[�W�ɑΉ����邽�߂ɂ́C����
-���Ƃ��l������K�v������D
+拡張パッケージの中には，TCBにフィールドを追加するものがあるため，TCB中
+のフィールドのオフセット値は変化する．offset.hを生成する場合でも，ター
+ゲット依存部で用意する場合でも，拡張パッケージに対応するためには，この
+ことを考慮する必要がある．
 
-2.5.1 �R���t�B�M�����[�^��p������@
+2.5.1 コンフィギュレータを用いる方法
 
-�R���t�B�M�����[�^�̃p�X1�Ő�������cfg1_out.c���R���p�C�����Đ��������I
-�u�W�F�N�g�t�@�C������C�R���t�B�M�����[�^�ɂ����offset.h�𐶐������
-�@�ł���D���̕��@��p���邽�߂ɂ́C�^�[�Q�b�g�ˑ����ŃI�t�Z�b�g�t�@�C
-�������p�e���v���[�g�t�@�C����p�ӂ��Ctarget_cfg1_out.h�i�܂��́C������
-��C���N���[�h�����t�@�C���j��target_def.csv�i�܂��́C�����̖�������
-�t�@�C���j�ɋL�q��ǉ�����K�v������D�Ȃ��C�����̃t�@�C����V����
-�p�ӂ����ۂ�C�������ۂɂ́Coffset.h�ɑÓ��Ȓ�`����������Ă��邱�Ƃ�
-�m�F���ׂ��ł���D
+コンフィギュレータのパス1で生成するcfg1_out.cをコンパイルして生成したオ
+ブジェクトファイルから，コンフィギュレータによってoffset.hを生成する方
+法である．この方法を用いるためには，ターゲット依存部でオフセットファイ
+ル生成用テンプレートファイルを用意し，target_cfg1_out.h（または，そこか
+らインクルードされるファイル）とtarget_def.csv（または，同等の役割を持
+つファイル）に記述を追加する必要がある．なお，これらのファイルを新たに
+用意した際や修正した際には，offset.hに妥当な定義が生成されていることを
+確認すべきである．
 
-�I�t�Z�b�g�t�@�C�������p�e���v���[�g�t�@�C���́C�^�[�Q�b�g�ˑ����ŁC
-target_offset.tf�i�܂��́C�v���Z�b�T�ˑ�����`�b�v�ˑ����ŗp�ӂ��邻��
-�ɑ���t�@�C���j�ɗp�ӂ���D�܂��CMakefile�̃^�[�Q�b�g�ˑ����ŁC����
-��̂悤�ɁCOFFSET_TF�ɃI�t�Z�b�g�t�@�C�������p�e���v���[�g�t�@�C���̃t�@
-�C�������`����D
+オフセットファイル生成用テンプレートファイルは，ターゲット依存部で，
+target_offset.tf（または，プロセッサ依存部やチップ依存部で用意するそれ
+に代わるファイル）に用意する．また，Makefileのターゲット依存部で，次の
+例のように，OFFSET_TFにオフセットファイル生成用テンプレートファイルのファ
+イル名を定義する．
 
 ----------------------------------------
-# �I�t�Z�b�g�t�@�C�������̂��߂̒�`
+# オフセットファイル生成のための定義
 OFFSET_TF = $(TARGETDIR)/target_offset.tf
 ----------------------------------------
 
-�I�t�Z�b�g�t�@�C�������p�e���v���[�g�t�@�C���ɂ́C�ȉ��̓��e���L�q����D
+オフセットファイル生成用テンプレートファイルには，以下の内容を記述する．
 
-(1) �W���e���v���[�g�t�@�C���̃C���N���[�h
+(1) 標準テンプレートファイルのインクルード
 
-�I�t�Z�b�g�t�@�C�������p�̕W���e���v���[�g�t�@�C���ikernel/genoffset.tf�j
-���C���N���[�h����D�W���e���v���[�g�t�@�C���ɂ́C�ȉ��ŗp����DEFINE��
-����DEFINE_BIT�֐��̒�`�Ȃǂ��܂܂�Ă���D
+オフセットファイル生成用の標準テンプレートファイル（kernel/genoffset.tf）
+をインクルードする．標準テンプレートファイルには，以下で用いるDEFINE関
+数やDEFINE_BIT関数の定義などが含まれている．
 
 ----------------------------------------
-$ �W���e���v���[�g�t�@�C���̃C���N���[�h
+$ 標準テンプレートファイルのインクルード
 $INCLUDE "kernel/genoffset.tf"$
 ----------------------------------------
 
-(2) �I�t�Z�b�g�l�̃}�N����`�̐���
+(2) オフセット値のマクロ定義の生成
 
-DEFINE�֐���p���āC�I�t�Z�b�g�l�̃}�N����`�𐶐�����D�Ⴆ�΁CTCB����
-�^�X�N�R���e�L�X�g�u���b�N�itskctxb�j�Ɋ܂܂��pc�t�B�[���h�̃I�t�Z�b�g
-�l���CTCB_pc�Ƀ}�N����`����ꍇ�ɂ́C���̂悤�ɋL�q����D
+DEFINE関数を用いて，オフセット値のマクロ定義を生成する．例えば，TCB中の
+タスクコンテキストブロック（tskctxb）に含まれるpcフィールドのオフセット
+値を，TCB_pcにマクロ定義する場合には，次のように記述する．
 
 ----------------------------------------
-$ �I�t�Z�b�g�l�̃}�N����`�̐���
+$ オフセット値のマクロ定義の生成
 $DEFINE("TCB_pc", offsetof_TCB_pc)$
 ----------------------------------------
 
-�����ŁCDEFINE�֐��̑�1�p�����[�^�̓}�N����`����V���{���C��2�p�����[
-�^�́C�I�t�Z�b�g�l��ێ�����R���t�B�M�����[�^�̕ϐ��ł���D
+ここで，DEFINE関数の第1パラメータはマクロ定義するシンボル，第2パラメー
+タは，オフセット値を保持するコンフィギュレータの変数である．
 
-�܂��C�R���t�B�M�����[�^���C�I�t�Z�b�g�l��ێ�����ϐ��i��̗�ł�
-offsetof_TCB_pc�j�ɒl��ݒ肷�邽�߂ɁCtarget_def.csv�i�܂��́C�����̖�
-�������t�@�C���j�Ɏ��̗�̂悤�ȍs��ǉ�����D
+また，コンフィギュレータが，オフセット値を保持する変数（上の例では
+offsetof_TCB_pc）に値を設定するために，target_def.csv（または，同等の役
+割を持つファイル）に次の例のような行を追加する．
 
 ----------------------------------------
 offsetof_TCB_pc,"offsetof(TCB,tskctxb.pc)"
 ----------------------------------------
 
-�������C�e�I�u�W�F�N�g�̏������u���b�N�̃^�[�Q�b�g��ˑ��̃t�B�[���h��
-�I�t�Z�b�g�l���擾���邽�߂̋L�q�́Ckernel/kernel_def.csv�Ɋ܂܂�Ă���D
-kernel/kernel_def.csv�Ɋ܂܂�Ă���L�q�́Ctarget_def.csv�i�܂��́C����
-�̖��������t�@�C���j�ɒǉ�����K�v�͂Ȃ��D
+ただし，各オブジェクトの初期化ブロックのターゲット非依存のフィールドの
+オフセット値を取得するための記述は，kernel/kernel_def.csvに含まれている．
+kernel/kernel_def.csvに含まれている記述は，target_def.csv（または，同等
+の役割を持つファイル）に追加する必要はない．
 
-(3) �r�b�g�I�t�Z�b�g�l���̃}�N����`�̐���
+(3) ビットオフセット値等のマクロ定義の生成
 
-DEFINE_BIT�֐���p���āC�r�b�g�̃I�t�Z�b�g�l�C�r�b�g�ʒu�C�r�b�g�}�X�N
-�̃}�N����`�𐶐�����D�Ⴆ�΁CTCB����enatex�t�B�[���h�̃I�t�Z�b�g�l�C
-�r�b�g�ʒu�C�r�b�g�}�X�N���C���ꂼ��TCB_enatex�CTCB_enatex_bit�C
-TCB_enatex_mask�Ƀ}�N����`����ꍇ�ɂ́C���̂悤�ɋL�q����D
+DEFINE_BIT関数を用いて，ビットのオフセット値，ビット位置，ビットマスク
+のマクロ定義を生成する．例えば，TCB中のenatexフィールドのオフセット値，
+ビット位置，ビットマスクを，それぞれTCB_enatex，TCB_enatex_bit，
+TCB_enatex_maskにマクロ定義する場合には，次のように記述する．
 
 ----------------------------------------
 $DEFINE_BIT("TCB_enatex", sizeof_TCB, "B")$
 ----------------------------------------
 
-�����ŁCDEFINE_BIT�֐��̑�1�p�����[�^�̓}�N����`����V���{���i�̐擪��
-���j�C��2�p�����[�^�͍\���̂̃T�C�Y�ł���D��3�p�����[�^�ɂ́C�r�b�g��
-�I�t�Z�b�g�C�r�b�g�ʒu�C�r�b�g�}�X�N���C8�r�b�g�P�ʁi�o�C�g�P�ʁj�ŋ���
-��ꍇ�ɂ�"B"���C16�r�b�g�P�ʂŋ��߂�ꍇ�ɂ�"H"���C32�r�b�g�P�ʂŋ���
-��ꍇ�ɂ�"W"���w�肷��D�Ȃ��C�r�b�g�ʒu�́CLSB��0�Ƃ����l�i�r�b�g���g
-���G���f�B�A����z��j�����߂�D
+ここで，DEFINE_BIT関数の第1パラメータはマクロ定義するシンボル（の先頭部
+分），第2パラメータは構造体のサイズである．第3パラメータには，ビットの
+オフセット，ビット位置，ビットマスクを，8ビット単位（バイト単位）で求め
+る場合には"B"を，16ビット単位で求める場合には"H"を，32ビット単位で求め
+る場合には"W"を指定する．なお，ビット位置は，LSBを0とした値（ビットリト
+ルエンディアンを想定）を求める．
 
-�܂��Ctarget_cfg1_out.h�i�܂��́C��������C���N���[�h�����t�@�C���j�ɁC
-�r�b�g�I�t�Z�b�g�l�������߂邽�߂̍\���̂̕ϐ���`��ǉ�����D���̍\��
-�̂̕ϐ��́C���̂��}�N����`����V���{���iDEFINE_BIT�֐��̑�1�p�����[�^�j
-�Ƃ��C�Ώۂ̃r�b�g�݂̂�1�ŁC���̂��ׂẴr�b�g��0�ɂȂ�悤�ɏ�������
-��D�܂��Cconst�C���q��t������D�Ⴆ�΁CTCB����enatex�t�B�[���h�̃r�b
-�g�I�t�Z�b�g�l�������߂�ꍇ�ɂ́C���̂悤�Ȓ�`��ǉ�����itskctxb�̏�
-���l�́C�^�[�Q�b�g�ˑ��Ȃ̂Œ��ӂ��邱�Ɓj�D
+また，target_cfg1_out.h（または，そこからインクルードされるファイル）に，
+ビットオフセット値等を求めるための構造体の変数定義を追加する．この構造
+体の変数は，名称をマクロ定義するシンボル（DEFINE_BIT関数の第1パラメータ）
+とし，対象のビットのみが1で，他のすべてのビットが0になるように初期化す
+る．また，const修飾子を付加する．例えば，TCB中のenatexフィールドのビッ
+トオフセット値等を求める場合には，次のような定義を追加する（tskctxbの初
+期値は，ターゲット依存なので注意すること）．
 
 ----------------------------------------
 const TCB	TCB_enatex = {
@@ -649,20 +649,20 @@ const TCB	TCB_enatex = {
 };
 ----------------------------------------
 
-����ɁC�R���t�B�M�����[�^���C�\���̂̃T�C�Y�i��̗�ł�sizeof_TCB�j��
-�l��ݒ肷�邽�߂ɁCtarget_def.csv�i�܂��́C�����̖��������t�@�C���j
-�Ɏ��̗�̂悤�ȍs��ǉ�����D
+さらに，コンフィギュレータが，構造体のサイズ（上の例ではsizeof_TCB）に
+値を設定するために，target_def.csv（または，同等の役割を持つファイル）
+に次の例のような行を追加する．
 
 ----------------------------------------
 sizeof_TCB,sizeof(TCB)
 ----------------------------------------
 
-�������C�O�q�����ʂ�Ckernel/kernel_def.csv�Ɋ܂܂�Ă���L�q�́C
-target_def.csv�i�܂��́C�����̖��������t�@�C���j�ɒǉ�����K�v�͂Ȃ��D
+ただし，前述した通り，kernel/kernel_def.csvに含まれている記述は，
+target_def.csv（または，同等の役割を持つファイル）に追加する必要はない．
 
-�Ō�ɁCtarget_cfg1_out.h�i�܂��́C��������C���N���[�h�����t�@�C���j
-�ɁCoffset.h�𐶐�����d�g�݂����������삵�Ă��邱�Ƃ��m�F���邽�߂̎�
-�̋L�q��ǉ�����D
+最後に，target_cfg1_out.h（または，そこからインクルードされるファイル）
+に，offset.hを生成する仕組みが正しく動作していることを確認するための次
+の記述を追加する．
 
 ----------------------------------------
 const uint8_t	MAGIC_1 = 0x12;
@@ -670,204 +670,204 @@ const uint16_t	MAGIC_2 = 0x1234;
 const uint32_t	MAGIC_4 = 0x12345678;
 ----------------------------------------
 
-2.5.2 makeoffset.c��genoffset��p������@
+2.5.2 makeoffset.cとgenoffsetを用いる方法
 
-makeoffset.c�́C�ǂ̃I�t�Z�b�g�l��offset.h�ɐ������邩���w�肷��t�@�C
-���ŁC�^�[�Q�b�g�ˑ����ŗp�ӂ���Dgenoffset�́Cmakeoffset.c���R���p�C��
-���ē�����A�Z���u���\�[�X�t�@�C������Coffset.h�𐶐�����X�N���v�g
-�ł���Dgenoffset�́CGNU�J�����ɂ̂ݑΉ����Ă���D
+makeoffset.cは，どのオフセット値をoffset.hに生成するかを指定するファイ
+ルで，ターゲット依存部で用意する．genoffsetは，makeoffset.cをコンパイル
+して得られるアセンブリソースファイルから，offset.hを生成するスクリプト
+である．genoffsetは，GNU開発環境にのみ対応している．
 
-makeoffset.c���L�q����ꍇ�ɂ́C�����̃^�[�Q�b�g�ˑ����Ɋ܂܂��
-makeoffset.c���C������̂��ߓ��ł���D�W���I��makeoffset.c�́C�ȉ���6��
-�̕����ō\������Ă���D�Ȃ��Cmakeoffset.c��V���ɋL�q�����ۂɂ́C
-offset.h�ɑÓ��Ȓ�`����������Ă��邱�Ƃ��m�F���ׂ��ł���D
+makeoffset.cを記述する場合には，既存のターゲット依存部に含まれる
+makeoffset.cを修正するのが近道である．標準的なmakeoffset.cは，以下の6つ
+の部分で構成されている．なお，makeoffset.cを新たに記述した際には，
+offset.hに妥当な定義が生成されていることを確認すべきである．
 
-(1) �K�v�ȃt�@�C���̃C���N���[�h
+(1) 必要なファイルのインクルード
 
-�I�t�Z�b�g�l�����߂����t�B�[���h���܂ލ\���̂��`����w�b�_�t�@�C����
-�C���N���[�h����DTCB���̃t�B�[���h�̃I�t�Z�b�g�l�����߂����ꍇ�ɂ́C��
-����3�s���܂߂�΂悢�D
+オフセット値を求めたいフィールドを含む構造体を定義するヘッダファイルを
+インクルードする．TCB中のフィールドのオフセット値を求めたい場合には，以
+下の3行を含めればよい．
 
 #include "kernel_impl.h"
 #include "task.h"
 #include "sil.h"
 
-(2) �I�t�Z�b�g�l�o�͗p�}�N���̒�`
+(2) オフセット値出力用マクロの定義
 
-�\���̒��̃t�B�[���h�̃I�t�Z�b�g�l�̒�`�𐶐����邽�߂ɗp����}�N��
-�iOFFSET_DEF��OFFSET_DEF2�j�̒�`�D�����̃}�N���̒�`�́C�C������K�v
-���Ȃ��D
+構造体中のフィールドのオフセット値の定義を生成するために用いるマクロ
+（OFFSET_DEFとOFFSET_DEF2）の定義．これらのマクロの定義は，修正する必要
+がない．
 
-(3) �I�t�Z�b�g�l�o�͗p�֐��̒�`
+(3) オフセット値出力用関数の定義
 
-�\���̒��̃t�B�[���h�̃I�t�Z�b�g�l�̒�`�𐶐����邽�߂̊֐�
-�imakeoffset�j�̒�`�D�I�t�Z�b�g�l�̃}�N����`�𐶐��������t�B�[���h��
-�ɁC���̂����ꂩ�̃}�N�����L�q����D
+構造体中のフィールドのオフセット値の定義を生成するための関数
+（makeoffset）の定義．オフセット値のマクロ定義を生成したいフィールド毎
+に，次のいずれかのマクロを記述する．
 
 (2-5-2-1) OFFSET_DEF(TYPE, FIELD)
 
-TYPE�ɍ\���̂̃f�[�^�^���CFIELD�ɂ��̍\���̒��̃t�B�[���h���w�肷��ƁC
-TYPE_FIELD�Ƃ������O�̃V���{���ɁC���̃t�B�[���h�̃I�t�Z�b�g�l���}�N��
-��`����L�q�𐶐�����D
+TYPEに構造体のデータ型名，FIELDにその構造体中のフィールドを指定すると，
+TYPE_FIELDという名前のシンボルに，そのフィールドのオフセット値をマクロ
+定義する記述を生成する．
 
 (2-5-2-2) OFFSET_DEF2(TYPE, FIELD, FIELDNAME)
 
-TYPE�ɍ\���̂̃f�[�^�^���CFIELD�ɂ��̍\���̒��̃t�B�[���h���w�肷��ƁC
-TYPE_FIELDNAME�Ƃ������O�̃V���{���ɁC���̃t�B�[���h�̃I�t�Z�b�g�l���}
-�N����`����L�q�𐶐�����D�\���̂Ɋ܂܂��\���̒��̃t�B�[���h�̃I�t
-�Z�b�g�l�����߂����ꍇ�ɂ́C������̃}�N�����g�p����D
+TYPEに構造体のデータ型名，FIELDにその構造体中のフィールドを指定すると，
+TYPE_FIELDNAMEという名前のシンボルに，そのフィールドのオフセット値をマ
+クロ定義する記述を生成する．構造体に含まれる構造体中のフィールドのオフ
+セット値を求めたい場合には，こちらのマクロを使用する．
 
-(4) �G���f�B�A�����Q�Ƃ��邽�߂̊֐��̒�`
+(4) エンディアンを参照するための関数の定義
 
-SIL�Œ�`���ꂽ�G���f�B�A�����Q�Ƃ��邽�߂̊֐��isil_endian�j�̒�`�D��
-�̊֐��̒�`�́C�C������K�v���Ȃ��D
+SILで定義されたエンディアンを参照するための関数（sil_endian）の定義．こ
+の関数の定義は，修正する必要がない．
 
-(5) �r�b�g�I�t�Z�b�g�l�o�͂̂��߂̎Q�ƒ�`
+(5) ビットオフセット値出力のための参照定義
 
-�����l���������ϐ���`�ɑ΂��āC�R���p�C������������A�Z���u�����߂��Q
-�Ƃ��邽�߂̕ϐ��iBIT_REF_4�CBIT_REF_2�CBIT_REF_1�j�̒�`�D�����̒�`
-�́C�قƂ�ǂ̏ꍇ�ɏC������K�v���Ȃ��D�������Cuint8_t�^�̃T�|�[�g����
-�Ă��Ȃ��^�[�Q�b�g�ł́CBIT_REF_1�̒�`�͍폜����K�v������D�܂��C�|�C
-���^��64�r�b�g�̃^�[�Q�b�g���ł́CBIT_REF_8�̒�`��ǉ����Ȃ���΂Ȃ��
-���Ǝv����D
+初期値を持った変数定義に対して，コンパイラが生成するアセンブリ命令を参
+照するための変数（BIT_REF_4，BIT_REF_2，BIT_REF_1）の定義．これらの定義
+は，ほとんどの場合に修正する必要がない．ただし，uint8_t型のサポートされ
+ていないターゲットでは，BIT_REF_1の定義は削除する必要がある．また，ポイ
+ンタが64ビットのターゲット等では，BIT_REF_8の定義を追加しなければならな
+いと思われる．
 
-(6) �r�b�g�I�t�Z�b�g�l�o�͗p�ϐ��̒�`
+(6) ビットオフセット値出力用変数の定義
 
-�r�b�g�̃I�t�Z�b�g�l�C�r�b�g�ʒu�C�r�b�g�}�X�N�̒�`�𐶐����邽�߂̃f�[
-�^�^�̒�`�D�����̒�`�𐶐��������r�b�g�t�B�[���h���ɁC�ȉ��̐�����
-��ϐ����`����D
+ビットのオフセット値，ビット位置，ビットマスクの定義を生成するためのデー
+タ型の定義．これらの定義を生成したいビットフィールド毎に，以下の説明す
+る変数を定義する．
 
-�\���̂̃f�[�^�^����TYPE�C���̍\���̒��̃r�b�g�t�B�[���h����FIELD�̏ꍇ
-�ɁC�f�[�^�^��TYPE�ŁC�ϐ�����BIT_xy_TYPE_FIELD�̕ϐ����`����D�܂��C
-���̕ϐ����C�Ώۂ̃r�b�g�݂̂�1�ŁC���̂��ׂẴr�b�g��0�ɂȂ�悤�ɏ�
-��������D�����ŁCx�̓G���f�B�A�����w�肷�镶���ŁCB�i�r�b�O�G���f�B�A
-���j�܂���L�i���g���G���f�B�A���j���w�肷��D�܂�y�ɂ́C�r�b�g�̃I�t�Z�b
-�g�C�r�b�g�ʒu�C�r�b�g�}�X�N���C8�r�b�g�P�ʁi�o�C�g�P�ʁj�ŋ��߂�ꍇ��
-��B���C16�r�b�g�P�ʂŋ��߂�ꍇ�ɂ�H���C32�r�b�g�P�ʂŋ��߂�ꍇ�ɂ�W��
-�w�肷��D
+構造体のデータ型名がTYPE，その構造体中のビットフィールド名がFIELDの場合
+に，データ型がTYPEで，変数名がBIT_xy_TYPE_FIELDの変数を定義する．また，
+その変数を，対象のビットのみが1で，他のすべてのビットが0になるように初
+期化する．ここで，xはエンディアンを指定する文字で，B（ビッグエンディア
+ン）またはL（リトルエンディアン）を指定する．またyには，ビットのオフセッ
+ト，ビット位置，ビットマスクを，8ビット単位（バイト単位）で求める場合に
+はBを，16ビット単位で求める場合にはHを，32ビット単位で求める場合にはWを
+指定する．
 
-����ɂ��CTYPE_FIELD�Ƃ������O�̃V���{���ɂ��̃r�b�g�̃I�t�Z�b�g�C
-TYPE_FIELD_bit�Ƃ������O�̃V���{���Ƀr�b�g�ʒu�CTYPE_FIELD_mask�Ƃ�����
-�O�̃V���{���Ƀr�b�g�}�X�N���}�N����`����L�q�𐶐�����D�Ȃ��C�r�b�g
-�ʒu�́CLSB��0�Ƃ����l�i�r�b�g���g���G���f�B�A����z��j�����߂�D
+これにより，TYPE_FIELDという名前のシンボルにそのビットのオフセット，
+TYPE_FIELD_bitという名前のシンボルにビット位置，TYPE_FIELD_maskという名
+前のシンボルにビットマスクをマクロ定義する記述を生成する．なお，ビット
+位置は，LSBを0とした値（ビットリトルエンディアンを想定）を求める．
 
-2.6 �����N���@�̐ݒ�
+2.6 リンク方法の設定
 
-(2-6-1) LDSCRIPT				�����J�X�N���v�g�̃t�@�C����
+(2-6-1) LDSCRIPT				リンカスクリプトのファイル名
 
-�J�����ɕW���̃����J�X�N���v�g���g�p�ł��Ȃ��ꍇ�ɂ́C�^�[�Q�b�g�ˑ�
-���Ń����J�X�N���v�g��p�ӂ��C���̃t�@�C���������̕ϐ��ɒ�`����D
+開発環境に標準のリンカスクリプトが使用できない場合には，ターゲット依存
+部でリンカスクリプトを用意し，そのファイル名をこの変数に定義する．
 
-(2-6-2) TEXT_START_ADDRESS		�e�L�X�g�Z�N�V�����̐擪�Ԓn
-(2-6-3) DATA_START_ADDRESS		�f�[�^�Z�N�V�����̐擪�Ԓn
+(2-6-2) TEXT_START_ADDRESS		テキストセクションの先頭番地
+(2-6-3) DATA_START_ADDRESS		データセクションの先頭番地
 
-�e�Z�N�V�����̐擪�Ԓn�̎w�肪�K�v�ȏꍇ�ɂ́C�����̕ϐ��ɐ擪�Ԓn��
-��`����D
+各セクションの先頭番地の指定が必要な場合には，これらの変数に先頭番地を
+定義する．
 
-(2-6-4) START_OBJS				�擪�Ƀ����N���ׂ����W���[����
-(2-6-5) END_OBJS				�Ō�Ƀ����N���ׂ����W���[����
+(2-6-4) START_OBJS				先頭にリンクすべきモジュール名
+(2-6-5) END_OBJS				最後にリンクすべきモジュール名
 
-�^�[�Q�b�g�ɂ���ẮC���[�h���W���[���̐擪�ƍŌ�Ƀ����N���ׂ����W���[
-�����C�^�[�Q�b�g�ˑ����ŗp�ӂ���K�v������D�����̏ꍇ�C�X�^�[�g�A�b�v
-���W���[�������[�h���W���[���̐擪�Ƀ����N����K�v������D
+ターゲットによっては，ロードモジュールの先頭と最後にリンクすべきモジュー
+ルを，ターゲット依存部で用意する必要がある．多くの場合，スタートアップ
+モジュールをロードモジュールの先頭にリンクする必要がある．
 
-���[�h���W���[���̐擪�Ƀ����N���ׂ��v���O����������ꍇ�ɂ́CMakefile
-�̃^�[�Q�b�g�ˑ����ɂ����āC���̃I�u�W�F�N�g�t�@�C������START_OBJS�ɒ�
-�`���C����ɑ΂���R���p�C�����[���ƈˑ��֌W�쐬���[�����`����D���[
-�h���W���[���̍Ō�Ƀ����N���ׂ����W���[��������ꍇ�ɂ́C���̃I�u�W�F
-�N�g�t�@�C������END_OBJS�ɒ�`���C����ɑ΂���R���p�C�����[���ƈˑ���
-�W�쐬���[�����`����D�܂��C�W���̃X�^�[�g�A�b�v���W���[���icrt0.o�j
-�������N���Ȃ��悤�ɁCLDFLAGS��CFG1_OUT_LDFLAGS��-nostdlib��ǉ�����K
-�v������D����ɁC-nostdlib�����邱�ƂŕW�����C�u�����������N����Ȃ�
-�Ȃ邽�߁CLIBS��-lgcc��ǉ����Ȃ���΂Ȃ�Ȃ��D
+ロードモジュールの先頭にリンクすべきプログラムがある場合には，Makefile
+のターゲット依存部において，そのオブジェクトファイル名をSTART_OBJSに定
+義し，それに対するコンパイルルールと依存関係作成ルールを定義する．ロー
+ドモジュールの最後にリンクすべきモジュールがある場合には，そのオブジェ
+クトファイル名をEND_OBJSに定義し，それに対するコンパイルルールと依存関
+係作成ルールを定義する．また，標準のスタートアップモジュール（crt0.o）
+をリンクしないように，LDFLAGSとCFG1_OUT_LDFLAGSに-nostdlibを追加する必
+要がある．さらに，-nostdlibをつけることで標準ライブラリがリンクされなく
+なるため，LIBSに-lgccを追加しなければならない．
 
-�Ⴆ�΁C�X�^�[�g�A�b�v���W���[���̃\�[�X�t�@�C����start.S�̏ꍇ�ɂ́C
-Makefile�̃^�[�Q�b�g�ˑ����Ɏ��̂悤�ȋL�q������Ƃ悢�D
+例えば，スタートアップモジュールのソースファイルがstart.Sの場合には，
+Makefileのターゲット依存部に次のような記述を入れるとよい．
 
 ----------------------------------------
-# �X�^�[�g�A�b�v���W���[���̃I�u�W�F�N�g�t�@�C����
+# スタートアップモジュールのオブジェクトファイル名
 START_OBJS = start.o
 
-# �X�^�[�g�A�b�v���W���[���̃R���p�C�����[��
+# スタートアップモジュールのコンパイルルール
 $(START_OBJS): %.o: %.S
 	$(CC) -c $(CFLAGS) $(KERNEL_CFLAGS) $<
 
-# �X�^�[�g�A�b�v���W���[���̈ˑ��֌W�쐬���[��
+# スタートアップモジュールの依存関係作成ルール
 $(START_OBJS:.o=.d): %.d: %.S
 	@$(PERL) $(SRCDIR)/utils/makedep -C $(CC) $(MAKEDEP_OPTS) \
 		-O "$(CFLAGS) $(KERNEL_CFLAGS)" $< >> Makefile.depend
 
-# �����J�ɑ΂���I�v�V����
+# リンカに対するオプション
 LDFLAGS := -nostdlib $(LDFLAGS)
 CFG1_OUT_LDFLAGS := -nostdlib $(CFG1_OUT_LDFLAGS)
 LIBS := $(LIBS) -lgcc
 ----------------------------------------
 
-�܂��CGNU�J�����ŁC�R���p�C���ɕW����crtbegin.o��crtend.o��p����ꍇ
-�ɂ́CMakefile �̃^�[�Q�b�g�ˑ����Ɏ��̂悤�ȋL�q������Ƃ悢�D
+また，GNU開発環境で，コンパイラに標準のcrtbegin.oとcrtend.oを用いる場合
+には，Makefile のターゲット依存部に次のような記述を入れるとよい．
 
 ----------------------------------------
-# �I�u�W�F�N�g�t�@�C����
+# オブジェクトファイル名
 START_OBJS = $(shell $(CC) -print-file-name=crtbegin.o)
 END_OBJS = $(shell $(CC) -print-file-name=crtend.o)
 
-# �ˑ��֌W�쐬���[��
+# 依存関係作成ルール
 $(START_OBJS:.o=.d): %.d:
 $(END_OBJS:.o=.d): %.d:
 
-# �����J�ɑ΂���I�v�V����
+# リンカに対するオプション
 LDFLAGS := -nostdlib $(LDFLAGS)
 CFG1_OUT_LDFLAGS := -nostdlib $(CFG1_OUT_LDFLAGS)
 LIBS := $(LIBS) -lgcc
 ----------------------------------------
 
-���̏ꍇ�C�����̃t�@�C�����R���p�C�����邱�Ƃ͂Ȃ����߁C�R���p�C�����[
-���͕s�v�ł���D�܂��C�ˑ��֌W�쐬���[���̓_�~�[�ł悢�i�ˑ��֌W�쐬���[
-�����Ȃ��ƃG���[�ɂȂ�j�D
+この場合，これらのファイルをコンパイルすることはないため，コンパイルルー
+ルは不要である．また，依存関係作成ルールはダミーでよい（依存関係作成ルー
+ルがないとエラーになる）．
 
-(2-6-6) HIDDEN_OBJS				�w�肵�Ȃ��Ă������N����郂�W���[����
+(2-6-6) HIDDEN_OBJS				指定しなくてもリンクされるモジュール名
 
-���[�h���W���[���Ƀ����N���ׂ����W���[�����C�����J�ɑ΂���p�����[�^��
-�͂Ȃ��C�����J�X�N���v�g���Ɂi�Ⴆ�΁CGNU�J�����̃����J�X�N���v�g��
-STARTUP���g���āj�L�q����ꍇ�ɂ́C���̃I�u�W�F�N�g�t�@�C�������C
-�iSTART_OBJS�܂���END_OBJS�ł͂Ȃ��jHIDDEN_OBJS�ɒ�`���C����ɑ΂���R
-���p�C�����[���ƈˑ��֌W�쐬���[�����`����DHIDDEN_OBJS�ɒ�`������
-�W���[���́C�����J�ɑ΂���p�����[�^����͏��O�����DLDFLAGS��
-CFG1_OUT_LDFLAGS�CLIBS�ɂ��ẮCSTART_OBJS�܂���END_OBJS��p����ꍇ
-�Ɠ��l�ł���D
+ロードモジュールにリンクすべきモジュールを，リンカに対するパラメータで
+はなく，リンカスクリプト中に（例えば，GNU開発環境のリンカスクリプトの
+STARTUPを使って）記述する場合には，そのオブジェクトファイル名を，
+（START_OBJSまたはEND_OBJSではなく）HIDDEN_OBJSに定義し，それに対するコ
+ンパイルルールと依存関係作成ルールを定義する．HIDDEN_OBJSに定義したモ
+ジュールは，リンカに対するパラメータからは除外される．LDFLAGSと
+CFG1_OUT_LDFLAGS，LIBSについては，START_OBJSまたはEND_OBJSを用いる場合
+と同様である．
 
-�Ⴆ�΁C�X�^�[�g�A�b�v���W���[���̃\�[�X�t�@�C����start.S�ŁCstart.o��
-�����N���邱�Ƃ������J�X�N���v�g���ɋL�q����ꍇ�ɂ́CMakefile�̃^�[�Q�b
-�g�ˑ����Ɏ��̂悤�ȋL�q������Ƃ悢�D
+例えば，スタートアップモジュールのソースファイルがstart.Sで，start.oを
+リンクすることをリンカスクリプト中に記述する場合には，Makefileのターゲッ
+ト依存部に次のような記述を入れるとよい．
 
 ----------------------------------------
-# �X�^�[�g�A�b�v���W���[���̃I�u�W�F�N�g�t�@�C����
+# スタートアップモジュールのオブジェクトファイル名
 HIDDEN_OBJS = start.o
 
-# �X�^�[�g�A�b�v���W���[���̃R���p�C�����[��
+# スタートアップモジュールのコンパイルルール
 $(HIDDEN_OBJS): %.o: %.S
 	$(CC) -c $(CFLAGS) $(KERNEL_CFLAGS) $<
 
-# �X�^�[�g�A�b�v���W���[���̈ˑ��֌W�쐬���[��
+# スタートアップモジュールの依存関係作成ルール
 $(HIDDEN_OBJS:.o=.d): %.d: %.S
 	@$(PERL) $(SRCDIR)/utils/makedep -C $(CC) $(MAKEDEP_OPTS) \
 		-O "$(CFLAGS) $(KERNEL_CFLAGS)" $< >> Makefile.depend
 
-# �����J�ɑ΂���I�v�V����
+# リンカに対するオプション
 LDFLAGS := -nostdlib $(LDFLAGS)
 CFG1_OUT_LDFLAGS := -nostdlib $(CFG1_OUT_LDFLAGS)
 LIBS := $(LIBS) -lgcc
 ----------------------------------------
 
-2.7 �ˑ��֌W�̒�`
+2.7 依存関係の定義
 
-�R���t�B�M�����[�^�̊e�p�X�ɑ΂��āC�^�[�Q�b�g�ˑ��̃t�@�C���ւ̈ˑ���
-�W���`����D��̓I�ɂ́C�p�X1�C�p�X2�C�p�X3���ˑ�����t�@�C�����C����
-����cfg1_out.c�Ckernel_cfg.timestamp�C$(OBJFILE)�ɑ΂���ˑ��֌W�̌`��
-�L�q����D
+コンフィギュレータの各パスに対して，ターゲット依存のファイルへの依存関
+係を定義する．具体的には，パス1，パス2，パス3が依存するファイルを，それ
+ぞれcfg1_out.c，kernel_cfg.timestamp，$(OBJFILE)に対する依存関係の形で
+記述する．
 
-�قƂ�ǂ̏ꍇ�ɁC�^�[�Q�b�g�ˑ����f�B���N�g����Makefile.target�ɂ́C��
-���̋L�q���܂߂�K�v������D
+ほとんどの場合に，ターゲット依存部ディレクトリのMakefile.targetには，以
+下の記述を含める必要がある．
 
 ----------------------------------------
 cfg1_out.c: $(TARGETDIR)/target_def.csv
@@ -875,356 +875,356 @@ kernel_cfg.timestamp: $(TARGETDIR)/target.tf
 $(OBJFILE): $(TARGETDIR)/target_check.tf
 ----------------------------------------
 
-2.8 ���̑��̐ݒ�
+2.8 その他の設定
 
-(2-8-1) CLEAN_FILES				clean�ɂ��폜����t�@�C����
+(2-8-1) CLEAN_FILES				cleanにより削除するファイル名
 
-clean�ɂ��폜����t�@�C�����^�[�Q�b�g�ˑ����Œǉ��������ꍇ�ɂ́C�t�@
-�C���������̕ϐ��ɒǉ���`����D
+cleanにより削除するファイルをターゲット依存部で追加したい場合には，ファ
+イル名をこの変数に追加定義する．
 
-(2-8-2) REALCLEAN_FILES			realclean�ɂ��폜����t�@�C����
+(2-8-2) REALCLEAN_FILES			realcleanにより削除するファイル名
 
-realclean�ɂ��폜����t�@�C�����^�[�Q�b�g�ˑ����Œǉ��������ꍇ�ɂ́C
-�t�@�C���������̕ϐ��ɒǉ���`����D
+realcleanにより削除するファイルをターゲット依存部で追加したい場合には，
+ファイル名をこの変数に追加定義する．
 
 
-�R�DTOPPERS���ʒ�`�̃^�[�Q�b�g�ˑ���
+３．TOPPERS共通定義のターゲット依存部
 
-TOPPERS���ʒ�`�it_stddef.h�j�̃^�[�Q�b�g�ˑ����́Ctarget_stddef.h�܂�
-�͂�������C���N���[�h�����t�@�C���i�v���Z�b�T�E�`�b�v�E�J�����ˑ�
-���ŗp�ӂ����w�b�_�t�@�C���Ȃǁj�Ɋ܂߂�D
+TOPPERS共通定義（t_stddef.h）のターゲット依存部は，target_stddef.hまた
+はそこからインクルードされるファイル（プロセッサ・チップ・開発環境依存
+部で用意されるヘッダファイルなど）に含める．
 
-3.1 �^�[�Q�b�g���ʃ}�N��
+3.1 ターゲット識別マクロ
 
-�A�v���P�[�V������V�X�e���T�[�r�X�Ń^�[�Q�b�g�����ʂ��邽�߂ɁC
-"TOPPERS_"�ɃV�X�e�����̂�啶���ɂ����������A���������́i�Ⴆ�΁C
-"TOPPERS_DVE68K"�j���}�N����`����D
+アプリケーションやシステムサービスでターゲットを識別するために，
+"TOPPERS_"にシステム略称を大文字にした文字列を連結したもの（例えば，
+"TOPPERS_DVE68K"）をマクロ定義する．
 
-�܂��C�^�[�Q�b�g�ˑ�������v���Z�b�T�ˑ�����`�b�v�ˑ�����؂蕪������
-���ɂ́C"TOPPERS_"�Ɉˑ������̂�啶���ɂ����������A���������́i�Ⴆ
-�΁C"TOPPERS_M68K"�j���}�N����`����D
+また，ターゲット依存部からプロセッサ依存部やチップ依存部を切り分けた場
+合には，"TOPPERS_"に依存部略称を大文字にした文字列を連結したもの（例え
+ば，"TOPPERS_M68K"）をマクロ定義する．
 
-3.2 �����^�̍ő�l�E�ŏ��l�E�r�b�g��
+3.2 整数型の最大値・最小値・ビット数
 
-(3-2-1) INT_MAX				int�Ɋi�[�ł���ő�l�iC90�����j
-(3-2-2) INT_MIN				int�Ɋi�[�ł���ŏ��l�iC90�����j
-(3-2-3) UINT_MAX			unsigned int�Ɋi�[�ł���ő�l�iC90�����j
-(3-2-4) LONG_MAX			long�Ɋi�[�ł���ő�l�iC90�����j
-(3-2-5) LONG_MIN			long�Ɋi�[�ł���ŏ��l�iC90�����j
-(3-2-6) ULONG_MAX			unsigned long�Ɋi�[�ł���ő�l�iC90�����j
-(3-2-7) CHAR_BIT			char�^�̃r�b�g���iC90�����j
+(3-2-1) INT_MAX				intに格納できる最大値（C90準拠）
+(3-2-2) INT_MIN				intに格納できる最小値（C90準拠）
+(3-2-3) UINT_MAX			unsigned intに格納できる最大値（C90準拠）
+(3-2-4) LONG_MAX			longに格納できる最大値（C90準拠）
+(3-2-5) LONG_MIN			longに格納できる最小値（C90準拠）
+(3-2-6) ULONG_MAX			unsigned longに格納できる最大値（C90準拠）
+(3-2-7) CHAR_BIT			char型のビット数（C90準拠）
 
-�����^�̍ő�l�E�ŏ��l�E�r�b�g�����C�����̃V���{���Ƀ}�N���ɒ�`����D
+整数型の最大値・最小値・ビット数を，これらのシンボルにマクロに定義する．
 
-�����̃}�N���́CC90�ɏ����������̂ł���D�J������C90�ɏ�������
-limits.h���p�ӂ���Ă���ꍇ�ɂ́C�����̃}�N�����`���邱�Ƃɑウ�āC
-limits.h���C���N���[�h����΂悢�D
+これらのマクロは，C90に準拠したものである．開発環境にC90に準拠した
+limits.hが用意されている場合には，これらのマクロを定義することに代えて，
+limits.hをインクルードすればよい．
 
-3.3 �T�C�Y�̎w�肳�ꂽ�����^�C���̍ő�l�E�ŏ��l�C�����萔�����}�N��
+3.3 サイズの指定された整数型，その最大値・最小値，整数定数を作るマクロ
 
-(3-3-1) int8_t				�����t��8�r�b�g�����i�I�v�V�����CC99�����j
-(3-3-2) uint8_t				��������8�r�b�g�����i�I�v�V�����CC99�����j
-(3-3-3) int16_t				�����t��16�r�b�g�����iC99�����j
-(3-3-4) uint16_t			��������16�r�b�g�����iC99�����j
-(3-3-5) int32_t				�����t��32�r�b�g�����iC99�����j
-(3-3-6) uint32_t			��������32�r�b�g�����iC99�����j
-(3-3-7) int64_t				�����t��64�r�b�g�����i�I�v�V�����CC99�����j
-(3-3-8) uint64_t			��������64�r�b�g�����i�I�v�V�����CC99�����j
-(3-3-9) int128_t			�����t��128�r�b�g�����i�I�v�V�����CC99�����j
-(3-3-10) uint128_t			��������128�r�b�g�����i�I�v�V�����CC99�����j
-(3-3-11) int_least8_t		8�r�b�g�ȏ�̕����t�������iC99�����j
-(3-3-12) uint_least8_t		8�r�b�g�ȏ�̕������������iC99�����j
-(3-3-13) intptr_t			�|�C���^���i�[�ł���T�C�Y�̕����t�������iC99�����j
-(3-3-14) uintptr_t			�|�C���^���i�[�ł���T�C�Y�̕������������iC99�����j
-(3-3-15) INT8_MAX			int8_t�Ɋi�[�ł���ő�l�i�I�v�V�����CC99�����j
-(3-3-16) INT8_MIN			int8_t�Ɋi�[�ł���ŏ��l�i�I�v�V�����CC99�����j
-(3-3-17) UINT8_MAX			uint8_t�Ɋi�[�ł���ő�l�i�I�v�V�����CC99�����j
-(3-3-18) INT16_MAX			int16_t�Ɋi�[�ł���ő�l�iC99�����j
-(3-3-19) INT16_MIN			int16_t�Ɋi�[�ł���ŏ��l�iC99�����j
-(3-3-20) UINT16_MAX			uint16_t�Ɋi�[�ł���ő�l�iC99�����j
-(3-3-21) INT32_MAX			int32_t�Ɋi�[�ł���ő�l�iC99�����j
-(3-3-22) INT32_MIN			int32_t�Ɋi�[�ł���ŏ��l�iC99�����j
-(3-3-23) UINT32_MAX			uint32_t�Ɋi�[�ł���ő�l�iC99�����j
-(3-3-24) INT64_MAX			int64_t�Ɋi�[�ł���ő�l�i�I�v�V�����CC99�����j
-(3-3-25) INT64_MIN			int64_t�Ɋi�[�ł���ŏ��l�i�I�v�V�����CC99�����j
-(3-3-26) UINT64_MAX			uint64_t�Ɋi�[�ł���ő�l�i�I�v�V�����CC99�����j
-(3-3-27) INT128_MAX			int128_t�Ɋi�[�ł���ő�l�i�I�v�V�����CC99�����j
-(3-3-28) INT128_MIN			int128_t�Ɋi�[�ł���ŏ��l�i�I�v�V�����CC99�����j
-(3-3-29) UINT128_MAX		uint128_t�Ɋi�[�ł���ő�l�i�I�v�V�����CC99�����j
-(3-3-30) INT_LEAST8_MAX		int_least8_t�Ɋi�[�ł���ő�l�iC99�����j
-(3-3-31) INT_LEAST8_MIN		int_least8_t�Ɋi�[�ł���ŏ��l�iC99�����j
-(3-3-32) UINT_LEAST8_MAX	uint_least8_t�Ɋi�[�ł���ő�l�iC99�����j
-(3-3-33) INT8_C(val)		int_least8_t�^�̒萔�����}�N���iC99�����j
-(3-3-34) UINT8_C(val)		uint_least8_t�^�̒萔�����}�N���iC99�����j
-(3-3-35) INT16_C(val)		int16_t�^�̒萔�����}�N���iC99�����j
-(3-3-36) UINT16_C(val)		uint16_t�^�̒萔�����}�N���iC99�����j
-(3-3-37) INT32_C(val)		int32_t�^�̒萔�����}�N���iC99�����j
-(3-3-38) UINT32_C(val)		uint32_t�^�̒萔�����}�N���iC99�����j
-(3-3-39) INT64_C(val)		int64_t�^�̒萔�����}�N���i�I�v�V�����CC99�����j
-(3-3-40) UINT64_C(val)		uint64_t�^�̒萔�����}�N���i�I�v�V�����CC99�����j
-(3-3-41) INT128_C(val)		int128_t�^�̒萔�����}�N���i�I�v�V�����CC99�����j
-(3-3-42) UINT128_C(val)		uint128_t�^�̒萔�����}�N���i�I�v�V�����CC99�����j
+(3-3-1) int8_t				符号付き8ビット整数（オプション，C99準拠）
+(3-3-2) uint8_t				符号無し8ビット整数（オプション，C99準拠）
+(3-3-3) int16_t				符号付き16ビット整数（C99準拠）
+(3-3-4) uint16_t			符号無し16ビット整数（C99準拠）
+(3-3-5) int32_t				符号付き32ビット整数（C99準拠）
+(3-3-6) uint32_t			符号無し32ビット整数（C99準拠）
+(3-3-7) int64_t				符号付き64ビット整数（オプション，C99準拠）
+(3-3-8) uint64_t			符号無し64ビット整数（オプション，C99準拠）
+(3-3-9) int128_t			符号付き128ビット整数（オプション，C99準拠）
+(3-3-10) uint128_t			符号無し128ビット整数（オプション，C99準拠）
+(3-3-11) int_least8_t		8ビット以上の符号付き整数（C99準拠）
+(3-3-12) uint_least8_t		8ビット以上の符号無し整数（C99準拠）
+(3-3-13) intptr_t			ポインタを格納できるサイズの符号付き整数（C99準拠）
+(3-3-14) uintptr_t			ポインタを格納できるサイズの符号無し整数（C99準拠）
+(3-3-15) INT8_MAX			int8_tに格納できる最大値（オプション，C99準拠）
+(3-3-16) INT8_MIN			int8_tに格納できる最小値（オプション，C99準拠）
+(3-3-17) UINT8_MAX			uint8_tに格納できる最大値（オプション，C99準拠）
+(3-3-18) INT16_MAX			int16_tに格納できる最大値（C99準拠）
+(3-3-19) INT16_MIN			int16_tに格納できる最小値（C99準拠）
+(3-3-20) UINT16_MAX			uint16_tに格納できる最大値（C99準拠）
+(3-3-21) INT32_MAX			int32_tに格納できる最大値（C99準拠）
+(3-3-22) INT32_MIN			int32_tに格納できる最小値（C99準拠）
+(3-3-23) UINT32_MAX			uint32_tに格納できる最大値（C99準拠）
+(3-3-24) INT64_MAX			int64_tに格納できる最大値（オプション，C99準拠）
+(3-3-25) INT64_MIN			int64_tに格納できる最小値（オプション，C99準拠）
+(3-3-26) UINT64_MAX			uint64_tに格納できる最大値（オプション，C99準拠）
+(3-3-27) INT128_MAX			int128_tに格納できる最大値（オプション，C99準拠）
+(3-3-28) INT128_MIN			int128_tに格納できる最小値（オプション，C99準拠）
+(3-3-29) UINT128_MAX		uint128_tに格納できる最大値（オプション，C99準拠）
+(3-3-30) INT_LEAST8_MAX		int_least8_tに格納できる最大値（C99準拠）
+(3-3-31) INT_LEAST8_MIN		int_least8_tに格納できる最小値（C99準拠）
+(3-3-32) UINT_LEAST8_MAX	uint_least8_tに格納できる最大値（C99準拠）
+(3-3-33) INT8_C(val)		int_least8_t型の定数を作るマクロ（C99準拠）
+(3-3-34) UINT8_C(val)		uint_least8_t型の定数を作るマクロ（C99準拠）
+(3-3-35) INT16_C(val)		int16_t型の定数を作るマクロ（C99準拠）
+(3-3-36) UINT16_C(val)		uint16_t型の定数を作るマクロ（C99準拠）
+(3-3-37) INT32_C(val)		int32_t型の定数を作るマクロ（C99準拠）
+(3-3-38) UINT32_C(val)		uint32_t型の定数を作るマクロ（C99準拠）
+(3-3-39) INT64_C(val)		int64_t型の定数を作るマクロ（オプション，C99準拠）
+(3-3-40) UINT64_C(val)		uint64_t型の定数を作るマクロ（オプション，C99準拠）
+(3-3-41) INT128_C(val)		int128_t型の定数を作るマクロ（オプション，C99準拠）
+(3-3-42) UINT128_C(val)		uint128_t型の定数を作るマクロ（オプション，C99準拠）
 
-�w�肳�ꂽ�T�C�Y�̐����^���C�����̃V���{���Ɍ^��`����D�܂��C�f�[�^
-�^�Ɋi�[�ł���ő�l�E�ŏ��l�ƁC�����萔�����}�N�����C�����̃V���{
-���Ƀ}�N����`����D
+指定されたサイズの整数型を，これらのシンボルに型定義する．また，データ
+型に格納できる最大値・最小値と，整数定数を作るマクロを，これらのシンボ
+ルにマクロ定義する．
 
-�����̃f�[�^�^����у}�N���́CC99�ɏ����������̂ł���D�J������C99
-�ɏ�������stdint.h���p�ӂ���Ă���ꍇ�ɂ́C�����̃f�[�^�^����у}�N
-�����`���邱�Ƃɑウ�āCstdint.h���C���N���[�h����΂悢�D
+これらのデータ型およびマクロは，C99に準拠したものである．開発環境にC99
+に準拠したstdint.hが用意されている場合には，これらのデータ型およびマク
+ロを定義することに代えて，stdint.hをインクルードすればよい．
 
-��ŃI�v�V�����ƋL�q�������̂́C�Y������f�[�^�^���R���p�C���ŃT�|�[�g
-����Ă���ꍇ�ɂ̂ݒ�`���邱�Ƃ������D
+上でオプションと記述したものは，該当するデータ型がコンパイラでサポート
+されている場合にのみ定義することを示す．
 
-3.4 �T�C�Y�̎w�肳�ꂽ���������_�^�C���̍ő�l�E�ŏ��l�̃}�N��
+3.4 サイズの指定された浮動小数点型，その最大値・最小値のマクロ
 
-(3-4-1) float32_t			IEEE754������32�r�b�g�P���x���������_���i�I�v
-							�V�����j
-(3-4-2) double64_t			IEEE754������64�r�b�g�{���x���������_���i�I�v
-							�V�����j
-(3-4-3) FLOAT32_MIN			float32_t�Ɋi�[�ł���ŏ��̐��K�����ꂽ���̕�
-							�������_���i�I�v�V�����j
-(3-4-4) FLOAT32_MAX			float32_t�Ɋi�[�ł���\���\�ȍő�̗L������
-							�����_���i�I�v�V�����j
-(3-4-5) DOUBLE64_MIN		double64_t�Ɋi�[�ł���ŏ��̐��K�����ꂽ���̕�
-							�������_���i�I�v�V�����j
-(3-4-6) DOUBLE64_MAX		double64_t�Ɋi�[�ł���\���\�ȍő�̗L������
-							�����_���i�I�v�V�����j
+(3-4-1) float32_t			IEEE754準拠の32ビット単精度浮動小数点数（オプ
+							ション）
+(3-4-2) double64_t			IEEE754準拠の64ビット倍精度浮動小数点数（オプ
+							ション）
+(3-4-3) FLOAT32_MIN			float32_tに格納できる最小の正規化された正の浮
+							動小数点数（オプション）
+(3-4-4) FLOAT32_MAX			float32_tに格納できる表現可能な最大の有限浮動
+							小数点数（オプション）
+(3-4-5) DOUBLE64_MIN		double64_tに格納できる最小の正規化された正の浮
+							動小数点数（オプション）
+(3-4-6) DOUBLE64_MAX		double64_tに格納できる表現可能な最大の有限浮動
+							小数点数（オプション）
 
-�w�肳�ꂽ�T�C�Y�E�\���`���̕��������_�^���C�����̃V���{���Ɍ^��`��
-��D�܂��C�f�[�^�^�Ɋi�[�ł���ő�l�E�ŏ��l���C�����̃V���{���Ƀ}�N
-����`����D
+指定されたサイズ・表現形式の浮動小数点型を，これらのシンボルに型定義す
+る．また，データ型に格納できる最大値・最小値を，これらのシンボルにマク
+ロ定義する．
 
-��������C�Y������f�[�^�^���R���p�C���ŃT�|�[�g����Ă���ꍇ�ɂ̂ݒ�
-�`����D
+いずれも，該当するデータ型がコンパイラでサポートされている場合にのみ定
+義する．
 
-3.5 �R���p�C���̊g���@�\�̂��߂̃}�N����`
+3.5 コンパイラの拡張機能のためのマクロ定義
 
-�R���p�C���̊g���@�\��p���邽�߂̃}�N���Ƃ��āC�K�v�ɉ����āC�ȉ��̃}
-�N���̒�`���܂߂�D
+コンパイラの拡張機能を用いるためのマクロとして，必要に応じて，以下のマ
+クロの定義を含める．
 
-(3-5-1) inline�i�I�v�V�����C�f�t�H���g�͖���`�j
-(3-5-2) Inline�i�I�v�V�����C�f�t�H���g��static inline�j
+(3-5-1) inline（オプション，デフォルトは未定義）
+(3-5-2) Inline（オプション，デフォルトはstatic inline）
 
-�C�����C���֐��ł��邱�Ƃ������w��DInline�́C�R���p�C���P�ʂɃ��[�J��
-�ȃC�����C���֐��ł��邱�Ƃ������D
+インライン関数であることを示す指定．Inlineは，コンパイル単位にローカル
+なインライン関数であることを示す．
 
-(3-5-3) asm�i�I�v�V�����C�f�t�H���g�͖���`�j
-(3-5-4) Asm�i�I�v�V�����C�f�t�H���g�͖���`�j
+(3-5-3) asm（オプション，デフォルトは未定義）
+(3-5-4) Asm（オプション，デフォルトは未定義）
 
-�C�����C���A�Z���u�����L�q���邽�߂̎w��DAsm�́C�œK���ɂ��폜���Ă�
-�Ȃ�Ȃ����Ƃ������D�����́C�^�[�Q�b�g�ˑ����ł̂ݎg���}�N���ł��邽
-�߁C�^�[�Q�b�g�ˑ����Ŏg��Ȃ��Ȃ��`����K�v�͂Ȃ��D
+インラインアセンブラを記述するための指定．Asmは，最適化により削除しては
+ならないことを示す．これらは，ターゲット依存部でのみ使うマクロであるた
+め，ターゲット依存部で使わないなら定義する必要はない．
 
-(3-5-5) offsetof(structure, field)�i�I�v�V�����C�f�t�H���g�̒�`����j
+(3-5-5) offsetof(structure, field)（オプション，デフォルトの定義あり）
 
-�\����structure�̒��ł́C�t�B�[���hfield�̃I�t�Z�b�g�����߂�}�N���D
+構造体structureの中での，フィールドfieldのオフセットを求めるマクロ．
 
-(3-5-6) alignof(type)�i�I�v�V�����C�f�t�H���g�̒�`����j
+(3-5-6) alignof(type)（オプション，デフォルトの定義あり）
 
-�f�[�^�^type�̃A���C�������g�P�ʂ����߂�}�N���D
+データ型typeのアラインメント単位を求めるマクロ．
 
-(3-5-7) NoReturn�i�I�v�V�����C�f�t�H���g�͖���`�j
+(3-5-7) NoReturn（オプション，デフォルトは未定義）
 
-���^�[�����邱�Ƃ̂Ȃ��֐��ł��邱�Ƃ������w��D����́C�^�[�Q�b�g�ˑ�
-���̂ݎg���}�N���ł��邽�߁C�^�[�Q�b�g�ˑ����Ŏg��Ȃ��Ȃ��`����K�v
-�͂Ȃ��D
+リターンすることのない関数であることを示す指定．これは，ターゲット依存
+部のみ使うマクロであるため，ターゲット依存部で使わないなら定義する必要
+はない．
 
-3.6 �W���I�Ȓ�`�̏㏑��
+3.6 標準的な定義の上書き
 
-t_stddef.h�Ɋ܂܂��TOPPERS���ʒ�`�̕W���I�Ȓ�`���㏑������ꍇ�ɂ́C
-�ȉ��̃}�N�����`����D
+t_stddef.hに含まれるTOPPERS共通定義の標準的な定義を上書きする場合には，
+以下のマクロを定義する．
 
-(3-6-1) TOPPERS_bool�i�I�v�V�����C�f�t�H���g��int�j
-(3-6-2) TOPPERS_size�i�I�v�V�����C�f�t�H���g��uintptr_t�j
-(3-6-3) TOPPERS_fp�i�I�v�V�����C�f�t�H���g�͑��ƌ݊����̂Ȃ��֐��|�C���^�j
+(3-6-1) TOPPERS_bool（オプション，デフォルトはint）
+(3-6-2) TOPPERS_size（オプション，デフォルトはuintptr_t）
+(3-6-3) TOPPERS_fp（オプション，デフォルトは他と互換性のない関数ポインタ）
 
-���ꂼ��Cbool_t�CSIZE�CFP�Ɍ^��`���ׂ��f�[�^�^�D
+それぞれ，bool_t，SIZE，FPに型定義すべきデータ型．
 
-(3-6-4) UINT_C(val)�i�I�v�V�����C�f�t�H���g��U��t���j
-(3-6-5) ULONG_C(val)�i�I�v�V�����C�f�t�H���g��UL��t���j
+(3-6-4) UINT_C(val)（オプション，デフォルトはUを付加）
+(3-6-5) ULONG_C(val)（オプション，デフォルトはULを付加）
 
-���ꂼ��Cunsigned uint�^�Cunsigned long�^�̒萔����邽�߂̃}�N���D
+それぞれ，unsigned uint型，unsigned long型の定数を作るためのマクロ．
 
-(3-6-6) NULL�i�I�v�V�����C�f�t�H���g��0�j
+(3-6-6) NULL（オプション，デフォルトは0）
 
-C90������C������ł́CNULL�̒�`��stddef.h�Ɋ܂܂�Ă��邽�߁C�����
-�C���N���[�h���Ă��悢�D
+C90準拠のC言語環境では，NULLの定義はstddef.hに含まれているため，これを
+インクルードしてもよい．
 
-(3-6-7) ERCD(mercd, sercd)�i�I�v�V�����j
-(3-6-8) MERCD(ercd)�i�I�v�V�����j
-(3-6-9) SERCD(ercd)�i�I�v�V�����j
+(3-6-7) ERCD(mercd, sercd)（オプション）
+(3-6-8) MERCD(ercd)（オプション）
+(3-6-9) SERCD(ercd)（オプション）
 
-ERCD�CMERCD�CSERCD�̕W���̒�`�́C�����t��������2�̕␔�ŕ\������Ă���C
-�E�V�t�g���Z�q�i>>�j���Z�p�V�t�g����邱�Ƃ����肵�Ă���D�����̃R���p
-�C���ł��̉��肪���藧���C�����łȂ��ꍇ�ɂ́C�^�[�Q�b�g�ˑ����ł���
-��̒�`���㏑������K�v������D
+ERCD，MERCD，SERCDの標準の定義は，符号付き整数が2の補数で表現されており，
+右シフト演算子（>>）が算術シフトされることを仮定している．多くのコンパ
+イラでこの仮定が成り立つが，そうでない場合には，ターゲット依存部でこれ
+らの定義を上書きする必要がある．
 
-(3-6-10) ALIGN_TYPE(addr, type)�i�I�v�V�����j
+(3-6-10) ALIGN_TYPE(addr, type)（オプション）
 
-�A�h���Xaddr���C�f�[�^�^type�̃A���C�������g�P�ʂɃA���C�����Ă��邩
-�`�F�b�N����}�N���D
+アドレスaddrが，データ型typeのアラインメント単位にアラインしているか
+チェックするマクロ．
 
-3.7 �A�T�[�V�����̂��߂̒�`
+3.7 アサーションのための定義
 
-t_stddef.h�ɂ́Cassert�̒�`���܂܂��Dassert�����s�����ꍇ�iassert��
-�p�����[�^��false�ɂȂ����ꍇ�j�̏������C�^�[�Q�b�g�ˑ��ɗp�ӂ���K�v��
-����D�����̒�`�́Cassert�}�N�����g�p����O�ł���΁Ct_stddef.h�ȍ~
-�ɃC���N���[�h�����t�@�C���Ɋ܂܂�Ă��Ă��悢�D�Ȃ��Cassert�𖳌���
-����iNDEBUG���}�N����`���ăR���p�C������j�ꍇ�ɂ́C������p�ӂ���
-�K�v�͂Ȃ��D
+t_stddef.hには，assertの定義が含まれる．assertが失敗した場合（assertの
+パラメータがfalseになった場合）の処理を，ターゲット依存に用意する必要が
+ある．これらの定義は，assertマクロを使用する前であれば，t_stddef.h以降
+にインクルードされるファイルに含まれていてもよい．なお，assertを無効に
+する（NDEBUGをマクロ定義してコンパイルする）場合には，これらを用意する
+必要はない．
 
 (3-7-1) TOPPERS_assert_abort(void)
 
-assert�����s�����ꍇ�ɁC�v���O�������~������֐��D�V�X�e���J�����̓f
-�o�b�K�ɗ��Ƃ��̂����z�I�ł���D�V�X�e���ғ����ɂ͗�O�������s�킹�邱
-�ƂɂȂ�D
+assertが失敗した場合に，プログラムを停止させる関数．システム開発中はデ
+バッガに落とすのが理想的である．システム稼働時には例外処理を行わせるこ
+とになる．
 
 (3-7-2) TOPPERS_assert_fail(exp, file, line)
 
-assert�����s�������̏���\��/�L�^���邽�߂̃}�N���D�V�X�e�����O�@�\��
-�p����ꍇ�ɂ́Ct_syslog.h�ɃV�X�e�����O�@�\�ɋL�^���邽�߂̒�`���܂�
-��Ă���̂ŁC�^�[�Q�b�g�ˑ����ŗp�ӂ���K�v�͂Ȃ��D
+assertが失敗した時の情報を表示/記録するためのマクロ．システムログ機能を
+用いる場合には，t_syslog.hにシステムログ機能に記録するための定義が含ま
+れているので，ターゲット依存部で用意する必要はない．
 
 
-�S�D�V�X�e���C���^�t�F�[�X���C���iSIL�j�̃^�[�Q�b�g�ˑ���
+４．システムインタフェースレイヤ（SIL）のターゲット依存部
 
-�V�X�e���C���^�t�F�[�X���C���iSIL�Csil.h�j�̃^�[�Q�b�g�ˑ����̒�`�́C
-target_sil.h�܂��͂�������C���N���[�h�����t�@�C���i�v���Z�b�T�E�`�b
-�v�E�J�����ˑ����ŗp�ӂ����w�b�_�t�@�C���Ȃǁj�Ɋ܂߂�D
+システムインタフェースレイヤ（SIL，sil.h）のターゲット依存部の定義は，
+target_sil.hまたはそこからインクルードされるファイル（プロセッサ・チッ
+プ・開発環境依存部で用意されるヘッダファイルなど）に含める．
 
-SIL�̃T�[�r�X�R�[���́C�C�ӂ̃V�X�e����ԂŌĂяo�����Ƃ��ł���D���̂�
-�߁CSIL�̃^�[�Q�b�g�ˑ����̊֐��́C�C�ӂ̃V�X�e����ԂŌĂяo����悤��
-�������Ȃ���΂Ȃ�Ȃ��D
+SILのサービスコールは，任意のシステム状態で呼び出すことができる．そのた
+め，SILのターゲット依存部の関数は，任意のシステム状態で呼び出せるように
+実装しなければならない．
 
-4.1 �S�����݃��b�N��Ԃ̊Ǘ�
+4.1 全割込みロック状態の管理
 
-SIL�̃^�[�Q�b�g�ˑ����ł́C�S�����݃��b�N��Ԃ֑J�ڂ���@�\�ƁC���̏��
-�֖߂��@�\�i���̏�Ԃ��L�����邽�߂ɕϐ����g���j��񋟂���D�S�����݃��b
-�N��Ԃł��邩�𔻕ʂ���@�\�͒񋟂���K�v���Ȃ��D
+SILのターゲット依存部では，全割込みロック状態へ遷移する機能と，元の状態
+へ戻す機能（元の状態を記憶するために変数を使う）を提供する．全割込みロッ
+ク状態であるかを判別する機能は提供する必要がない．
 
-SIL�̋@�\�́C�J�[�l�����g�p���Ȃ��ꍇ�ɂ��g�p�ł���K�v������D���̂��߁C
-�S�����݃��b�N��Ԃւ̑J�ڂƌ��̏�Ԃւ̕��A�́C�J�[�l����p�����C�v��
-�Z�b�T�̃��\�[�X�𒼐ڑ��삷�邱�Ƃɂ���Ď�������D�܂��C�S�����݃��b
-�N��Ԃւ̑J�ڂƌ��̏�Ԃւ̕��A�́C�S�����݃��b�N��Ԃ�CPU���b�N��Ԃ�
-���s����K�v������D
+SILの機能は，カーネルを使用しない場合にも使用できる必要がある．そのため，
+全割込みロック状態への遷移と元の状態への復帰は，カーネルを用いず，プロ
+セッサのリソースを直接操作することによって実現する．また，全割込みロッ
+ク状態への遷移と元の状態への復帰は，全割込みロック状態やCPUロック状態で
+も行える必要がある．
 
-�ی�@�\���������J�[�l���ł́C���[�U�^�X�N����v���Z�b�T�̃��\�[�X��
-�ڑ��삷�邱�Ƃ��ł��Ȃ����߁C���[�U�^�X�N����͂����̋@�\��p���邱
-�Ƃ��ł��Ȃ��D�p�����ꍇ�̐U�����̓^�[�Q�b�g�v���Z�b�T�Ɉˑ����邪�C�T
-�^�I�ɂ́C�������߈ᔽ�Ȃǂ�CPU��O���������邱�ƂɂȂ�D
+保護機能を持ったカーネルでは，ユーザタスクからプロセッサのリソースを直
+接操作することができないため，ユーザタスクからはこれらの機能を用いるこ
+とができない．用いた場合の振舞いはターゲットプロセッサに依存するが，典
+型的には，特権命令違反などのCPU例外が発生することになる．
 
 (4-1-1) SIL_PRE_LOC
 
-�S�����݃��b�N�t���O�̏�Ԃ�ۑ����邽�߂̕ϐ����`����}�N���D�^����
-��ɁC�ϐ����𑱂������̂ɒ�`����D�ϐ����́C���̖��O�ƏՓ˂��Ȃ��悤
-�ɁC"TOPPERS_"�Ŏn�܂閼�O�ɂ���D
+全割込みロックフラグの状態を保存するための変数を定義するマクロ．型名の
+後に，変数名を続けたものに定義する．変数名は，他の名前と衝突しないよう
+に，"TOPPERS_"で始まる名前にする．
 
 (4-1-2) SIL_LOC_INT()
 
-���݂̑S�����݃��b�N�t���O�̏�Ԃ�SIL_PRE_LOC�Œ�`�����ϐ��ɕۑ����C�S
-�����݃��b�N��ԂɑJ�ڂ�����}�N���D���̃}�N������������ۂɂ́C�u1.6
-�N���e�B�J���Z�N�V�����̏o�������̎����Ɋւ��鐧��v�̐߂ɋL�q����Ă�
-�鐧��ɏ]��Ȃ���΂Ȃ�Ȃ��D
+現在の全割込みロックフラグの状態をSIL_PRE_LOCで定義した変数に保存し，全
+割込みロック状態に遷移させるマクロ．このマクロを実現する際には，「1.6
+クリティカルセクションの出入処理の実現に関する制約」の節に記述されてい
+る制約に従わなければならない．
 
 (4-1-3) SIL_UNL_INT()
 
-SIL_LOC_INT()�ɂ���ĕϐ��ɕۑ�������Ԃɖ߂��}�N���D���̃}�N����������
-��ۂɂ́C�u1.6 �N���e�B�J���Z�N�V�����̏o�������̎����Ɋւ��鐧��v��
-�߂ɋL�q����Ă��鐧��ɏ]��Ȃ���΂Ȃ�Ȃ��D
+SIL_LOC_INT()によって変数に保存した状態に戻すマクロ．このマクロを実現す
+る際には，「1.6 クリティカルセクションの出入処理の実現に関する制約」の
+節に記述されている制約に従わなければならない．
 
-4.2 �������ԑ҂�
+4.2 微少時間待ち
 
 (4-2-1) void sil_dly_nse(ulong_t dlytim)
 
-dlytim�Ŏw�肳�ꂽ�ȏ�̎��ԁi�P�ʂ̓i�m�b�j�C���[�v�Ȃǂɂ���đ҂�
-���D
+dlytimで指定された以上の時間（単位はナノ秒），ループなどによって待つ関
+数．
 
-�ȉ��̊֐��Ɠ����ȏ������C�A�Z���u������ŋL�q������@���C�W���I�Ȏ���
-���@�Ƃ���D�A�Z���u������ŋL�q����̂́C�R���p�C���̍œK���Ɉˑ�����
-���悤�ɂ��邽�߂ł���D�܂����̊֐��́C�L���b�V�����̉e�����󂯂Ȃ���
-���ɁC�ł�����胁�����A�N�Z�X���s��Ȃ��悤�Ɏ������ׂ��ł���D
+以下の関数と等価な処理を，アセンブリ言語で記述する方法を，標準的な実装
+方法とする．アセンブリ言語で記述するのは，コンパイラの最適化に依存しな
+いようにするためである．またこの関数は，キャッシュ等の影響を受けないよ
+うに，できる限りメモリアクセスを行わないように実装すべきである．
 
 	void sil_dly_nse(ulong_t dlytim)
 	{
 		dlytim -= SIL_DLY_TIM1;
-		if (���ʂ�0���傫��) {
+		if (結果が0より大きい) {
 			do {
 				dlytim -= SIL_DLY_TIM2;
-			} while (���ʂ�0���傫��);
+			} while (結果が0より大きい);
 		}
 	}
 
-���̊֐��̓���͎��̒ʂ�ł���Ddlytim��SIL_DLY_TIM1�ȉ��̏ꍇ�ɂ́C��
-����if���̏��������������C�����Ɋ֐����甲����Ddlytim��SIL_DLY_TIM1��
-��傫���C(SIL_DLY_TIM1+SIL_DLY_TIM2)�ȉ��̏ꍇ�ɂ́C�ŏ���if���̏�����
-�������邪�Cdo���[�v��1�����炸�Ɋ֐����甲����Ddlytim��
-(SIL_DLY_TIM1+SIL_DLY_TIM2)���傫���C(SIL_DLY_TIM1+SIL_DLY_TIM2*2)��
-���̏ꍇ�ɂ́Cdo���[�v��1�񂾂�����Ċ֐����甲����D���̌�Cdlytim��
-SIL_DLY_TIM2�傫���Ȃ�x�ɁCwhile���[�v�����񐔂�1�񂸂�����D
+この関数の動作は次の通りである．dlytimがSIL_DLY_TIM1以下の場合には，最
+初のif文の条件が成立せず，すぐに関数から抜ける．dlytimがSIL_DLY_TIM1よ
+り大きく，(SIL_DLY_TIM1+SIL_DLY_TIM2)以下の場合には，最初のif文の条件は
+成立するが，doループは1回も回らずに関数から抜ける．dlytimが
+(SIL_DLY_TIM1+SIL_DLY_TIM2)より大きく，(SIL_DLY_TIM1+SIL_DLY_TIM2*2)以
+下の場合には，doループを1回だけ回って関数から抜ける．その後，dlytimが
+SIL_DLY_TIM2大きくなる度に，whileループを回る回数が1回ずつ増える．
 
-�Ȃ��C���̊֐����A�Z���u������i�܂��́CC����j�ŋL�q����ꍇ�C�ǂ̃t�@
-�C���ɋL�q���邩�����ɂȂ�DSIL�̃^�[�Q�b�g�ˑ����ɂ́C�W���ł́C�A�Z
-���u������i�܂��́CC����j�̊֐���`���L�q���邽�߂̃t�@�C����p�ӂ���
-���Ȃ��D�^�[�Q�b�g�ˑ��ŗp�ӂ��Ă��悢���C��O�I�ɁC�J�[�l�������̃^�[
-�Q�b�g�ˑ����W���[���itarget_support.S�܂���target_config.c�j�ɋL�q����
-���悢���Ƃɂ���D
+なお，この関数をアセンブリ言語（または，C言語）で記述する場合，どのファ
+イルに記述するかが問題になる．SILのターゲット依存部には，標準では，アセ
+ンブリ言語（または，C言語）の関数定義を記述するためのファイルを用意して
+いない．ターゲット依存で用意してもよいが，例外的に，カーネル実装のター
+ゲット依存モジュール（target_support.Sまたはtarget_config.c）に記述して
+もよいことにする．
 
-(4-2-2) SIL_DLY_TIM1�i�I�v�V�����j
-(4-2-3) SIL_DLY_TIM2�i�I�v�V�����j
+(4-2-2) SIL_DLY_TIM1（オプション）
+(4-2-3) SIL_DLY_TIM2（オプション）
 
-sil_dly_nse����L�̕W���I�ȕ��@�Ŏ��������ꍇ�C����2�̒萔���^�[�Q�b
-�g�ˑ����Ń}�N����`����D
+sil_dly_nseを上記の標準的な方法で実現した場合，この2つの定数をターゲッ
+ト依存部でマクロ定義する．
 
-SIL_DLY_TIM2�́C��L�̊֐��ɂ����āCdo���[�v1��̎��s���ԁi�P�ʂ̓i�m�b�j
-�ɐݒ肷��D�^�[�Q�b�g�v���Z�b�T�̖��߃Z�b�g�ɂ���邪�C�����悻�C���Z
-���߂Ə������򖽗ߊe1��̎��s���ԂɂȂ�DSIL_DLY_TIM2�����܂�΁C�֐���
-�o�����܂߂��S�̂̎��Ԃ�dlytim�Ŏw�肳�ꂽ�ȏ�̎��ԂɂȂ�悤�ɁC
-SIL_DLY_TIM1�����߂�D
+SIL_DLY_TIM2は，上記の関数において，doループ1回の実行時間（単位はナノ秒）
+に設定する．ターゲットプロセッサの命令セットにもよるが，おおよそ，減算
+命令と条件分岐命令各1回の実行時間になる．SIL_DLY_TIM2が決まれば，関数呼
+出しも含めた全体の時間がdlytimで指定された以上の時間になるように，
+SIL_DLY_TIM1を決める．
 
-����2�̒萔�l�̌�����x������v���O�����Ƃ��āCtest�f�B���N�g���ɁC
-test_dlynse��p�ӂ��Ă���Dtest_dlynse�����s����ƁC���̂悤�ȏo�͂���
-����D
+この2つの定数値の決定を支援するプログラムとして，testディレクトリに，
+test_dlynseを用意している．test_dlynseを実行すると，次のような出力が得
+られる．
 
 -- for fitting parameters --
 sil_dly_nse(0): 430 OK
 sil_dly_nse(420): 430 OK
 sil_dly_nse(510): 520 OK
 sil_dly_nse(600): 610 OK
-<����>
+<中略>
 -- for checking boundary conditions --
 sil_dly_nse(421): 520 OK
 sil_dly_nse(511): 610 OK
 sil_dly_nse(601): 700 OK
 
-"for fitting parameters"�ɑ����o�͂́Csil_dly_nse(dlytim)���Ăяo������
-���̑҂����Ԃ𑪒肵�����ʂł���D���̃v���O������p���āC":"�̉E���̐�
-�l���Cdlytim�����傫���͈͂łȂ�ׂ��߂��l�ɂȂ�悤�ɁC2�̒萔�l��
-��������D"for checking boundary conditions"�ɑ����o�͂́C�v���O������
-�Ó������`�F�b�N���邽�߂̂��̂ŁC":"�̉E���̐��l���Cdlytim�����傫��
-���Ƃ��m�F����i�߂��l�ɂȂ�K�v�͂Ȃ��j�D
+"for fitting parameters"に続く出力は，sil_dly_nse(dlytim)を呼び出した場
+合の待ち時間を測定した結果である．このプログラムを用いて，":"の右側の数
+値が，dlytimよりも大きい範囲でなるべく近い値になるように，2つの定数値を
+調整する．"for checking boundary conditions"に続く出力は，プログラムの
+妥当性をチェックするためのもので，":"の右側の数値が，dlytimよりも大きい
+ことを確認する（近い値になる必要はない）．
 
-4.3 �v���Z�b�T�̃G���f�B�A��
+4.3 プロセッサのエンディアン
 
 (4-3-1) SIL_ENDIAN_BIG
 (4-3-2) SIL_ENDIAN_LITTLE
 
-�v���Z�b�T�̃G���f�B�A���ɂ��C�����ꂩ�Е��̃V���{�����}�N����`����D
+プロセッサのエンディアンにより，いずれか片方のシンボルをマクロ定義する．
 
-(4-3-3) TOPPERS_SIL_REV_ENDIAN_UINT16�i�I�v�V�����j
-(4-3-4) TOPPERS_SIL_REV_ENDIAN_UINT32�i�I�v�V�����j
+(4-3-3) TOPPERS_SIL_REV_ENDIAN_UINT16（オプション）
+(4-3-4) TOPPERS_SIL_REV_ENDIAN_UINT32（オプション）
 
-���ꂼ��C16�r�b�g�C32�r�b�g�̕������������̃G���f�B�A���𔽓]������}
-�N���D�v���Z�b�T���G���f�B�A�����]�̂��߂̖��߂����ꍇ�ɂ́C���̖���
-��p���Ď�������D�����̃V���{�����}�N����`���Ȃ��ꍇ�ɂ́C�f�t�H��
-�g�̒�`���g����D
+それぞれ，16ビット，32ビットの符号無し整数のエンディアンを反転させるマ
+クロ．プロセッサがエンディアン反転のための命令を持つ場合には，その命令
+を用いて実現する．これらのシンボルをマクロ定義しない場合には，デフォル
+トの定義が使われる．
 
-4.4 ��������ԃA�N�Z�X�֐�
+4.4 メモリ空間アクセス関数
 
 (4-4-1) TOPPERS_OMIT_SIL_ACCESS
 
-�W���̃�������ԃA�N�Z�X�֐����g�p�����C�^�[�Q�b�g�ˑ����ŗp�ӂ���ꍇ
-�ɂ́C���̃V���{�����}�N����`����D
+標準のメモリ空間アクセス関数を使用せず，ターゲット依存部で用意する場合
+には，このシンボルをマクロ定義する．
 
 (4-4-2) TOPPERS_OMIT_SIL_REH_LEM
 (4-4-3) TOPPERS_OMIT_SIL_WRH_LEM
@@ -1235,204 +1235,204 @@ sil_dly_nse(601): 700 OK
 (4-4-8) TOPPERS_OMIT_SIL_REW_BEM
 (4-4-9) TOPPERS_OMIT_SIL_WRW_BEM
 
-���ꂼ��C�W����sil_reh_lem�Csil_wrh_lem�Csil_reh_bem�Csil_wrh_bem�C
-sil_rew_lem�Csil_wrw_lem�Csil_rew_bem�Csil_wrw_bem���g�p�����C�^�[�Q�b
-�g�ˑ����ŗp�ӂ���ꍇ�ɂ́C�����̃V���{�����}�N����`����D
+それぞれ，標準のsil_reh_lem，sil_wrh_lem，sil_reh_bem，sil_wrh_bem，
+sil_rew_lem，sil_wrw_lem，sil_rew_bem，sil_wrw_bemを使用せず，ターゲッ
+ト依存部で用意する場合には，これらのシンボルをマクロ定義する．
 
-4.5 I/O��ԃA�N�Z�X�֐�
+4.5 I/O空間アクセス関数
 
-��������ԂƂ͕ʂ�I/O��Ԃ����v���Z�b�T�ł́CI/O��Ԃɂ���f�o�C�X��
-�W�X�^���A�N�Z�X���邽�߂̊֐��Ƃ��āCsil_reb_iop�Csil_wrb_iop�C
-sil_reh_iop�Csil_wrh_iop�Csil_reh_lep�Csil_wrh_lep�Csil_reh_bep�C
-sil_wrh_bep�Csil_rew_iop�Csil_wrw_iop�Csil_rew_lep�Csil_wrw_lep�C
-sil_rew_bep�Csil_wrw_bep�̒��ŕK�v�Ȃ��̂��C�^�[�Q�b�g�ˑ����ŗp�ӂ���D
+メモリ空間とは別にI/O空間を持つプロセッサでは，I/O空間にあるデバイスレ
+ジスタをアクセスするための関数として，sil_reb_iop，sil_wrb_iop，
+sil_reh_iop，sil_wrh_iop，sil_reh_lep，sil_wrh_lep，sil_reh_bep，
+sil_wrh_bep，sil_rew_iop，sil_wrw_iop，sil_rew_lep，sil_wrw_lep，
+sil_rew_bep，sil_wrw_bepの中で必要なものを，ターゲット依存部で用意する．
 
 
-�T�D�J�[�l��API�̃^�[�Q�b�g�ˑ���
+５．カーネルAPIのターゲット依存部
 
-�J�[�l��API�ikernel.h�j�̃^�[�Q�b�g�ˑ����̒�`�́Ctarget_kernel.h�܂�
-�͂�������C���N���[�h�����t�@�C���i�v���Z�b�T�E�`�b�v�E�J�����ˑ�
-���ŗp�ӂ����w�b�_�t�@�C���Ȃǁj�Ɋ܂߂�D
+カーネルAPI（kernel.h）のターゲット依存部の定義は，target_kernel.hまた
+はそこからインクルードされるファイル（プロセッサ・チップ・開発環境依存
+部で用意されるヘッダファイルなど）に含める．
 
-5.1 �^�[�Q�b�g��`�ŃT�|�[�g����@�\
+5.1 ターゲット定義でサポートする機能
 
-(5-1-1) TOPPERS_TARGET_SUPPORT_DIS_INT		dis_int���T�|�[�g����
-(5-1-2) TOPPERS_TARGET_SUPPORT_ENA_INT		ena_int���T�|�[�g����
-(5-1-3) TOPPERS_TARGET_SUPPORT_GET_UTM		get_utm���T�|�[�g����
+(5-1-1) TOPPERS_TARGET_SUPPORT_DIS_INT		dis_intをサポートする
+(5-1-2) TOPPERS_TARGET_SUPPORT_ENA_INT		ena_intをサポートする
+(5-1-3) TOPPERS_TARGET_SUPPORT_GET_UTM		get_utmをサポートする
 
-dis_int�Cena_int�Cget_utm���T�|�[�g����ꍇ�ɁC���ꂼ��̃V���{�����}�N
-����`����D
+dis_int，ena_int，get_utmをサポートする場合に，それぞれのシンボルをマク
+ロ定義する．
 
-5.2 �����ݗD��x�͈̔�
+5.2 割込み優先度の範囲
 
-(5-2-1) TMIN_INTPRI				�����ݗD��x�̍ŏ��l�i�ō��l�j
-(5-2-2) TMAX_INTPRI				�����ݗD��x�̍ő�l�i�Œ�l�j
+(5-2-1) TMIN_INTPRI				割込み優先度の最小値（最高値）
+(5-2-2) TMAX_INTPRI				割込み優先度の最大値（最低値）
 
-���ꂼ��C�J�[�l���Ǘ��̊����ݗD��x�̍ŏ��l�i���D��x���ō��j�C�J�[�l
-���Ǘ��̊����ݗD��x�̍ő�l�i�D��x���Œ�j�ɒ�`����DTMAX_INTPRI��-1
-�ɌŒ肳��Ă��邪�C�Ώ̐��̂��߂ɁC�^�[�Q�b�g�ˑ����Œ�`���邱�Ƃɂ�
-�Ă���D
+それぞれ，カーネル管理の割込み優先度の最小値（＝優先度が最高），カーネ
+ル管理の割込み優先度の最大値（優先度が最低）に定義する．TMAX_INTPRIは-1
+に固定されているが，対称性のために，ターゲット依存部で定義することにし
+ている．
 
-5.3 �^�C���e�B�b�N�̒�`
+5.3 タイムティックの定義
 
-(5-3-1) TIC_NUME				�^�C���e�B�b�N�̎����̕��q
-(5-3-2) TIC_DENO				�^�C���e�B�b�N�̎����̕���
+(5-3-1) TIC_NUME				タイムティックの周期の分子
+(5-3-2) TIC_DENO				タイムティックの周期の分母
 
-�^�C���e�B�b�N�̎����isignal_time���Ăяo�������j���C�~���b�P�ʂŁC
-TIC_NUME/TIC_DENO�ɒ�`����D�Ⴆ�΁C�^�C���e�B�b�N�̎�����1/30�b�̏ꍇ
-�ɂ́CTIC_NUME��100�ɁCTIC_DENO��3�ɒ�`����΂悢�D
+タイムティックの周期（signal_timeを呼び出す周期）を，ミリ秒単位で，
+TIC_NUME/TIC_DENOに定義する．例えば，タイムティックの周期が1/30秒の場合
+には，TIC_NUMEを100に，TIC_DENOを3に定義すればよい．
 
-�^�C���e�B�b�N�̎����́C1�~���b�Ƃ���i�܂�CTIC_NUME�CTIC_DENO�Ƃ�1
-�ɒ�`����j���Ƃ𐄏����邪�C�V�~�����[�V�������␫�\�̒Ⴂ�v���Z�b
-�T�ł��ꂪ�K�؂łȂ��ꍇ�ɂ́C����ȊO�̒l�Ƃ��Ă��悢�D���̏ꍇ�ł��C
-�\�Ȍ���C1�~���b�̔{���ł���i�܂�CTIC_DENO��1�ɒ�`����j���Ƃ�
-�]�܂����D
+タイムティックの周期は，1ミリ秒とする（つまり，TIC_NUME，TIC_DENOとも1
+に定義する）ことを推奨するが，シミュレーション環境や性能の低いプロセッ
+サでそれが適切でない場合には，それ以外の値としてもよい．その場合でも，
+可能な限り，1ミリ秒の倍数である（つまり，TIC_DENOを1に定義する）ことが
+望ましい．
 
-TIC_NUME��TIC_DENO�̒�`��ύX���邱�ƂŁC�^�C���e�B�b�N�̎�����ύX��
-����悤�Ƀ^�C�}�h���C�o����������ꍇ�ɂ́C����2�̒萔�̒�`�̓f�t�H
-���g�l��^���Ă��邱�ƂɂȂ�D�����ŁC�����̒�`���u#ifndef TIC_NUME�v
-�u#endif�v�ň͂�ŋL�q����D
+TIC_NUMEとTIC_DENOの定義を変更することで，タイムティックの周期を変更で
+きるようにタイマドライバを実装する場合には，この2つの定数の定義はデフォ
+ルト値を与えていることになる．そこで，これらの定義を「#ifndef TIC_NUME」
+「#endif」で囲んで記述する．
 
-5.4 �������̈�m�ۂ̂��߂̌^��`
+5.4 メモリ領域確保のための型定義
 
-(5-4-1) TOPPERS_STK_T	�X�^�b�N�̈���m�ۂ��邽�߂̌^�i�I�v�V�����j
-(5-4-2) TOPPERS_MPF_T	�Œ蒷�������v�[���̈���m�ۂ��邽�߂̌^�i�I�v�V�����j
+(5-4-1) TOPPERS_STK_T	スタック領域を確保するための型（オプション）
+(5-4-2) TOPPERS_MPF_T	固定長メモリプール領域を確保するための型（オプション）
 
-�X�^�b�N�̈�ƌŒ蒷�������v�[���̈�́C�W���ł́Cintptr_t�^�̔z��Ƃ�
-�Ċm�ۂ��邪�C���傫���P�ʂŃA���C�����������Ȃǂ̗��R�ŁC����ȊO��
-�^�̔z��Ƃ��Ċm�ۂ���ꍇ�ɂ́C���ꂼ��TOPPERS_STK_T��TOPPERS_MPF_T���C
-�z��̃x�[�X�ƂȂ�f�[�^�^�Ƀ}�N����`����D
+スタック領域と固定長メモリプール領域は，標準では，intptr_t型の配列とし
+て確保するが，より大きい単位でアラインさせたいなどの理由で，それ以外の
+型の配列として確保する場合には，それぞれTOPPERS_STK_TとTOPPERS_MPF_Tを，
+配列のベースとなるデータ型にマクロ定義する．
 
-5.5 �r�b�g�p�^�[���̃r�b�g��
+5.5 ビットパターンのビット数
 
-(5-5-1) TBIT_TEXPTN		�^�X�N��O�v���̃r�b�g���i�I�v�V�����j
-(5-5-2) TBIT_FLGPTN		�C�x���g�t���O�̃r�b�g���i�I�v�V�����j
+(5-5-1) TBIT_TEXPTN		タスク例外要因のビット数（オプション）
+(5-5-2) TBIT_FLGPTN		イベントフラグのビット数（オプション）
 
-TBIT_TEXPTN�CTBIT_FLGPTN�̕W���̒�`�ł́C�����^�̗L���r�b�g�����C����
-�^��sizeof��CHAR_BIT���悶�����̂ƈ�v���Ă��邱�Ƃ����肵�Ă���D����
-�̃R���p�C���ł��̉��肪���藧���C�����łȂ��ꍇ�ɂ́C�^�[�Q�b�g�ˑ�
-���ł����̒�`���㏑������K�v������D�������C�����̒l��16�ȏ�ł�
-����΂Ȃ�Ȃ��D
+TBIT_TEXPTN，TBIT_FLGPTNの標準の定義では，整数型の有効ビット数が，その
+型のsizeofにCHAR_BITを乗じたものと一致していることを仮定している．多く
+のコンパイラでこの仮定が成り立つが，そうでない場合には，ターゲット依存
+部でこれらの定義を上書きする必要がある．ただし，これらの値は16以上でな
+ければならない．
 
-5.6 �������̈�m�ۂ̂��߂̃}�N��
+5.6 メモリ領域確保のためのマクロ
 
-(5-6-1) TOPPERS_ROUND_SZ�i�I�v�V�����j
-(5-6-2) TOPPERS_COUNT_SZ�i�I�v�V�����j
+(5-6-1) TOPPERS_ROUND_SZ（オプション）
+(5-6-2) TOPPERS_COUNT_SZ（オプション）
 
-TOPPERS_COUNT_SZ(sz, unit)�́Csz/unit��؂�グ���l�����߂�}�N���ŁC�T
-�C�Y��sz�̃������̈���T�C�Y��unit�̃f�[�^�^�̔z��Ŋm�ۂ���ꍇ�̗v�f
-�������߂邽�߂ɗp����DTOPPERS_ROUND_SZ(sz, unit)�́Csz/unit��؂�グ
-�����̂�unit���������l�����߂�}�N���ŁC�T�C�Y��sz�̃������̈���T�C�Y
-��unit�̃f�[�^�^�̔z��Ŋm�ۂ���ꍇ�̃g�[�^���T�C�Y�����߂邽�߂ɗp��
-��D
+TOPPERS_COUNT_SZ(sz, unit)は，sz/unitを切り上げた値を求めるマクロで，サ
+イズがszのメモリ領域をサイズがunitのデータ型の配列で確保する場合の要素
+数を求めるために用いる．TOPPERS_ROUND_SZ(sz, unit)は，sz/unitを切り上げ
+たものにunitをかけた値を求めるマクロで，サイズがszのメモリ領域をサイズ
+がunitのデータ型の配列で確保する場合のトータルサイズを求めるために用い
+る．
 
-���ꂼ��C�W����TOPPERS_ROUND_SZ�CTOPPERS_COUNT_SZ���K�؂łȂ��C�^�[�Q�b
-�g�ˑ����ŗp�ӂ���ꍇ�ɂ́C�����̃V���{����K�؂Ȓl�Ƀ}�N����`����D
+それぞれ，標準のTOPPERS_ROUND_SZ，TOPPERS_COUNT_SZが適切でなく，ターゲッ
+ト依存部で用意する場合には，これらのシンボルを適切な値にマクロ定義する．
 
-5.7 �I�[�o�����n���h���@�\�g���̂��߂̒�`�i�I�v�V�����j
+5.7 オーバランハンドラ機能拡張のための定義（オプション）
 
-�I�[�o�����n���h���@�\�g���p�b�P�[�W���T�|�[�g����i�g�p�ł���悤�ɂ�
-��j�ꍇ�ɂ́C����3�����{���邱�Ƃ��K�v�ł���D
+オーバランハンドラ機能拡張パッケージをサポートする（使用できるようにす
+る）場合には，次の3つを実施することが必要である．
 
-�E���̐߂Ő��������`���s���D
-�E�U�͂Ɏ����R�[�h���ŁCTOPPERS_SUPPORT_OVRHDR���}�N����`����Ă����
-�@���ɂ̂ݗL���ƂȂ�R�[�h����������D
-�E�I�[�o�����^�C�}�h���C�o��p�ӂ���D�I�[�o�����^�C�}�h���C�o�ɂ���
-�@�́C�u6.14 �I�[�o�����^�C�}�h���C�o�v�̐߂��Q�Ƃ��邱�ƁD
+・この節で説明する定義を行う．
+・６章に示すコード中で，TOPPERS_SUPPORT_OVRHDRがマクロ定義されている場
+　合にのみ有効となるコードを実装する．
+・オーバランタイマドライバを用意する．オーバランタイマドライバについて
+　は，「6.14 オーバランタイマドライバ」の節を参照すること．
 
 (5-7-1) TOPPERS_TARGET_SUPPORT_OVRHDR
 
-�I�[�o�����n���h���@�\�g���p�b�P�[�W���T�|�[�g����ꍇ�ɂ́C���̃V���{
-�����}�N����`����D
+オーバランハンドラ機能拡張パッケージをサポートする場合には，このシンボ
+ルをマクロ定義する．
 
-(5-7-2) TMAX_OVRTIM�i�I�v�V�����C�f�t�H���g��ULONG_MAX�j
+(5-7-2) TMAX_OVRTIM（オプション，デフォルトはULONG_MAX）
 
-�v���Z�b�T���ԂƂ��ăI�[�o�����^�C�}�ɐݒ�ł���ő�l�i�P�ʂ̓}�C�N��
-�b�j�Ƀ}�N����`����D
+プロセッサ時間としてオーバランタイマに設定できる最大値（単位はマイクロ
+秒）にマクロ定義する．
 
 
-�U�D�J�[�l�������̃^�[�Q�b�g�ˑ���
+６．カーネル実装のターゲット依存部
 
-6.1 �J�[�l�������̃^�[�Q�b�g�ˑ����̋��ʎ���
+6.1 カーネル実装のターゲット依存部の共通事項
 
-6.1.1 �J�[�l�������̃^�[�Q�b�g�ˑ����̍\���v�f
+6.1.1 カーネル実装のターゲット依存部の構成要素
 
-�J�[�l�������̃^�[�Q�b�g�ˑ����́C�ȉ��̗v�f�ō\�������D
+カーネル実装のターゲット依存部は，以下の要素で構成される．
 
-(a) �J�[�l�������̃^�[�Q�b�g�ˑ��̒�`
+(a) カーネル実装のターゲット依存の定義
 
-�J�[�l�������̃^�[�Q�b�g��ˑ�������Q�Ƃ����^�[�Q�b�g�ˑ��̒�`�́C
-target_config.h�܂��͂�������C���N���[�h�����t�@�C���i�v���Z�b�T�E�`�b
-�v�E�J�����ˑ����ŗp�ӂ����w�b�_�t�@�C���Ȃǁj�Ɋ܂߂�D
+カーネル実装のターゲット非依存部から参照されるターゲット依存の定義は，
+target_config.hまたはそこからインクルードされるファイル（プロセッサ・チッ
+プ・開発環境依存部で用意されるヘッダファイルなど）に含める．
 
-�^�[�Q�b�g�̃n�[�h�E�F�A�����i�����݃n���h���ԍ���CPU��O�n���h���ԍ��C
-�f�o�C�X���W�X�^�̔Ԓn�Ȃǁj�̒�`�́C�V�X�e���T�[�r�X��A�v���P�[�V��
-���ɂ��L�p�ł��邽�߁C�J�[�l�������݂̂ɗL�p�Ȓ�`���܂ރt�@�C���Ƃ͐�
-�蕪���āC�Ɨ������w�b�_�t�@�C���Ɋ܂߂�D���̃w�b�_�t�@�C���̕W���I��
-���̂��C�V�X�e������.h�i�܂��́C�`�b�v����.h�C�v���Z�b�T����.h�j�Ƃ���D
+ターゲットのハードウェア資源（割込みハンドラ番号やCPU例外ハンドラ番号，
+デバイスレジスタの番地など）の定義は，システムサービスやアプリケーショ
+ンにも有用であるため，カーネル実装のみに有用な定義を含むファイルとは切
+り分けて，独立したヘッダファイルに含める．このヘッダファイルの標準的な
+名称を，システム略称.h（または，チップ略称.h，プロセッサ略称.h）とする．
 
-(b) �J�[�l�������̃^�[�Q�b�g�ˑ����W���[��
+(b) カーネル実装のターゲット依存モジュール
 
-�J�[�l�������̃^�[�Q�b�g�ˑ��̕ϐ���`��֐����܂ރ��W���[���DC����ŋL
-�q����镔����target_config.c�C�A�Z���u������ŋL�q����镔����
-target_support.S�Ɋ܂߂�D�v���Z�b�T�E�`�b�v�E�J�����ˑ�����؂蕪��
-�邱�Ƃ�C�t�@�C�����傫���Ȃ�ꍇ�ɕ����̃t�@�C���ɕ������邱�Ƃ��\
-�ł���D
+カーネル実装のターゲット依存の変数定義や関数を含むモジュール．C言語で記
+述される部分をtarget_config.c，アセンブリ言語で記述される部分を
+target_support.Sに含める．プロセッサ・チップ・開発環境依存部を切り分け
+ることや，ファイルが大きくなる場合に複数のファイルに分割することも可能
+である．
 
-(c) �J�[�l�������̃^�[�Q�b�g�ˑ����̂��߂̃��l�[���L�q
+(c) カーネル実装のターゲット依存部のためのリネーム記述
 
-�J�[�l�������̃^�[�Q�b�g�ˑ����̕ϐ�����֐������C�擪��_kernel_��t�^
-�������O�Ƀ��l�[�����邽�߂̃��W���[���Dtarget_rename.def��p�ӂ��C�c�[
-���iutils/genrename�j�ɂ��Ctarget_rename.h��target_unrename.h�𐶐���
-��D�v���Z�b�T�E�`�b�v�E�J�����ˑ�����؂蕪����ꍇ�ɂ́C���l�[���L
-�q���؂蕪����D
+カーネル実装のターゲット依存部の変数名や関数名を，先頭に_kernel_を付与
+した名前にリネームするためのモジュール．target_rename.defを用意し，ツー
+ル（utils/genrename）により，target_rename.hとtarget_unrename.hを生成す
+る．プロセッサ・チップ・開発環境依存部を切り分ける場合には，リネーム記
+述も切り分ける．
 
-(d) �^�C�}�h���C�o
+(d) タイマドライバ
 
-�J�[�l���Ƀ^�C���e�B�b�N��ʒm����isignal_time�������I�ɌĂяo���j����
-�̃^�C�}�h���C�o�̃w�b�_�t�@�C���C�����t�@�C���C�V�X�e���R���t�B�M�����[
-�V�����t�@�C�����C���ꂼ��Ctarget_timer.h�Ctarget_timer.c�C
-target_timer.cfg�Ɋ܂߂�D�v���Z�b�T�E�`�b�v�E�J�����ˑ�����؂蕪��
-�邱�Ƃ��\�ł���D
+カーネルにタイムティックを通知する（signal_timeを周期的に呼び出す）ため
+のタイマドライバのヘッダファイル，実装ファイル，システムコンフィギュレー
+ションファイルを，それぞれ，target_timer.h，target_timer.c，
+target_timer.cfgに含める．プロセッサ・チップ・開発環境依存部を切り分け
+ることも可能である．
 
-�܂��C�I�[�o�����n���h���@�\�g���p�b�P�[�W���T�|�[�g����ꍇ�ɂ́C�I�[
-�o�����n���h�����N������icall_ovrhdr���Ăяo���j���߂̃I�[�o�����^�C�}
-�h���C�o���C�����t�@�C���Ɋ܂߂�D
+また，オーバランハンドラ機能拡張パッケージをサポートする場合には，オー
+バランハンドラを起動する（call_ovrhdrを呼び出す）ためのオーバランタイマ
+ドライバも，同じファイルに含める．
 
-�Ȃ��C���̏͂Ɏ����R�[�h���ŁCTOPPERS_SUPPORT_OVRHDR���}�N����`�����
-����ꍇ�ɂ̂ݗL���ƂȂ�R�[�h�́C�I�[�o�����n���h���@�\�g���p�b�P�[�W
-���T�|�[�g���Ȃ��ꍇ�ɂ́C��������K�v���Ȃ��D
+なお，この章に示すコード中で，TOPPERS_SUPPORT_OVRHDRがマクロ定義されて
+いる場合にのみ有効となるコードは，オーバランハンドラ機能拡張パッケージ
+をサポートしない場合には，実装する必要がない．
 
-(e) �R���t�B�M�����[�^�ݒ�t�@�C��
+(e) コンフィギュレータ設定ファイル
 
-�R���t�B�M�����[�^�̐ݒ�t�@�C���̃^�[�Q�b�g�ˑ������Ctarget_def.csv�C
-target.tf�Ctarget_check.tf�ɗp�ӂ���D�R���t�B�M�����[�^�ݒ�t�@�C����
-�L�q���@�ɂ��ẮC�V�͂Ő�������D
+コンフィギュレータの設定ファイルのターゲット依存部を，target_def.csv，
+target.tf，target_check.tfに用意する．コンフィギュレータ設定ファイルの
+記述方法については，７章で説明する．
 
-6.1.2 �^�[�Q�b�g�ˑ����̊֐��̖����K��
+6.1.2 ターゲット依存部の関数の命名規則
 
-�J�[�l�������̃^�[�Q�b�g�ˑ������\������֐��̒��ŁCt_�Ŏn�܂���̂̓^
-�X�N�R���e�L�X�g��p�Ci_�Ŏn�܂���͔̂�^�X�N�R���e�L�X�g��p�Cx_�Ŏn
-�܂���̂͂�����̃R���e�L�X�g����ł��Ăяo�����Ƃ��ł���֐��ł���D
+カーネル実装のターゲット依存部を構成する関数の中で，t_で始まるものはタ
+スクコンテキスト専用，i_で始まるものは非タスクコンテキスト専用，x_で始
+まるものはいずれのコンテキストからでも呼び出すことができる関数である．
 
-6.2 �g���[�X���O�@�\�ւ̑Ή�
+6.2 トレースログ機能への対応
 
-�J�[�l���̃g���[�X���O�@�\�̒��ŁC�f�B�X�p�b�`���C�����݃n���h���CCPU��
-�O�n���h���̊J�n�E�I���̃g���[�X���O�擾�́C�^�[�Q�b�g�ˑ����Ŏ�������
-�K�v������D�قƂ�ǂ̃^�[�Q�b�g�V�X�e���ɂ����āC�����̏����̓A�Z��
-�u������ŋL�q����Ă���C�^�[�Q�b�g��ˑ��������̃g���[�X���O�}�N����
-�������@�i�g���[�X���O�}�N�����C�g���[�X���O�擾������C����L�q�Ƀ}�N��
-��`������@�j�́C�p���邱�Ƃ��ł��Ȃ��D
+カーネルのトレースログ機能の中で，ディスパッチャ，割込みハンドラ，CPU例
+外ハンドラの開始・終了のトレースログ取得は，ターゲット依存部で実装する
+必要がある．ほとんどのターゲットシステムにおいて，それらの処理はアセン
+ブリ言語で記述されており，ターゲット非依存部向けのトレースログマクロと
+同じ方法（トレースログマクロを，トレースログ取得処理のC言語記述にマクロ
+定義する方法）は，用いることができない．
 
-�����ŁC�A�Z���u������ŋL�q����Ă��鏈�����Ƀg���[�X���O�擾�𖄂ߍ�
-�ޏꍇ�ɂ́C�g���[�X���O�}�N������`����Ă���΁C���ꂪ���ɒ�`�����
-���邩�͖������āC�W���I�ȃg���[�X���O�֐���C����ŋL�q����Ă���Ƒz��
-���āC������Ăяo���悤�ɃR�[�f�B���O����D
+そこで，アセンブリ言語で記述されている処理中にトレースログ取得を埋め込
+む場合には，トレースログマクロが定義されていれば，それが何に定義されて
+いるかは無視して，標準的なトレースログ関数がC言語で記述されていると想定
+して，それを呼び出すようにコーディングする．
 
-��̓I�ɂ́C���̕\�̍����Ɏ������g���[�X���O�}�N������`����Ă���΁C
-�\�̉E���Ɏ�����C����L�q�Ɠ����̏������s���悤�ɃR�[�f�B���O����D
+具体的には，下の表の左側に示したトレースログマクロが定義されていれば，
+表の右側に示したC言語記述と同等の処理を行うようにコーディングする．
 
-	�g���[�X���O�}�N��		�g���[�X���O�擾����
+	トレースログマクロ		トレースログ取得処理
 	-----------------------------------------------
 	LOG_DSP_ENTER			log_dsp_enter(p_runtsk)
 	LOG_DSP_LEAVE			log_dsp_leave(p_runtsk)
@@ -1441,293 +1441,293 @@ target.tf�Ctarget_check.tf�ɗp�ӂ���D�R���t�B�M�����[�^�ݒ�t�@�C����
 	LOG_EXC_ENTER			log_exc_enter(excno)
 	LOG_EXC_LEAVE			log_exc_leave(excno)
 
-6.3 �V�X�e����Ԃ̊Ǘ�
+6.3 システム状態の管理
 
-ASP�J�[�l����V���ȃ^�[�Q�b�g�V�X�e���Ƀ|�[�e�B���O����ۂɁC�ł��d�v��
-��Ƃ́C�J�[�l������`����V�X�e����Ԃ��C�n�[�h�E�F�A�i�v���Z�b�T�j��
-�łǂ̂悤�Ɏ������邩�ł���D�ȉ��̐����́CTOPPERS�V����J�[�l���ɂ���
-��V�X�e����Ԃ̒�`�E�Ӗ���m���Ă��邱�Ƃ�O��ɋL�q���Ă���D
+ASPカーネルを新たなターゲットシステムにポーティングする際に，最も重要な
+作業は，カーネルが定義するシステム状態を，ハードウェア（プロセッサ）上
+でどのように実現するかである．以下の説明は，TOPPERS新世代カーネルにおけ
+るシステム状態の定義・意味を知っていることを前提に記述している．
 
-6.3.1 �S�����݃��b�N��Ԃ̊Ǘ�
+6.3.1 全割込みロック状態の管理
 
-�S�����݃��b�N��Ԃ́CNMI���������ׂĂ̊����݂��}�X�N������Ԃł���D�S
-�����݃��b�N��Ԃ��Ǘ�����@�\�́C�V�X�e���C���^�t�F�[�X���C���iSIL�j��
-����Ē񋟂���C�J�[�l���͑S�����݃��b�N��Ԃ��Ǘ����Ȃ��D
+全割込みロック状態は，NMIを除くすべての割込みをマスクした状態である．全
+割込みロック状態を管理する機能は，システムインタフェースレイヤ（SIL）に
+よって提供され，カーネルは全割込みロック状態を管理しない．
 
-�S�����݃��b�N��Ԃł́Csns_ker��ext_ker�ȊO�̃J�[�l���̃T�[�r�X�R�[��
-���ĂԂ��Ƃ͂ł��Ȃ����̂Ƃ��Ă���C�Ă񂾏ꍇ�ɂ͉����N���邩�ۏ؂���
-���Ȃ��Dsns_ker��ext_ker����Ăяo�������́C�g���[�X���O�擾������SIL��
-�T�[�r�X�R�[���������ƁCcall_exit_kernel�݂̂ł���D���̂��߁C
-call_exit_kernel����Ăяo�����̂������āC�J�[�l���̃^�[�Q�b�g�ˑ�����
-�֐����C�S�����݃��b�N��ԂŌĂяo�����󋵂͍l����K�v���Ȃ��D
+全割込みロック状態では，sns_kerとext_ker以外のカーネルのサービスコール
+を呼ぶことはできないものとしており，呼んだ場合には何が起こるか保証して
+いない．sns_kerとext_kerから呼び出す処理は，トレースログ取得処理とSILの
+サービスコールを除くと，call_exit_kernelのみである．そのため，
+call_exit_kernelから呼び出すものを除いて，カーネルのターゲット依存部の
+関数が，全割込みロック状態で呼び出される状況は考える必要がない．
 
-6.3.2 �R���e�L�X�g�̊Ǘ�
+6.3.2 コンテキストの管理
 
-�����P�ʂ����s�����R���e�L�X�g�́C�^�X�N�R���e�L�X�g�Ɣ�^�X�N�R���e
-�L�X�g�ɕ��ނ����D
+処理単位が実行されるコンテキストは，タスクコンテキストと非タスクコンテ
+キストに分類される．
 
-�^�[�Q�b�g�ˑ����́C���s���̏����P�ʂ��C�^�X�N�R���e�L�X�g�Ŏ��s�����
-���邩��^�X�N�R���e�L�X�g�Ŏ��s����Ă��邩�𔻕ʂ���@�\��񋟂���D
-�܂��CCPU��O�����������R���e�L�X�g�ɂ��Ĕ��ʂ���@�\��񋟂���D
+ターゲット依存部は，実行中の処理単位が，タスクコンテキストで実行されて
+いるか非タスクコンテキストで実行されているかを判別する機能を提供する．
+また，CPU例外が発生したコンテキストについて判別する機能を提供する．
 
-�^�[�Q�b�g�ˑ����ł́C�����݃n���h����CPU��O�n���h���̓��������Ŕ�^�X
-�N�R���e�L�X�g�ɐ؂芷���C�����̏o�������Ō��̃R���e�L�X�g�ɖ߂��D��
-���C�f�B�X�p�b�`���̓����ňꎞ�I�ɔ�^�X�N�R���e�L�X�g�ɐ؂芷����D
+ターゲット依存部では，割込みハンドラとCPU例外ハンドラの入口処理で非タス
+クコンテキストに切り換え，それらの出口処理で元のコンテキストに戻す．ま
+た，ディスパッチャの内部で一時的に非タスクコンテキストに切り換える．
 
 (6-3-2-1) bool_t sense_context(void)
 
-���s���̏����P�ʂ��C�^�X�N�R���e�L�X�g�Ŏ��s����Ă���ꍇ�ɂ�false�C��
-�^�X�N�R���e�L�X�g�Ŏ��s����Ă���ꍇ�ɂ�true��Ԃ��֐��D���̊֐��́C
-CPU���b�N��Ԃł�CPU���b�N������Ԃł��Ăяo����悤�Ɏ������Ȃ���΂�
-��Ȃ��D
+実行中の処理単位が，タスクコンテキストで実行されている場合にはfalse，非
+タスクコンテキストで実行されている場合にはtrueを返す関数．この関数は，
+CPUロック状態でもCPUロック解除状態でも呼び出せるように実装しなければな
+らない．
 
-6.3.3 CPU���b�N��Ԃ̊Ǘ�
+6.3.3 CPUロック状態の管理
 
-�^�[�Q�b�g�ˑ����́CCPU���b�N��Ԃ֑J�ڂ���@�\�CCPU���b�N������Ԃ֑J
-�ڂ���@�\�CCPU���b�N��Ԃł��邩�𔻕ʂ���@�\��񋟂���D
+ターゲット依存部は，CPUロック状態へ遷移する機能，CPUロック解除状態へ遷
+移する機能，CPUロック状態であるかを判別する機能を提供する．
 
 (6-3-3-1) void t_lock_cpu(void)
 (6-3-3-2) void i_lock_cpu(void)
 (6-3-3-3) void x_lock_cpu(void)
 
-CPU���b�N������Ԃ���CCPU���b�N��Ԃ֑J�ڂ�����֐��D�����̊֐��́C
-CPU���b�N��ԂŌĂяo����邱�Ƃ͂Ȃ��C�Ăяo���ꂽ�ꍇ�̓���͕ۏ؂���
-�K�v���Ȃ��D
+CPUロック解除状態から，CPUロック状態へ遷移させる関数．これらの関数は，
+CPUロック状態で呼び出されることはなく，呼び出された場合の動作は保証する
+必要がない．
 
-�����̊֐�����������ۂɂ́C�u1.6 �N���e�B�J���Z�N�V�����̏o��������
-�����Ɋւ��鐧��v�̐߂ɋL�q����Ă��鐧��ɏ]��Ȃ���΂Ȃ�Ȃ��D
+これらの関数を実現する際には，「1.6 クリティカルセクションの出入処理の
+実現に関する制約」の節に記述されている制約に従わなければならない．
 
 (6-3-3-4) void t_unlock_cpu(void)
 (6-3-3-5) void i_unlock_cpu(void)
 (6-3-3-6) void x_unlock_cpu(void)
 
-CPU���b�N��Ԃ���CCPU���b�N������Ԃ֑J�ڂ�����֐��D�����̊֐��́C
-CPU���b�N������ԂŌĂяo����邱�Ƃ͂Ȃ��C�Ăяo���ꂽ�ꍇ�̓���͕ۏ�
-����K�v���Ȃ��D
+CPUロック状態から，CPUロック解除状態へ遷移させる関数．これらの関数は，
+CPUロック解除状態で呼び出されることはなく，呼び出された場合の動作は保証
+する必要がない．
 
-�^�X�N�R���e�L�X�g��CPU���b�N��ԂɑJ�ڂ����ꍇ�ɂ́CCPU���b�N�������
-�ɖ߂�̂̓^�X�N�R���e�L�X�g�Ɍ����C��^�X�N�R���e�L�X�g��CPU���b�N��
-����Ԃɖ߂邱�Ƃ͂Ȃ��D����������ƁCt_unlock_cpu���Ăяo�����̂́C
-t_lock_cpu�ɂ����CPU���b�N��ԂɂȂ��Ă��鎞�ł���Di_lock_cpu�ɂ����
-CPU���b�N��ԂɂȂ��Ă��鎞�ɂ́Ct_unlock_cpu���Ăяo����邱�Ƃ͂Ȃ��D
+タスクコンテキストでCPUロック状態に遷移した場合には，CPUロック解除状態
+に戻るのはタスクコンテキストに限られ，非タスクコンテキストでCPUロック解
+除状態に戻ることはない．言い換えると，t_unlock_cpuが呼び出されるのは，
+t_lock_cpuによってCPUロック状態になっている時である．i_lock_cpuによって
+CPUロック状態になっている時には，t_unlock_cpuが呼び出されることはない．
 
-���l�ɁC��^�X�N�R���e�L�X�g��CPU���b�N��ԂɑJ�ڂ����ꍇ�ɂ́CCPU���b
-�N������Ԃɖ߂�͔̂�^�X�N�R���e�L�X�g�Ɍ����C�^�X�N�R���e�L�X�g��
-CPU���b�N������Ԃɖ߂邱�Ƃ͂Ȃ��D����������ƁCi_unlock_cpu���Ăяo��
-���̂́Ci_lock_cpu�ɂ����CPU���b�N��ԂɂȂ��Ă��鎞�ł���D
-t_lock_cpu�ɂ����CPU���b�N��ԂɂȂ��Ă��鎞�ɂ́Ci_unlock_cpu���Ăяo
-����邱�Ƃ͂Ȃ��D
+同様に，非タスクコンテキストでCPUロック状態に遷移した場合には，CPUロッ
+ク解除状態に戻るのは非タスクコンテキストに限られ，タスクコンテキストで
+CPUロック解除状態に戻ることはない．言い換えると，i_unlock_cpuが呼び出さ
+れるのは，i_lock_cpuによってCPUロック状態になっている時である．
+t_lock_cpuによってCPUロック状態になっている時には，i_unlock_cpuが呼び出
+されることはない．
 
-�����̊֐�����������ۂɂ́C�u1.6 �N���e�B�J���Z�N�V�����̏o��������
-�����Ɋւ��鐧��v�̐߂ɋL�q����Ă��鐧��ɏ]��Ȃ���΂Ȃ�Ȃ��D
+これらの関数を実現する際には，「1.6 クリティカルセクションの出入処理の
+実現に関する制約」の節に記述されている制約に従わなければならない．
 
 (6-3-3-7) bool_t t_sense_lock(void)
 (6-3-3-8) bool_t i_sense_lock(void)
 (6-3-3-9) bool_t x_sense_lock(void)
 
-���݂̃V�X�e����Ԃ��CCPU���b�N��Ԃ̏ꍇ��true�CCPU���b�N������Ԃ̏�
-���ɂ�false��Ԃ��֐��D
+現在のシステム状態が，CPUロック状態の場合はtrue，CPUロック解除状態の場
+合にはfalseを返す関数．
 
-�����̊֐����S�����݃��b�N��ԂŌĂяo�����󋵂͍l����K�v���Ȃ���
-�Ƃ���C�S�����݃��b�N��Ԃ�CPU���b�N��Ԃ���ʂł���K�v�͂Ȃ��DNMI��
-�O�ɃJ�[�l���̊Ǘ��O�̊����݂�݂��Ȃ��ꍇ�ɂ́C�S�����݃��b�N��Ԃ�
-CPU���b�N��Ԃ��S������̏�Ԃł����܂�Ȃ��D
+これらの関数が全割込みロック状態で呼び出される状況は考える必要がないこ
+とから，全割込みロック状態とCPUロック状態を区別できる必要はない．NMI以
+外にカーネルの管理外の割込みを設けない場合には，全割込みロック状態と
+CPUロック状態が全く同一の状態でもかまわない．
 
-6.4 �����݂Ɋ֘A����V�X�e����Ԃ̊Ǘ�
+6.4 割込みに関連するシステム状態の管理
 
-6.4.1 �����ݗD��x�}�X�N�̊Ǘ�
+6.4.1 割込み優先度マスクの管理
 
-�^�[�Q�b�g�ˑ����́C�����ݗD��x�}�X�N��ݒ肷��@�\�ƁC�����ݗD��x�}
-�X�N���Q�Ƃ���@�\��񋟂���D
+ターゲット依存部は，割込み優先度マスクを設定する機能と，割込み優先度マ
+スクを参照する機能を提供する．
 
-(6-4-1-1) bool_t VALID_INTPRI_CHGIPM(PRI intpri)�i�I�v�V�����j
+(6-4-1-1) bool_t VALID_INTPRI_CHGIPM(PRI intpri)（オプション）
 
-intpri���Cchg_ipm�ɑ΂��銄���ݗD��x�Ƃ��ėL���Ȓl�ł���ꍇ��true�C��
-���łȂ��ꍇ��false��Ԃ��}�N���D�W���ł́CTMIN_INTPRI�ȏ�CTIPM_ENAALL
-�i��0�j�ȉ��̒l��chg_ipm�ɑ΂��銄���ݗD��x�Ƃ��ėL���ł��邪�C�^�[�Q�b
-�g�ˑ����ł��̃}�N�����`���邱�ƂŁCTMIN_INTPRI�����������l��L����
-���邱�Ƃ��ł���i�L���Ȓl�͈̔͂����߂Ă͂Ȃ�Ȃ��j�D
+intpriが，chg_ipmに対する割込み優先度として有効な値である場合にtrue，そ
+うでない場合にfalseを返すマクロ．標準では，TMIN_INTPRI以上，TIPM_ENAALL
+（＝0）以下の値がchg_ipmに対する割込み優先度として有効であるが，ターゲッ
+ト依存部でこのマクロを定義することで，TMIN_INTPRIよりも小さい値を有効と
+することができる（有効な値の範囲を狭めてはならない）．
 
 (6-4-1-2) void x_set_ipm(PRI intpri)
 (6-4-1-3) void t_set_ipm(PRI intpri)
 (6-4-1-4) void i_set_ipm(PRI intpri)
 
-�����ݗD��x�}�X�N�̒l��intpri�ɐݒ肷��֐��D
+割込み優先度マスクの値をintpriに設定する関数．
 
-�����̊֐��́CCPU���b�N��Ԃł�CPU���b�N������Ԃł��Ăяo����悤��
-��������̂��]�܂����D�������Cx_set_ipm��t_set_ipm�́C�^�[�Q�b�g��ˑ�
-����CPU���b�N������ԂŌĂяo�����Ƃ͂Ȃ����߁CCPU���b�N������ԂŌĂ�
-�o���ꂽ�ꍇ�̓���͕ۏ؂���K�v���Ȃ��Di_set_ipm�́CCPU���b�N��Ԃł�
-CPU���b�N������Ԃł��Ăяo����悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+これらの関数は，CPUロック状態でもCPUロック解除状態でも呼び出せるように
+実装するのが望ましい．ただし，x_set_ipmとt_set_ipmは，ターゲット非依存
+部がCPUロック解除状態で呼び出すことはないため，CPUロック解除状態で呼び
+出された場合の動作は保証する必要がない．i_set_ipmは，CPUロック状態でも
+CPUロック解除状態でも呼び出せるように実装しなければならない．
 
-�܂��C�����̊֐��́CVALID_INTPRI_CHGIPM(intpri)��true��Ԃ�intpri�ɑ�
-���Ă̂݌Ă΂��Dintpri�ɂ����łȂ��l���n���ꂽ�ꍇ�̓���͕ۏ؂���K
-�v���Ȃ��D
+また，これらの関数は，VALID_INTPRI_CHGIPM(intpri)がtrueを返すintpriに対
+してのみ呼ばれる．intpriにそうでない値が渡された場合の動作は保証する必
+要がない．
 
 (6-4-1-5) PRI x_get_ipm(void)
 (6-4-1-6) PRI t_get_ipm(void)
 (6-4-1-7) PRI i_get_ipm(void)
 
-�����ݗD��x�}�X�N�̒l���Q�Ƃ��ĕԂ��֐��D
+割込み優先度マスクの値を参照して返す関数．
 
-�����̊֐��́CCPU���b�N��Ԃł�CPU���b�N������Ԃł��Ăяo����悤��
-��������̂��]�܂����D�������Cx_get_ipm��t_get_ipm�́C�^�[�Q�b�g��ˑ�
-����CPU���b�N������ԂŌĂяo�����Ƃ͂Ȃ����߁CCPU���b�N������ԂŌĂ�
-�o���ꂽ�ꍇ�̓���͕ۏ؂���K�v���Ȃ��Di_get_ipm�́CCPU���b�N��Ԃł�
-CPU���b�N������Ԃł��Ăяo����悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+これらの関数は，CPUロック状態でもCPUロック解除状態でも呼び出せるように
+実装するのが望ましい．ただし，x_get_ipmとt_get_ipmは，ターゲット非依存
+部がCPUロック解除状態で呼び出すことはないため，CPUロック解除状態で呼び
+出された場合の動作は保証する必要がない．i_get_ipmは，CPUロック状態でも
+CPUロック解除状態でも呼び出せるように実装しなければならない．
 
-�����ݗD��x�}�X�N��p���ăJ�[�l���Ǘ��̊����݂����ׂă}�X�N������Ԃ́C
-CPU���b�N��ԂƋ�ʂł��邱�Ƃ��K�v�ł���D��̓I�ɂ́CCPU���b�N������
-�Ԃɂ����āCx_set_ipm��p���ăJ�[�l���Ǘ��̊����݂����ׂă}�X�N�����ꍇ
-�ł��Cx_sense_lock��false��Ԃ��D
+割込み優先度マスクを用いてカーネル管理の割込みをすべてマスクした状態は，
+CPUロック状態と区別できることが必要である．具体的には，CPUロック解除状
+態において，x_set_ipmを用いてカーネル管理の割込みをすべてマスクした場合
+でも，x_sense_lockはfalseを返す．
 
-����ɑ΂��āC�����ݗD��x�}�X�N��p����NMI���������ׂĂ̊����݂��}�X�N
-�ł���ꍇ�C���̏�ԂƑS�����݃��b�N��Ԃ���ʂł���K�v�͂Ȃ��C�S����
-��̏�Ԃł����܂�Ȃ��D
+それに対して，割込み優先度マスクを用いてNMIを除くすべての割込みをマスク
+できる場合，その状態と全割込みロック状態を区別できる必要はなく，全く同
+一の状態でもかまわない．
 
-6.4.2 �����ݗv���֎~�t���O�̊Ǘ�
+6.4.2 割込み要求禁止フラグの管理
 
-�^�[�Q�b�g�ˑ����́C�����ݗv���֎~�t���O���Z�b�g����@�\�ƃN���A����@
-�\��񋟂���D
+ターゲット依存部は，割込み要求禁止フラグをセットする機能とクリアする機
+能を提供する．
 
 (6-4-2-1) bool_t VALID_INTNO_DISINT(INTNO intno)
 
-intno���Cdis_int�^ena_int�ɑ΂��銄���ݔԍ��Ƃ��ėL���Ȓl�ł���ꍇ��
-true�C�����łȂ��ꍇ��false��Ԃ��}�N���D�����ݗv���֎~�t���O���Z�b�g�^
-�N���A�ł��Ȃ�intno�ɑ΂��ẮC���̃}�N����false��Ԃ��悤�ɂ���D
+intnoが，dis_int／ena_intに対する割込み番号として有効な値である場合に
+true，そうでない場合にfalseを返すマクロ．割込み要求禁止フラグがセット／
+クリアできないintnoに対しては，このマクロがfalseを返すようにする．
 
 (6-4-2-2) bool_t x_disable_int(INTNO intno)
 (6-4-2-3) bool_t t_disable_int(INTNO intno)
 (6-4-2-4) bool_t i_disable_int(INTNO intno)
 
-intno�Ŏw�肳�ꂽ�����ݗv�����C���ɑ΂��銄���ݗv���֎~�t���O���Z�b�g���C
-true��Ԃ��֐��D�w�肳�ꂽ�����ݗv�����C���ɑ΂��āC�����ݑ������ݒ肳
-��Ă��Ȃ��ꍇ�ɂ́Cfalse��Ԃ��D
+intnoで指定された割込み要求ラインに対する割込み要求禁止フラグをセットし，
+trueを返す関数．指定された割込み要求ラインに対して，割込み属性が設定さ
+れていない場合には，falseを返す．
 
-�����̊֐��́C�^�[�Q�b�g��ˑ�����CPU���b�N������ԂŌĂяo�����Ƃ͂�
-�����߁CCPU���b�N������ԂŌĂяo���ꂽ�ꍇ�̓���͕ۏ؂���K�v���Ȃ��D
-�������C�^�[�Q�b�g�ˑ�������CPU���b�N������ԂŌĂяo���ꍇ�ɂ́C�ۏ؂�
-��K�v������D
+これらの関数は，ターゲット非依存部がCPUロック解除状態で呼び出すことはな
+いため，CPUロック解除状態で呼び出された場合の動作は保証する必要がない．
+ただし，ターゲット依存部からCPUロック解除状態で呼び出す場合には，保証す
+る必要がある．
 
-�܂��C�����̊֐��́CVALID_INTNO_DISINT(intno)��true�ƂȂ�intno�ɑ΂�
-�Ă̂݌Ă΂��Dintno�ɂ����łȂ��l���n���ꂽ�ꍇ�̓���͕ۏ؂���K�v��
-�Ȃ��D
+また，これらの関数は，VALID_INTNO_DISINT(intno)がtrueとなるintnoに対し
+てのみ呼ばれる．intnoにそうでない値が渡された場合の動作は保証する必要が
+ない．
 
-dis_int�T�[�r�X�R�[�����T�|�[�g����ꍇ�iTOPPERS_SUPPORT_DIS_INT���}�N
-����`����ꍇ�j�ɂ́Ct_disable_int���p�ӂ���Ă��Ȃ���΂Ȃ�Ȃ��D
+dis_intサービスコールをサポートする場合（TOPPERS_SUPPORT_DIS_INTをマク
+ロ定義する場合）には，t_disable_intが用意されていなければならない．
 
 (6-4-2-5) bool_t x_enable_int(INTNO intno)
 (6-4-2-6) bool_t t_enable_int(INTNO intno)
 (6-4-2-7) bool_t i_enable_int(INTNO intno)
 
-intno�Ŏw�肳�ꂽ�����ݗv�����C���ɑ΂��銄���ݗv���֎~�t���O���N���A���C
-true��Ԃ��֐��D�w�肳�ꂽ�����ݗv�����C���ɑ΂��āC�����ݑ������ݒ肳
-��Ă��Ȃ��ꍇ�ɂ́Cfalse��Ԃ��D
+intnoで指定された割込み要求ラインに対する割込み要求禁止フラグをクリアし，
+trueを返す関数．指定された割込み要求ラインに対して，割込み属性が設定さ
+れていない場合には，falseを返す．
 
-�����̊֐��́C�^�[�Q�b�g��ˑ�����CPU���b�N������ԂŌĂяo�����Ƃ͂�
-�����߁CCPU���b�N������ԂŌĂяo���ꂽ�ꍇ�̓���͕ۏ؂���K�v���Ȃ��D
-�������C�^�[�Q�b�g�ˑ�������CPU���b�N������ԂŌĂяo���ꍇ�ɂ́C�ۏ؂�
-��K�v������D
+これらの関数は，ターゲット非依存部がCPUロック解除状態で呼び出すことはな
+いため，CPUロック解除状態で呼び出された場合の動作は保証する必要がない．
+ただし，ターゲット依存部からCPUロック解除状態で呼び出す場合には，保証す
+る必要がある．
 
-�܂��C�����̊֐��́CVALID_INTNO_DISINT(intno)��true�ƂȂ�intno�ɑ΂�
-�Ă̂݌Ă΂��Dintno�ɂ����łȂ��l���n���ꂽ�ꍇ�̓���͕ۏ؂���K�v��
-�Ȃ��D
+また，これらの関数は，VALID_INTNO_DISINT(intno)がtrueとなるintnoに対し
+てのみ呼ばれる．intnoにそうでない値が渡された場合の動作は保証する必要が
+ない．
 
-ena_int�T�[�r�X�R�[�����T�|�[�g����ꍇ�iTOPPERS_SUPPORT_ENA_INT���}�N
-����`����ꍇ�j�ɂ́Ct_enable_int���p�ӂ���Ă��Ȃ���΂Ȃ�Ȃ��D
+ena_intサービスコールをサポートする場合（TOPPERS_SUPPORT_ENA_INTをマク
+ロ定義する場合）には，t_enable_intが用意されていなければならない．
 
-6.4.3 �����ݗv���̃N���A
+6.4.3 割込み要求のクリア
 
 (6-4-3-1) void x_clear_int(INTNO intno)
 (6-4-3-2) void t_clear_int(INTNO intno)
 (6-4-3-3) void i_clear_int(INTNO intno)
 
-intno�Ŏw�肳�ꂽ�����ݗv�����C�����G�b�W�g���K�ł���ꍇ�ɁC�g���K����
-�������ݗv�����N���A����֐��Dintno�Ŏw�肳�ꂽ�����ݗv�����C�������x��
-�g���K�ł���ꍇ�ɂ͉������Ȃ��D
+intnoで指定された割込み要求ラインがエッジトリガである場合に，トリガされ
+た割込み要求をクリアする関数．intnoで指定された割込み要求ラインがレベル
+トリガである場合には何もしない．
 
-ASP�J�[�l���̃^�[�Q�b�g��ˑ����ł́C�����̊֐����Ăяo���Ă��Ȃ����C
-�^�[�Q�b�g�ˑ�����V�X�e���T�[�r�X�ŌĂяo���\�����������߁C�p�ӂ���
-���ƂƂ��Ă���D���̂��߁C�����̊֐����ǂ̂悤�ȃV�X�e����ԂŌĂяo
-���邩�́C�^�[�Q�b�g�ˑ������ň�т��Ă���΂悢�D
+ASPカーネルのターゲット非依存部では，これらの関数を呼び出していないが，
+ターゲット依存部やシステムサービスで呼び出す可能性が高いため，用意する
+こととしている．そのため，これらの関数がどのようなシステム状態で呼び出
+せるかは，ターゲット依存部内で一貫していればよい．
 
-6.4.4 �����ݗv���̃v���[�u
+6.4.4 割込み要求のプローブ
 
 (6-4-4-1) bool_t x_probe_int(INTNO intno)
 (6-4-4-2) bool_t t_probe_int(INTNO intno)
 (6-4-4-3) bool_t i_probe_int(INTNO intno)
 
-intno�Ŏw�肳�ꂽ�����ݗv�����C���ɑ΂��āC�����݂��v������Ă���ꍇ��
-true�C�����łȂ��ꍇ��false��Ԃ��֐��D
+intnoで指定された割込み要求ラインに対して，割込みが要求されている場合に
+true，そうでない場合にfalseを返す関数．
 
-ASP�J�[�l���̃^�[�Q�b�g��ˑ����ł́C�����̊֐����Ăяo���Ă��Ȃ����C
-�^�[�Q�b�g�ˑ�����V�X�e���T�[�r�X�ŌĂяo���\�����������߁C�p�ӂ���
-���ƂƂ��Ă���D���̂��߁C�����̊֐����ǂ̂悤�ȃV�X�e����ԂŌĂяo
-���邩�́C�^�[�Q�b�g�ˑ������ň�т��Ă���΂悢�D
+ASPカーネルのターゲット非依存部では，これらの関数を呼び出していないが，
+ターゲット依存部やシステムサービスで呼び出す可能性が高いため，用意する
+こととしている．そのため，これらの関数がどのようなシステム状態で呼び出
+せるかは，ターゲット依存部内で一貫していればよい．
 
-6.4.5 �����݃n���h���̐擪�����Ɩ�������
+6.4.5 割込みハンドラの先頭処理と末尾処理
 
 (6-4-5-1) void i_begin_int(INTNO intno)
 
-intno�Ŏw�肳�ꂽ�����ݗv�����C���ɑ΂��銄���݃n���h���̐擪�ōs���ׂ�
-�������s���֐��D�����ōs���ׂ������Ƃ��ẮC�����ݗv�����C�����G�b�W�g
-���K�ł���ꍇ�̃g���K���ꂽ�����ݗv���̃N���A����������D
+intnoで指定された割込み要求ラインに対する割込みハンドラの先頭で行うべき
+処理を行う関数．ここで行うべき処理としては，割込み要求ラインがエッジト
+リガである場合のトリガされた割込み要求のクリアが挙げられる．
 
-intno�ɑ΂��ēo�^���ꂽ�����݃T�[�r�X���[�`�����Ăяo�������݃n���h����
-�擪�ŌĂяo�����D���̂��߂��̊֐��́C�����݃n���h���̐擪�i�ʏ��
-CPU���b�N������ԁj�ŌĂяo����悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+intnoに対して登録された割込みサービスルーチンを呼び出す割込みハンドラの
+先頭で呼び出される．そのためこの関数は，割込みハンドラの先頭（通常は
+CPUロック解除状態）で呼び出せるように実装しなければならない．
 
 (6-4-5-2) void i_end_int(INTNO intno)
 
-intno�Ŏw�肳�ꂽ�����ݗv�����C���ɑ΂��銄���݃n���h���̖����ōs���ׂ�
-�������s���֐��D�����ōs���ׂ������Ƃ��ẮC�����݃R���g���[���iIRC�j��
-�΂��銄���ݏ����̏I���ʒm����������D
+intnoで指定された割込み要求ラインに対する割込みハンドラの末尾で行うべき
+処理を行う関数．ここで行うべき処理としては，割込みコントローラ（IRC）に
+対する割込み処理の終了通知が挙げられる．
 
-intno�ɑ΂��ēo�^���ꂽ�����݃T�[�r�X���[�`�����Ăяo�������݃n���h����
-�����ŌĂяo�����D���̂��߂��̊֐��́C�����݃n���h���̖����i�ʏ��
-CPU���b�N������ԁj�ŌĂяo����悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+intnoに対して登録された割込みサービスルーチンを呼び出す割込みハンドラの
+末尾で呼び出される．そのためこの関数は，割込みハンドラの末尾（通常は
+CPUロック解除状態）で呼び出せるように実装しなければならない．
 
-�^�[�Q�b�g�ɂ���ẮCIRC�ɑ΂��銄���ݏ����̏I���ʒm���s���O�ɁC���ׂ�
-�̊����݂��֎~���Ȃ���΂Ȃ�Ȃ��ꍇ������D���̏ꍇ�ɂ́C���̊֐��̒�
-�Ŋ����݂��֎~���C���̏�Ԃ̂܂܁C�����݃n���h�����烊�^�[������D����
-�݃n���h������̃��^�[���O�ɂ́C�����݋֎~����������̂������ł��邪�C
-�����݃n���h���̏o�������Ō��ɖ߂��������s���̂ō����x���Ȃ��͂��ł���D
-�����݃n���h���̏o���������C����ō����x���Ȃ������ɂȂ��Ă��邱�Ƃ��m
-�F����ׂ��ł���D
+ターゲットによっては，IRCに対する割込み処理の終了通知を行う前に，すべて
+の割込みを禁止しなければならない場合がある．この場合には，この関数の中
+で割込みを禁止し，その状態のまま，割込みハンドラからリターンする．割込
+みハンドラからのリターン前には，割込み禁止を解除するのが原則であるが，
+割込みハンドラの出口処理で元に戻す処理を行うので差し支えないはずである．
+割込みハンドラの出口処理が，これで差し支えない実装になっていることを確
+認するべきである．
 
-6.5 �^�X�N�f�B�X�p�b�`��
+6.5 タスクディスパッチャ
 
-6.5.1 �^�X�N�R���e�L�X�g�u���b�N�ƃ^�X�N�������R���e�L�X�g�u���b�N
+6.5.1 タスクコンテキストブロックとタスク初期化コンテキストブロック
 
 (6-5-1-1) TSKCTXB
 
-�^�[�Q�b�g�ˑ��̃^�X�N�R���e�L�X�g��ۑ����邽�߂ɁCTCB���Ɏ����Ƃ��K
-�v�ȃf�[�^�\���̌^���CTSKCTXB�ɒ�`����D�W���I�ɂ́CTSKCTXB�ɂ́C�^�X
-�N�̃X�^�b�N�|�C���^�Ǝ��s�ĊJ�Ԓn���i�[����D
+ターゲット依存のタスクコンテキストを保存するために，TCB中に持つことが必
+要なデータ構造の型を，TSKCTXBに定義する．標準的には，TSKCTXBには，タス
+クのスタックポインタと実行再開番地を格納する．
 
-(6-5-1-2) USE_TSKINICTXB�i�I�v�V�����j
-(6-5-1-3) TSKINICTXB�i�I�v�V�����j
+(6-5-1-2) USE_TSKINICTXB（オプション）
+(6-5-1-3) TSKINICTXB（オプション）
 
-�^�[�Q�b�g�ˑ��̏����^�X�N�������u���b�N�iTINIB�j�ɓ��ꂽ���ꍇ��C
-TINIB���̃X�^�b�N�̈�̃T�C�Y�Ɛ擪�Ԓn�̎��������^�[�Q�b�g�ˑ��ɕύX��
-�����ꍇ�ɂ́CUSE_TSKINICTXB���}�N����`���CTINIB���Ɏ����Ƃ��K�v�ȃf�[
-�^�\���̌^���CTSKINICTXB�ɒ�`����D
+ターゲット依存の情報をタスク初期化ブロック（TINIB）に入れたい場合や，
+TINIB中のスタック領域のサイズと先頭番地の持ち方をターゲット依存に変更し
+たい場合には，USE_TSKINICTXBをマクロ定義し，TINIB中に持つことが必要なデー
+タ構造の型を，TSKINICTXBに定義する．
 
-USE_TSKINICTXB���}�N����`����ƁCTINIB���ɃX�^�b�N�̈�ƃT�C�Y�Ɛ擪��
-�n���܂܂�Ȃ��Ȃ邽�߁C����ɑ������TSKINICTXB���Ɏ��K�v������D
-�܂��C�R���t�B�M�����[�^�̃p�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ�
-���ŁCTSKINICTXB�̏��������𐶐����邽�߂�GENERATE_TSKINICTXB���C�p�X
-3�̃e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ����ŁCTINIB����X�^�b�N�̈��
-�擪�Ԓn�����o�����߂�GET_STK_TSKINICTXB���`����K�v������D
+USE_TSKINICTXBをマクロ定義すると，TINIB中にスタック領域とサイズと先頭番
+地が含まれなくなるため，それに代わる情報をTSKINICTXB中に持つ必要がある．
+また，コンフィギュレータのパス2のテンプレートファイルのターゲット非依存
+部で，TSKINICTXBの初期化情報を生成するためのGENERATE_TSKINICTXBを，パス
+3のテンプレートファイルのターゲット非依存部で，TINIBからスタック領域の
+先頭番地を取り出すためのGET_STK_TSKINICTXBを定義する必要がある．
 
-6.5.2 �f�B�X�p�b�`���{��
+6.5.2 ディスパッチャ本体
 
-�f�B�X�p�b�`���{�́idispatcher�j�́C�^�[�Q�b�g��ˑ������璼�ڌĂяo��
-��邱�Ƃ͂Ȃ��C�J�[�l���̃^�[�Q�b�g�ˑ����̓�������̂݌Ăяo�����D
-dispatcher�́C�^�X�N�R���e�L�X�g�ECPU���b�N��ԁE�����ݗD��x�}�X�N�S��
-����ԁE�f�B�X�p�b�`����ԂŌĂяo�����D
+ディスパッチャ本体（dispatcher）は，ターゲット非依存部から直接呼び出さ
+れることはなく，カーネルのターゲット依存部の内部からのみ呼び出される．
+dispatcherは，タスクコンテキスト・CPUロック状態・割込み優先度マスク全解
+除状態・ディスパッチ許可状態で呼び出される．
 
-dispatcher�̏������e�͎��̒ʂ�D
+dispatcherの処理内容は次の通り．
 
 ----------------------------------------
 void
@@ -1738,1181 +1738,1181 @@ dispatcher(void)
 #endif /* LOG_DSP_ENTER */
   dispatcher_0:
 	while ((p_runtsk = p_schedtsk) == NULL) {
-		�����݂���������CPU���b�N������ԂɂȂ�悤��������
-		��^�X�N�R���e�L�X�g�ɐ؂芷���� �c (*1)
+		割込みを許可したらCPUロック解除状態になるよう準備する
+		非タスクコンテキストに切り換える … (*1)
 		do {
-			�����݂����ׂċ����C�����ݔ�����҂� �c (*2)
-			�����݋��O�̏�Ԃɖ߂��i���J�[�l���Ǘ��̊����݂��֎~����j
+			割込みをすべて許可し，割込み発生を待つ … (*2)
+			割込み許可前の状態に戻す（＝カーネル管理の割込みを禁止する）
 		} while (!reqflg);
 		reqflg = false;
-		�^�X�N�R���e�L�X�g�ɖ߂� �c (*1)
-		CPU���b�N��Ԃɖ߂� ... (*3)
+		タスクコンテキストに戻す … (*1)
+		CPUロック状態に戻す ... (*3)
 	}
-	���^�X�N�ip_runtsk�j��TCB����X�^�b�N�|�C���^�𕜋A����
+	自タスク（p_runtsk）のTCBからスタックポインタを復帰する
 #ifdef LOG_DSP_LEAVE
 	log_dsp_leave(p_runtsk);
 #endif /* LOG_DSP_LEAVE */
-	���^�X�N��TCB������s�ĊJ�Ԓn�𕜋A���C�����֕��򂷂� �c (*a)
+	自タスクのTCBから実行再開番地を復帰し，そこへ分岐する … (*a)
 }
 ----------------------------------------
 
-�����ݔ�����҂Ԃɔ�^�X�N�R���e�L�X�g�ɐ؂芷����̂́C���̊ԂɎ��s
-����銄���݃n���h�����ŁC�^�X�N�f�B�X�p�b�`�����Ȃ��悤�ɂ��邽�߂ł�
-��D���̎��C�����݃n���h�����C��^�X�N�R���e�L�X�g�p�̃X�^�b�N���g����
-���ɂ��Ȃ���΂Ȃ�Ȃ��D�ʏ�́C��^�X�N�R���e�L�X�g�ɐ؂芷����ۂɔ�
-�^�X�N�R���e�L�X�g�p�̃X�^�b�N�ɐ؂芷���C�^�X�N�R���e�L�X�g�ɖ߂��ۂ�
-���̃X�^�b�N�ɐ؂芷����D
+割込み発生を待つ間に非タスクコンテキストに切り換えるのは，この間に実行
+される割込みハンドラ内で，タスクディスパッチをしないようにするためであ
+る．この時，割込みハンドラが，非タスクコンテキスト用のスタックを使うよ
+うにしなければならない．通常は，非タスクコンテキストに切り換える際に非
+タスクコンテキスト用のスタックに切り換え，タスクコンテキストに戻す際に
+元のスタックに切り換える．
 
-�^�[�Q�b�g�ɂ���Ắi���ɁC�V�~�����[�V�������̏ꍇ�j�C�����I�ɔ�^
-�X�N�R���e�L�X�g�ɐ؂芷���邱�Ƃ�����ꍇ������D���̏ꍇ�ɂ́C����
-�ԂɎ��s����銄���݃n���h�����Ń^�X�N�f�B�X�p�b�`�����Ȃ��悤�Ȏd�g��
-���������邱�ƂŁC��^�X�N�R���e�L�X�g�ւ̐؊������ȗ����邱�Ƃ��ł���D
+ターゲットによっては（特に，シミュレーション環境の場合），強制的に非タ
+スクコンテキストに切り換えることが難しい場合がある．その場合には，この
+間に実行される割込みハンドラ内でタスクディスパッチをしないような仕組み
+を実装することで，非タスクコンテキストへの切換えを省略することができる．
 
-(*1)�̔�^�X�N�R���e�L�X�g�ɐ؂芷���鏈���ƃ^�X�N�R���e�L�X�g�ɖ߂���
-���́Cdo���[�v�̒��ōs���Ă��悢�i�^�[�Q�b�g�ɂ���ẮC�����݂̋��^
-�֎~�Ƃ܂Ƃ߂ď������������������ǂ��j�D
+(*1)の非タスクコンテキストに切り換える処理とタスクコンテキストに戻す処
+理は，doループの中で行ってもよい（ターゲットによっては，割込みの許可／
+禁止とまとめて処理した方が効率が良い）．
 
-(*2)�ɂ����āC�����݂������鏈���ƁC�����ݔ�����҂����Ƃ́C�s��
-�ɍs�Ȃ��K�v������D�����s���ɍs�Ȃ�Ȃ��ꍇ�C�����݂�����������
-�Ɋ����݂�����C���̒��Ń^�X�N�����s�\��ԂɂȂ�ƁC���s���ׂ��^�X�N
-������ɂ�������炸�v���Z�b�T�������ݑ҂��ɂȂ��Ă��܂��D
+(*2)において，割込みを許可する処理と，割込み発生を待つ処理とは，不可分
+に行なう必要がある．これを不可分に行なわない場合，割込みを許可した直後
+に割込みが入り，その中でタスクが実行可能状態になると，実行すべきタスク
+があるにもかかわらずプロセッサが割込み待ちになってしまう．
 
-�܂��C(*2)�ɂ����āC�����ݔ�����҂��߂��p�ӂ���Ă��Ȃ��ꍇ��C����
-�𔭍s����̂��s�s���ȏꍇ�ɂ́C�����݂����ׂċ����Ċ����݂��󂯕t��
-�����ԂɂȂ�����ɁC�����ݔ�����҂����Ɏ��ɐi��ł��悢�D���̏ꍇ�C
-���̊O����do���[�v�ɂ���āC�����ݔ�����҂��ƂɂȂ�D
+また，(*2)において，割込み発生を待つ命令が用意されていない場合や，それ
+を発行するのが不都合な場合には，割込みをすべて許可して割込みを受け付け
+られる状態になった後に，割込み発生を待たずに次に進んでもよい．この場合，
+その外側のdoループによって，割込み発生を待つことになる．
 
-CPU���b�N���������邽�߂̏��i�Ⴆ�΁CCPU���b�N�O�̊����ݗD��x�}�X�N�j
-��ϐ��ɕێ����Ă���ꍇ�ɂ́C(*3)��CPU���b�N��Ԃɖ߂��ۂɁC���̕ϐ���
-�l�����ɖ߂��Ă���K�v������D���ɁC���̕ϐ����C�����ݑ҂��̊ԂɎ��s��
-�������݃n���h�����ŏ�����������ꍇ�́C���̒l�ɖ߂����Ƃ��K�v�ł���D
+CPUロックを解除するための情報（例えば，CPUロック前の割込み優先度マスク）
+を変数に保持している場合には，(*3)でCPUロック状態に戻す際に，その変数の
+値も元に戻っている必要がある．特に，その変数が，割込み待ちの間に実行し
+た割込みハンドラ内で書き換えられる場合は，元の値に戻すことが必要である．
 
-�����ݑ҂��̊Ԃ́Cp_runtsk��NULL�i��0�j�ɐݒ肵�Ȃ���΂Ȃ�Ȃ��i��̏�
-�����e�����̂܂܎�������΂����Ȃ�j�D���̂悤�ɐݒ肵�Ȃ��ƁC�����݃n
-���h������iget_tid���Ăяo�����ۂ̓��삪�d�l�ɍ��v���Ȃ��Ȃ�D
+割込み待ちの間は，p_runtskをNULL（＝0）に設定しなければならない（上の処
+理内容をそのまま実装すればこうなる）．このように設定しないと，割込みハ
+ンドラからiget_tidを呼び出した際の動作が仕様に合致しなくなる．
 
-dispatcher���A�Z���u������ŋL�q����ꍇ�ɂ́C�g���[�X���O�擾�����́C
-�u6.2 �g���[�X���O�@�\�ւ̑Ή��v�̐߂ŋL�q�������@�ŃR�[�f�B���O���邱
-�ƁD�Ȃ��Clog_dsp_enter�͐؊����O�̃^�X�N�̃X�^�b�N�ŁClog_dsp_leave ��
-�؊�����̃^�X�N�̃X�^�b�N�Ŏ��s����D
+dispatcherをアセンブリ言語で記述する場合には，トレースログ取得処理は，
+「6.2 トレースログ機能への対応」の節で記述した方法でコーディングするこ
+と．なお，log_dsp_enterは切換え前のタスクのスタックで，log_dsp_leave は
+切換え後のタスクのスタックで実行する．
 
-6.5.3 �^�X�N�R���e�L�X�g����̃f�B�X�p�b�`
+6.5.3 タスクコンテキストからのディスパッチ
 
 (6-5-3-1) void dispatch(void)
-(6-5-3-2) OMIT_CALLTEX�i�I�v�V�����j
+(6-5-3-2) OMIT_CALLTEX（オプション）
 
-�^�X�N�R���e�L�X�g����̃f�B�X�p�b�`�idispatch�j�́C�^�X�N�R���e�L�X�g
-�p�̃T�[�r�X�R�[�������ɂ����ă^�X�N�؊������K�v�ɂȂ����ꍇ�ɁC�^�[�Q�b
-�g��ˑ����̃T�[�r�X�R�[�������֐�����Ăяo�����D
+タスクコンテキストからのディスパッチ（dispatch）は，タスクコンテキスト
+用のサービスコール処理においてタスク切換えが必要になった場合に，ターゲッ
+ト非依存部のサービスコール処理関数から呼び出される．
 
-dispatch�́C�^�X�N�R���e�L�X�g�ECPU���b�N��ԁE�����ݗD��x�}�X�N�S����
-��ԁE�f�B�X�p�b�`����ԂŌĂяo�����D
+dispatchは，タスクコンテキスト・CPUロック状態・割込み優先度マスク全解除
+状態・ディスパッチ許可状態で呼び出される．
 
-dispatch�̏������e�͎��̒ʂ�D
+dispatchの処理内容は次の通り．
 
 ----------------------------------------
 void
 dispatch(void)
 {
 #ifdef TOPPERS_SUPPORT_OVRHDR
-	ovrtimer_stop();					/* �I�[�o�����^�C�}�̒�~ */
+	ovrtimer_stop();					/* オーバランタイマの停止 */
 #endif /* TOPPERS_SUPPORT_OVRHDR */
-	�X�N���b�`���W�X�^(*)���������ׂẴ��W�X�^���X�^�b�N�ɕۑ�����
-	�X�^�b�N�|�C���^�����^�X�N�ip_runtsk�j��TCB�ɕۑ�����
-	dispatch_r���C���s�ĊJ�Ԓn�Ƃ��Ď��^�X�N��TCB�ɕۑ����� �c (*a)
-	dispatcher�ɕ��򂷂�
+	スクラッチレジスタ(*)を除くすべてのレジスタをスタックに保存する
+	スタックポインタを自タスク（p_runtsk）のTCBに保存する
+	dispatch_rを，実行再開番地として自タスクのTCBに保存する … (*a)
+	dispatcherに分岐する
 
   dispatch_r:
-	�X�N���b�`���W�X�^���������ׂẴ��W�X�^���X�^�b�N���畜�A����
+	スクラッチレジスタを除くすべてのレジスタをスタックから復帰する
 #ifdef TOPPERS_SUPPORT_OVRHDR
-	ovrtimer_start();					/* �I�[�o�����^�C�}�̓���J�n */
+	ovrtimer_start();					/* オーバランタイマの動作開始 */
 #endif /* TOPPERS_SUPPORT_OVRHDR */
-	calltex(); �c (*b)
+	calltex(); … (*b)
 }
 ----------------------------------------
 
-�����ŃX�N���b�`���W�X�^(*)�Ƃ́C�֐��ďo���ɂ��ۑ�����Ȃ����W�X�^��
-���Ƃł���D�K�v�ȏꍇ�ɂ́C�֐����Ăяo�����ŕۑ����Ȃ���΂Ȃ�Ȃ���
-�߁Ccaller saved register�ƌĂ΂��ꍇ������D
+ここでスクラッチレジスタ(*)とは，関数呼出しにより保存されないレジスタの
+ことである．必要な場合には，関数を呼び出す側で保存しなければならないた
+め，caller saved registerと呼ばれる場合もある．
 
-dispatch���Ăяo�����^�X�N�����Ɏ��s����鎞�ɂ́C���s�ĊJ�Ԓn�Ƃ��ēo
-�^����dispatch_r�ɖ߂��Ă���Ddispatch_r�ɂ́Cdispatcher�݂̂��番�򂵁C
-���̎��̏�Ԃ́C�^�X�N�R���e�L�X�g�ECPU���b�N��ԁE�����ݗD��x�}�X�N�S
-������ԁE�f�B�X�p�b�`����Ԃł���D
+dispatchを呼び出したタスクが次に実行される時には，実行再開番地として登
+録したdispatch_rに戻ってくる．dispatch_rには，dispatcherのみから分岐し，
+その時の状態は，タスクコンテキスト・CPUロック状態・割込み優先度マスク全
+解除状態・ディスパッチ許可状態である．
 
-(*b)��calltex���Ăԑ���ɁCcalltex�̏������e�ip_runtsk->enatex��true
-�ŁCp_runtsk->texptn��0�łȂ��Cipmflg��true�̏ꍇ�ɁCcall_texrtn���Ăԁj
-�������ɃC�����C���W�J���������������悢�D�^�[�Q�b�g��ˑ�����calltex��
-�g��Ȃ��ꍇ�ɂ́COMIT_CALLTEX���}�N����`���邱�ƂŁC�^�[�Q�b�g��ˑ�
-������calltex����菜�����Ƃ��ł���D
+(*b)でcalltexを呼ぶ代わりに，calltexの処理内容（p_runtsk->enatexがtrue
+で，p_runtsk->texptnが0でなく，ipmflgがtrueの場合に，call_texrtnを呼ぶ）
+をここにインライン展開した方が効率がよい．ターゲット非依存部のcalltexを
+使わない場合には，OMIT_CALLTEXをマクロ定義することで，ターゲット非依存
+部からcalltexを取り除くことができる．
 
-6.5.4 �f�B�X�p�b�`���̓���J�n
+6.5.4 ディスパッチャの動作開始
 
 (6-5-4-1) void start_dispatch(void)
 
-�f�B�X�p�b�`���̓���J�n�istart_dispatch�j�́C�J�[�l���N�����ɁC�J�[�l
-���̏�������������Ăяo�����Dstart_dispatch�́C���^�[�����邱�Ƃ̂�
-���֐��ł���D
+ディスパッチャの動作開始（start_dispatch）は，カーネル起動時に，カーネ
+ルの初期化処理から呼び出される．start_dispatchは，リターンすることのな
+い関数である．
 
-start_dispatch�́C��^�X�N�R���e�L�X�g�ŁCNMI���������ׂĂ̊����݂��}�X
-�N������ԁi�S�����݃��b�N��ԂƓ����̏�ԁj�ŌĂяo�����Dstart_dispatch
-���ŁC�^�X�N�R���e�L�X�g�ɐ؂芷���CCPU���b�N��ԁE�����ݗD��x�}�X�N�S
-������Ԃɂ��Ȃ���΂Ȃ�Ȃ��D
+start_dispatchは，非タスクコンテキストで，NMIを除くすべての割込みをマス
+クした状態（全割込みロック状態と同等の状態）で呼び出される．start_dispatch
+内で，タスクコンテキストに切り換え，CPUロック状態・割込み優先度マスク全
+解除状態にしなければならない．
 
-start_dispatch�̏������e�͎��̒ʂ�D
+start_dispatchの処理内容は次の通り．
 
 ----------------------------------------
 void
 start_dispatch(void)
 {
-	�^�X�N�R���e�L�X�g�ɐ؂芷����
-	CPU���b�N��ԁE�����ݗD��x�}�X�N�S������Ԃɂ���
-	dispatcher_0�ɕ��򂷂�
+	タスクコンテキストに切り換える
+	CPUロック状態・割込み優先度マスク全解除状態にする
+	dispatcher_0に分岐する
 }
 ----------------------------------------
 
-6.5.5 ���݂̃R���e�L�X�g���̂Ăăf�B�X�p�b�`
+6.5.5 現在のコンテキストを捨ててディスパッチ
 
 (6-5-5-1) void exit_and_dispatch(void)
 
-���݂̃R���e�L�X�g���̂Ăăf�B�X�p�b�`�iexit_and_dispatch�j�́C���^�X�N
-���I��������T�[�r�X�R�[�������֐�����Ăяo�����Dexit_and_dispatch�́C
-���^�[�����邱�Ƃ̂Ȃ��֐��ł���D
+現在のコンテキストを捨ててディスパッチ（exit_and_dispatch）は，自タスク
+を終了させるサービスコール処理関数から呼び出される．exit_and_dispatchは，
+リターンすることのない関数である．
 
-exit_and_dispatch�́C�^�X�N�R���e�L�X�g�ECPU���b�N��ԁE�����ݗD��x�}
-�X�N�S������ԁE�f�B�X�p�b�`����ԂŌĂяo�����D
+exit_and_dispatchは，タスクコンテキスト・CPUロック状態・割込み優先度マ
+スク全解除状態・ディスパッチ許可状態で呼び出される．
 
-exit_and_dispatch�̏������e�͎��̒ʂ�D
+exit_and_dispatchの処理内容は次の通り．
 
 ----------------------------------------
 void
 exit_and_dispatch(void)
 {
-	dispatcher�ɕ��򂷂�
+	dispatcherに分岐する
 }
 ----------------------------------------
 
-6.5.6 �^�X�N�̋N������
+6.5.6 タスクの起動処理
 
 (6-5-6-1) void activate_context(TCB *p_tcb)
 
-�^�X�N�̋N�������iactivate_context�j�́C�^�X�N���x�~��Ԃ�����s�ł���
-��Ԃɂ��鎞�ɌĂ΂�Cp_tcb�Ŏw�肳�ꂽ�^�X�N�i�Ώۃ^�X�N�j��TCB���̃X
-�^�b�N�|�C���^�����������C���s�ĊJ�Ԓn���^�X�N�J�n�������istart_r�j�ɐ�
-�肷��D���̎��_�ł́C��q���闝�R�ŁC�Ώۃ^�X�N�̃X�^�b�N�̈���g����
-�͂Ȃ�Ȃ��D
+タスクの起動処理（activate_context）は，タスクを休止状態から実行できる
+状態にする時に呼ばれ，p_tcbで指定されたタスク（対象タスク）のTCB中のス
+タックポインタを初期化し，実行再開番地をタスク開始時処理（start_r）に設
+定する．この時点では，後述する理由で，対象タスクのスタック領域を使って
+はならない．
 
-�Ώۃ^�X�N���ŏ��Ɏ��s����鎞�ɂ́C�Ώۃ^�X�N�����^�X�N�Ƃ��āC���s��
-�J�Ԓn�Ƃ��ēo�^����start_r�ɕ��򂵂Ă���Dstart_r�ɂ́Cdispatcher�̂�
-���番�򂵁C���̎��̏�Ԃ́C�^�X�N�R���e�L�X�g�ECPU���b�N��ԁE�����ݗD
-��x�}�X�N�S������ԁE�f�B�X�p�b�`����Ԃł���D
+対象タスクが最初に実行される時には，対象タスクを自タスクとして，実行再
+開番地として登録したstart_rに分岐してくる．start_rには，dispatcherのみ
+から分岐し，その時の状態は，タスクコンテキスト・CPUロック状態・割込み優
+先度マスク全解除状態・ディスパッチ許可状態である．
 
-start_r�́CCPU���b�N��Ԃ�����������C�^�X�N�̋N���Ԓn���Ăяo���D����
-�ɁC�^�X�N�̋N���Ԓn����߂��Ă����ꍇ�ɂ́Cext_tsk���Ăяo���D
+start_rは，CPUロック状態を解除した後，タスクの起動番地を呼び出す．さら
+に，タスクの起動番地から戻ってきた場合には，ext_tskを呼び出す．
 
-activate_context��start_r�̏������e�͎��̒ʂ�D
+activate_contextとstart_rの処理内容は次の通り．
 
 ----------------------------------------
 void
 activate_context(TCB *p_tcb)
 {
-	�w�肳�ꂽ�^�X�N�ip_tcb�j��TCB���̃X�^�b�N�|�C���^������������
-	start_r���C���s�ĊJ�Ԓn�Ƃ��Ď��^�X�N��TCB�ɕۑ����� �c (*a)
+	指定されたタスク（p_tcb）のTCB中のスタックポインタを初期化する
+	start_rを，実行再開番地として自タスクのTCBに保存する … (*a)
 	return;
 
   start_r:
 #ifdef TOPPERS_SUPPORT_OVRHDR
-	ovrtimer_start();					/* �I�[�o�����^�C�}�̓���J�n */
+	ovrtimer_start();					/* オーバランタイマの動作開始 */
 #endif /* TOPPERS_SUPPORT_OVRHDR */
-	CPU���b�N������Ԃɂ���
-	���^�X�N�ip_runtsk�j�̋N���Ԓn���C�g�������p�����[�^�Ƃ��ČĂяo��
-	ext_tsk�ɕ��򂷂� ... (*c)
+	CPUロック解除状態にする
+	自タスク（p_runtsk）の起動番地を，拡張情報をパラメータとして呼び出す
+	ext_tskに分岐する ... (*c)
 }
 ----------------------------------------
 
-(*c)��ext_tsk���Ăԑ���ɁC���^�X�N�̋N���Ԓn���Ăяo�����̕Ԃ�Ԓn��
-ext_tsk�̔Ԓn�Ƃ��Ă������@������D
+(*c)でext_tskを呼ぶ代わりに，自タスクの起動番地を呼び出す時の返り番地を
+ext_tskの番地としておく方法がある．
 
-�����ŁC�^�X�N�̋N�������ɂ����đΏۃ^�X�N�̃X�^�b�N�̈���g���Ă͂Ȃ�
-�Ȃ����R�́C���̒ʂ�D����^�X�N�g���p�b�P�[�W�ɂ����āC�����̐���^�X
-�N���X�^�b�N�̈�����L���Ă���ꍇ�ɁC�^�X�N�̋N�����_�ł́C���̃^�X�N
-�ƃX�^�b�N�̈�����L���Ă���^�X�N���C�X�^�b�N�̈���g�p���Ă���\��
-�����邽�߂ł���D
+ここで，タスクの起動処理において対象タスクのスタック領域を使ってはなら
+ない理由は，次の通り．制約タスク拡張パッケージにおいて，複数の制約タス
+クがスタック領域を共有している場合に，タスクの起動時点では，そのタスク
+とスタック領域を共有しているタスクが，スタック領域を使用している可能性
+があるためである．
 
-���̃|�[�e�B���O�K�C�h�ł́C�^�X�N�̎��s�ĊJ�Ԓn��TCB�ɕۑ����Ă���
-(*a)�B������X�^�b�N�ɕۑ�������@���l�����邪�C�^�X�N�̋N�������ŃX
-�^�b�N�̈悪�g���Ȃ����Ƃ���C�^�X�N�̋N�����������͗�O�������Ȃ����
-�Ȃ�Ȃ��D�Ⴆ�΁C�^�X�N�̋N�������ɂ����Ă�TCB���̃X�^�b�N�|�C���^���
-��Ȓl�i�Ⴆ��0�j�ɐݒ肵�Ă����C�f�B�X�p�b�`���{�̂�TCB���̃X�^�b�N�|
-�C���^�����̒l�̏ꍇ�ɂ�start_r�ɕ��򂳂��Cstart_r�ɂ����ăX�^�b�N�|�C
-���^��������������@���l������D
+このポーティングガイドでは，タスクの実行再開番地をTCBに保存している
+(*a)。これをスタックに保存する方法も考えられるが，タスクの起動処理でス
+タック領域が使えないことから，タスクの起動処理だけは例外扱いしなければ
+ならない．例えば，タスクの起動処理においてはTCB中のスタックポインタを特
+殊な値（例えば0）に設定しておき，ディスパッチャ本体でTCB中のスタックポ
+インタがその値の場合にはstart_rに分岐させ，start_rにおいてスタックポイ
+ンタを初期化する方法が考えられる．
 
-6.6 �����݃n���h��
+6.6 割込みハンドラ
 
-6.6.1 �����݃n���h���̏o��������
+6.6.1 割込みハンドラの出入口処理
 
-�J�[�l���Ǘ��̊����݂̏o���������̕��@�́C�v���Z�b�T�ɂ���đ傫���ق�
-�邪�C�����悻�̏������e�͎��̒ʂ�D
+カーネル管理の割込みの出入口処理の方法は，プロセッサによって大きく異な
+るが，おおよその処理内容は次の通り．
 
 ----------------------------------------
 void
-<�����݂̏o��������>(void)
+<割込みの出入口処理>(void)
 {
-	���Ȃ��Ƃ��J�[�l���Ǘ��̊����݂��֎~������Ԃɂ��� �c (*f)
-	�X�N���b�`���W�X�^���X�^�b�N�ɕۑ�����
-	if (�^�X�N�R���e�L�X�g�Ŋ����ݔ���) {
+	少なくともカーネル管理の割込みを禁止した状態にする … (*f)
+	スクラッチレジスタをスタックに保存する
+	if (タスクコンテキストで割込み発生) {
 #ifdef TOPPERS_SUPPORT_OVRHDR
-		ovrtimer_stop();				/* �I�[�o�����^�C�}�̒�~ */
+		ovrtimer_stop();				/* オーバランタイマの停止 */
 #endif /* TOPPERS_SUPPORT_OVRHDR */
-		�X�^�b�N���^�X�N�R���e�L�X�g�p�̃X�^�b�N�ɐ؂芷���C
-								��^�X�N�R���e�L�X�g�ɐ؂芷����
+		スタックを非タスクコンテキスト用のスタックに切り換え，
+								非タスクコンテキストに切り換える
 	}
-	�����ݗD��x�}�X�N���C�󂯕t���������ݗv���̊����D��x�ɐݒ肵�C
-				CPU���b�N������Ԃɂ���i�󂯕t���������݂���
-				�D��x�̍��������݂��󂯕t����悤�ɂ���j�c (*i)
+	割込み優先度マスクを，受け付けた割込み要求の割込優先度に設定し，
+				CPUロック解除状態にする（受け付けた割込みよりも
+				優先度の高い割込みを受け付けるようにする）… (*i)
 
 
 #ifdef LOG_INH_ENTER
-	log_inh_enter(�����݃n���h���ԍ�);
+	log_inh_enter(割込みハンドラ番号);
 #endif /* LOG_INH_ENTER */
-	�����݃n���h�����Ăяo��
+	割込みハンドラを呼び出す
 #ifdef LOG_INH_LEAVE
-	log_inh_leave(�����݃n���h���ԍ�);
+	log_inh_leave(割込みハンドラ番号);
 #endif /* LOG_INH_LEAVE */
 
   ret_int:
-	if (�^�X�N�R���e�L�X�g�Ŋ����ݔ���) {
-		�i���Ȃ��Ƃ��j�J�[�l���Ǘ��̊����݂��֎~������Ԃɂ��� �c (*d)
-		�X�^�b�N���^�X�N�p�̃X�^�b�N�ɖ߂��C�^�X�N�R���e�L�X�g�ɐ؂芷����
-																�c (*g)
+	if (タスクコンテキストで割込み発生) {
+		（少なくとも）カーネル管理の割込みを禁止した状態にする … (*d)
+		スタックをタスク用のスタックに戻し，タスクコンテキストに切り換える
+																… (*g)
 		if (reqflg) {
 			reqflg = false;
-			CPU���b�N��Ԃɂ��� �c (*e)
-			�����ݗD��x�}�X�N���C�S������ԁiTIPM_ENAALL�j�ɐݒ肷�� �c (*h)
+			CPUロック状態にする … (*e)
+			割込み優先度マスクを，全解除状態（TIPM_ENAALL）に設定する … (*h)
 			if (dspflg && p_runtsk != p_schedtsk) {
-				�X�N���b�`���W�X�^���������ׂẴ��W�X�^���X�^�b�N�ɕۑ�����
-				�X�^�b�N�|�C���^�����^�X�N�ip_runtsk�j��TCB�ɕۑ�����
-				ret_int_r���C���s�ĊJ�Ԓn�Ƃ��Ď��^�X�N��TCB�ɕۑ����� �c (*a)
-				dispatcher�ɕ��򂷂�
+				スクラッチレジスタを除くすべてのレジスタをスタックに保存する
+				スタックポインタを自タスク（p_runtsk）のTCBに保存する
+				ret_int_rを，実行再開番地として自タスクのTCBに保存する … (*a)
+				dispatcherに分岐する
 
 			  ret_int_r:
-				�X�N���b�`���W�X�^���������ׂẴ��W�X�^���X�^�b�N���畜�A����
+				スクラッチレジスタを除くすべてのレジスタをスタックから復帰する
 			}
 #ifdef TOPPERS_SUPPORT_OVRHDR
-			ovrtimer_start();			/* �I�[�o�����^�C�}�̓���J�n */
+			ovrtimer_start();			/* オーバランタイマの動作開始 */
 #endif /* TOPPERS_SUPPORT_OVRHDR */
-			calltex(); �c (*b)
+			calltex(); … (*b)
 		}
 #ifdef TOPPERS_SUPPORT_OVRHDR
 		else {
-			ovrtimer_start();			/* �I�[�o�����^�C�}�̓���J�n */
+			ovrtimer_start();			/* オーバランタイマの動作開始 */
 		}
 #endif /* TOPPERS_SUPPORT_OVRHDR */
 	}
-	�����ݏ�������̃��^�[����ɁC�����ݗD��x�}�X�N��
-									�����ݏ����O�̒l�ɖ߂�悤�ɏ�������
-	�����ݏ�������̃��^�[����ɁCCPU���b�N������Ԃɖ߂�悤�ɏ�������
-	�X�N���b�`���W�X�^���X�^�b�N���畜�A����
-	�����ݏ�������̃��^�[��
+	割込み処理からのリターン後に，割込み優先度マスクが
+									割込み処理前の値に戻るように準備する
+	割込み処理からのリターン後に，CPUロック解除状態に戻るように準備する
+	スクラッチレジスタをスタックから復帰する
+	割込み処理からのリターン
 }
 ----------------------------------------
 
-�����݂̎�t���ɂ��C�X�^�b�N�|�C���^���؂芷��炸�C���ׂĂ̊����݂�
-�֎~����Ȃ��v���Z�b�T�ł́C(*f)�ɂ����āC���Ȃ��Ƃ��J�[�l���Ǘ��̊���
-�݂��֎~����D���̗��R�͎��̒ʂ�ł���D
+割込みの受付けにより，スタックポインタが切り換わらず，すべての割込みが
+禁止されないプロセッサでは，(*f)において，少なくともカーネル管理の割込
+みを禁止する．この理由は次の通りである．
 
-�����݂̓��������ɂ����āC�X�^�b�N���^�X�N�R���e�L�X�g�p�̃X�^�b�N��
-�؂芷����O�ɑ��d�����݂���������ƁC�^�X�N�̃X�^�b�N�̈悪�g�p�����D
-��L�̂悤�ȃv���Z�b�T�ł́C�X�^�b�N�̐؊����O�ɁC�ő�Ŋ����ݗD��x��
-�i�����̑��d�����݂��������邱�Ƃ�h�����Ƃ͂ł����C�e�^�X�N�̃X�^�b�N
-�̈���m�ۂ���ۂɁC���̕���������Ŋm�ۂ��Ȃ���΂Ȃ�Ȃ��D�e�^�X�N��
-�X�^�b�N�̈���Ȃ�ׂ����������邽�߂ɂ́C�X�^�b�N���Ȃ�ׂ��g�p���Ȃ�
-���ɁC���d�����݂��֎~����̂��]�܂����D���̂��߁C�X�N���b�`���W�X�^��
-�X�^�b�N�ɕۑ�����O�ɁC�����݂��֎~����D�������C�����݂̋֎~�����ɕK
-�v�ȍŒ���̃��W�X�^�ɂ��ẮC�����݂̋֎~�ɐ旧���ăX�^�b�N�ɕۑ���
-��K�v������D
+割込みの入口処理において，スタックを非タスクコンテキスト用のスタックに
+切り換える前に多重割込みが発生すると，タスクのスタック領域が使用される．
+上記のようなプロセッサでは，スタックの切換え前に，最大で割込み優先度の
+段数分の多重割込みが発生することを防ぐことはできず，各タスクのスタック
+領域を確保する際に，その分を見込んで確保しなければならない．各タスクの
+スタック領域をなるべく小さくするためには，スタックをなるべく使用しない
+内に，多重割込みを禁止するのが望ましい．そのため，スクラッチレジスタを
+スタックに保存する前に，割込みを禁止する．ただし，割込みの禁止処理に必
+要な最低限のレジスタについては，割込みの禁止に先立ってスタックに保存す
+る必要がある．
 
-���l�̂��Ƃ́C�J�[�l���Ǘ��O�̊����݂ɂ����Ă͂܂�D���Ȃ킿�C�J�[�l��
-�Ǘ��O�̊����݂ɂ��Ă��C�X�^�b�N���Ȃ�ׂ��g�p���Ȃ����ɋ֎~����̂�
-�]�܂����D���̂��Ƃ���C�J�[�l���Ǘ��O�̊����݂��g�p����ꍇ�ɂ́C(*f)
-�ɂ����āC���ׂĂ̊����݂��֎~������Ԃɂ���̂��]�܂������ƂɂȂ�D��
-���ŁC�J�[�l���Ǘ��O�̊����݂̋֎~���Ԃ������Ȃ�ƁC�J�[�l���Ǘ��O�̊�
-���݂̉��������ቺ���邽�߁C���[�U�ɒ��ӂ𑣂��K�v������D�܂��C�J�[�l
-���Ǘ��O�̊����ݏ����ɂ����Ă��C��^�X�N�R���e�L�X�g�p�̃X�^�b�N�i�܂�
-�́C�J�[�l���Ǘ��O�̊����ݏ����p�̃X�^�b�N�j�ɐ؂芷���邱�Ƃ��]�܂���
-���C����̓J�[�l���̊Ǌ��O�ł���D
+同様のことは，カーネル管理外の割込みにも当てはまる．すなわち，カーネル
+管理外の割込みについても，スタックをなるべく使用しない内に禁止するのが
+望ましい．このことから，カーネル管理外の割込みを使用する場合には，(*f)
+において，すべての割込みを禁止した状態にするのが望ましいことになる．一
+方で，カーネル管理外の割込みの禁止時間が長くなると，カーネル管理外の割
+込みの応答性が低下するため，ユーザに注意を促す必要がある．また，カーネ
+ル管理外の割込み処理においても，非タスクコンテキスト用のスタック（また
+は，カーネル管理外の割込み処理用のスタック）に切り換えることが望ましい
+が，これはカーネルの管轄外である．
 
-(*i)�Ɋ܂܂�銄���ݗD��x�}�X�N��ݒ肷�鏈���́C�v���Z�b�T���n�[�h�E�F
-�A�Ŏ������Ă���ꍇ�������D
+(*i)に含まれる割込み優先度マスクを設定する処理は，プロセッサがハードウェ
+アで実現している場合も多い．
 
-(*d)�ɂ����ẮC�J�[�l���Ǘ��̊����݂��֎~���邾���ŁCCPU���b�N��Ԃɂ�
-��K�v�͂Ȃ��D�Ⴆ�΁CCPU���b�N��Ԃł��邱�Ƃ������ϐ���p�ӂ��Ă����
-���ɂ́C(*d)�̎��_�ł͂��̕ϐ���CPU���b�N��Ԃ������l�ɕύX����K�v�͂�
-���C(*e)�ɂ����ĕύX����΂悢�D
+(*d)においては，カーネル管理の割込みを禁止するだけで，CPUロック状態にす
+る必要はない．例えば，CPUロック状態であることを示す変数を用意している場
+合には，(*d)の時点ではその変数をCPUロック状態を示す値に変更する必要はな
+く，(*e)において変更すればよい．
 
-(*g)�ɂ����ă^�X�N�R���e�L�X�g�ɐ؂芷���鏈���́C�����ݏ�������̃��^�[
-���ɂ��X�^�b�N�ƃR���e�L�X�g�����ɖ߂�v���Z�b�T�ł́Creqflg��true��
-�ꍇ�ɂ̂ݍs���΂悢�Dreqflg��false�̎��́C��^�X�N�R���e�L�X�g�̂܂܏�
-���𑱂��C�����ݏ�������̃��^�[���Ń^�X�N�R���e�L�X�g�ɖ߂邱�ƂɂȂ�D
+(*g)においてタスクコンテキストに切り換える処理は，割込み処理からのリター
+ンによりスタックとコンテキストが元に戻るプロセッサでは，reqflgがtrueの
+場合にのみ行えばよい．reqflgがfalseの時は，非タスクコンテキストのまま処
+理を続け，割込み処理からのリターンでタスクコンテキストに戻ることになる．
 
-(*e)�ɂ�����CPU���b�N��Ԃɂ���̂́Cdispatcher�ɕ��򂷂�ۂƁC(*b)�ɂ�
-����calltex�i�܂��́C�����W�J�����ꍇ�ɂ�call_texrtn�j���Ăяo���ۂɁC
-CPU���b�N��ԂɂȂ��Ă���K�v�����邽�߂ł���D
+(*e)においてCPUロック状態にするのは，dispatcherに分岐する際と，(*b)にお
+いてcalltex（または，それを展開した場合にはcall_texrtn）を呼び出す際に，
+CPUロック状態になっている必要があるためである．
 
-(*h)�̏��������s�����̂́C�����ݏ����O�Ɋ����ݗD��x�}�X�N���S������
-�ԁiTIPM_ENAALL�j�ł������ꍇ�Ɍ����C�����Ŋ����ݗD��x�}�X�N��S����
-��Ԃɐݒ肷��̂́C�����ݏ����O�̒l�ɖ߂��̂Ɠ����ł���D�����ł��̏�
-�����s���̂́Cdispatcher�ɕ��򂷂�ۂƁC(*b)�ɂ�����calltex�i�܂��́C��
-���W�J�����ꍇ�ɂ�call_texrtn�j���Ăяo���ۂɂ́C�����ݗD��x�}�X�N�S
-������ԂɂȂ��Ă���K�v�����邽�߂ł���D
+(*h)の処理が実行されるのは，割込み処理前に割込み優先度マスクが全解除状
+態（TIPM_ENAALL）であった場合に限られ，ここで割込み優先度マスクを全解除
+状態に設定するのは，割込み処理前の値に戻すのと等価である．ここでこの処
+理を行うのは，dispatcherに分岐する際と，(*b)においてcalltex（または，そ
+れを展開した場合にはcall_texrtn）を呼び出す際には，割込み優先度マスク全
+解除状態になっている必要があるためである．
 
-�^�X�N�̎��s���Ɋ����݂��������C��̏�������dispatcher�ɕ��򂵂��ꍇ�C
-���̃^�X�N�����Ɏ��s����鎞�ɂ́C���s�ĊJ�Ԓn�Ƃ��ēo�^����ret_int_r��
-�߂��Ă���Dret_int_r�ɂ́Cdispatcher�݂̂��番�򂵁C���̎��̏�Ԃ́C�^
-�X�N�R���e�L�X�g�ECPU���b�N��ԁE�����ݗD��x�}�X�N�S������ԁE�f�B�X�p�b
-�`����Ԃł���D
+タスクの実行中に割込みが発生し，上の処理中でdispatcherに分岐した場合，
+そのタスクが次に実行される時には，実行再開番地として登録したret_int_rに
+戻ってくる．ret_int_rには，dispatcherのみから分岐し，その時の状態は，タ
+スクコンテキスト・CPUロック状態・割込み優先度マスク全解除状態・ディスパッ
+チ許可状態である．
 
-�����݂̏o�����������A�Z���u������ŋL�q����ꍇ�ɂ́C�g���[�X���O�擾
-�����́C�u6.2 �g���[�X���O�@�\�ւ̑Ή��v�̐߂ŋL�q�������@�ŃR�[�f�B��
-�O���邱�ƁD
+割込みの出入口処理をアセンブリ言語で記述する場合には，トレースログ取得
+処理は，「6.2 トレースログ機能への対応」の節で記述した方法でコーディン
+グすること．
 
-6.6.2 �����݃n���h�����̏o���������̐���
+6.6.2 割込みハンドラ毎の出入口処理の生成
 
-�����݃x�N�g�����n�[�h�E�F�A�Ŏ������Ă���ꍇ�ȂǁC�����݃n���h������
-�o����������p�ӂ��������������ǂ��^�[�Q�b�g�̂��߂ɁC�����݃n���h����
-�ɏo���������𐶐�����@�\��p�ӂ��Ă���D
+割込みベクトルをハードウェアで実現している場合など，割込みハンドラ毎に
+出入口処理を用意した方が効率が良いターゲットのために，割込みハンドラ毎
+に出入口処理を生成する機構を用意している．
 
-�ȉ��̃}�N���́C�W���̊����݊Ǘ��@�\�̏�����������p�����ꍇ�̂݁C�^�[
-�Q�b�g��ˑ����Ŏg����D�����݊Ǘ��@�\�̏������������^�[�Q�b�g�ˑ���
-�ŗp�ӂ��C���̒��ł����̃}�N�����g��Ȃ��ꍇ�ɂ́C�����̃}�N����p
-�ӂ���K�v�͂Ȃ��D
+以下のマクロは，標準の割込み管理機能の初期化処理を用いた場合のみ，ター
+ゲット非依存部で使われる．割込み管理機能の初期化処理をターゲット依存部
+で用意し，その中でこれらのマクロを使わない場合には，これらのマクロを用
+意する必要はない．
 
 (6-6-2-1) INT_ENTRY(inhno, inthdr)
 
-�����݃n���h���ԍ���inhno�C�����݃n���h���̊֐�����inthdr�ł��銄���݃n
-���h���̏o���������̃��x�������}�N���DINTHDR_ENTRY��p���Ċ����݃n��
-�h�����ɏo���������𐶐�����ꍇ�ɂ́C���̂悤�ɒ�`����D
+割込みハンドラ番号がinhno，割込みハンドラの関数名がinthdrである割込みハ
+ンドラの出入口処理のラベルを作るマクロ．INTHDR_ENTRYを用いて割込みハン
+ドラ毎に出入口処理を生成する場合には，次のように定義する．
 
 #define INT_ENTRY(inhno, inthdr)	_kernel_##inthdr##_##inhno
 
-�����݃n���h�����ɏo�������������K�v���Ȃ��ꍇ�ɂ́C���̂悤�ɒ�`��
-�āC�����݃n���h���̊֐��������̂܂ܕԂ��D
+割込みハンドラ毎に出入口処理を作る必要がない場合には，次のように定義し
+て，割込みハンドラの関数名をそのまま返す．
 
 #define INT_ENTRY(inhno, inthdr)	inthdr
 
 (6-6-2-2) INTHDR_ENTRY(inhno, inhno_num, inthdr)
 
-�����݃n���h���ԍ���inhno�C�����݃n���h���̊֐�����inthdr�ł��銄���݃n
-���h���̏o���������𐶐�����}�N���Dinhno_num�ɂ́C�A�Z���u������L�q�p
-�ɁC�����݃n���h���ԍ������l�œn�����D�����݃n���h�����ɏo����������
-���K�v���Ȃ��ꍇ�ɂ́C��ɒ�`����D
+割込みハンドラ番号がinhno，割込みハンドラの関数名がinthdrである割込みハ
+ンドラの出入口処理を生成するマクロ．inhno_numには，アセンブリ言語記述用
+に，割込みハンドラ番号が数値で渡される．割込みハンドラ毎に出入口処理を
+作る必要がない場合には，空に定義する．
 
-6.6.3 �����݃n���h���̐ݒ�
+6.6.3 割込みハンドラの設定
 
-(6-6-3-1) bool_t VALID_INHNO_DEFINH(INHNO inhno)�i�I�v�V�����j
+(6-6-3-1) bool_t VALID_INHNO_DEFINH(INHNO inhno)（オプション）
 
-inhno���CDEF_INH�ɑ΂��銄���݃n���h���ԍ��Ƃ��ėL���Ȓl�ł���ꍇ��
-true�C�����łȂ��ꍇ��false��Ԃ��}�N���D
+inhnoが，DEF_INHに対する割込みハンドラ番号として有効な値である場合に
+true，そうでない場合にfalseを返すマクロ．
 
-ASP�J�[�l���̃^�[�Q�b�g��ˑ����ł́C���̃}�N���͎g���Ă��Ȃ����߁C�^�[
-�Q�b�g�ˑ����Ŏg��Ȃ��Ȃ�C�p�ӂ���K�v���Ȃ��D
+ASPカーネルのターゲット非依存部では，このマクロは使われていないため，ター
+ゲット依存部で使わないなら，用意する必要がない．
 
 (6-6-3-2) void x_define_inh(INHNO inhno, FP int_entry)
 
-inhno�Ŏw�肳�ꂽ�����݃n���h���̏o���������̔Ԓn��int_entry�ɐݒ肷��D
+inhnoで指定された割込みハンドラの出入口処理の番地をint_entryに設定する．
 
-���̊֐��́C�W���̊����݊Ǘ��@�\�̏�����������p�����ꍇ�̂݁C�^�[�Q�b
-�g��ˑ�������Ăяo�����D�����݊Ǘ��@�\�̏������������^�[�Q�b�g�ˑ�
-���ŗp�ӂ��C���̒��ł��̊֐����Ăяo���Ȃ��ꍇ�ɂ́C���̊֐���p�ӂ���
-�K�v�͂Ȃ��D
+この関数は，標準の割込み管理機能の初期化処理を用いた場合のみ，ターゲッ
+ト非依存部から呼び出される．割込み管理機能の初期化処理をターゲット依存
+部で用意し，その中でこの関数を呼び出さない場合には，この関数を用意する
+必要はない．
 
-���̊֐��́C�^�[�Q�b�g��ˑ����̃J�[�l����������������Ăяo����邽�߁C
-�J�[�l���̏����������iNMI���������ׂĂ̊����݂��}�X�N����Ă���j�����
-�яo����悤�Ɏ�������΂悢�D
+この関数は，ターゲット非依存部のカーネル初期化処理から呼び出されるため，
+カーネルの初期化処理（NMIを除くすべての割込みがマスクされている）から呼
+び出せるように実装すればよい．
 
-�w�肳�ꂽ�����݃n���h���ԍ���DEF_INH�ɑ΂�����̂Ƃ��ėL���Ȓl�łȂ���
-���̓���͕ۏ؂���K�v���Ȃ��iassert�ŃG���[�Ƃ���̂��]�܂����j�D����
-�́C�R���t�B�M�����[�^���C�p�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ���
-�Œ�`����INHNO_DEFINH_VALID��p���ăG���[�����o���邽�߂ł���D
+指定された割込みハンドラ番号がDEF_INHに対するものとして有効な値でない場
+合の動作は保証する必要がない（assertでエラーとするのが望ましい）．これ
+は，コンフィギュレータが，パス2のテンプレートファイルのターゲット依存部
+で定義するINHNO_DEFINH_VALIDを用いてエラーを検出するためである．
 
-6.6.4 �����ݗv�����C���̑����̐ݒ�
+6.6.4 割込み要求ラインの属性の設定
 
-(6-6-4-1) bool_t VALID_INTNO_CFGINT(INTNO intno)�i�I�v�V�����j
+(6-6-4-1) bool_t VALID_INTNO_CFGINT(INTNO intno)（オプション）
 
-intno���C�����ݔԍ��Ƃ��ėL���Ȓl�ł���ꍇ��true�C�����łȂ��ꍇ��
-false��Ԃ��}�N���DCFG_INT�ɂ́C���ׂĂ̊����ݔԍ����w�肷�邱�Ƃ��ł�
-�邽�߁C���̃}�N���́Cintno���L���Ȓl�̏ꍇ�ɂ�true�Cintno�������̒l��
-�ꍇ�ɂ�false��Ԃ��悤�ɂ���D
+intnoが，割込み番号として有効な値である場合にtrue，そうでない場合に
+falseを返すマクロ．CFG_INTには，すべての割込み番号を指定することができ
+るため，このマクロは，intnoが有効な値の場合にはtrue，intnoが無効の値の
+場合にはfalseを返すようにする．
 
-ASP�J�[�l���̃^�[�Q�b�g��ˑ����ł́C���̃}�N���͎g���Ă��Ȃ����߁C�^�[
-�Q�b�g�ˑ����Ŏg��Ȃ��Ȃ�C�p�ӂ���K�v���Ȃ��D
+ASPカーネルのターゲット非依存部では，このマクロは使われていないため，ター
+ゲット依存部で使わないなら，用意する必要がない．
 
 (6-6-4-2) void x_config_int(INTNO intno, ATR intatr, PRI intpri)
 
-intno�Ŏw�肳�ꂽ�����ݗv�����C���̊����ݑ������Cintatr�Ŏw�肳�ꂽ�ʂ�
-�ɐݒ肷��D�܂��C�����ݗD��x���Cintpri�Ŏw�肳�ꂽ�l�ɐݒ肷��D
+intnoで指定された割込み要求ラインの割込み属性を，intatrで指定された通り
+に設定する．また，割込み優先度を，intpriで指定された値に設定する．
 
-���̊֐��́C�W���̊����݊Ǘ��@�\�̏�����������p�����ꍇ�̂݁C�^�[�Q�b
-�g��ˑ�������Ăяo�����D�����݊Ǘ��@�\�̏������������^�[�Q�b�g�ˑ�
-���ŗp�ӂ��C���̒��ł��̊֐����Ăяo���Ȃ��ꍇ�ɂ́C���̊֐���p�ӂ���
-�K�v�͂Ȃ��D
+この関数は，標準の割込み管理機能の初期化処理を用いた場合のみ，ターゲッ
+ト非依存部から呼び出される．割込み管理機能の初期化処理をターゲット依存
+部で用意し，その中でこの関数を呼び出さない場合には，この関数を用意する
+必要はない．
 
-���̊֐��́C�^�[�Q�b�g��ˑ����̃J�[�l����������������Ăяo����邽�߁C
-�J�[�l���̏����������iNMI���������ׂĂ̊����݂��}�X�N����Ă���j�����
-�яo����悤�Ɏ�������΂悢�D
+この関数は，ターゲット非依存部のカーネル初期化処理から呼び出されるため，
+カーネルの初期化処理（NMIを除くすべての割込みがマスクされている）から呼
+び出せるように実装すればよい．
 
-intatr�Ƃ��Đݒ�ł��銄���ݑ����͎��̒ʂ�D
+intatrとして設定できる割込み属性は次の通り．
 
-	TA_ENAINT		0x01	�����ݗv���֎~�t���O���N���A
-	TA_EDGE			0x02	�G�b�W�g���K
+	TA_ENAINT		0x01	割込み要求禁止フラグをクリア
+	TA_EDGE			0x02	エッジトリガ
 
-���̑��ɁC�^�[�Q�b�g��`�Ŋ����ݑ�����ǉ����Ă��悢�D�^�[�Q�b�g��`��
-�ǉ����邽�߂ɁC�ȉ��̑��������\�񂳂�Ă���D
+この他に，ターゲット定義で割込み属性を追加してもよい．ターゲット定義で
+追加するために，以下の属性名が予約されている．
 
-	TA_POSEDGE				�|�W�e�B�u�G�b�W�g���K
-	TA_NEGEDGE				�l�K�e�B�u�G�b�W�g���K
-	TA_BOTHEDGE				���G�b�W�g���K
-	TA_LOWLEVEL				���[���x���g���K
-	TA_HIGHLEVEL			�n�C���x���g���K
+	TA_POSEDGE				ポジティブエッジトリガ
+	TA_NEGEDGE				ネガティブエッジトリガ
+	TA_BOTHEDGE				両エッジトリガ
+	TA_LOWLEVEL				ローレベルトリガ
+	TA_HIGHLEVEL			ハイレベルトリガ
 
-�����̑��������^�[�Q�b�g��`�Œǉ�����ꍇ�ɂ́C���̑����l�����肵�C
-��`��target_kernel.h�i�܂��́C��������C���N���[�h�����t�@�C���j�Ɋ�
-�߂�D�܂��C�R���t�B�M�����[�^�e���v���[�g�t�@�C������Q�Ƃł���悤�ɁC
-target_def.csv�i�܂��́C�����̖��������t�@�C���j�Ɋ܂߁C�R���t�B�M��
-���[�^�e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ����ŃG���[�ƂȂ�Ȃ��悤�ɁC
-target.tf�i�܂��́C��������C���N���[�h�����t�@�C���j��TARGET_INTATR
-�ɐݒ肷��D
+これらの属性名をターゲット定義で追加する場合には，その属性値を決定し，
+定義をtarget_kernel.h（または，そこからインクルードされるファイル）に含
+める．また，コンフィギュレータテンプレートファイルから参照できるように，
+target_def.csv（または，同等の役割を持つファイル）に含め，コンフィギュ
+レータテンプレートファイルのターゲット非依存部でエラーとならないように，
+target.tf（または，そこからインクルードされるファイル）でTARGET_INTATR
+に設定する．
 
-�w�肳�ꂽ�����ݔԍ����L���Ȓl�łȂ��ꍇ��C���̊����ݗv�����C���ɑ΂�
-�Đݒ�ł��Ȃ��������w�肵���ꍇ�C�ݒ�ł��Ȃ������ݗD��x���w�肵����
-���̓���͕ۏ؂���K�v���Ȃ��iassert�ŃG���[�Ƃ���̂��]�܂����j�D����
-�悤�ȃP�[�X�́C�R���t�B�M�����[�^�ŃG���[�����o���ׂ��ł���D�R���t�B
-�M�����[�^�e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ����́C�p�X2�̃e���v���[
-�g�t�@�C���̃^�[�Q�b�g�ˑ����Œ�`����INTNO_CFGINT_VALID�C
-TARGET_INTATR�CINTPRI_CFGINT_VALID��p���ăG���[�����o���邪�C�W���̊�
-���ݑ����iTA_ENAINT�CTA_EDGE�j���ݒ�ł��Ȃ��ꍇ��C�ݒ�ł��Ȃ�������
-�����ݗD��x�������ݗv�����C���ɂ���ĈقȂ�ꍇ�ɂ́C�R���t�B�M�����[
-�^�e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ����Ō��o���Ȃ���΂Ȃ�Ȃ��D
+指定された割込み番号が有効な値でない場合や，その割込み要求ラインに対し
+て設定できない属性を指定した場合，設定できない割込み優先度を指定した場
+合の動作は保証する必要がない（assertでエラーとするのが望ましい）．この
+ようなケースは，コンフィギュレータでエラーを検出すべきである．コンフィ
+ギュレータテンプレートファイルのターゲット非依存部は，パス2のテンプレー
+トファイルのターゲット依存部で定義するINTNO_CFGINT_VALID，
+TARGET_INTATR，INTPRI_CFGINT_VALIDを用いてエラーを検出するが，標準の割
+込み属性（TA_ENAINT，TA_EDGE）が設定できない場合や，設定できない属性や
+割込み優先度が割込み要求ラインによって異なる場合には，コンフィギュレー
+タテンプレートファイルのターゲット依存部で検出しなければならない．
 
-6.6.5 �����݊Ǘ��@�\�̏����������̕ύX
+6.6.5 割込み管理機能の初期化処理の変更
 
-(6-6-5-1) OMIT_INITIALIZE_INTERRUPT�i�I�v�V�����j
+(6-6-5-1) OMIT_INITIALIZE_INTERRUPT（オプション）
 
-�����݊Ǘ��@�\�̏������������^�[�Q�b�g�ˑ����ŗp�ӂ��C�^�[�Q�b�g��ˑ�
-���Ɋ܂܂��W���̊����݊Ǘ��@�\�̏�����������p���Ȃ��ꍇ�ɂ́C���̃V
-���{�����}�N����`����D
+割込み管理機能の初期化処理をターゲット依存部で用意し，ターゲット非依存
+部に含まれる標準の割込み管理機能の初期化処理を用いない場合には，このシ
+ンボルをマクロ定義する．
 
-���̃V���{�����}�N����`����ƁCINHINIB�CINTINIB�Cinitialize_interrupt
-�̒�`���C�J�[�l���̃^�[�Q�b�g��ˑ��������菜�����D�܂��C
-TNUM_INHNO�Ctnum_inhno�Cinhinib_table�CTNUM_INTNO�Ctnum_intno�C
-intinib_table�̒�`�ƁC�����݃n���h�����̏o���������𐶐����邽�߂̋L�q
-�iINTHDR_ENTRY�}�N���̃��X�g�j���C�R���t�B�M�����[�^�̃p�X2�̃e���v���[
-�g�t�@�C���̃^�[�Q�b�g��ˑ����ɂ����kernel_cfg.c�ɐ�������Ȃ��Ȃ�D
-�������C�R���t�B�M�����[�^�̃p�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ�
-���ŁCUSE_INHINIB_TABLE��USE_INTINIB_TABLE��ݒ肷�邱�ƂŁC���̈ꕔ
-����kernel_cfg.c�ɐ������邱�Ƃ��\�ł���D
+このシンボルをマクロ定義すると，INHINIB，INTINIB，initialize_interrupt
+の定義が，カーネルのターゲット非依存部から取り除かれる．また，
+TNUM_INHNO，tnum_inhno，inhinib_table，TNUM_INTNO，tnum_intno，
+intinib_tableの定義と，割込みハンドラ毎の出入口処理を生成するための記述
+（INTHDR_ENTRYマクロのリスト）が，コンフィギュレータのパス2のテンプレー
+トファイルのターゲット非依存部によってkernel_cfg.cに生成されなくなる．
+ただし，コンフィギュレータのパス2のテンプレートファイルのターゲット依存
+部で，USE_INHINIB_TABLEとUSE_INTINIB_TABLEを設定することで，その一部
+分をkernel_cfg.cに生成することが可能である．
 
-(6-6-5-2) void initialize_interrupt(void)�i�I�v�V�����j
+(6-6-5-2) void initialize_interrupt(void)（オプション）
 
-OMIT_INITIALIZE_INTERRUPT���}�N����`�����ꍇ�ɂ́C���̊֐����^�[�Q�b�g
-�ˑ����ŗp�ӂ���DOMIT_INITIALIZE_INTERRUPT���}�N����`���邱�Ƃɂ���
-�菜����邻�̑��̃f�[�^�^�C�ϐ��C�}�N���́C���̊֐��Ŏg�p����ꍇ�ɂ�
-�ݗp�ӂ���΂悢�D
+OMIT_INITIALIZE_INTERRUPTをマクロ定義した場合には，この関数をターゲット
+依存部で用意する．OMIT_INITIALIZE_INTERRUPTをマクロ定義することにより取
+り除かれるその他のデータ型，変数，マクロは，この関数で使用する場合にの
+み用意すればよい．
 
-6.6.6 �f�t�H���g�̊����݃n���h��
+6.6.6 デフォルトの割込みハンドラ
 
-(6-6-6-1) void default_int_handler(void)�i�I�v�V�����j
+(6-6-6-1) void default_int_handler(void)（オプション）
 
-�R���t�B�M�����[�^�ɂ�芄���݃n���h���̃e�[�u���𐶐�����ꍇ�Ȃǂɂ́C
-�����݃n���h����o�^���Ȃ����������݃n���h���ԍ��ɑ΂��āC�f�t�H���g��
-�����݃n���h���Ƃ��āCdefault_int_handler��o�^����D
+コンフィギュレータにより割込みハンドラのテーブルを生成する場合などには，
+割込みハンドラを登録しなかった割込みハンドラ番号に対して，デフォルトの
+割込みハンドラとして，default_int_handlerを登録する．
 
-default_int_handler�́C�W���̂��̂��^�[�Q�b�g�ˑ����ŗp�ӂ��邪�C���[�U
-���p�ӂ������̂Œu����������悤�ɁCOMIT_DEFAULT_INT_HANDLER���}�N��
-��`�����ꍇ�ɂ́C�^�[�Q�b�g�ˑ����Œ�`���Ȃ��悤�ɂ���D�Ȃ��C���[�U
-���p�ӂ���ꍇ�̖��̂́C_kernel_default_int_handler�ƂȂ�D
+default_int_handlerは，標準のものをターゲット依存部で用意するが，ユーザ
+が用意したもので置き換えられるように，OMIT_DEFAULT_INT_HANDLERをマクロ
+定義した場合には，ターゲット依存部で定義しないようにする．なお，ユーザ
+が用意する場合の名称は，_kernel_default_int_handlerとなる．
 
-6.6.7 �J�[�l���Ǘ��O�̊�����
+6.6.7 カーネル管理外の割込み
 
-�J�[�l���Ǘ��O�̊����݃n���h���́C�J�[�l�����̊����ݏo�����������o�R��
-���Ɏ��s����̂���{�ł���D
+カーネル管理外の割込みハンドラは，カーネル内の割込み出入口処理を経由せ
+ずに実行するのが基本である．
 
-�������C���ׂĂ̊����݂œ����A�h���X�ɕ��򂷂�v���Z�b�T�ł́C�J�[�l��
-���̊����ݏo����������S���o�R�����ɃJ�[�l���Ǘ��O�̊����݃n���h������
-�s���邱�Ƃ��ł��Ȃ����߁C�����ݏo���������̂Ȃ�ׂ������^�C�~���O�ŁC
-�J�[�l���Ǘ��O�̊����݂ł��邩�𔻕ʂ��C�������e�𕪂���K�v������D��
-�̓I�ɂ́C�J�[�l���Ǘ��O�̊����݂̏o���������ł́C�I�[�o�����n���h����
-��~�Ɠ���J�n���s���Ă͂Ȃ�Ȃ��D�܂��Creqflg���`�F�b�N���C�^�X�N�؊�
-����^�X�N��O�������[�`���̌ďo�����s���K�v���Ȃ��D����ɁCNMI�̏o����
-�����ł́C�g���[�X���O�擾�����ilog_inh_enter�����log_inh_leave�j����
-�яo���Ă͂Ȃ�Ȃ��D
+ただし，すべての割込みで同じアドレスに分岐するプロセッサでは，カーネル
+内の割込み出入口処理を全く経由せずにカーネル管理外の割込みハンドラを実
+行することができないため，割込み出入口処理のなるべく早いタイミングで，
+カーネル管理外の割込みであるかを判別し，処理内容を分ける必要がある．具
+体的には，カーネル管理外の割込みの出入口処理では，オーバランハンドラの
+停止と動作開始を行ってはならない．また，reqflgをチェックし，タスク切換
+えやタスク例外処理ルーチンの呼出しを行う必要がない．さらに，NMIの出入口
+処理では，トレースログ取得処理（log_inh_enterおよびlog_inh_leave）を呼
+び出してはならない．
 
-�J�[�l���Ǘ��O�̊����݃n���h�������s����ۂɁC�J�[�l�����̊����ݏo����
-�����̈ꕔ�����o�R����ꍇ�ɂ́CCPU��O���N����\�����ɗ͌��炷�ƂƂ�
-�ɁCCPU��O���N�����\��������ꍇ�ɂ́C���̉\�����^�[�Q�b�g�ˑ�����
-���[�U�[�Y�}�j���A���ɋL�ڂ��Ȃ���΂Ȃ�Ȃ��D
+カーネル管理外の割込みハンドラを実行する際に，カーネル内の割込み出入口
+処理の一部分を経由する場合には，CPU例外が起こる可能性を極力減らすととも
+に，CPU例外を起こす可能性がある場合には，その可能性をターゲット依存部の
+ユーザーズマニュアルに記載しなければならない．
 
-���ɁC�J�[�l���Ǘ��O�̊����݂̐ݒ���@�Ɋւ��āC�uTOPPERS�V����J�[�l��
-�����d�l���v�́u2.7.8 �J�[�l���Ǘ��O�̊����݂̐ݒ���@�v�̐߂�3�̕��@
-�̂�������̗p���邩�����肷��D
+次に，カーネル管理外の割込みの設定方法に関して，「TOPPERS新世代カーネル
+統合仕様書」の「2.7.8 カーネル管理外の割込みの設定方法」の節の3つの方法
+のいずれを採用するかを決定する．
 
-(a-1)�܂���(a-2)���̗p���C�J�[�l���Ǘ��O�Ƃ��������݂ɑ΂��āC�J�[�l��
-��API�ɂ�銄���݃n���h���̓o�^�Ɗ����ݗv�����C���̑����̐ݒ���T�|�[�g
-���Ȃ��ꍇ�ɂ́C����ɑ�����@���^�[�Q�b�g�ˑ����̃��[�U�[�Y�}�j���A
-���ɋL�q����D
+(a-1)または(a-2)を採用し，カーネル管理外とした割込みに対して，カーネル
+のAPIによる割込みハンドラの登録と割込み要求ラインの属性の設定をサポート
+しない場合には，それに代わる方法をターゲット依存部のユーザーズマニュア
+ルに記述する．
 
-(a-1)�܂���(a-2)���̗p���ăJ�[�l����API�ɂ�銄���݃n���h���̓o�^�⊄��
-�ݗv�����C���̑����̐ݒ���T�|�[�g����ꍇ��C(b)���̗p�����ꍇ�ɂ́C�^�[
-�Q�b�g�ˑ����ɂ����Ă������������K�v������D
+(a-1)または(a-2)を採用してカーネルのAPIによる割込みハンドラの登録や割込
+み要求ラインの属性の設定をサポートする場合や，(b)を採用した場合には，ター
+ゲット依存部においてそれを実現する必要がある．
 
-�J�[�l���Ǘ��O�̊����݂ɑ΂��āCDEF_INH�ɂ�銄���݃n���h���̓o�^���T�|�[
-�g����ɂ́C���̐ݒ肪�K�v�ɂȂ�D
+カーネル管理外の割込みに対して，DEF_INHによる割込みハンドラの登録をサポー
+トするには，次の設定が必要になる．
 
-�ETARGET_INHATR�ɁCTA_NONKERNEL��ݒ肷��D
+・TARGET_INHATRに，TA_NONKERNELを設定する．
 
-�E(a-1)�܂���(a-2)���̗p�����ꍇ�ɂ́CINHNO_DEFINH_VALID�ɁC�J�[�l����
-�@���O�Ƃ��������݂ɑΉ����銄���݃n���h���ԍ����܂߂�D�܂��C
-�@VALID_INHNO_DEFINH���C�J�[�l���Ǘ��O�Ƃ��������݃n���h���ԍ���L����
-�@�l�Ɣ��肷��悤�ɂ���D
+・(a-1)または(a-2)を採用した場合には，INHNO_DEFINH_VALIDに，カーネル管
+　理外とした割込みに対応する割込みハンドラ番号を含める．また，
+　VALID_INHNO_DEFINHを，カーネル管理外とした割込みハンドラ番号を有効な
+　値と判定するようにする．
 
-�E(a-1)�܂���(a-2)���̗p�����ꍇ�ɂ́CINHNO_FIX_KERNEL�ɃJ�[�l���Ǘ���
-�@���������݃n���h���ԍ��̃��X�g���CINHNO_FIX_NONKERNEL�ɃJ�[�l���Ǘ��O
-�@�Ƃ��������݃n���h���ԍ��̃��X�g�ݒ肷��D
+・(a-1)または(a-2)を採用した場合には，INHNO_FIX_KERNELにカーネル管理と
+　した割込みハンドラ番号のリストを，INHNO_FIX_NONKERNELにカーネル管理外
+　とした割込みハンドラ番号のリスト設定する．
 
-�EDEF_INH���J�[�l���Ǘ��O�̊����݂ɑΉ��ł���悤�ɂ���D�W���̊����݊�
-�@���@�\�̏�����������p����ꍇ�ɂ́Cx_define_inh���J�[�l���Ǘ��O�̊�
-�@���݂ɑΉ�������D
+・DEF_INHがカーネル管理外の割込みに対応できるようにする．標準の割込み管
+　理機能の初期化処理を用いる場合には，x_define_inhをカーネル管理外の割
+　込みに対応させる．
 
-�E�K�v�ȏꍇ�ɂ́CTA_NONKERNEL�������ݒ肳�ꂽ�����݃n���h�����J�[�l��
-�@�Ǘ��O�ƈ����悤�ɁC�J�[�l�����̊����ݏo�����������C������D�W���̊�
-�@���݊Ǘ��@�\�̏�����������p����ꍇ�C�J�[�l���Ǘ��O�̊����݂ɑ΂���
-�@�́C�J�[�l�����̊����ݏo���������𐶐������C�A�v���P�[�V�������o�^��
-�@�������݃n���h���𒼐ڌĂяo���悤�ɁC�^�[�Q�b�g��ˑ����ɂ��ݒ肳
-�@��邽�߁C�^�[�Q�b�g�ˑ����ł͑Ή�����K�v���Ȃ��D
+・必要な場合には，TA_NONKERNEL属性が設定された割込みハンドラをカーネル
+　管理外と扱うように，カーネル内の割込み出入口処理を修正する．標準の割
+　込み管理機能の初期化処理を用いる場合，カーネル管理外の割込みに対して
+　は，カーネル内の割込み出入口処理を生成せず，アプリケーションが登録し
+　た割込みハンドラを直接呼び出すように，ターゲット非依存部により設定さ
+　れるため，ターゲット依存部では対応する必要がない．
 
-�J�[�l���Ǘ��O�̊����݂ɑ΂��āCCFG_INT�ɂ�銄���ݗv�����C���̑����̐�
-����T�|�[�g����ɂ́C���̐ݒ肪�K�v�ɂȂ�D
+カーネル管理外の割込みに対して，CFG_INTによる割込み要求ラインの属性の設
+定をサポートするには，次の設定が必要になる．
 
-�E(a-1)�܂���(a-2)���̗p�����ꍇ�ɂ́CINTNO_CFGINT_VALID�ɁC�J�[�l����
-�@���O�Ƃ��������݂ɑΉ����銄���ݔԍ����܂߂�D�܂��CVALID_INTNO_CFGINT
-�@���C�J�[�l���Ǘ��O�Ƃ��������ݔԍ���L���Ȓl�Ɣ��肷��悤�ɂ���D
+・(a-1)または(a-2)を採用した場合には，INTNO_CFGINT_VALIDに，カーネル管
+　理外とした割込みに対応する割込み番号を含める．また，VALID_INTNO_CFGINT
+　を，カーネル管理外とした割込み番号を有効な値と判定するようにする．
 
-�E(a-1)�܂���(a-2)���̗p�����ꍇ�ɂ́CINTNO_FIX_KERNEL�ɃJ�[�l���Ǘ���
-�@���������ݔԍ��̃��X�g���CINTNO_FIX_NONKERNEL�ɃJ�[�l���Ǘ��O�Ƃ�����
-�@���ݔԍ��̃��X�g�ݒ肷��D
+・(a-1)または(a-2)を採用した場合には，INTNO_FIX_KERNELにカーネル管理と
+　した割込み番号のリストを，INTNO_FIX_NONKERNELにカーネル管理外とした割
+　込み番号のリスト設定する．
 
-�EINTPRI_CFGINT_VALID�ɁC�J�[�l���Ǘ��O�̊����݂ƂȂ�D��x���܂߂�D
+・INTPRI_CFGINT_VALIDに，カーネル管理外の割込みとなる優先度を含める．
 
-�ECFG_INT���J�[�l���Ǘ��O�̊����݂ɑΉ��ł���悤�ɂ���D�W���̊����݊�
-�@���@�\�̏�����������p����ꍇ�ɂ́Cx_config_int���J�[�l���Ǘ��O�̊�
-�@���݂ɑΉ�������D
+・CFG_INTがカーネル管理外の割込みに対応できるようにする．標準の割込み管
+　理機能の初期化処理を用いる場合には，x_config_intをカーネル管理外の割
+　込みに対応させる．
 
-chg_ipm�ɂ��C�iNMI�ȊO�́j�J�[�l���Ǘ��O�̊����݂��}�X�N�ł���悤��
-����ꍇ�ɂ́C���̐ݒ肪�K�v�ɂȂ�D
+chg_ipmにより，（NMI以外の）カーネル管理外の割込みをマスクできるように
+する場合には，次の設定が必要になる．
 
-�EVALID_INTPRI_CHGIPM���C�J�[�l���Ǘ��O�̊����݂ƂȂ�D��x��L���Ȓl��
-�@���肷��悤�ɂ���D
+・VALID_INTPRI_CHGIPMを，カーネル管理外の割込みとなる優先度を有効な値と
+　判定するようにする．
 
-�Et_set_ipm���C�J�[�l���Ǘ��O�̊����݂ƂȂ�D��x��������悤�ɂ���D
+・t_set_ipmを，カーネル管理外の割込みとなる優先度を扱えるようにする．
 
-6.6.8 �����݃T�[�r�X���[�`���̐���
+6.6.8 割込みサービスルーチンの生成
 
 (6-6-8-1) bool_t VALID_INTNO_CREISR(INTNO intno)
 
-intno���Cacre_isr�ɑ΂��銄���ݔԍ��Ƃ��ėL���Ȓl�ł���ꍇ��true�C����
-�łȂ��ꍇ��false��Ԃ��}�N���D���I�����@�\�g���p�b�P�[�W���g�p���Ȃ���
-���ɂ́C��`����K�v���Ȃ��D
+intnoが，acre_isrに対する割込み番号として有効な値である場合にtrue，そう
+でない場合にfalseを返すマクロ．動的生成機能拡張パッケージを使用しない場
+合には，定義する必要がない．
 
-6.7 CPU��O�n���h����CPU��O�������̃V�X�e����Ԃ̎Q��
+6.7 CPU例外ハンドラとCPU例外発生時のシステム状態の参照
 
-6.7.1 CPU��O�n���h���̏o��������
+6.7.1 CPU例外ハンドラの出入口処理
 
-CPU��O�̏o���������̕��@�̓v���Z�b�T�ɂ���đ傫���قȂ邪�C�����悻��
-�������e�͎��̒ʂ�D
+CPU例外の出入口処理の方法はプロセッサによって大きく異なるが，おおよその
+処理内容は次の通り．
 
 ----------------------------------------
 void
-<CPU��O�̏o��������>(void)
+<CPU例外の出入口処理>(void)
 {
-	�X�N���b�`���W�X�^���X�^�b�N�ɕۑ�����
-	if (�J�[�l���Ǘ��O��CPU��O) {
-		if (�^�X�N�R���e�L�X�g��CPU��O����) {
-			�X�^�b�N���^�X�N�R���e�L�X�g�p�̃X�^�b�N�ɐ؂芷���C
-									��^�X�N�R���e�L�X�g�ɐ؂芷���� �c (*j)
+	スクラッチレジスタをスタックに保存する
+	if (カーネル管理外のCPU例外) {
+		if (タスクコンテキストでCPU例外発生) {
+			スタックを非タスクコンテキスト用のスタックに切り換え，
+									非タスクコンテキストに切り換える … (*j)
 		}
-		�V�X�e����ԁi�R���e�L�X�g�͏����j���CCPU��O�������̏�Ԃɂ���
-		CPU��O�n���h�����CCPU��O�̏����L�����Ă���̈�̐擪�Ԓn��
-									�p�����[�^�ip_excinf�j�Ƃ��ČĂяo��
-		if (�^�X�N�R���e�L�X�g��CPU��O����) {
-			�X�^�b�N���^�X�N�p�̃X�^�b�N�ɖ߂��C
-									�^�X�N�R���e�L�X�g�ɐ؂芷���� �c (*j)
+		システム状態（コンテキストは除く）を，CPU例外発生時の状態にする
+		CPU例外ハンドラを，CPU例外の情報を記憶している領域の先頭番地を
+									パラメータ（p_excinf）として呼び出す
+		if (タスクコンテキストでCPU例外発生) {
+			スタックをタスク用のスタックに戻し，
+									タスクコンテキストに切り換える … (*j)
 		}
-		CPU��O��������̃��^�[����ɁCCPU��O�������̃V�X�e����Ԃ�
-													�߂�悤�ɏ�������
+		CPU例外処理からのリターン後に，CPU例外発生時のシステム状態に
+													戻るように準備する
 	}
 	else {
-		if (�^�X�N�R���e�L�X�g��CPU��O����) {
-			�i���Ȃ��Ƃ��j�J�[�l���Ǘ��̊����݂��֎~������Ԃɂ���
+		if (タスクコンテキストでCPU例外発生) {
+			（少なくとも）カーネル管理の割込みを禁止した状態にする
 #ifdef TOPPERS_SUPPORT_OVRHDR
-			ovrtimer_stop();			/* �I�[�o�����^�C�}�̒�~ */
+			ovrtimer_stop();			/* オーバランタイマの停止 */
 #endif /* TOPPERS_SUPPORT_OVRHDR */
-			�X�^�b�N���^�X�N�R���e�L�X�g�p�̃X�^�b�N�ɐ؂芷���C
-									��^�X�N�R���e�L�X�g�ɐ؂芷����
+			スタックを非タスクコンテキスト用のスタックに切り換え，
+									非タスクコンテキストに切り換える
 		}
-		�����ݗD��x�}�X�N���CCPU��O�������̒l�ɐݒ肵�C
-				CPU���b�N������Ԃɂ���iCPU��O�������̊����ݗD��x�}�X�N
-				�����D��x�̍��������݂��󂯕t����悤�ɂ���j
+		割込み優先度マスクを，CPU例外発生時の値に設定し，
+				CPUロック解除状態にする（CPU例外発生時の割込み優先度マスク
+				よりも優先度の高い割込みを受け付けるようにする）
 
 #ifdef LOG_EXC_ENTER
-		log_exc_enter(CPU��O�n���h���ԍ�);
+		log_exc_enter(CPU例外ハンドラ番号);
 #endif /* LOG_EXC_ENTER */
-		CPU��O�n���h�����CCPU��O�̏����L�����Ă���̈�̐擪�Ԓn��
-									�p�����[�^�ip_excinf�j�Ƃ��ČĂяo��
+		CPU例外ハンドラを，CPU例外の情報を記憶している領域の先頭番地を
+									パラメータ（p_excinf）として呼び出す
 #ifdef LOG_EXC_LEAVE
-		log_exc_leave(CPU��O�n���h���ԍ�);
+		log_exc_leave(CPU例外ハンドラ番号);
 #endif /* LOG_EXC_LEAVE */
 
 	  ret_exc:
-		if (�^�X�N�R���e�L�X�g��CPU��O����) {
-			�i���Ȃ��Ƃ��j�J�[�l���Ǘ��̊����݂��֎~������Ԃɂ��� �c (*d)
-			�X�^�b�N���^�X�N�p�̃X�^�b�N�ɖ߂��C�^�X�N�R���e�L�X�g�ɐ؂芷����
-																	�c (*g)
+		if (タスクコンテキストでCPU例外発生) {
+			（少なくとも）カーネル管理の割込みを禁止した状態にする … (*d)
+			スタックをタスク用のスタックに戻し，タスクコンテキストに切り換える
+																	… (*g)
 			if (reqflg) {
 				reqflg = false;
-				CPU���b�N��Ԃɂ��� �c (*e)
+				CPUロック状態にする … (*e)
 				if (dspflg && p_runtsk != p_schedtsk) {
-					�X�N���b�`���W�X�^���������ׂẴ��W�X�^���X�^�b�N�ɕۑ�����
-					�X�^�b�N�|�C���^�����^�X�N�ip_runtsk�j��TCB�ɕۑ�����
-					ret_exc_r���C���s�ĊJ�Ԓn�Ƃ��Ď��^�X�N��TCB�ɕۑ�����
-																	�c (*a)
-					dispatcher�ɕ��򂷂�
+					スクラッチレジスタを除くすべてのレジスタをスタックに保存する
+					スタックポインタを自タスク（p_runtsk）のTCBに保存する
+					ret_exc_rを，実行再開番地として自タスクのTCBに保存する
+																	… (*a)
+					dispatcherに分岐する
 
 				  ret_exc_r:
-					�X�N���b�`���W�X�^���������ׂẴ��W�X�^��
-												�X�^�b�N���畜�A����
+					スクラッチレジスタを除くすべてのレジスタを
+												スタックから復帰する
 				}
 #ifdef TOPPERS_SUPPORT_OVRHDR
-				ovrtimer_start();		/* �I�[�o�����^�C�}�̓���J�n */
+				ovrtimer_start();		/* オーバランタイマの動作開始 */
 #endif /* TOPPERS_SUPPORT_OVRHDR */
-				calltex(); �c (*b)
+				calltex(); … (*b)
 			}
 #ifdef TOPPERS_SUPPORT_OVRHDR
 			else {
-				ovrtimer_start();		/* �I�[�o�����^�C�}�̓���J�n */
+				ovrtimer_start();		/* オーバランタイマの動作開始 */
 			}
 #endif /* TOPPERS_SUPPORT_OVRHDR */
 		}
-		CPU��O��������̃��^�[����ɁCCPU���b�N������Ԃɖ߂�悤�ɏ�������
+		CPU例外処理からのリターン後に，CPUロック解除状態に戻るように準備する
 	}
-	�X�N���b�`���W�X�^���X�^�b�N���畜�A����
-	CPU��O��������̃��^�[��
+	スクラッチレジスタをスタックから復帰する
+	CPU例外処理からのリターン
 }
 ----------------------------------------
 
-CPU��O�n���h���́C��R���e�L�X�g�ɐ؂芷���邱�Ƃ������ẮCCPU��O��
-�����Ɠ����V�X�e����ԂŌĂяo���Ȃ���΂Ȃ�Ȃ��D�Ⴆ�΁CCPU��O��CPU
-���b�N��ԂŔ��������ꍇ�ɂ�CPU���b�N��ԁCCPU���b�N������ԂŔ�������
-�ꍇ�ɂ�CPU���b�N������ԂŁCCPU��O�n���h�����Ăяo���Ȃ���΂Ȃ�Ȃ��D
-CPU���b�N��ԂŔ�������CPU��O�́C�J�[�l���Ǘ��O��CPU��O�ƂȂ邽�߁C�J�[
-�l���Ǘ���CPU��O�n���h���ɂ��ẮCCPU���b�N������ԂŌĂяo�����Ƃ�
-�Ȃ�D
+CPU例外ハンドラは，非コンテキストに切り換えることを除いては，CPU例外発
+生時と同じシステム状態で呼び出さなければならない．例えば，CPU例外がCPU
+ロック状態で発生した場合にはCPUロック状態，CPUロック解除状態で発生した
+場合にはCPUロック解除状態で，CPU例外ハンドラを呼び出さなければならない．
+CPUロック状態で発生したCPU例外は，カーネル管理外のCPU例外となるため，カー
+ネル管理のCPU例外ハンドラについては，CPUロック解除状態で呼び出すことに
+なる．
 
-�^�[�Q�b�g�ɂ���ẮC�J�[�l���Ǘ��O��CPU��O�𐳊m�ɔ��肷��̂����
-�ꍇ������D���̂悤�ȏꍇ�ɂ́C�����ݗD��x�}�X�N���S�����łȂ���Ԃ�
-��������CPU��O���C�J�[�l���Ǘ��O��CPU��O�ƈ����Ă��x�Ⴊ�Ȃ��D����́C
-�����ݗD��x�}�X�N���S�����łȂ��ꍇ�ɂ́Cxsns_dpn�Cxsns_xpn�Ƃ�true��
-�Ԃ����߁C�A�v���P�[�V��������̓J�[�l���Ǘ��O��CPU��O�Ƌ�ʂł��Ȃ���
-�߂ł���D
+ターゲットによっては，カーネル管理外のCPU例外を正確に判定するのが難しい
+場合がある．このような場合には，割込み優先度マスクが全解除でない状態で
+発生したCPU例外を，カーネル管理外のCPU例外と扱っても支障がない．これは，
+割込み優先度マスクが全解除でない場合には，xsns_dpn，xsns_xpnともtrueを
+返すため，アプリケーションからはカーネル管理外のCPU例外と区別できないた
+めである．
 
-��̓I�ɂ́C�S�����݃��b�N�i�܂���CPU���b�N�j���������I�[�o�w�b�h�Ŏ���
-���悤�Ƃ���ƁCCPU��O�n���h���̒��ŁC�S�����݃��b�N��ԁi�܂���CPU���b
-�N��ԁj�Ɗ����ݗD��x�}�X�N���������x���ɐݒ肵����Ԃ���ʂł��Ȃ���
-��������D�܂��C�J�[�l���Ǘ��O�̊����ݏ�������J�[�l�����s���ł��邱��
-�𐳊m�ɔ��f���邱�Ƃ�����ꍇ������D
+具体的には，全割込みロック（またはCPUロック）を小さいオーバヘッドで実現
+しようとすると，CPU例外ハンドラの中で，全割込みロック状態（またはCPUロッ
+ク状態）と割込み優先度マスクを高いレベルに設定した状態を区別できない場
+合がある．また，カーネル管理外の割込み処理中やカーネル実行中であること
+を正確に判断することも難しい場合がある．
 
-�J�[�l���Ǘ��O��CPU��O�n���h�����ĂԎ��ɁC(*j)�ɂ����āC�X�^�b�N���^
-�X�N�R���e�L�X�g�p�̃X�^�b�N�ɐ؂芷���C��^�X�N�R���e�L�X�g�ɐ؂芷��
-�Ă��邪�C���̐؊����̓^�[�Q�b�g��`�ŏȂ��Ă��ǂ��D����́C�J�[�l����
-���O��CPU��O�́C�J�[�l�����̃N���e�B�J���Z�N�V�������Ŕ�������\����
-���邽�߁C���S�ɐ؂芷������Ƃ͌���Ȃ����߂ł���D�܂��C�J�[�l����
-���O�̊����݃n���h�����ĂԎ��̃R���e�L�X�g��X�^�b�N�̓^�[�Q�b�g�ˑ���
-�̂ŁC�J�[�l���Ǘ��O��CPU��O�n���h��������Ɠ��l�Ɉ����ėǂ��ƍl�����
-�邽�߂ł���D
+カーネル管理外のCPU例外ハンドラを呼ぶ時に，(*j)において，スタックを非タ
+スクコンテキスト用のスタックに切り換え，非タスクコンテキストに切り換え
+ているが，この切換えはターゲット定義で省いても良い．これは，カーネル管
+理外のCPU例外は，カーネル内のクリティカルセクション中で発生する可能性が
+あるため，安全に切り換えられるとは限らないためである．また，カーネル管
+理外の割込みハンドラを呼ぶ時のコンテキストやスタックはターゲット依存な
+ので，カーネル管理外のCPU例外ハンドラもそれと同様に扱って良いと考えられ
+るためである．
 
-��̃R�[�h�ł́C�J�[�l���Ǘ��O��CPU��O�ɑ΂��āC�g���[�X���O�擾����
-�ilog_exc_enter�����log_exc_leave�j���Ăяo���Ă��Ȃ����C�S�����݃��b
-�N��Ԃ�NMI�̏�������CPU��O�����������ꍇ�����O����΁C�Ăяo���Ă���
-�܂�Ȃ��D�S�����݃��b�N��Ԃ�NMI�̏������ɔ�������CPU��O�̏ꍇ�ɂ́C
-�g���[�X���O�擾�������Ăяo���Ă͂Ȃ�Ȃ��D
+上のコードでは，カーネル管理外のCPU例外に対して，トレースログ取得処理
+（log_exc_enterおよびlog_exc_leave）を呼び出していないが，全割込みロッ
+ク状態かNMIの処理中にCPU例外が発生した場合を除外すれば，呼び出してもか
+まわない．全割込みロック状態かNMIの処理中に発生したCPU例外の場合には，
+トレースログ取得処理を呼び出してはならない．
 
-CPU��O�n���h�������s����ۂɌo�R���镔���ł́CCPU��O���N����\����
-�ɗ͌��炷�ƂƂ��ɁCCPU��O���N�����\��������ꍇ�i�Ⴆ�΁C�X�N���b�`
-���W�X�^���X�^�b�N�ɕۑ����鎞�ɁC�o�X�G���[�Ȃǂ�CPU��O����������\
-�����l������j�ɂ́C���̉\�����^�[�Q�b�g�ˑ����̃��[�U�[�Y�}�j���A
-���ɋL�ڂ��Ȃ���΂Ȃ�Ȃ��D
+CPU例外ハンドラを実行する際に経由する部分では，CPU例外が起こる可能性を
+極力減らすとともに，CPU例外を起こす可能性がある場合（例えば，スクラッチ
+レジスタをスタックに保存する時に，バスエラーなどのCPU例外が発生する可能
+性が考えられる）には，その可能性をターゲット依存部のユーザーズマニュア
+ルに記載しなければならない．
 
-ret_exc�ȍ~�̏����́C�����݂̏o����������ret_int�ȍ~�̏����Ƃقړ�����
-���邽�߁C�^�[�Q�b�g�ɂ���ẮC���ʂ̃��[�`����p���邱�Ƃ��ł���\
-��������D
+ret_exc以降の処理は，割込みの出入口処理のret_int以降の処理とほぼ同じで
+あるため，ターゲットによっては，共通のルーチンを用いることができる可能
+性がある．
 
-CPU��O�̏o�����������A�Z���u������ŋL�q����ꍇ�ɂ́C�g���[�X���O�擾
-�����́C�u6.2 �g���[�X���O�@�\�ւ̑Ή��v�̐߂ŋL�q�������@�ŃR�[�f�B��
-�O���邱�ƁD
+CPU例外の出入口処理をアセンブリ言語で記述する場合には，トレースログ取得
+処理は，「6.2 トレースログ機能への対応」の節で記述した方法でコーディン
+グすること．
 
-6.7.2 CPU��O�n���h���̏o���������̐���
+6.7.2 CPU例外ハンドラの出入口処理の生成
 
-CPU��O�x�N�g�����n�[�h�E�F�A�Ŏ������Ă���ꍇ�ȂǁCCPU��O�n���h����
-�ɏo����������p�ӂ��������������ǂ��^�[�Q�b�g�̂��߂ɁCCPU��O�n���h��
-���ɏo���������𐶐�����@�\��p�ӂ��Ă���D
+CPU例外ベクトルをハードウェアで実現している場合など，CPU例外ハンドラ毎
+に出入口処理を用意した方が効率が良いターゲットのために，CPU例外ハンドラ
+毎に出入口処理を生成する機構を用意している．
 
-�ȉ��̃}�N���́C�W����CPU��O�Ǘ��@�\�̏�����������p�����ꍇ�̂݁C�^�[
-�Q�b�g��ˑ����Ŏg����DCPU��O�Ǘ��@�\�̏������������^�[�Q�b�g�ˑ���
-�ŗp�ӂ��C���̒��ł����̃}�N�����g��Ȃ��ꍇ�ɂ́C�����̃}�N����p
-�ӂ���K�v�͂Ȃ��D
+以下のマクロは，標準のCPU例外管理機能の初期化処理を用いた場合のみ，ター
+ゲット非依存部で使われる．CPU例外管理機能の初期化処理をターゲット依存部
+で用意し，その中でこれらのマクロを使わない場合には，これらのマクロを用
+意する必要はない．
 
 (6-7-2-1) EXC_ENTRY(excno, exchdr)
 
-CPU��O�n���h���ԍ���excno�CCPU��O�n���h���̊֐�����exchdr�ł���CPU��
-�O�n���h���̏o���������̃��x�������}�N���DEXCHDR_ENTRY��p����CPU��O
-�n���h�����ɏo���������𐶐�����ꍇ�ɂ́C���̂悤�ɒ�`����D
+CPU例外ハンドラ番号がexcno，CPU例外ハンドラの関数名がexchdrであるCPU例
+外ハンドラの出入口処理のラベルを作るマクロ．EXCHDR_ENTRYを用いてCPU例外
+ハンドラ毎に出入口処理を生成する場合には，次のように定義する．
 
 #define EXC_ENTRY(excno, exchdr)	_kernel_##exchdr##_##excno
 
-CPU��O�n���h�����ɏo�������������K�v���Ȃ��ꍇ�ɂ́C���̂悤�ɒ�`��
-�āCCPU��O�n���h���̊֐��������̂܂ܕԂ��D
+CPU例外ハンドラ毎に出入口処理を作る必要がない場合には，次のように定義し
+て，CPU例外ハンドラの関数名をそのまま返す．
 
 #define EXC_ENTRY(excno, exchdr)	exchdr
 
 (6-7-2-2) EXCHDR_ENTRY(excno, excno_num, exchdr)
 
-CPU��O�n���h���ԍ���excno�CCPU��O�n���h���̊֐�����exchdr�ł���CPU��
-�O�n���h���̏o���������𐶐�����}�N���Dexcno_num�ɂ́C�A�Z���u������L
-�q�p�ɁCCPU��O�n���h���ԍ������l�œn�����DCPU��O�n���h�����ɏo����
-���������K�v���Ȃ��ꍇ�ɂ́C��ɒ�`����D
+CPU例外ハンドラ番号がexcno，CPU例外ハンドラの関数名がexchdrであるCPU例
+外ハンドラの出入口処理を生成するマクロ．excno_numには，アセンブリ言語記
+述用に，CPU例外ハンドラ番号が数値で渡される．CPU例外ハンドラ毎に出入口
+処理を作る必要がない場合には，空に定義する．
 
-6.7.3 CPU��O�n���h���̐ݒ�
+6.7.3 CPU例外ハンドラの設定
 
-(6-7-3-1) bool_t VALID_EXCNO_DEFEXC(EXCNO excno)�i�I�v�V�����j
+(6-7-3-1) bool_t VALID_EXCNO_DEFEXC(EXCNO excno)（オプション）
 
-excno���CDEF_EXC�ɑ΂���CPU��O�n���h���ԍ��Ƃ��ėL���Ȓl�ł���ꍇ��
-true�C�����łȂ��ꍇ��false��Ԃ��}�N���D
+excnoが，DEF_EXCに対するCPU例外ハンドラ番号として有効な値である場合に
+true，そうでない場合にfalseを返すマクロ．
 
-ASP�J�[�l���̃^�[�Q�b�g��ˑ����ł́C���̃}�N���͎g���Ă��Ȃ����߁C�^�[
-�Q�b�g�ˑ����Ŏg��Ȃ��Ȃ�C�p�ӂ���K�v���Ȃ��D
+ASPカーネルのターゲット非依存部では，このマクロは使われていないため，ター
+ゲット依存部で使わないなら，用意する必要がない．
 
 (6-7-3-2) void x_define_exc(EXCNO excno, FP exc_entry)
 
-excno�Ŏw�肳�ꂽCPU��O�n���h���̏o���������̔Ԓn��exc_entry�ɐݒ肷��D
+excnoで指定されたCPU例外ハンドラの出入口処理の番地をexc_entryに設定する．
 
-���̊֐��́C�W����CPU��O�Ǘ��@�\�̏�����������p�����ꍇ�̂݁C�^�[�Q�b
-�g��ˑ�������Ăяo�����DCPU��O�Ǘ��@�\�̏������������^�[�Q�b�g�ˑ�
-���ŗp�ӂ��C���̒��ł��̊֐����Ăяo���Ȃ��ꍇ�ɂ́C���̊֐���p�ӂ���
-�K�v�͂Ȃ��D
+この関数は，標準のCPU例外管理機能の初期化処理を用いた場合のみ，ターゲッ
+ト非依存部から呼び出される．CPU例外管理機能の初期化処理をターゲット依存
+部で用意し，その中でこの関数を呼び出さない場合には，この関数を用意する
+必要はない．
 
-���̊֐��́C�^�[�Q�b�g��ˑ����̃J�[�l����������������Ăяo����邽�߁C
-�J�[�l���̏����������iNMI���������ׂĂ̊����݂��}�X�N����Ă���j�����
-�яo����悤�Ɏ�������΂悢�D
+この関数は，ターゲット非依存部のカーネル初期化処理から呼び出されるため，
+カーネルの初期化処理（NMIを除くすべての割込みがマスクされている）から呼
+び出せるように実装すればよい．
 
-�w�肳�ꂽCPU��O�n���h���ԍ���DEF_EXC�ɑ΂�����̂Ƃ��ėL���Ȓl�łȂ�
-�ꍇ�̓���͕ۏ؂���K�v���Ȃ��iassert�ŃG���[�Ƃ���̂��]�܂����j�D��
-��́C�R���t�B�M�����[�^���C�p�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ�
-���Œ�`����EXCNO_DEFEXC_VALID��p���ăG���[�����o���邽�߂ł���D
+指定されたCPU例外ハンドラ番号がDEF_EXCに対するものとして有効な値でない
+場合の動作は保証する必要がない（assertでエラーとするのが望ましい）．こ
+れは，コンフィギュレータが，パス2のテンプレートファイルのターゲット依存
+部で定義するEXCNO_DEFEXC_VALIDを用いてエラーを検出するためである．
 
-6.7.4 CPU��O�Ǘ��@�\�̏����������̕ύX
+6.7.4 CPU例外管理機能の初期化処理の変更
 
-(6-7-4-1) OMIT_INITIALIZE_EXCEPTION�i�I�v�V�����j
+(6-7-4-1) OMIT_INITIALIZE_EXCEPTION（オプション）
 
-CPU��O�Ǘ��@�\�̏������������^�[�Q�b�g�ˑ����ŗp�ӂ��C�^�[�Q�b�g��ˑ�
-���Ɋ܂܂��W���̊����݊Ǘ��@�\�̏�����������p���Ȃ��ꍇ�ɂ́C���̃V
-���{�����}�N����`����D
+CPU例外管理機能の初期化処理をターゲット依存部で用意し，ターゲット非依存
+部に含まれる標準の割込み管理機能の初期化処理を用いない場合には，このシ
+ンボルをマクロ定義する．
 
-���̃V���{�����}�N����`����ƁCEXCINIB��initialize_exception�̒�`���C
-�J�[�l���̃^�[�Q�b�g��ˑ��������菜�����D�܂��CTNUM_EXCNO�C
-tnum_excno�Cexcinib_table�̒�`�ƁCCPU��O�n���h�����̏o���������𐶐�
-���邽�߂̋L�q�iEXCHDR_ENTRY�}�N���̃��X�g�j���C�R���t�B�M�����[�^�̃p
-�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ����ɂ����kernel_cfg.c�ɐ���
-����Ȃ��Ȃ�D
+このシンボルをマクロ定義すると，EXCINIBとinitialize_exceptionの定義が，
+カーネルのターゲット非依存部から取り除かれる．また，TNUM_EXCNO，
+tnum_excno，excinib_tableの定義と，CPU例外ハンドラ毎の出入口処理を生成
+するための記述（EXCHDR_ENTRYマクロのリスト）を，コンフィギュレータのパ
+ス2のテンプレートファイルのターゲット非依存部によってkernel_cfg.cに生成
+されなくなる．
 
-(6-7-4-2) void initialize_exception(void)�i�I�v�V�����j
+(6-7-4-2) void initialize_exception(void)（オプション）
 
-OMIT_INITIALIZE_EXCEPTION���}�N����`�����ꍇ�ɂ́C���̊֐����^�[�Q�b�g
-�ˑ����ŗp�ӂ���DOMIT_INITIALIZE_EXCEPTION���}�N����`���邱�Ƃɂ���
-�菜����邻�̑��̃f�[�^�^�C�ϐ��C�}�N���́C���̊֐��Ŏg�p����ꍇ�ɂ�
-�ݗp�ӂ���΂悢�D
+OMIT_INITIALIZE_EXCEPTIONをマクロ定義した場合には，この関数をターゲット
+依存部で用意する．OMIT_INITIALIZE_EXCEPTIONをマクロ定義することにより取
+り除かれるその他のデータ型，変数，マクロは，この関数で使用する場合にの
+み用意すればよい．
 
-6.7.5 �f�t�H���g��CPU��O�n���h��
+6.7.5 デフォルトのCPU例外ハンドラ
 
-(6-7-5-1) void default_exc_handler(void *p_excinf)�i�I�v�V�����j
+(6-7-5-1) void default_exc_handler(void *p_excinf)（オプション）
 
-�R���t�B�M�����[�^�ɂ��CPU��O�n���h���̃e�[�u���𐶐�����ꍇ�Ȃǂɂ́C
-CPU��O�n���h����o�^���Ȃ�����CPU��O�n���h���ԍ��ɑ΂��āC�f�t�H���g
-��CPU��O�n���h���Ƃ��āCdefault_exc_handler��o�^����D
+コンフィギュレータによりCPU例外ハンドラのテーブルを生成する場合などには，
+CPU例外ハンドラを登録しなかったCPU例外ハンドラ番号に対して，デフォルト
+のCPU例外ハンドラとして，default_exc_handlerを登録する．
 
-default_exc_handler�́C�W���̂��̂��^�[�Q�b�g�ˑ����ŗp�ӂ��邪�C���[�U
-���p�ӂ������̂Œu����������悤�ɁCOMIT_DEFAULT_EXC_HANDLER���}�N��
-��`�����ꍇ�ɂ́C�^�[�Q�b�g�ˑ����Œ�`���Ȃ��悤�ɂ���D�Ȃ��C���[�U
-���p�ӂ���ꍇ�̖��̂́C_kernel_default_exc_handler�ƂȂ�D
+default_exc_handlerは，標準のものをターゲット依存部で用意するが，ユーザ
+が用意したもので置き換えられるように，OMIT_DEFAULT_EXC_HANDLERをマクロ
+定義した場合には，ターゲット依存部で定義しないようにする．なお，ユーザ
+が用意する場合の名称は，_kernel_default_exc_handlerとなる．
 
-6.7.6 CPU��O�������̃V�X�e����Ԃ̎Q��
+6.7.6 CPU例外発生時のシステム状態の参照
 
 (6-7-6-1) bool_t exc_sense_intmask(void *p_excinf)
 
-CPU��O�̔����������̃V�X�e����Ԃ��C�J�[�l�����s���łȂ��C�^�X�N�R���e
-�L�X�g�ł���C�S�����݃��b�N��ԂłȂ��CCPU���b�N��ԂłȂ��C�����ݗD��
-�x�}�X�N�S������Ԃł��鎞��true�C�����łȂ�����false��Ԃ��֐��D
+CPU例外の発生した時のシステム状態が，カーネル実行中でなく，タスクコンテ
+キストであり，全割込みロック状態でなく，CPUロック状態でなく，割込み優先
+度マスク全解除状態である時にtrue，そうでない時にfalseを返す関数．
 
-p_excinf�ɂ́CCPU��O�̏����L�����Ă���̈�̐擪�Ԓn���n�����D
+p_excinfには，CPU例外の情報を記憶している領域の先頭番地が渡される．
 
-CPU��O���J�[�l���Ǘ��O�̊����ݏ������Ŕ��������ꍇ�ɂ�false��Ԃ��Ȃ�
-��΂Ȃ�Ȃ����Ƃɒ��ӂ��邱�ƁD
+CPU例外がカーネル管理外の割込み処理中で発生した場合にもfalseを返さなけ
+ればならないことに注意すること．
 
-6.8 �J�[�l���̋N���E�I���ƃX�^�b�N�̈�Ȃ�
+6.8 カーネルの起動・終了とスタック領域など
 
-(6-8-1) �X�^�[�g�A�b�v���W���[��
+(6-8-1) スタートアップモジュール
 
-�J�[�l���̃X�^�[�g�A�b�v���W���[���́C�V�X�e���̃��Z�b�g��ɍŏ��Ɏ��s
-�����v���O�����ł���D�X�^�[�g�A�b�v���W���[���́C�W���I�ɂ́C�v���Z�b
-�T�ˑ����܂��̓`�b�v�ˑ����ŗp�ӂ��ȉ��̏������s�����C����ɂ������K
-�v�͂Ȃ��D��̓I�ɂ́C�J�����ɗp�ӂ���Ă���X�^�[�g�A�b�v���W���[��
-��p������@�i���̏ꍇ�C�^�[�Q�b�g�ˑ�����main�֐���p�ӂ���K�v������j
-��C�A�v���P�[�V�����ŗp�ӂ���ꍇ���l������D
+カーネルのスタートアップモジュールは，システムのリセット後に最初に実行
+されるプログラムである．スタートアップモジュールは，標準的には，プロセッ
+サ依存部またはチップ依存部で用意し以下の処理を行うが，それにこだわる必
+要はない．具体的には，開発環境に用意されているスタートアップモジュール
+を用いる方法（この場合，ターゲット依存部でmain関数を用意する必要がある）
+や，アプリケーションで用意する場合が考えられる．
 
-(a) �v���Z�b�T��Ԃ̏�����
+(a) プロセッサ状態の初期化
 
-�v���Z�b�T���[�h�C�X�^�b�N�|�C���^�C�t���[���|�C���^���C�v���Z�b�T�̏�
-�Ԃ�����������D�܂��CNMI���������ׂĂ̊����݂��}�X�N������ԁi�S������
-���b�N��ԂƓ����̏�ԁj�Ƃ���DDRAM�R���g���[���̏������ȂǁC��������
-�A�N�Z�X���邽�߂ɕK�v�ȏ����������������ōs���Ă��悢�i����
-hardware_init_hook�ōs���Ă��悢�j�D
+プロセッサモード，スタックポインタ，フレームポインタ等，プロセッサの状
+態を初期化する．また，NMIを除くすべての割込みをマスクした状態（全割込み
+ロック状態と同等の状態）とする．DRAMコントローラの初期化など，メモリを
+アクセスするために必要な初期化処理をここで行ってもよい（次の
+hardware_init_hookで行ってもよい）．
 
-(b) hardware_init_hook���Ăяo��
+(b) hardware_init_hookを呼び出す
 
-�V�X�e���̃��Z�b�g�シ���ɍs���K�v�̂���^�[�Q�b�g�V�X�e���ˑ��̏�����
-�������s�����߂ɁChardware_init_hook���Ăяo���Dhardware_init_hook���p
-�ӂ���Ă��Ȃ��ꍇ�́C�������Ȃ��DGNU�J�����ł́C�����J�X�N���v�g����
-weak definition�ɂ��Chardware_init_hook���p�ӂ���Ă��Ȃ��ꍇ�̒l��0
-�Ƃ��邱�ƂŁC����������ł���Dweak definition�̋@�\�������Ȃ��J����
-�ł́Chardware_init_hook��K���Ăяo�����Ƃɂ���D
+システムのリセット後すぐに行う必要のあるターゲットシステム依存の初期化
+処理を行うために，hardware_init_hookを呼び出す．hardware_init_hookが用
+意されていない場合は，何もしない．GNU開発環境では，リンカスクリプト中の
+weak definitionにより，hardware_init_hookが用意されていない場合の値を0
+とすることで，これを実現できる．weak definitionの機能を持たない開発環境
+では，hardware_init_hookを必ず呼び出すことにする．
 
-hardware_init_hook�́C�^�[�Q�b�g�ˑ����ŗp�ӂ���̂��W���ł��邪�C�V�X
-�e���̃��Z�b�g�シ���ɍs���K�v�̂��鏉����������ǉ����邽�߂ɁC�A�v��
-�P�[�V�����ŗp�ӂ������̂�p����ꍇ������D
+hardware_init_hookは，ターゲット依存部で用意するのが標準であるが，シス
+テムのリセット後すぐに行う必要のある初期化処理を追加するために，アプリ
+ケーションで用意したものを用いる場合もある．
 
-�������A�N�Z�X�ɕK�v�ȏ�����������hardware_init_hook�ōs���ꍇ�ɂ́C��
-����Ăяo�����_�Ń������ɃA�N�Z�X���邱�Ƃ��ł��Ȃ����߁C�֐��i�T�u���[
-�`���j���Ăяo�����߂ɃX�^�b�N���g�p����v���Z�b�T�ł́C�߂�Ԓn��ėp
-���W�X�^�ɓ���ČĂяo���Ƃ������H�v���K�v�ł���D���̏ꍇ�C
-hardware_init_hook��C����ŋL�q���邱�Ƃ͂ł��Ȃ��Ȃ邪�C��ނ����Ȃ��D
+メモリアクセスに必要な初期化処理をhardware_init_hookで行う場合には，こ
+れを呼び出す時点でメモリにアクセスすることができないため，関数（サブルー
+チン）を呼び出すためにスタックを使用するプロセッサでは，戻り番地を汎用
+レジスタに入れて呼び出すといった工夫が必要である．この場合，
+hardware_init_hookをC言語で記述することはできなくなるが，やむをえない．
 
-(c) bss�Z�N�V������data�Z�N�V�����̏�����
+(c) bssセクションとdataセクションの初期化
 
-bss�Z�N�V�������N���A���Cdata�Z�N�V�����ɏ����l��ݒ肷��D
+bssセクションをクリアし，dataセクションに初期値を設定する．
 
-�������C�J�[�l���{�̂́Ckerflg��false�i��0�j�ɏ���������邱�ƈȊO�ɁC
-�����̃Z�N�V����������������邱�ƂɈˑ����Ă��Ȃ����߁C�X�^�[�g�A�b
-�v���W���[�����A�v���P�[�V�����ŗp�ӂ���ꍇ�ŁC�V�X�e���T�[�r�X��A�v
-���P�[�V�����������̃Z�N�V����������������邱�ƂɈˑ����Ă��Ȃ��ꍇ
-�ɂ́C�V�X�e���̋N�����Ԃ�Z�k���邽�߂ɁCkerflg��false�ɏ��������邾��
-�ŏ\���ł���D
+ただし，カーネル本体は，kerflgがfalse（＝0）に初期化されること以外に，
+これらのセクションが初期化されることに依存していないため，スタートアッ
+プモジュールをアプリケーションで用意する場合で，システムサービスやアプ
+リケーションがこれらのセクションが初期化されることに依存していない場合
+には，システムの起動時間を短縮するために，kerflgをfalseに初期化するだけ
+で十分である．
 
-(d) software_init_hook���Ăяo��
+(d) software_init_hookを呼び出す
 
-�J�����i���Ƀ��C�u�����j�Ɉˑ����ĕK�v�ȏ������������s�����߂ɁC
-software_init_hook���Ăяo���Dsoftware_init_hook���p�ӂ���Ă��Ȃ��ꍇ
-�́C�������Ȃ��DGNU�J�����ł́C�����J�X�N���v�g����weak definition��
-���Csoftware_init_hook���p�ӂ���Ă��Ȃ��ꍇ�̒l��0�Ƃ��邱�ƂŁC����
-�������ł���Dweak definition�̋@�\�������Ȃ��J�����ł́C
-software_init_hook��K���Ăяo�����Ƃɂ���D
+開発環境（特にライブラリ）に依存して必要な初期化処理を行うために，
+software_init_hookを呼び出す．software_init_hookが用意されていない場合
+は，何もしない．GNU開発環境では，リンカスクリプト中のweak definitionに
+より，software_init_hookが用意されていない場合の値を0とすることで，これ
+を実現できる．weak definitionの機能を持たない開発環境では，
+software_init_hookを必ず呼び出すことにする．
 
-software_init_hook�́C�^�[�Q�b�g�ˑ����ŗp�ӂ���̂��W���ł���D
+software_init_hookは，ターゲット依存部で用意するのが標準である．
 
-(e) sta_ker�֕���
+(e) sta_kerへ分岐
 
-sta_ker���Ăяo���Dsta_ker�́CNMI���������ׂĂ̊����݂��}�X�N�������
-�i�S�����݃��b�N��ԂƓ����̏�ԁj�ŌĂяo���Ȃ���΂Ȃ�Ȃ��Dsta_ker��
-��̓��^�[�����邱�Ƃ��Ȃ����߁C�X�^�[�g�A�b�v���W���[���ɖ߂��Ă��邱
-�Ƃ͍l����K�v���Ȃ��D
+sta_kerを呼び出す．sta_kerは，NMIを除くすべての割込みをマスクした状態
+（全割込みロック状態と同等の状態）で呼び出さなければならない．sta_kerか
+らはリターンすることがないため，スタートアップモジュールに戻ってくるこ
+とは考える必要がない．
 
 (6-8-2) void target_initialize(void)
 
-�^�[�Q�b�g�ˑ����̏��������s���֐��Dsta_ker�̍ŏ��ŌĂяo�����D�v���Z�b
-�T�E�`�b�v�E�J�����ˑ��̏������������C�����̈ˑ����ɐ؂蕪���邱��
-���\�ł���D
+ターゲット依存部の初期化を行う関数．sta_kerの最初で呼び出される．プロセッ
+サ・チップ・開発環境依存の初期化処理を，それらの依存部に切り分けること
+も可能である．
 
-���̊֐��́C�����܂ł��J�[�l���̃^�[�Q�b�g�ˑ����̏������������s������
-�̂��̂ł���D�A�v���P�[�V�����ɕK�v�ȏ����������́C���������[�`���ōs
-���̂���{�ł��邪�C�V�X�e���̃��Z�b�g�シ���ɍs���K�v������ꍇ�ɂ́C
-hardware_init_hook��p����D
+この関数は，あくまでもカーネルのターゲット依存部の初期化処理を行うため
+のものである．アプリケーションに必要な初期化処理は，初期化ルーチンで行
+うのが基本であるが，システムのリセット後すぐに行う必要がある場合には，
+hardware_init_hookを用いる．
 
 (6-8-3) void call_exit_kernel(void)
 
-��^�X�N�R���e�L�X�g�ɐ؂芷���āCexit_kernel�֕��򂷂�֐��Dext_ker��
-��Ăяo�����Dexit_kernel����̓��^�[�����邱�Ƃ��Ȃ����߁C���̊֐���
-�߂��Ă��邱�Ƃ͍l����K�v���Ȃ��D
+非タスクコンテキストに切り換えて，exit_kernelへ分岐する関数．ext_kerか
+ら呼び出される．exit_kernelからはリターンすることがないため，この関数に
+戻ってくることは考える必要がない．
 
-��^�X�N�R���e�L�X�g�ɐ؂芷����̂́C�I���������[�`�����C��^�X�N�R��
-�e�L�X�g�p�̃X�^�b�N�Ŏ��s���邽�߂ł���D�I���������[�`�����^�X�N�p��
-�X�^�b�N�Ŏ��s����ƁC�e�^�X�N�̃X�^�b�N�̈�̃T�C�Y�����肷��ۂɁC�I
-���������[�`�����g�p����X�^�b�N�̈���l�����Ȃ���΂Ȃ�Ȃ��D����ɂ́C
-�I���������[�`�����g�p����X�^�b�N�̈悪�傫���ꍇ�Ɋe�^�X�N�̃X�^�b�N
-�̈�𖳑ʂɑ傫�����Ȃ���΂Ȃ�Ȃ����Ƃɉ����āC�Ӑ}���Ȃ��X�^�b�N�I�[
-�o�[�t���[����������\�������߂�Ƃ�����肪����D
+非タスクコンテキストに切り換えるのは，終了処理ルーチンを，非タスクコン
+テキスト用のスタックで実行するためである．終了処理ルーチンをタスク用の
+スタックで実行すると，各タスクのスタック領域のサイズを決定する際に，終
+了処理ルーチンが使用するスタック領域を考慮しなければならない．これには，
+終了処理ルーチンが使用するスタック領域が大きい場合に各タスクのスタック
+領域を無駄に大きくしなければならないことに加えて，意図しないスタックオー
+バーフローが発生する可能性を高めるという問題がある．
 
-���̊֐��́C�S�����݃��b�N��ԂŌĂ΂�邽�߁C�S�����݃��b�N��Ԃ����
-�яo�����Ƃ��ł��Ȃ��֐����Ă΂Ȃ��悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+この関数は，全割込みロック状態で呼ばれるため，全割込みロック状態から呼
+び出すことができない関数を呼ばないように実装しなければならない．
 
 (6-8-4) void target_exit(void)
 
-�^�[�Q�b�g�ˑ����̏I���������s���֐��D���̊֐��́C�J�[�l���I�������̍�
-��ɌĂяo����C���^�[�����Ă͂Ȃ�Ȃ��D�v���Z�b�T�E�`�b�v�E�J������
-���̏I���������C�����̈ˑ����ɐ؂蕪���邱�Ƃ��\�ł���D
+ターゲット依存部の終了処理を行う関数．この関数は，カーネル終了処理の最
+後に呼び出され，リターンしてはならない．プロセッサ・チップ・開発環境依
+存の終了処理を，それらの依存部に切り分けることも可能である．
 
-���̊֐��ł́C�ŏ��ɁCatexit�ɂ���ēo�^���ꂽ�֐��ƃf�X�g���N�^���Ă�
-�o�����Ƃ��Ӑ}���Ă���C�W���I�ɂ́Csoftware_term_hook���Ăяo���D
-software_term_hook���p�ӂ���Ă��Ȃ��ꍇ�́C�������Ȃ��DGNU�J�����ł́C
-�����J�X�N���v�g����weak definition�ɂ��Csoftware_term_hook���p�ӂ���
-�Ă��Ȃ��ꍇ�̒l��0�Ƃ��邱�ƂŁC����������ł���Dweak definition�̋@
-�\�������Ȃ��J�����ł́Csoftware_term_hook��K���Ăяo�����Ƃɂ���D
+この関数では，最初に，atexitによって登録された関数とデストラクタを呼び
+出すことを意図しており，標準的には，software_term_hookを呼び出す．
+software_term_hookが用意されていない場合は，何もしない．GNU開発環境では，
+リンカスクリプト中のweak definitionにより，software_term_hookが用意され
+ていない場合の値を0とすることで，これを実現できる．weak definitionの機
+能を持たない開発環境では，software_term_hookを必ず呼び出すことにする．
 
-���̊֐��́C�S�����݃��b�N��ԂŌĂ΂�邽�߁C�S�����݃��b�N��Ԃ����
-�яo�����Ƃ��ł��Ȃ��֐����Ă΂Ȃ��悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+この関数は，全割込みロック状態で呼ばれるため，全割込みロック状態から呼
+び出すことができない関数を呼ばないように実装しなければならない．
 
-6.9 �J�[�l�������̃`���[�j���O
+6.9 カーネル内部のチューニング
 
-6.9.1 �r�b�g�}�b�v�T�[�`
+6.9.1 ビットマップサーチ
 
-(6-9-1-1) OMIT_BITMAP_SEARCH�i�I�v�V�����j
-(6-9-1-2) uint_t bitmap_search(uint16_t bitmap)�i�I�v�V�����j
+(6-9-1-1) OMIT_BITMAP_SEARCH（オプション）
+(6-9-1-2) uint_t bitmap_search(uint16_t bitmap)（オプション）
 
-�^�[�Q�b�g��ˑ����ŁCuint16_t�^�̐����l�ibitmap�j����1�̃r�b�g�̓��C��
-�����ʁi�E�j�̂��̂��T�[�`���C���̃r�b�g�ԍ���Ԃ��֐�bitmap_search��p
-�ӂ��Ă���D�����ŁC�r�b�g�ԍ��͍ŉ��ʃr�b�g��0�Ƃ��Cbitmap��0���w�肵
-�Ă͂Ȃ�Ȃ����̂Ƃ��Ă���D
+ターゲット非依存部で，uint16_t型の整数値（bitmap）中の1のビットの内，最
+も下位（右）のものをサーチし，そのビット番号を返す関数bitmap_searchを用
+意している．ここで，ビット番号は最下位ビットを0とし，bitmapに0を指定し
+てはならないものとしている．
 
-�r�b�g�T�[�`���߂����v���Z�b�T�ł́Cbitmap_search���C�r�b�g�T�[�`����
-���g���悤�ɏ��������������������ǂ��ꍇ������D���̂悤�ȏꍇ�ɂ́C�^�[
-�Q�b�g�ˑ����Ńr�b�g�T�[�`���߂��g����bitmap_search���`���C
-OMIT_BITMAP_SEARCH���}�N����`����D
+ビットサーチ命令を持つプロセッサでは，bitmap_searchを，ビットサーチ命令
+を使うように書き直した方が効率が良い場合がある．このような場合には，ター
+ゲット依存部でビットサーチ命令を使ったbitmap_searchを定義し，
+OMIT_BITMAP_SEARCHをマクロ定義する．
 
-�W�����C�u�����Ƀr�b�g�T�[�`���߂�p����ffs������ꍇ�Cbitmap_search��
-(ffs(bitmap) - 1)�ɒ�`����Ƃ悢�D
+標準ライブラリにビットサーチ命令を用いたffsがある場合，bitmap_searchを
+(ffs(bitmap) - 1)に定義するとよい．
 
-(6-9-1-3) uint16_t PRIMAP_BIT(PRI pri)�i�I�v�V�����j
+(6-9-1-3) uint16_t PRIMAP_BIT(PRI pri)（オプション）
 
-�r�b�g�T�[�`���߂̃T�[�`�������t�Ȃǂ̗��R�ŁC�D��x�ƃr�b�g�Ƃ̑Ή���
-�ύX�������ꍇ�ɂ́CPRIMAP_BIT���}�N����`����D
+ビットサーチ命令のサーチ方向が逆などの理由で，優先度とビットとの対応を
+変更したい場合には，PRIMAP_BITをマクロ定義する．
 
-6.9.2 �r�b�g�t�B�[���h
+6.9.2 ビットフィールド
 
-(6-9-2-1) BIT_FIELD_UINT�i�I�v�V�����j
+(6-9-2-1) BIT_FIELD_UINT（オプション）
 
-8�r�b�g�ȉ��̕��̃r�b�g�t�B�[���h�ŁC�������������l��ێ��������ꍇ�ɗp
-����ׂ��f�[�^�^�D�f�t�H���g�̒�`��unsigned int�ƂȂ��Ă��邪�C�^�[�Q�b
-�g��c�[���ˑ��ŁCunsigned char�܂���unsigned short�ɒ�`��������������
-�ǂ��ꍇ������D
+8ビット以下の幅のビットフィールドで，符号無し整数値を保持したい場合に用
+いるべきデータ型．デフォルトの定義はunsigned intとなっているが，ターゲッ
+トやツール依存で，unsigned charまたはunsigned shortに定義した方が効率が
+良い場合がある．
 
-(6-9-2-2) BIT_FIELD_BOOL�i�I�v�V�����j
+(6-9-2-2) BIT_FIELD_BOOL（オプション）
 
-1�r�b�g���̃r�b�g�t�B�[���h�ŁC�u�[���l��ێ��������ꍇ�ɗp����ׂ��f�[
-�^�^�D�f�t�H���g�ł�BIT_FIELD_UINT�Ɠ���ɒ�`���Ă��邪�C�u�[���l���
-�����邱�Ƃ𖾎����邽�߂ɕʂ̖��O�Ƃ��Ă���D
+1ビット幅のビットフィールドで，ブール値を保持したい場合に用いるべきデー
+タ型．デフォルトではBIT_FIELD_UINTと同一に定義しているが，ブール値を保
+持することを明示するために別の名前としている．
 
-(6-9-2-3) TBIT_TCB_PRIORITY�i�I�v�V�����j
+(6-9-2-3) TBIT_TCB_PRIORITY（オプション）
 
-���ݗD��x�i����сC�~���[�e�b�N�X�g���ɂ�����x�[�X�D��x�j��ێ�����
-���߂�TCB���̃t�B�[���h�̃r�b�g���D�f�t�H���g�ł�8�r�b�g�ɒ�`���Ă���
-���C����ȊO�ɒ�`�������ꍇ�ɁC�r�b�g�������̖��O�Ƀ}�N����`����D
+現在優先度（および，ミューテックス拡張におけるベース優先度）を保持する
+ためのTCB中のフィールドのビット数．デフォルトでは8ビットに定義している
+が，それ以外に定義したい場合に，ビット数をこの名前にマクロ定義する．
 
-6.10 �J�[�l�������Ɋւ��邻�̑��̒�`
+6.10 カーネル実装に関するその他の定義
 
-6.10.1 �^�[�Q�b�g�ˑ��̃I�u�W�F�N�g����
+6.10.1 ターゲット依存のオブジェクト属性
 
-(6-10-1-1) TARGET_TSKATR�i�I�v�V�����j	�^�[�Q�b�g��`�̃^�X�N����
-(6-10-1-2) TARGET_ISRATR�i�I�v�V�����j	�^�[�Q�b�g��`��ISR����
-(6-10-1-3) TARGET_INHATR�i�I�v�V�����j	�^�[�Q�b�g��`�̊����݃n���h������
-(6-10-1-4) TARGET_INTATR�i�I�v�V�����j	�^�[�Q�b�g��`�̊����ݑ���
-(6-10-1-5) TARGET_EXCATR�i�I�v�V�����j	�^�[�Q�b�g��`��CPU��O�n���h������
+(6-10-1-1) TARGET_TSKATR（オプション）	ターゲット定義のタスク属性
+(6-10-1-2) TARGET_ISRATR（オプション）	ターゲット定義のISR属性
+(6-10-1-3) TARGET_INHATR（オプション）	ターゲット定義の割込みハンドラ属性
+(6-10-1-4) TARGET_INTATR（オプション）	ターゲット定義の割込み属性
+(6-10-1-5) TARGET_EXCATR（オプション）	ターゲット定義のCPU例外ハンドラ属性
 
-�e�I�u�W�F�N�g�̑������C�^�[�Q�b�g��`�Ɋg������ꍇ�ɁC�Y������I�u�W�F
-�N�g�����������ϐ��ɁC�g���Ɏg�p����r�b�g�̘_���a���`����D����ɂ�
-��C�g���Ɏg�p����r�b�g���ݒ肳��Ă���ꍇ�ɁC�G���[�ɂȂ�̂�h���D
+各オブジェクトの属性を，ターゲット定義に拡張する場合に，該当するオブジェ
+クト属性を示す変数に，拡張に使用するビットの論理和を定義する．これによ
+り，拡張に使用するビットが設定されている場合に，エラーになるのを防ぐ．
 
-�Ȃ��CTOPPERS�V����J�[�l�������d�l���ł́C�����݃T�[�r�X���[�`���iISR�j
-�������^�[�Q�b�g��`�Ŋg���ł���d�l�Ƃ͂Ȃ��Ă��Ȃ��D
+なお，TOPPERS新世代カーネル統合仕様書では，割込みサービスルーチン（ISR）
+属性をターゲット定義で拡張できる仕様とはなっていない．
 
-6.10.2 �G���[�`�F�b�N���@�̎w��
+6.10.2 エラーチェック方法の指定
 
-(6-10-2-1) TARGET_MIN_STKSZ�i�I�v�V�����j
+(6-10-2-1) TARGET_MIN_STKSZ（オプション）
 
-�^�[�Q�b�g��`�ŁC�^�X�N�̃X�^�b�N�T�C�Y�̍ŏ��l��ݒ肷��ꍇ�ɂ́C��
-�̕ϐ����X�^�b�N�T�C�Y�̍ŏ��l�ɒ�`����D
+ターゲット定義で，タスクのスタックサイズの最小値を設定する場合には，こ
+の変数をスタックサイズの最小値に定義する．
 
-(6-10-2-2) TARGET_MIN_ISTKSZ�i�I�v�V�����j
+(6-10-2-2) TARGET_MIN_ISTKSZ（オプション）
 
-�^�[�Q�b�g��`�ŁC��^�X�N�R���e�L�X�g�̃X�^�b�N�T�C�Y�̍ŏ��l��ݒ肷
-��ꍇ�ɂ́C���̕ϐ����X�^�b�N�T�C�Y�̍ŏ��l�ɒ�`����D
+ターゲット定義で，非タスクコンテキストのスタックサイズの最小値を設定す
+る場合には，この変数をスタックサイズの最小値に定義する．
 
-(6-10-2-3) CHECK_STKSZ_ALIGN�i�I�v�V�����j
+(6-10-2-3) CHECK_STKSZ_ALIGN（オプション）
 
-�X�^�b�N�̈�̃T�C�Y������l�i�A���C���P�ʁj�̔{���łȂ���΂Ȃ�Ȃ���
-���ɁC���̕ϐ����A���C���P�ʂɒ�`����D���̕ϐ����`���邱�ƂŁC
-kernel.tf�����acre_tsk�i���I�����@�\�g���p�b�P�[�W�̂݁j�ɂ����āC�X�^�b
-�N�̈�̃T�C�Y���������Ȃ��i���̕ϐ��ɒ�`�����l�̔{���łȂ��j�ꍇ�̃G
-���[���`�F�b�N����悤�ɂȂ�D�`�F�b�N���K�v�Ȃ��ꍇ�ɂ́C���̕ϐ����
-�`���Ȃ��D
+スタック領域のサイズがある値（アライン単位）の倍数でなければならない場
+合に，この変数をアライン単位に定義する．この変数を定義することで，
+kernel.tfおよびacre_tsk（動的生成機能拡張パッケージのみ）において，スタッ
+ク領域のサイズが正しくない（この変数に定義した値の倍数でない）場合のエ
+ラーをチェックするようになる．チェックが必要ない場合には，この変数を定
+義しない．
 
-(6-10-2-4) CHECK_FUNC_ALIGN�i�I�v�V�����j	�����P�ʂ̃A���C���P��
-(6-10-2-5) CHECK_FUNC_NONNULL�i�I�v�V�����j	�����P�ʂ̔�NULL�`�F�b�N
-(6-10-2-6) CHECK_STACK_ALIGN�i�I�v�V�����j	�X�^�b�N�̈�̃A���C���P��
-(6-10-2-7) CHECK_STACK_NONNULL�i�I�v�V�����j�X�^�b�N�̈�̔�NULL�`�F�b�N
-(6-10-2-8) CHECK_MPF_ALIGN�i�I�v�V�����j	�Œ蒷�������v�[���̈�̃A���C���P��
-(6-10-2-9) CHECK_MPF_NONNULL�i�I�v�V�����j�Œ蒷�������v�[���̈�̔�NULL�`�F�b�N
+(6-10-2-4) CHECK_FUNC_ALIGN（オプション）	処理単位のアライン単位
+(6-10-2-5) CHECK_FUNC_NONNULL（オプション）	処理単位の非NULLチェック
+(6-10-2-6) CHECK_STACK_ALIGN（オプション）	スタック領域のアライン単位
+(6-10-2-7) CHECK_STACK_NONNULL（オプション）スタック領域の非NULLチェック
+(6-10-2-8) CHECK_MPF_ALIGN（オプション）	固定長メモリプール領域のアライン単位
+(6-10-2-9) CHECK_MPF_NONNULL（オプション）固定長メモリプール領域の非NULLチェック
 
-�����P�ʁ^�X�^�b�N�̈�^�Œ蒷�������v�[���̈�̐擪�Ԓn������l�i�A��
-�C���P�ʁj�̔{���łȂ���΂Ȃ�Ȃ��ꍇ�ɁC���ꂼ��CCHECK_FUNC_ALIGN�^
-CHECK_STACK_ALIGN�^CHECK_MPF_ALIGN���A���C���P�ʂɒ�`����D�����P�ʁ^
-�X�^�b�N�̈�^�Œ蒷�������v�[���̈�̐擪�Ԓn��NULL�łȂ����̃`�F�b�N
-���s���ꍇ�ɂ́C���ꂼ��CHECK_FUNC_NONNULL�^CHECK_STACK_NONNULL�^
-CHECK_MPF_NONNULL���`����D
+処理単位／スタック領域／固定長メモリプール領域の先頭番地がある値（アラ
+イン単位）の倍数でなければならない場合に，それぞれ，CHECK_FUNC_ALIGN／
+CHECK_STACK_ALIGN／CHECK_MPF_ALIGNをアライン単位に定義する．処理単位／
+スタック領域／固定長メモリプール領域の先頭番地がNULLでないかのチェック
+を行う場合には，それぞれCHECK_FUNC_NONNULL／CHECK_STACK_NONNULL／
+CHECK_MPF_NONNULLを定義する．
 
-(6-10-2-10) CHECK_MB_ALIGN�i�I�v�V�����j	�Ǘ��̈�̃A���C���P��
+(6-10-2-10) CHECK_MB_ALIGN（オプション）	管理領域のアライン単位
 
-�J�[�l�����̊Ǘ��̈�i��̓I�ɂ́C�f�[�^�L���[�Ǘ��̈�C�D��x�f�[�^
-�L���[�Ǘ��̈�C�Œ蒷�������v�[���Ǘ��̈�j�̐擪�Ԓn������l�i�A���C
-���P�ʁj�̔{���łȂ���΂Ȃ�Ȃ��ꍇ�ɁC���̕ϐ����A���C���P�ʂɒ�`��
-��D���I�����@�\�g���p�b�P�[�W���g�p���Ȃ��ꍇ�ɂ́C��`����K�v���Ȃ��D
+カーネル内の管理領域（具体的には，データキュー管理領域，優先度データ
+キュー管理領域，固定長メモリプール管理領域）の先頭番地がある値（アライ
+ン単位）の倍数でなければならない場合に，この変数をアライン単位に定義す
+る．動的生成機能拡張パッケージを使用しない場合には，定義する必要がない．
 
-6.10.3 ��^�X�N�R���e�L�X�g�p�̃X�^�b�N�̈�
+6.10.3 非タスクコンテキスト用のスタック領域
 
 (6-10-3-1) DEFAULT_ISTKSZ
 
-DEF_ICS�ɂ���^�X�N�R���e�L�X�g�p�̃X�^�b�N�̈悪�w�肳��Ȃ��ꍇ�́C
-�f�t�H���g�̃X�^�b�N�̈�̃T�C�Y�D
+DEF_ICSにより非タスクコンテキスト用のスタック領域が指定されない場合の，
+デフォルトのスタック領域のサイズ．
 
-(6-10-3-2) DEFAULT_ISTK�i�I�v�V�����j
+(6-10-3-2) DEFAULT_ISTK（オプション）
 
-DEF_ICS�ɂ���^�X�N�R���e�L�X�g�p�̃X�^�b�N�̈悪�w�肳��Ȃ��ꍇ�́C
-�f�t�H���g�̃X�^�b�N�̈�̐擪�Ԓn�D���̃}�N������`����Ȃ��ꍇ�ɂ́C
-�T�C�Y��DEFAULT_ISTKSZ�̃X�^�b�N�̈悪�C�z��ɂ��m�ۂ����D
+DEF_ICSにより非タスクコンテキスト用のスタック領域が指定されない場合の，
+デフォルトのスタック領域の先頭番地．このマクロが定義されない場合には，
+サイズがDEFAULT_ISTKSZのスタック領域が，配列により確保される．
 
-(6-10-3-3) STK_T *TOPPERS_ISTKPT(STK_T *istk, SIZE istksz)�i�I�v�V�����j
+(6-10-3-3) STK_T *TOPPERS_ISTKPT(STK_T *istk, SIZE istksz)（オプション）
 
-��^�X�N�R���e�L�X�g�p�̃X�^�b�N�|�C���^�̏����l��ێ�����ϐ��iistkpt�j
-��p����ꍇ�ɁC���̃V���{���ɁC�X�^�b�N�̈�̐擪�Ԓn�iistk�j�ƃX�^�b
-�N�̈�̃T�C�Y�iistksz�j����C�X�^�b�N�|�C���^�̏����l�����߂�}�N����
-��`����D
+非タスクコンテキスト用のスタックポインタの初期値を保持する変数（istkpt）
+を用いる場合に，このシンボルに，スタック領域の先頭番地（istk）とスタッ
+ク領域のサイズ（istksz）から，スタックポインタの初期値を求めるマクロを
+定義する．
 
-6.10.4 �󃉃x���̒�`
+6.10.4 空ラベルの定義
 
-(6-10-4-1) TOPPERS_EMPTY_LABEL(type, symbol)�i�I�v�V�����j
+(6-10-4-1) TOPPERS_EMPTY_LABEL(type, symbol)（オプション）
 
-�����N�G���[��h�����߂ɁC�f�[�^�^type�̔z��ł���ϐ�symbol�ɒ�`��^
-���邽�߂̃}�N���D�^������`���Q�Ƃ���邱�Ƃ͂Ȃ����߁C�ǂ̂悤�Ȓ�`
-��^���Ă��悢�D
+リンクエラーを防ぐために，データ型typeの配列である変数symbolに定義を与
+えるためのマクロ．与えた定義が参照されることはないため，どのような定義
+を与えてもよい．
 
-�f�t�H���g�ł́Csymbol���C�v�f�^��type�ŃT�C�Y��0�̔z��ɒ�`���Ă���D
-�T�C�Y��0�̔z�񂪃G���[�ƂȂ�Ȃ��R���p�C���iGCC�͂���ɊY���j��p����
-�ꍇ�ɂ́C�^�[�Q�b�g�ˑ����Œ�`����K�v�͂Ȃ��D
+デフォルトでは，symbolを，要素型がtypeでサイズが0の配列に定義している．
+サイズが0の配列がエラーとならないコンパイラ（GCCはこれに該当）を用いる
+場合には，ターゲット依存部で定義する必要はない．
 
-6.11 �g���[�X���O�@�\�Ɋւ���ݒ�
+6.11 トレースログ機能に関する設定
 
-ASP�J�[�l���̃\�[�X�R�[�h�ɂ́C�J�[�l���̎��s�g���[�X���O���擾���邽��
-�̃}�N���������ߍ���ł���D�f�t�H���g�ł́C�����̃}�N���͋�ɒ�`��
-��ăg���[�X���O�̎擾�͍s��Ȃ����C�����̃}�N����K�؂ɒ�`���邱��
-�Ńg���[�X���O�̎擾���s�����Ƃ��ł���D
+ASPカーネルのソースコードには，カーネルの実行トレースログを取得するため
+のマクロ等が埋め込んである．デフォルトでは，これらのマクロは空に定義さ
+れてトレースログの取得は行わないが，これらのマクロを適切に定義すること
+でトレースログの取得を行うことができる．
 
-6.11.1 �擾�ł���g���[�X���O�̎�ނƃ}�N��
+6.11.1 取得できるトレースログの種類とマクロ
 
-�擾�ł���g���[�X���O�̎�ނƁC������擾���邽�߂ɒ�`����}�N���͎�
-�̒ʂ�ł���D
+取得できるトレースログの種類と，それを取得するために定義するマクロは次
+の通りである．
 
-(a) �J�[�l���̓���J�n�ƏI��
+(a) カーネルの動作開始と終了
 
-���̃}�N�����`���邱�ƂŁC�J�[�l���̓���J�n���ƏI�����̃g���[�X���O
-���擾���邱�Ƃ��ł���D
+次のマクロを定義することで，カーネルの動作開始時と終了時のトレースログ
+を取得することができる．
 
-	LOG_KER_ENTER		�J�[�l����������J�n���钼�O�i�������̊�����j
-	LOG_KER_LEAVE		�J�[�l���̏I���iext_ker�j���Ă΂ꂽ����i�I����
-						���̎��s�O�j
+	LOG_KER_ENTER		カーネルが動作を開始する直前（初期化の完了後）
+	LOG_KER_LEAVE		カーネルの終了（ext_ker）が呼ばれた直後（終了処
+						理の実行前）
 
-(b) �����P�ʂ̎��s�J�n�ƏI��
+(b) 処理単位の実行開始と終了
 
-���̃}�N�����`���邱�ƂŁC�����݃n���h���iINH�j�C�����݃T�[�r�X���[�`
-���iISR�j�C�����n���h���iCYC�j�C�A���[���n���h���iALM�j�CCPU��O�n���h
-���iEXC�j�C�^�X�N��O�������[�`���iTEX�j�̎��s�J�n�O�ƏI����̃g���[�X
-���O���擾���邱�Ƃ��ł���D
+次のマクロを定義することで，割込みハンドラ（INH），割込みサービスルーチ
+ン（ISR），周期ハンドラ（CYC），アラームハンドラ（ALM），CPU例外ハンド
+ラ（EXC），タスク例外処理ルーチン（TEX）の実行開始前と終了後のトレース
+ログを取得することができる．
 
-	LOG_<�����P�ʗ���>_ENTER	�����P�ʂ̎��s�J�n���O
-	LOG_<�����P�ʗ���>_LEAVE	�����P�ʂ̏I������
+	LOG_<処理単位略号>_ENTER	処理単位の実行開始直前
+	LOG_<処理単位略号>_LEAVE	処理単位の終了直後
 
-�����݃n���h���́C�A�v���P�[�V�������o�^�������݂̂̂�ΏۂƂ��C������
-�T�[�r�X���[�`�����Ăяo�����߂ɃJ�[�l�����ɐ����������̂͑ΏۂƂ���
-���D�^�X�N�̎��s�J�n�ƏI���́C���̕��@�Ŏ擾�ł��邽�߁C���̕��@�͗p��
-���Ă��Ȃ��D
+割込みハンドラは，アプリケーションが登録したもののみを対象とし，割込み
+サービスルーチンを呼び出すためにカーネル内に生成されるものは対象としな
+い．タスクの実行開始と終了は，他の方法で取得できるため，この方法は用意
+していない．
 
-�Ȃ��C�����݃n���h����CPU��O�n���h���̎��s�J�n�ƏI���̃g���[�X���O�擾
-�́C�^�[�Q�b�g�ˑ����Ŏ�������K�v������D�ڂ����́C�u6.2 �g���[�X���O
-�@�\�ւ̑Ή��v�u6.6.1 �����݃n���h���̏o���������v�u6.7.1 CPU��O�n���h
-���̏o���������v�̐߂��Q�Ƃ��邱�ƁD
+なお，割込みハンドラとCPU例外ハンドラの実行開始と終了のトレースログ取得
+は，ターゲット依存部で実装する必要がある．詳しくは，「6.2 トレースログ
+機能への対応」「6.6.1 割込みハンドラの出入口処理」「6.7.1 CPU例外ハンド
+ラの出入口処理」の節を参照すること．
 
-(c) �^�X�N��Ԃ̕ω�
+(c) タスク状態の変化
 
-���̃}�N�����`���邱�ƂŁC�^�X�N��Ԃ��ω��������̃g���[�X���O���擾
-���邱�Ƃ��ł���D�������C���s��ԂƎ��s�\��Ԃ̊Ԃ̑J�ڂ́C���̕��@
-�Ŏ擾�ł��邽�߁C���̃}�N���ł͎擾�ł��Ȃ��D
+次のマクロを定義することで，タスク状態が変化した時のトレースログを取得
+することができる．ただし，実行状態と実行可能状態の間の遷移は，他の方法
+で取得できるため，このマクロでは取得できない．
 
-	LOG_TSKSTAT		�^�X�N��Ԃ̕ω�
+	LOG_TSKSTAT		タスク状態の変化
 
-(d) �f�B�X�p�b�`���̎��s�J�n�ƏI��
+(d) ディスパッチャの実行開始と終了
 
-���̃}�N�����`���邱�ƂŁC�f�B�X�p�b�`�������s�J�n���鎞�ƁC�I������
-���̃g���[�X���O���擾���邱�Ƃ��ł���D
+次のマクロを定義することで，ディスパッチャが実行開始する時と，終了する
+時のトレースログを取得することができる．
 
-	LOG_DSP_ENTER	�f�B�X�p�b�`���̎��s�J�n
-	LOG_DSP_LEAVE	�f�B�X�p�b�`���̏I��
+	LOG_DSP_ENTER	ディスパッチャの実行開始
+	LOG_DSP_LEAVE	ディスパッチャの終了
 
-�f�B�X�p�b�`���̎��s�J�n�́C�^�X�N�����s��Ԃ�����s�\��ԂɑJ�ڂ���
-�^�C�~���O�ł��邽�߁C���s�\��Ԃ֑J�ڂ���^�X�N��TCB�ւ̃|�C���^���p
-�����[�^�Ƃ���D�t�ɁC�f�B�X�p�b�`���̏I���́C�^�X�N�����s�\��Ԃ���
-���s��ԂɑJ�ڂ���^�C�~���O�ł��邽�߁C���s��Ԃ֑J�ڂ���^�X�N��TCB��
-�̃|�C���^���p�����[�^�Ƃ���D
+ディスパッチャの実行開始は，タスクが実行状態から実行可能状態に遷移する
+タイミングであるため，実行可能状態へ遷移するタスクのTCBへのポインタをパ
+ラメータとする．逆に，ディスパッチャの終了は，タスクが実行可能状態から
+実行状態に遷移するタイミングであるため，実行状態へ遷移するタスクのTCBへ
+のポインタをパラメータとする．
 
-ASP�J�[�l���ł́C���s�ł���^�X�N���Ȃ��C�J�[�l�����A�C�h����ԂɂȂ��
-���ɂ́C�f�B�X�p�b�`���̒��ɗ��܂�D���̂��߁C�A�C�h����Ԃւ̑J�ڂƃA
-�C�h����Ԃ��瑼�̏�Ԃւ̑J�ڂ́C���̃}�N���ł͎擾�ł��Ȃ��D
+ASPカーネルでは，実行できるタスクがなく，カーネルがアイドル状態になる場
+合には，ディスパッチャの中に留まる．そのため，アイドル状態への遷移とア
+イドル状態から他の状態への遷移は，このマクロでは取得できない．
 
-�Ȃ��C�f�B�X�p�b�`���̎��s�J�n�ƏI���̃g���[�X���O�擾�́C�^�[�Q�b�g��
-�����Ŏ�������K�v������D�ڂ����́C�u6.2 �g���[�X���O�@�\�ւ̑Ή��v��
-�u6.5.2 �f�B�X�p�b�`���{�́v�̐߂��Q�Ƃ��邱�ƁD
+なお，ディスパッチャの実行開始と終了のトレースログ取得は，ターゲット依
+存部で実装する必要がある．詳しくは，「6.2 トレースログ機能への対応」と
+「6.5.2 ディスパッチャ本体」の節を参照すること．
 
-(e) �T�[�r�X�R�[���̓����Əo��
+(e) サービスコールの入口と出口
 
-���̃}�N�����`���邱�ƂŁC�e�T�[�r�X�R�[���̓����Əo���̃g���[�X���O
-���擾���邱�Ƃ��ł���D
+次のマクロを定義することで，各サービスコールの入口と出口のトレースログ
+を取得することができる．
 
-	LOG_<�T�[�r�X�R�[���̑啶���\�L>_ENTER		�T�[�r�X�R�[�����̓���
-	LOG_<�T�[�r�X�R�[���̑啶���\�L>_LEAVE		�T�[�r�X�R�[�����̏o��
+	LOG_<サービスコールの大文字表記>_ENTER		サービスコール名の入口
+	LOG_<サービスコールの大文字表記>_LEAVE		サービスコール名の出口
 
-���ꂼ��̃}�N���̖��̂�p�����[�^�̏ڍׂɂ��ẮC�J�[�l���̃\�[�X�R�[
-�h���Q�Ƃ��邱�ƁD
+それぞれのマクロの名称やパラメータの詳細については，カーネルのソースコー
+ドを参照すること．
 
-6.11.2 �g���[�X���O�L�^�̃T���v���R�[�h
+6.11.2 トレースログ記録のサンプルコード
 
-�g���[�X���O���L�^������@�̈��Ƃ��āC��������Ƀg���[�X���O���L�^��
-�邽�߂̃T���v���R�[�h��arch/logtrace�f�B���N�g���ɗp�ӂ��Ă���D���̃T
-���v���R�[�h�́C�V�X�e�����O�@�\�Ɠ��l�̃g���[�X���O�@�\��p�ӂ��C�g���[
-�X���O������������ɋL�^����ƂƂ��ɁC�����ǂݏo���ĕ\������@�\��
-�������Ă���D
+トレースログを記録する方法の一例として，メモリ上にトレースログを記録す
+るためのサンプルコードをarch/logtraceディレクトリに用意している．このサ
+ンプルコードは，システムログ機能と同様のトレースログ機能を用意し，トレー
+スログ情報をメモリ上に記録するとともに，それを読み出して表示する機能を
+実現している．
 
-���̃T���v���R�[�h��g�ݍ��ޕ��@�͎��̒ʂ�ł���D
+このサンプルコードを組み込む方法は次の通りである．
 
-(1) target_config.h�����target_syssvc.h�ɁC���̋L�q��ǉ�����D
+(1) target_config.hおよびtarget_syssvc.hに，次の記述を追加する．
 
 	#ifdef TOPPERS_ENABLE_TRACE
 	#include "logtrace/trace_config.h"
 	#endif /* TOPPERS_ENABLE_TRACE */
 
-(2) Makefile.target�ɁC���̋L�q��ǉ�����D
+(2) Makefile.targetに，次の記述を追加する．
 
 	ifeq ($(ENABLE_TRACE),true)
 		COPTS := $(COPTS) -DTOPPERS_ENABLE_TRACE
@@ -2920,305 +2920,305 @@ ASP�J�[�l���ł́C���s�ł���^�X�N���Ȃ��C�J�[�l�����A�C�h����ԂɂȂ��
 		KERNEL_COBJS := $(KERNEL_COBJS) trace_config.o trace_dump.o
 	endif
 
-(3) �X�^�[�g�A�b�v���W���[���ŁCbss�Z�N�V�����̃N���A���ȗ����Ă���ꍇ
-    �ɂ́Ctrace_mode��TRACE_STOP�i��0�j�ɏ���������R�[�h��ǉ�����D��
-    ��́C�g���[�X���O�@�\�������������O�ɏ������܂��g���[�X���O��
-    �������邽�߂ł���D
+(3) スタートアップモジュールで，bssセクションのクリアを省略している場合
+    には，trace_modeをTRACE_STOP（＝0）に初期化するコードを追加する．こ
+    れは，トレースログ機能が初期化される前に書き込まれるトレースログを
+    無視するためである．
 
-���̃T���v���R�[�h��p���āC�g���[�X���O���L�^�E�_���v������@�̗�ɂ�
-���ẮC�uTOPPERS/ASP�J�[�l�� ���[�U�[�Y�}�j���A���v�́u11.6 �g���[�X��
-�O�L�^�̃T���v���R�[�h�̎g�p���@�v�̐߂��Q�Ƃ��邱�ƁD
+このサンプルコードを用いて，トレースログを記録・ダンプする方法の例につ
+いては，「TOPPERS/ASPカーネル ユーザーズマニュアル」の「11.6 トレースロ
+グ記録のサンプルコードの使用方法」の節を参照すること．
 
-�Ȃ��C���̃T���v���R�[�h�ł́C�f�B�X�p�b�`���̏o���C�^�X�N�̏�ԑJ�ځC
-�V�X�e�����O�̏o�͂�3�̃g���[�X���O�݂̂��L�^���Ă���D���̃g���[�X��
-�O���L�^�������ꍇ�ɂ́Ctrace_config.h�i�����trace_dump.c�j���C������
-�K�v������D�Ȃ��C�J�[�l���̃g���[�X���O��ԗ��I�ɋL�^���邽�߂̃R�[�h
-�́CTLV�iTraceLogVisualizer�j�̔z�z�p�b�P�[�W�Ɋ܂܂�Ă���D
+なお，このサンプルコードでは，ディスパッチャの出口，タスクの状態遷移，
+システムログの出力の3つのトレースログのみを記録している．他のトレースロ
+グを記録したい場合には，trace_config.h（およびtrace_dump.c）を修正する
+必要がある．なお，カーネルのトレースログを網羅的に記録するためのコード
+は，TLV（TraceLogVisualizer）の配布パッケージに含まれている．
 
-6.12 �J�[�l�������̃^�[�Q�b�g�ˑ����̂��߂̃��l�[���L�q
+6.12 カーネル実装のターゲット依存部のためのリネーム記述
 
-�J�[�l�������ɕ��Ďg����֐���ϐ��Ȃǂ̖��̂ŁC�I�u�W�F�N�g�t�@�C
-���̃V���{���\�ɓo�^����ĊO������Q�Ƃł��閼�̂́CC���ꃌ�x���ŁC�擪
-��"_kernel_"�܂���"_KERNEL_"�ł��閼�̂Ƃ��Ȃ���΂Ȃ�Ȃ����CASP�J�[�l
-���ł́C�\�[�X�R�[�h���R���p�N�g�ɕۂ�������������邽�߂ɁC���l�[
-���L�q�t�@�C���𓱓����Ă���D
+カーネル内部に閉じて使われる関数や変数などの名称で，オブジェクトファイ
+ルのシンボル表に登録されて外部から参照できる名称は，C言語レベルで，先頭
+が"_kernel_"または"_KERNEL_"である名称としなければならないが，ASPカーネ
+ルでは，ソースコードをコンパクトに保ちつつこれを実現するために，リネー
+ム記述ファイルを導入している．
 
-��̓I�ɂ́C���l�[�����ׂ����̂����X�g�A�b�v����xxx_rename.def��p�ӂ��C
-���̃t�@�C������c�[���iutils/genrename�j�ɂ��C���̂����l�[�����邽��
-�̃}�N����`���܂�xxx_rename.h�ƁC�����̃}�N����`���������邽�߂�
-xxx_unrename.h�𐶐�����D�c�[���̋N�����@�͎��̒ʂ�ł���D
+具体的には，リネームすべき名称をリストアップしたxxx_rename.defを用意し，
+このファイルからツール（utils/genrename）により，名称をリネームするため
+のマクロ定義を含むxxx_rename.hと，それらのマクロ定義を解除するための
+xxx_unrename.hを生成する．ツールの起動方法は次の通りである．
 
 	% genrename xxx
 
-xxx_rename.def�ɂ́C���l�[�����ׂ����̂�1�s��1�L�q����Dxxxx�Ƃ�����
-�̂��L�q����Ă���ꍇ�Cxxx_rename.h�ɂ͎��̂悤�ȋL�q�����������D
+xxx_rename.defには，リネームすべき名称を1行に1つ記述する．xxxxという名
+称が記述されている場合，xxx_rename.hには次のような記述が生成される．
 
 #define xxxx				_kernel_xxxx
 #ifdef TOPPERS_LABEL_ASM
 #define _xxxx				__kernel_xxxx
 #endif /* TOPPERS_LABEL_ASM */
 
-�܂��Cxxx_unrename.h�ɂ͎��̂悤�ȋL�q�����������D
+また，xxx_unrename.hには次のような記述が生成される．
 
 #undef xxxx
 #ifdef TOPPERS_LABEL_ASM
 #undef _xxxx
 #endif /* TOPPERS_LABEL_ASM */
 
-xxx_rename.def�̒��ɂ́C���̃��l�[���L�q����荞�ނ��߂ɁC�uINCLUDE
-"yyy"�v�܂��́uINCLUDE <yyy>�v�Ƃ����L�q���܂߂邱�Ƃ��ł���D���̋L�q
-������Ă���ꍇ�Cxxx_rename.h�ɂ́u#include "yyy_rename.h"�v�܂���
-�u#include <yyy_rename.h>�v�Ƃ����L�q���Cxxx_unrename.h�ɂ́u#include
-"yyy_unrename.h"�v�܂��́u#include <yyy_unrename.h>�v�Ƃ����L�q��������
-���D
+xxx_rename.defの中には，他のリネーム記述を取り込むために，「INCLUDE
+"yyy"」または「INCLUDE <yyy>」という記述を含めることができる．この記述
+がされている場合，xxx_rename.hには「#include "yyy_rename.h"」または
+「#include <yyy_rename.h>」という記述が，xxx_unrename.hには「#include
+"yyy_unrename.h"」または「#include <yyy_unrename.h>」という記述が生成さ
+れる．
 
-xxx_rename.def�̒���"#"�Ŏn�܂�s�̓R�����g�Ƃ��ēǂݔ�΂����D�܂��C
-��s�����������D
+xxx_rename.defの中の"#"で始まる行はコメントとして読み飛ばされる．また，
+空行も無視される．
 
-�J�[�l���̃^�[�Q�b�g��ˑ����Ŏg���閼�̂����l�[�����邽�߂ɁCkernel
-�f�B���N�g���ɁCkernel_rename.def�ƁC�������琶������kernel_rename.h��
-���kernel_unrename.h���p�ӂ���Ă���Dkernel_rename.def�ɂ́C
-�uINCLUDE "target"�v�Ƃ����L�q���܂܂�Ă���C�^�[�Q�b�g�ˑ����̃��l�[
-���L�q����荞�ނ悤�ɂȂ��Ă���D�^�[�Q�b�g�ˑ����Œ�`���C�^�[�Q�b�g
-��ˑ����ŎQ�Ƃ���閼�̂́C�^�[�Q�b�g�ˑ����̃��l�[���L�q�Ɋ܂߂�D
+カーネルのターゲット非依存部で使われる名称をリネームするために，kernel
+ディレクトリに，kernel_rename.defと，そこから生成したkernel_rename.hお
+よびkernel_unrename.hが用意されている．kernel_rename.defには，
+「INCLUDE "target"」という記述が含まれており，ターゲット依存部のリネー
+ム記述を取り込むようになっている．ターゲット依存部で定義し，ターゲット
+非依存部で参照される名称は，ターゲット依存部のリネーム記述に含める．
 
-�^�[�Q�b�g�ˑ����ł́C�^�[�Q�b�g�ˑ����Ŏg���閼�̂����l�[�����邽��
-�ɁCtarget_rename.def�ƁC�������琶������target_rename.h�����
-target_unrename.h��p�ӂ���D�^�[�Q�b�g�ˑ�������v���Z�b�T�E�`�b�v�E�J
-�����ˑ�����؂蕪����ꍇ�ɂ́Ctarget_rename.def��INCLUDE�L�q�����C
-�v���Z�b�T�E�`�b�v�E�J�����ˑ����̃��l�[���L�q����荞�ނ悤�ɂ���D
+ターゲット依存部では，ターゲット依存部で使われる名称をリネームするため
+に，target_rename.defと，そこから生成したtarget_rename.hおよび
+target_unrename.hを用意する．ターゲット依存部からプロセッサ・チップ・開
+発環境依存部を切り分ける場合には，target_rename.defにINCLUDE記述を入れ，
+プロセッサ・チップ・開発環境依存部のリネーム記述を取り込むようにする．
 
-6.13 �^�C�}�h���C�o
+6.13 タイマドライバ
 
-�^�C�}�h���C�o�́C�J�[�l���Ƀ^�C���e�B�b�N��ʒm���邽�߂̃^�C�}�h���C
-�o�ł���D
+タイマドライバは，カーネルにタイムティックを通知するためのタイマドライ
+バである．
 
-6.13.1 �^�C�}�h���C�o�̃t�@�C���\��
+6.13.1 タイマドライバのファイル構成
 
-�^�C�}�h���C�o��g�ݍ��ނ��߂̐ÓIAPI���L�q�����V�X�e���R���t�B�M�����[
-�V�����t�@�C�����Ctarget_timer.cfg�ɗp�ӂ���D���̃t�@�C���ɂ́C�^�C�}
-�h���C�o�����������邽�߂̏��������[�`���̒ǉ��C�^�C�}�h���C�o���I����
-���邽�߂̏I���������[�`���̒ǉ��C�^�C�}�����݂̂��߂̊����݃n���h����
-��`�i�܂��́C�����݃T�[�r�X���[�`���̒ǉ��j�C�^�C�}�����݂̂��߂̊���
-�ݗv�����C���̑����̐ݒ�̐ÓIAPI�Ȃǂ��܂ނ��ƂɂȂ�D
+タイマドライバを組み込むための静的APIを記述したシステムコンフィギュレー
+ションファイルを，target_timer.cfgに用意する．このファイルには，タイマ
+ドライバを初期化するための初期化ルーチンの追加，タイマドライバを終了さ
+せるための終了処理ルーチンの追加，タイマ割込みのための割込みハンドラの
+定義（または，割込みサービスルーチンの追加），タイマ割込みのための割込
+み要求ラインの属性の設定の静的APIなどを含むことになる．
 
-�^�C�}�h���C�o���Ăяo�����߂ɕK�v�Ȓ�`���܂ރw�b�_�t�@�C�����C
-target_timer.h�ɗp�ӂ���D�܂��C�^�C�}�h���C�o�̎����t�@�C����
-target_timer.c�ɗp�ӂ���D
+タイマドライバを呼び出すために必要な定義を含むヘッダファイルを，
+target_timer.hに用意する．また，タイマドライバの実装ファイルを
+target_timer.cに用意する．
 
-�^�C���e�B�b�N�̒ʒm�ɂ��s�������̑����́C�^�X�N�̋N����҂��������s
-�����̂ł��邽�߁C�^�C�}�����݂̊����ݗD��x�́C�����݂̒��ōŒ�̗D��
-�x�ŏ\���ł���D�������C�����n���h����A���[���n���h���̎��s�J�n�x�ꂪ
-���ɂȂ�ꍇ�ɂ́C�^�C�}�����݂̊����ݗD��x����荂���l�ɐݒ肵�����D
-�����ŁC�^�C�}�����݂̊����ݗD��x��ύX������@���C�^�[�Q�b�g�ˑ�����
-���[�U�[�Y�}�j���A���ɋL�ڂ��ׂ��ł���D
+タイムティックの通知により行う処理の多くは，タスクの起動や待ち解除を行
+うものであるため，タイマ割込みの割込み優先度は，割込みの中で最低の優先
+度で十分である．ただし，周期ハンドラやアラームハンドラの実行開始遅れが
+問題になる場合には，タイマ割込みの割込み優先度をより高い値に設定したい．
+そこで，タイマ割込みの割込み優先度を変更する方法を，ターゲット依存部の
+ユーザーズマニュアルに記載すべきである．
 
-6.13.2 �^�C�}�̏������E�I�������E�����ݏ���
+6.13.2 タイマの初期化・終了処理・割込み処理
 
 (6-13-2-1) void target_timer_initialize(intptr_t exinf)
 
-�^�C�}�����������C�^�C�}�����݂������I�ɔ���������֐��D�^�C�}�����݂�
-�����́CTIC_NUME��TIC_DENO�Ŏw�肳�ꂽ���Ԃƈ�v������i�u5.2 �^�C��
-�e�B�b�N�̒�`�v�̐߂��Q�Ɓj�D
+タイマを初期化し，タイマ割込みを周期的に発生させる関数．タイマ割込みの
+周期は，TIC_NUMEとTIC_DENOで指定された時間と一致させる（「5.2 タイム
+ティックの定義」の節を参照）．
 
-���̊֐��́Ctarget_timer.cfg���ɋL�q����ÓIAPI�ɂ��C���������[�`����
-���ăJ�[�l���ɓo�^���邱�Ƃ�z�肵�Ă���D
+この関数は，target_timer.cfg中に記述する静的APIにより，初期化ルーチンと
+してカーネルに登録することを想定している．
 
 (6-13-2-2) void target_timer_terminate(intptr_t exinf)
 
-�^�C�}�̓�����~�����C�^�C�}�����݂𔭐����Ȃ��悤�ɂ���֐��D
+タイマの動作を停止させ，タイマ割込みを発生しないようにする関数．
 
-���̊֐��́Ctarget_timer.cfg���ɋL�q����ÓIAPI�ɂ��C�I���������[�`��
-�Ƃ��ăJ�[�l���ɓo�^���邱�Ƃ�z�肵�Ă���D
+この関数は，target_timer.cfg中に記述する静的APIにより，終了処理ルーチン
+としてカーネルに登録することを想定している．
 
 (6-13-2-3) void target_timer_handler(void)
-    �܂��� void target_timer_isr(intptr_t exinf)
+    または void target_timer_isr(intptr_t exinf)
 
-�^�C�}�����݂ɂ��N������銄���ݏ����v���O�����D�����݃n���h���Ƃ���
-��������ꍇ�ɂ�target_timer_handler�C�����݃T�[�r�X���[�`���Ƃ��Ď���
-����ꍇ�ɂ�target_timer_isr�̖��̂Ƃ���D�^�[�Q�b�g��ˑ�����
-signal_time���Ăяo���D
+タイマ割込みにより起動される割込み処理プログラム．割込みハンドラとして
+実現する場合にはtarget_timer_handler，割込みサービスルーチンとして実現
+する場合にはtarget_timer_isrの名称とする．ターゲット非依存部の
+signal_timeを呼び出す．
 
-target_timer_handler�́C�W���I�ɂ͎��̂悤�ɒ�`����D
+target_timer_handlerは，標準的には次のように定義する．
 
 ----------------------------------------
 void
 target_timer_handler(void)
 {
-	i_begin_int(<�^�C�}�����݂̊����ݔԍ�>);
+	i_begin_int(<タイマ割込みの割込み番号>);
 	signal_time();
-	i_end_int(<�^�C�}�����݂̊����ݔԍ�>);
+	i_end_int(<タイマ割込みの割込み番号>);
 }
 ----------------------------------------
 
-���̊֐��́Ctarget_timer.cfg���ɋL�q����ÓIAPI�ɂ��C�����݃n���h����
-���͊����݃T�[�r�X���[�`���Ƃ��ăJ�[�l���ɓo�^���邱�Ƃ�z�肵�Ă���D
+この関数は，target_timer.cfg中に記述する静的APIにより，割込みハンドラま
+たは割込みサービスルーチンとしてカーネルに登録することを想定している．
 
-6.13.3 ���\�]���p�V�X�e�������̎Q�Ƃ̂��߂̋@�\
+6.13.3 性能評価用システム時刻の参照のための機能
 
-���\�]���p�V�X�e�������̎Q�Ƌ@�\�iget_utm�j���T�|�[�g����ꍇ�ɂ́C�^�C
-�}�h���C�o�ŁC�ȉ��̃f�[�^�^��֐��Ȃǂ�p�ӂ���D
+性能評価用システム時刻の参照機能（get_utm）をサポートする場合には，タイ
+マドライバで，以下のデータ型や関数などを用意する．
 
-(6-13-3-1) OMIT_GET_UTM�i�I�v�V�����j
+(6-13-3-1) OMIT_GET_UTM（オプション）
 
-�^�[�Q�b�g��ˑ�����get_utm�̎������g�p�����C�^�[�Q�b�g�ˑ�����get_utm
-��p�ӂ���ꍇ�ɂ́C���̃V���{�����}�N����`����D���̃V���{�����}�N��
-��`�����ꍇ�C�ȉ��̃f�[�^�^��֐��Ȃǂ�p�ӂ���K�v�͂Ȃ��D
+ターゲット非依存部のget_utmの実装を使用せず，ターゲット依存部でget_utm
+を用意する場合には，このシンボルをマクロ定義する．このシンボルをマクロ
+定義した場合，以下のデータ型や関数などを用意する必要はない．
 
 (6-13-3-2) CLOCK
 
-�^�C�}�l�̓����\���̂��߂̃f�[�^�^�D
+タイマ値の内部表現のためのデータ型．
 
 (6-13-3-3) CLOCK target_timer_get_current(void)
 
-�^�C�}�̌��ݒl��ǂݏo���C�����\���ŕԂ��֐��D�^�C�}�l�́C���Ԃ̌o�߂�
-�Ƃ��ɑ������邱�Ƃ�z�肵�Ă���D�n�[�h�E�F�A�̃^�C�}���C�^�C�}�l����
-��������̂ł���ꍇ�ɂ́C���̊֐����ő�������l�ƂȂ�悤�ɕϊ�����D
+タイマの現在値を読み出し，内部表現で返す関数．タイマ値は，時間の経過と
+ともに増加することを想定している．ハードウェアのタイマが，タイマ値が減
+少するものである場合には，この関数内で増加する値となるように変換する．
 
 (6-13-3-4) bool_t target_timer_probe_int(void)
 
-�^�C�}�����ݗv�����`�F�b�N����֐��D�^�C�}�����݂��v������Ă���ꍇ��
-true�C�v������Ă��Ȃ��ꍇ��false��Ԃ��D
+タイマ割込み要求をチェックする関数．タイマ割込みが要求されている場合に
+true，要求されていない場合にfalseを返す．
 
 (6-13-3-5) TO_USEC(clock)
 
-�^�C�}�l�̓����\�����C1�ʕb�P�ʂɕϊ����邽�߂̃}�N���i�܂��͊֐��j�D
-targettimer_get_current�œǂݏo�����l���C�^�C�}�����ݔ�������̌o�ߎ���
-�i�P��: 1�ʕb�j�ɕϊ����邽�߂ɗp����D
+タイマ値の内部表現を，1μ秒単位に変換するためのマクロ（または関数）．
+targettimer_get_currentで読み出した値を，タイマ割込み発生からの経過時間
+（単位: 1μ秒）に変換するために用いる．
 
-6.14 �I�[�o�����^�C�}�h���C�o�i�I�v�V�����j
+6.14 オーバランタイマドライバ（オプション）
 
-�I�[�o�����^�C�}�h���C�o�́C�I�[�o�����n���h�����N�����邽�߂̃^�C�}��
-�h���C�o�ł���D�I�[�o�����n���h���@�\�g���p�b�P�[�W���T�|�[�g���Ȃ���
-���ɂ́C�I�[�o�����^�C�}�h���C�o��p�ӂ���K�v�͂Ȃ��D
+オーバランタイマドライバは，オーバランハンドラを起動するためのタイマの
+ドライバである．オーバランハンドラ機能拡張パッケージをサポートしない場
+合には，オーバランタイマドライバを用意する必要はない．
 
-6.14.1 �I�[�o�����^�C�}�h���C�o�̃t�@�C���\��
+6.14.1 オーバランタイマドライバのファイル構成
 
-�I�[�o�����^�C�}�h���C�o�́C�^�C�}�h���C�o�Ɠ����t�@�C���̒��ɋL�q����D
-�I�[�o�����^�C�}�h���C�o�̂��߂̋L�q�́CTOPPERS_SUPPORT_OVRHDR���}�N��
-��`����Ă���ꍇ�ɂ̂ݗL���ɂȂ�悤�ɂ���D
+オーバランタイマドライバは，タイマドライバと同じファイルの中に記述する．
+オーバランタイマドライバのための記述は，TOPPERS_SUPPORT_OVRHDRがマクロ
+定義されている場合にのみ有効になるようにする．
 
-���Ȃ킿�C�I�[�o�����^�C�}�h���C�o��g�ݍ��ނ��߂̐ÓIAPI��
-target_timer.cfg�̒��ɋL�q����D���̃t�@�C���ɂ́C�I�[�o�����^�C�}�h��
-�C�o�����������邽�߂̏��������[�`���̒ǉ��C�I�[�o�����^�C�}�h���C�o��
-�I�������邽�߂̏I���������[�`���̒ǉ��C�I�[�o�����^�C�}�����݂̂��߂�
-�����݃n���h���̒�`�i�܂��́C�����݃T�[�r�X���[�`���̒ǉ��j�C�I�[�o��
-���^�C�}�����݂̂��߂̊����ݗv�����C���̑����̐ݒ�̐ÓIAPI�Ȃǂ��܂ނ�
-�ƂɂȂ�D
+すなわち，オーバランタイマドライバを組み込むための静的APIは
+target_timer.cfgの中に記述する．このファイルには，オーバランタイマドラ
+イバを初期化するための初期化ルーチンの追加，オーバランタイマドライバを
+終了させるための終了処理ルーチンの追加，オーバランタイマ割込みのための
+割込みハンドラの定義（または，割込みサービスルーチンの追加），オーバラ
+ンタイマ割込みのための割込み要求ラインの属性の設定の静的APIなどを含むこ
+とになる．
 
-�܂��C�I�[�o�����^�C�}�h���C�o���Ăяo�����߂ɕK�v�Ȓ�`��
-target_timer.h�̒��ɁC�I�[�o�����^�C�}�h���C�o�̎�����target_timer.c��
-���ɋL�q����D
+また，オーバランタイマドライバを呼び出すために必要な定義は
+target_timer.hの中に，オーバランタイマドライバの実装はtarget_timer.cの
+中に記述する．
 
-�I�[�o�����n���h���́C�^�X�N�̃I�[�o�����ɑ΂��鏈�����s�����̂ł��邽
-�߁C�I�[�o�����^�C�}�����݂̊����ݗD��x�́C�����݂̒��ōŒ�̗D��x��
-�\���ł���D�������C�I�[�o�����^�C�}�����݂̊����ݗD��x����荂���l��
-�ݒ肵�����ꍇ���Ȃ��Ƃ͌����Ȃ����߁C�I�[�o�����^�C�}�����݂̊����ݗD
-��x��ύX������@���C�^�[�Q�b�g�ˑ����̃��[�U�[�Y�}�j���A���ɋL�ڂ���
-���ł���D
+オーバランハンドラは，タスクのオーバランに対する処理を行うものであるた
+め，オーバランタイマ割込みの割込み優先度は，割込みの中で最低の優先度で
+十分である．ただし，オーバランタイマ割込みの割込み優先度をより高い値に
+設定したい場合もないとは言えないため，オーバランタイマ割込みの割込み優
+先度を変更する方法を，ターゲット依存部のユーザーズマニュアルに記載すべ
+きである．
 
-6.14.2 �I�[�o�����^�C�}�̑���Ɗ����ݏ���
+6.14.2 オーバランタイマの操作と割込み処理
 
 (6-14-2-1) void target_ovrtimer_initialize(intptr_t exinf)
 
-�I�[�o�����^�C�}�̏������������s���D�^�C�}�̓���J�n�͍s��Ȃ��D
+オーバランタイマの初期化処理を行う．タイマの動作開始は行わない．
 
-���̊֐��́Ctarget_timer.cfg���ɋL�q����ÓIAPI�ɂ��C���������[�`����
-���ăJ�[�l���ɓo�^���邱�Ƃ�z�肵�Ă���D
+この関数は，target_timer.cfg中に記述する静的APIにより，初期化ルーチンと
+してカーネルに登録することを想定している．
 
 (6-14-2-2) void target_ovrtimer_terminate(intptr_t exinf)
 
-�I�[�o�����^�C�}���~�����C�I�[�o�����^�C�}�����݂𔭐����Ȃ��悤�ɂ�
-��D
+オーバランタイマを停止させ，オーバランタイマ割込みを発生しないようにす
+る．
 
-���̊֐��́Ctarget_timer.cfg���ɋL�q����ÓIAPI�ɂ��C�I���������[�`��
-�Ƃ��ăJ�[�l���ɓo�^���邱�Ƃ�z�肵�Ă���D
+この関数は，target_timer.cfg中に記述する静的APIにより，終了処理ルーチン
+としてカーネルに登録することを想定している．
 
 (6-14-2-3) void target_ovrtimer_start(OVRTIM ovrtim)
 
-�I�[�o�����^�C�}�ɁC�c�莞��ovrtim��ݒ肵�C����J�n����Dovrtim�̒P��
-�̓}�C�N���b�Ƃ���D
+オーバランタイマに，残り時間ovrtimを設定し，動作開始する．ovrtimの単位
+はマイクロ秒とする．
 
 (6-14-2-4) OVRTIM target_ovrtimer_stop(void)
 
-�I�[�o�����^�C�}���~���C�^�C�}�̎c�莞�Ԃ�ǂݏo���D�����c�莞�Ԃ�
-0�i�܂��͂��ꖢ���j�ɂȂ��Ă����ꍇ�ɂ́C1��Ԃ��D�܂��C�I�[�o�����^�C
-�}����̊����݂��N���A����D
+オーバランタイマを停止し，タイマの残り時間を読み出す．もし残り時間が
+0（またはそれ未満）になっていた場合には，1を返す．また，オーバランタイ
+マからの割込みをクリアする．
 
 (6-14-2-5) OVRTIM target_ovrtimer_get_current(void)
 
-�I�[�o�����^�C�}�̎c�莞�Ԃ�ǂݏo���D�����c�莞�Ԃ�0�i�܂��͂��ꖢ���j
-�ɂȂ��Ă����ꍇ�ɂ́C0��Ԃ��D�I�[�o�����^�C�}����̊����݂̓N���A����
-���D
+オーバランタイマの残り時間を読み出す．もし残り時間が0（またはそれ未満）
+になっていた場合には，0を返す．オーバランタイマからの割込みはクリアしな
+い．
 
 (6-14-2-6) void target_ovrtimer_handler(void)
-    �܂��� void target_ovrtimer_isr(intptr_t exinf)
+    または void target_ovrtimer_isr(intptr_t exinf)
 
-�I�[�o�����^�C�}�����݂ɂ��N������銄���ݏ����v���O�����D�����݃n��
-�h���Ƃ��Ď�������ꍇ�ɂ�target_ovrtimer_handler�C�����݃T�[�r�X���[�`
-���Ƃ��Ď�������ꍇ�ɂ�target_ovrtimer_isr�̖��̂Ƃ���D�^�[�Q�b�g���
-������call_ovrhdr���Ăяo���D
+オーバランタイマ割込みにより起動される割込み処理プログラム．割込みハン
+ドラとして実現する場合にはtarget_ovrtimer_handler，割込みサービスルーチ
+ンとして実現する場合にはtarget_ovrtimer_isrの名称とする．ターゲット非依
+存部のcall_ovrhdrを呼び出す．
 
-target_timer_handler�́C�W���I�ɂ͎��̂悤�ɒ�`����D
+target_timer_handlerは，標準的には次のように定義する．
 
 ----------------------------------------
 void
 target_ovrtimer_handler(void)
 {
-	i_begin_int(<�I�[�o�����^�C�}�����݂̊����ݔԍ�>);
-	�I�[�o�����^�C�}�����ݗv���̃N���A�i�K�v�Ȃ�j
+	i_begin_int(<オーバランタイマ割込みの割込み番号>);
+	オーバランタイマ割込み要求のクリア（必要なら）
 	call_ovrhdr();
-	i_end_int(<�I�[�o�����^�C�}�����݂̊����ݔԍ�>);
+	i_end_int(<オーバランタイマ割込みの割込み番号>);
 }
 ----------------------------------------
 
-���̊֐��́Ctarget_timer.cfg���ɋL�q����ÓIAPI�ɂ��C�����݃n���h����
-���͊����݃T�[�r�X���[�`���Ƃ��ăJ�[�l���ɓo�^���邱�Ƃ�z�肵�Ă���D
+この関数は，target_timer.cfg中に記述する静的APIにより，割込みハンドラま
+たは割込みサービスルーチンとしてカーネルに登録することを想定している．
 
 (6-14-2-7) OMIT_OVRTIMER_START
 (6-14-2-8) OMIT_OVRTIMER_STOP
 
-�^�[�Q�b�g�ˑ�������Ăяo��ovrtimer_start��ovrtimer_stop���C�A�Z���u��
-����̃\�[�X�R�[�h���ɓW�J���CC����̊֐����s�v�ɂȂ�ꍇ�ɂ́C���ꂼ��C
-OMIT_OVRTIMER_START��OMIT_OVRTIMER_STOP���}�N����`����D
+ターゲット依存部から呼び出すovrtimer_startとovrtimer_stopを，アセンブリ
+言語のソースコード中に展開し，C言語の関数が不要になる場合には，それぞれ，
+OMIT_OVRTIMER_STARTとOMIT_OVRTIMER_STOPをマクロ定義する．
 
-6.15 ���I�������Ǘ��i�I�v�V�����j
+6.15 動的メモリ管理（オプション）
 
-���I�����@�\�g���p�b�P�[�W���g�p����ꍇ�ɂ́C�J�[�l�����ł̓��I������
-�Ǘ��̕��@�����߂�K�v������D
+動的生成機能拡張パッケージを使用する場合には，カーネル内での動的メモリ
+管理の方法を決める必要がある．
 
-���I�����@�\�g���p�b�P�[�W�̃^�[�Q�b�g��ˑ����ł́C�������̈��擪��
-�珇�Ɋ��蓖�āC������ꂽ�������̈���ė��p���Ȃ��������Ǘ����W���[��
-�݂̂��������Ă���D�f�t�H���g�ł́C���̃������Ǘ����W���[�����g�p����
-��D
+動的生成機能拡張パッケージのターゲット非依存部では，メモリ領域を先頭か
+ら順に割り当て，解放されたメモリ領域を再利用しないメモリ管理モジュール
+のみを実装している．デフォルトでは，このメモリ管理モジュールが使用され
+る．
 
-�{�i�I�ȓ��I�������Ǘ����s�������ꍇ�ɂ́C�^�[�Q�b�g�ˑ����܂��̓��[�U
-���ŁC�ȉ��̊֐����`�����������Ǘ����W���[����p�ӂ���K�v������D
+本格的な動的メモリ管理を行いたい場合には，ターゲット依存部またはユーザ
+側で，以下の関数を定義したメモリ管理モジュールを用意する必要がある．
 
-(6-15-1) OMIT_KMM_ALLOCONLY�i�I�v�V�����j
+(6-15-1) OMIT_KMM_ALLOCONLY（オプション）
 
-�^�[�Q�b�g��ˑ����̃������Ǘ����W���[�����g�p�����C�^�[�Q�b�g�ˑ�����
-���̓��[�U���ŗp�ӂ���ꍇ�ɂ́C���̃V���{�����}�N����`����D
+ターゲット非依存部のメモリ管理モジュールを使用せず，ターゲット依存部ま
+たはユーザ側で用意する場合には，このシンボルをマクロ定義する．
 
-(6-15-2) void initialize_kmm(void)�i�I�v�V�����j
+(6-15-2) void initialize_kmm(void)（オプション）
 
-�������Ǘ����W���[��������������֐��D�J�[�l���̊���t���郁�����̈��
-�T�C�Y�Ɛ擪�Ԓn�́C���ꂼ��kmmsz��kmm�ɂ���ĎQ�Ƃł���D
+メモリ管理モジュールを初期化する関数．カーネルの割り付けるメモリ領域の
+サイズと先頭番地は，それぞれkmmszとkmmによって参照できる．
 
-(6-15-3) void *kernel_malloc(SIZE size)�i�I�v�V�����j
+(6-15-3) void *kernel_malloc(SIZE size)（オプション）
 
-size�Ŏw�肳�ꂽ�T�C�Y�̃������̈������t���C���̐擪�Ԓn��Ԃ��֐��D
-����t���邱�Ƃ��ł��Ȃ��ꍇ�ɂ́CNULL��Ԃ��D
+sizeで指定されたサイズのメモリ領域を割り付け，その先頭番地を返す関数．
+割り付けることができない場合には，NULLを返す．
 
-(6-15-4) void kernel_free(void *ptr)�i�I�v�V�����j
+(6-15-4) void kernel_free(void *ptr)（オプション）
 
-ptr�Ŏw�肳�ꂽ�������̈���������֐��D
+ptrで指定されたメモリ領域を解放する関数．
 
-6.15.1 TLSF��p�����������Ǘ����W���[���̗�
+6.15.1 TLSFを用いたメモリ管理モジュールの例
 
-�I�[�v���\�[�X�̃��������t�����C�u�����ł���TLSF��p���ē��I�������Ǘ�
-����������ɂ́COMIT_KMM_ALLOCONLY���}�N����`���C�ȉ��̊֐���`����C��
-��\�[�X�t�@�C���Ɋ܂߂�΂悢�D
+オープンソースのメモリ割付けライブラリであるTLSFを用いて動的メモリ管理
+を実現するには，OMIT_KMM_ALLOCONLYをマクロ定義し，以下の関数定義等をC言
+語ソースファイルに含めればよい．
 
 ----------------------------------------
 #include "tlsf.h"
@@ -3254,187 +3254,187 @@ kernel_free(void *ptr)
 ----------------------------------------
 
 
-�V�D�R���t�B�M�����[�^�ݒ�t�@�C���̃^�[�Q�b�g�ˑ���
+７．コンフィギュレータ設定ファイルのターゲット依存部
 
-7.1 �ݒ�t�@�C���ƃ^�[�Q�b�g�ˑ����̈ʒu�t��
+7.1 設定ファイルとターゲット依存部の位置付け
 
-ASP�J�[�l���̃R���t�B�M�����[�^�́C�ݒ�t�@�C���̋L�q�ɏ]���ăt�@�C����
-��������уG���[�`�F�b�N���s���D�R���t�B�M�����[�^�̐ݒ�t�@�C���ɂ́C
-�ȉ���4������D
+ASPカーネルのコンフィギュレータは，設定ファイルの記述に従ってファイルの
+生成およびエラーチェックを行う．コンフィギュレータの設定ファイルには，
+以下の4つがある．
 
-(a) �ÓIAPI�e�[�u��
+(a) 静的APIテーブル
 
-�ÓIAPI�̈ꗗ�ƁC�e�ÓIAPI�̃p�����[�^�ɂ��ċL�q�����t�@�C���D�ÓI
-API���g������ꍇ�ȊO�͕ύX����K�v���Ȃ����߁C�^�[�Q�b�g��ˑ����ŗp��
-���Ă���ikernel/kernel_api.csv�j�D
+静的APIの一覧と，各静的APIのパラメータについて記述したファイル．静的
+APIを拡張する場合以外は変更する必要がないため，ターゲット非依存部で用意
+している（kernel/kernel_api.csv）．
 
-(b) �l�擾�V���{���e�[�u��
+(b) 値取得シンボルテーブル
 
-�R���t�B�M�����[�^�̃p�X1�ɂ����āC�p�����[�^�v�Z�pC����t�@�C���ɏo��
-���C�l�����߂����V���{���i��ʂɂ͎��j���L�q���邽�߂̃t�@�C���D�^�[�Q�b
-�g��ˑ����ł́C�^�[�Q�b�g�Ɉˑ������ɕK�v�ƂȂ�V���{�����L�q�����t�@
-�C����p�ӂ��Ă���ikernel/kernel_def.csv�j�D
+コンフィギュレータのパス1において，パラメータ計算用C言語ファイルに出力
+し，値を求めたいシンボル（一般には式）を記述するためのファイル．ターゲッ
+ト非依存部では，ターゲットに依存せずに必要となるシンボルを記述したファ
+イルを用意している（kernel/kernel_def.csv）．
 
-�^�[�Q�b�g�Ɉˑ����ĕK�v�ƂȂ�V���{��������ꍇ�ɂ́Ctarget�f�B���N�g
-���ɒu���ꂽtarget_def.csv���ɋL�q����Dtarget_def.csv���ɋL�q���Ēl��
-���߂邱�Ƃ��ł���V���{���́Ckernel/kernel_int.h����т�������C���N���[
-�h�����t�@�C���Œ�`����Ă��Ȃ���΂Ȃ�Ȃ��Dkernel_int.h����́C
-target_stddef.h�Ctarget_kernel.h�Ctarget_config.h���i�ԐړI�Ɂj�C���N���[
-�h���Ă��邽�߁C�����̃t�@�C������т�������C���N���[�h�����t�@�C
-���Œ�`�����^�[�Q�b�g�ˑ��̃V���{���́Ctarget_def.csv���ɋL�q���邱
-�Ƃ��ł���D
+ターゲットに依存して必要となるシンボルがある場合には，targetディレクト
+リに置かれたtarget_def.csv中に記述する．target_def.csv中に記述して値を
+求めることができるシンボルは，kernel/kernel_int.hおよびそこからインクルー
+ドされるファイルで定義されていなければならない．kernel_int.hからは，
+target_stddef.h，target_kernel.h，target_config.hを（間接的に）インクルー
+ドしているため，これらのファイルおよびそこからインクルードされるファイ
+ルで定義されるターゲット依存のシンボルは，target_def.csv中に記述するこ
+とができる．
 
-�����Œl�����߂��V���{���̒l�́C�R���t�B�M�����[�^�̃p�X2����уp�X3��
-�e���v���[�g�t�@�C�����ŎQ�Ƃ��邱�Ƃ��ł���D
+ここで値を求めたシンボルの値は，コンフィギュレータのパス2およびパス3の
+テンプレートファイル中で参照することができる．
 
-(c) �p�X2�̃e���v���[�g�t�@�C��
+(c) パス2のテンプレートファイル
 
-�R���t�B�M�����[�^�̃p�X2�́C�e���v���[�g�t�@�C���ɏ]���āC�J�[�l���̍\
-���E�������t�@�C���ikernel_cfg.c�j�C�\���E�������w�b�_�t�@�C��
-�ikernel_cfg.h�j�Ȃǂ𐶐�����D���̃e���v���[�g�t�@�C���́C�^�[�Q�b�g
-��ˑ����ƃ^�[�Q�b�g�ˑ����ɐ؂蕪���Ă��邪�C���̃t�@�C���̃^�[�Q�b�g
-�ˑ����Ƃ͋t�ɁC�^�[�Q�b�g�ˑ�������^�[�Q�b�g��ˑ������C���N���[�h��
-��`�ɂȂ��Ă���D
+コンフィギュレータのパス2は，テンプレートファイルに従って，カーネルの構
+成・初期化ファイル（kernel_cfg.c），構成・初期化ヘッダファイル
+（kernel_cfg.h）などを生成する．このテンプレートファイルは，ターゲット
+非依存部とターゲット依存部に切り分けてあるが，他のファイルのターゲット
+依存部とは逆に，ターゲット依存部からターゲット非依存部をインクルードす
+る形になっている．
 
-��̓I�ɂ́Ctarget�f�B���N�g���ɒu���ꂽtarget.tf�ŁC�K�v�ȕϐ����`��
-����C�e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ����ikernel/kernel.tf�j���C
-���N���[�h����Dkernel.tf�ł́C�J�[�l���̃^�[�Q�b�g��ˑ����Ŏg�p�����
-����`���𐶐�����Dkernel.tf���C���N���[�h������Ctarget.tf�ł́C�J�[
-�l���̃^�[�Q�b�g�ˑ����Ŏg�p����ϐ���`���𐶐�����Dtarget.tf����C�v
-���Z�b�T�ˑ����C�`�b�v�ˑ������C�J�����ˑ�����؂蕪���Ă��悢�D
+具体的には，targetディレクトリに置かれたtarget.tfで，必要な変数を定義し
+た後，テンプレートファイルのターゲット非依存部（kernel/kernel.tf）をイ
+ンクルードする．kernel.tfでは，カーネルのターゲット非依存部で使用する変
+数定義等を生成する．kernel.tfをインクルードした後，target.tfでは，カー
+ネルのターゲット依存部で使用する変数定義等を生成する．target.tfから，プ
+ロセッサ依存部，チップ依存部を，開発環境依存部を切り分けてもよい．
 
-(d) �p�X3�̃e���v���[�g�t�@�C��
+(d) パス3のテンプレートファイル
 
-�R���t�B�M�����[�^�̃p�X3�́C�e���v���[�g�t�@�C���ɏ]���āC�ÓIAPI�̈�
-�ʒ萔���p�����[�^�̃`�F�b�N���s���D���̃e���v���[�g�t�@�C�����C�^�[�Q�b
-�g��ˑ����ƃ^�[�Q�b�g�ˑ����ɐ؂蕪���Ă���C�^�[�Q�b�g�ˑ�������^�[
-�Q�b�g��ˑ������C���N���[�h����`�ɂȂ��Ă���D
+コンフィギュレータのパス3は，テンプレートファイルに従って，静的APIの一
+般定数式パラメータのチェックを行う．このテンプレートファイルも，ターゲッ
+ト非依存部とターゲット依存部に切り分けてあり，ターゲット依存部からター
+ゲット非依存部をインクルードする形になっている．
 
-��̓I�ɂ́Ctarget�f�B���N�g���ɒu���ꂽtarget_check.tf�ŁC�K�v�ȕϐ���
-��`������C�e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ���
-�ikernel/kernel_check.tf�j���C���N���[�h����Dkernel_check.tf�ł́C�J�[
-�l���̃^�[�Q�b�g��ˑ����ŏ������u���b�N�ɏo�͂�����ʒ萔���p�����[�^
-�̃`�F�b�N���s���Dkernel_check.tf���C���N���[�h������Ctarget_check.tf
-�ł́C�^�[�Q�b�g�Ɉˑ�����`�F�b�N���s���Dtarget_check.tf����C�v���Z�b
-�T�ˑ����C�`�b�v�ˑ������C�J�����ˑ�����؂蕪���Ă��悢�D
+具体的には，targetディレクトリに置かれたtarget_check.tfで，必要な変数を
+定義した後，テンプレートファイルのターゲット非依存部
+（kernel/kernel_check.tf）をインクルードする．kernel_check.tfでは，カー
+ネルのターゲット非依存部で初期化ブロックに出力した一般定数式パラメータ
+のチェックを行う．kernel_check.tfをインクルードした後，target_check.tf
+では，ターゲットに依存するチェックを行う．target_check.tfから，プロセッ
+サ依存部，チップ依存部を，開発環境依存部を切り分けてもよい．
 
-�Ȃ��C�R���t�B�M�����[�^�̏ڍ׎d�l�Ɛݒ�t�@�C���̋L�q���@�ɂ��ẮC
-�ʓrPDF�t�@�C���̌`�Ŕz�z���Ă���uTOPPERS�V����J�[�l���p�R���t�B�M��
-���[�^�d�l�v����сuTOPPERS�V����J�[�l���p�R���t�B�M�����[�^�����}�N��
-�v���Z�b�T�d�l�v���Q�Ƃ��邱�ƁD
+なお，コンフィギュレータの詳細仕様と設定ファイルの記述方法については，
+別途PDFファイルの形で配布している「TOPPERS新世代カーネル用コンフィギュ
+レータ仕様」および「TOPPERS新世代カーネル用コンフィギュレータ内蔵マクロ
+プロセッサ仕様」を参照すること．
 
-7.2 �p�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ���
+7.2 パス2のテンプレートファイルのターゲット依存部
 
-�ȉ��ł́C�p�X2�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ������L�q�����ŕK
-�v�Ȏ����ɂ��Đ�������D
+以下では，パス2のテンプレートファイルのターゲット依存部を記述する上で必
+要な事項について説明する．
 
-7.2.1 �^�[�Q�b�g��ˑ������C���N���[�h����O�ɒ�`���ׂ��ϐ�
+7.2.1 ターゲット非依存部をインクルードする前に定義すべき変数
 
-target.tf����kernel.tf���C���N���[�h����O�ɁC���̕ϐ����`���Ă�����
-����΂Ȃ�Ȃ��D
+target.tfからkernel.tfをインクルードする前に，次の変数を定義しておかな
+ければならない．
 
-(7-2-1-1) INTNO_ATTISR_VALID	ATT_ISR�Ŏg�p�ł��銄���ݔԍ�
-(7-2-1-2) INHNO_ATTISR_VALID	INTNO_ATTISR_VALID�ɑΉ����銄���n���h���ԍ�
-(7-2-1-3) INHNO_DEFINH_VALID	DEF_INT�Ŏg�p�ł��銄���݃n���h���ԍ�
-(7-2-1-4) EXCNO_DEFEXC_VALID	DEF_EXC�Ŏg�p�ł���CPU��O�n���h���ԍ�
-(7-2-1-5) INTNO_CFGINT_VALID	CFG_INT�Ŏg�p�ł��銄���ݔԍ�
-(7-2-1-6) INTPRI_CFGINT_VALID	CFG_INT�Ŏg�p�ł��銄���ݗD��x
+(7-2-1-1) INTNO_ATTISR_VALID	ATT_ISRで使用できる割込み番号
+(7-2-1-2) INHNO_ATTISR_VALID	INTNO_ATTISR_VALIDに対応する割込ハンドラ番号
+(7-2-1-3) INHNO_DEFINH_VALID	DEF_INTで使用できる割込みハンドラ番号
+(7-2-1-4) EXCNO_DEFEXC_VALID	DEF_EXCで使用できるCPU例外ハンドラ番号
+(7-2-1-5) INTNO_CFGINT_VALID	CFG_INTで使用できる割込み番号
+(7-2-1-6) INTPRI_CFGINT_VALID	CFG_INTで使用できる割込み優先度
 
-API�Ŏg�p�ł��銄���ݔԍ��^�����݃n���h���ԍ��^CPU��O�n���h���ԍ��^��
-���ݗD��x�̃��X�g���C�e�ϐ��ɒ�`����DINHNO_ATTISR_VALID�ɂ́C
-INTNO_ATTISR_VALID�Ƀ��X�g�A�b�v���������ݔԍ��ɑΉ����銄���݃n���h��
-�ԍ��̃��X�g���`����DCFG_INT�ɂ́C���ׂĂ̊����ݔԍ����w�肷�邱�Ƃ�
-�ł��邽�߁CINTNO_CFGINT_VALID�ɂ́C�L���Ȋ����ݔԍ������ׂă��X�g�A�b
-�v����D
+APIで使用できる割込み番号／割込みハンドラ番号／CPU例外ハンドラ番号／割
+込み優先度のリストを，各変数に定義する．INHNO_ATTISR_VALIDには，
+INTNO_ATTISR_VALIDにリストアップした割込み番号に対応する割込みハンドラ
+番号のリストを定義する．CFG_INTには，すべての割込み番号を指定することが
+できるため，INTNO_CFGINT_VALIDには，有効な割込み番号をすべてリストアッ
+プする．
 
-(7-2-1-7) INTNO_FIX_KERNEL�i�I�v�V�����j	�J�[�l���Ǘ��ɌŒ肳��Ă���
-											�����ݔԍ�
-(7-2-1-8) INHNO_FIX_KERNEL�i�I�v�V�����j	�J�[�l���Ǘ��ɌŒ肳��Ă���
-		 									�����݃n���h���ԍ�
-(7-2-1-9) INHNO_FIX_NONKERNEL�i�I�v�V�����j	�J�[�l���Ǘ��O�ɌŒ肳��Ă���
-											�����ݔԍ�
-(7-2-1-10) INHNO_FIX_NONKERNEL�i�I�v�V�����j�J�[�l���Ǘ��O�ɌŒ肳��Ă���
-		 									�����݃n���h���ԍ�
+(7-2-1-7) INTNO_FIX_KERNEL（オプション）	カーネル管理に固定されている
+											割込み番号
+(7-2-1-8) INHNO_FIX_KERNEL（オプション）	カーネル管理に固定されている
+		 									割込みハンドラ番号
+(7-2-1-9) INHNO_FIX_NONKERNEL（オプション）	カーネル管理外に固定されている
+											割込み番号
+(7-2-1-10) INHNO_FIX_NONKERNEL（オプション）カーネル管理外に固定されている
+		 									割込みハンドラ番号
 
-�J�[�l���Ǘ��܂��̓J�[�l���Ǘ��O�ɌŒ肳��Ă��銄���݂�����ꍇ�ɂ́C
-�����̊����ݔԍ��Ɗ����݃n���h���ԍ��̃��X�g���C�e�ϐ��ɒ�`����D
+カーネル管理またはカーネル管理外に固定されている割込みがある場合には，
+それらの割込み番号と割込みハンドラ番号のリストを，各変数に定義する．
 
-(7-2-1-11) USE_INHINIB_TABLE�i�I�v�V�����j
+(7-2-1-11) USE_INHINIB_TABLE（オプション）
 
-OMIT_INITIALIZE_INTERRUPT���`�������C�����݃n���h���̏������ɕK�v�ȏ�
-���kernel_cfg.c�ɐ����������ꍇ�ɂ́C���̕ϐ���1�ɐݒ肷��D��̓I�ɂ́C
-TNUM_INHNO�Ctnum_inhno�Cinhinib_table�̒�`�ƁC�����݃n���h�����̏o����
-�����𐶐����邽�߂̋L�q�iINTHDR_ENTRY�}�N���̃��X�g�j���C�^�[�Q�b�g��
-�ˑ����ɂ���Đ��������D
+OMIT_INITIALIZE_INTERRUPTを定義したが，割込みハンドラの初期化に必要な情
+報をkernel_cfg.cに生成したい場合には，この変数を1に設定する．具体的には，
+TNUM_INHNO，tnum_inhno，inhinib_tableの定義と，割込みハンドラ毎の出入口
+処理を生成するための記述（INTHDR_ENTRYマクロのリスト）が，ターゲット非
+依存部によって生成される．
 
-(7-2-1-12) USE_INTINIB_TABLE�i�I�v�V�����j
+(7-2-1-12) USE_INTINIB_TABLE（オプション）
 
-OMIT_INITIALIZE_INTERRUPT���`�������C�����ݗv�����C���̏������ɕK�v��
-����kernel_cfg.c�ɐ����������ꍇ�ɂ́C���̕ϐ���1�ɐݒ肷��D��̓I��
-�́CTNUM_INTNO�Ctnum_intno�Cintinib_table�̒�`���C�^�[�Q�b�g��ˑ�����
-����Đ��������D
+OMIT_INITIALIZE_INTERRUPTを定義したが，割込み要求ラインの初期化に必要な
+情報をkernel_cfg.cに生成したい場合には，この変数を1に設定する．具体的に
+は，TNUM_INTNO，tnum_intno，intinib_tableの定義が，ターゲット非依存部に
+よって生成される．
 
-(7-2-1-13) GENERATE_TSKINICTXB�i�I�v�V�����j
+(7-2-1-13) GENERATE_TSKINICTXB（オプション）
 
-USE_TSKINICTXB���}�N����`�����ꍇ�CTSKINICTXB�̏��������𐶐����邽
-�߃e���v���[�g�t�@�C���֐�GENERATE_TSKINICTXB���`����D
-GENERATE_TSKINICTXB�ɂ́C�^�X�NID���p�����[�^�Ƃ��ēn�����D
+USE_TSKINICTXBをマクロ定義した場合，TSKINICTXBの初期化情報を生成するた
+めテンプレートファイル関数GENERATE_TSKINICTXBを定義する．
+GENERATE_TSKINICTXBには，タスクIDがパラメータとして渡される．
 
-(7-2-1-14) ALLOC_STACK�i�I�v�V�����j
+(7-2-1-14) ALLOC_STACK（オプション）
 
-�X�^�b�N�̈�̐������@���f�t�H���g����ύX�������ꍇ�ɂ́C�X�^�b�N�̈�
-�𐶐����邽�߂̃e���v���[�g�t�@�C���֐�ALLOC_STACK���`����D
-ALLOC_STACK�ɂ́C�X�^�b�N�̈�̕ϐ����Ɗۂ߂�O�̃T�C�Y���p�����[�^�Ƃ�
-�ēn�����̂ŁC�X�^�b�N�̈�𐶐�����R�[�h�𐶐����C�傫�����Ɋۂ߂�
-�T�C�Y��\���������Ԃ��D
+スタック領域の生成方法をデフォルトから変更したい場合には，スタック領域
+を生成するためのテンプレートファイル関数ALLOC_STACKを定義する．
+ALLOC_STACKには，スタック領域の変数名と丸める前のサイズがパラメータとし
+て渡されるので，スタック領域を生成するコードを生成し，大きい方に丸めた
+サイズを表す文字列を返す．
 
-7.2.2 �^�[�Q�b�g��ˑ����Œ�`�����ϐ�
+7.2.2 ターゲット非依存部で定義される変数
 
-kernel.tf�̒��ł͎��̕ϐ�����`����邽�߁Ckernel.tf���C���N���[�h����
-��Ctarget.tf�̒��ł������Q�Ƃ��邱�Ƃ��ł���D
+kernel.tfの中では次の変数が定義されるため，kernel.tfをインクルードした
+後，target.tfの中でこれらを参照することができる．
 
-(7-2-2-1) INTNO[inhno]		inhno��Ή�����intno�ɕϊ����邽�߂̘A�z�z��
-(7-2-2-2) INHNO[intno]		intno��Ή�����inhno�ɕϊ����邽�߂̘A�z�z��
+(7-2-2-1) INTNO[inhno]		inhnoを対応するintnoに変換するための連想配列
+(7-2-2-2) INHNO[intno]		intnoを対応するinhnoに変換するための連想配列
 
-7.3 �p�X3�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ���
+7.3 パス3のテンプレートファイルのターゲット依存部
 
-�ȉ��ł́C�p�X3�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ������L�q�����ŕK
-�v�Ȏ����ɂ��Đ�������D
+以下では，パス3のテンプレートファイルのターゲット依存部を記述する上で必
+要な事項について説明する．
 
-7.3.1 �^�[�Q�b�g��ˑ������C���N���[�h����O�ɒ�`���ׂ��ϐ�
+7.3.1 ターゲット非依存部をインクルードする前に定義すべき変数
 
-target_check.tf����kernel_check.tf���C���N���[�h����O�ɁC�K�v�ɉ����āC
-���̕ϐ����`���Ă����Ȃ���΂Ȃ�Ȃ��D
+target_check.tfからkernel_check.tfをインクルードする前に，必要に応じて，
+次の変数を定義しておかなければならない．
 
-(7-3-1-1) GET_STK_TSKINICTXB�i�I�v�V�����j
+(7-3-1-1) GET_STK_TSKINICTXB（オプション）
 
-USE_TSKINICTXB���}�N����`�����ꍇ�CTINIB����X�^�b�N�̈�̐擪�Ԓn����
-��o�����߂̃e���v���[�g�t�@�C���֐�GET_STK_TSKINICTXB���`����D
-GET_STK_TSKINICTXB�ɂ́C�^�X�N�������u���b�N�iTINIB�j�̐擪�Ԓn���p�����[
-�^�Ƃ��ēn�����DCHECK_STACK_ALIGN�CCHECK_STACK_NONNULL�Ƃ���`���Ȃ�
-�ꍇ�ɂ́CGET_STK_TSKINICTXB���`����K�v�͂Ȃ��D
+USE_TSKINICTXBをマクロ定義した場合，TINIBからスタック領域の先頭番地を取
+り出すためのテンプレートファイル関数GET_STK_TSKINICTXBを定義する．
+GET_STK_TSKINICTXBには，タスク初期化ブロック（TINIB）の先頭番地がパラメー
+タとして渡される．CHECK_STACK_ALIGN，CHECK_STACK_NONNULLとも定義しない
+場合には，GET_STK_TSKINICTXBを定義する必要はない．
 
-(7-3-1-2) LMA.ORDER_LIST�i�I�v�V�����j
-(7-3-1-3) LMA.START_DATA[lmano]�i�I�v�V�����j
-(7-3-1-4) LMA.END_DATA[lmano]�i�I�v�V�����j
-(7-3-1-5) LMA.START_IDATA[lmano]�i�I�v�V�����j
+(7-3-1-2) LMA.ORDER_LIST（オプション）
+(7-3-1-3) LMA.START_DATA[lmano]（オプション）
+(7-3-1-4) LMA.END_DATA[lmano]（オプション）
+(7-3-1-5) LMA.START_IDATA[lmano]（オプション）
 
-�p�X3�̃e���v���[�g�t�@�C���̃^�[�Q�b�g�ˑ�����data�Z�N�V��������f�[�^
-���擾����ꍇ��Crodata�Z�N�V������RAM�ɒu���ꍇ�i���[�U�[�Y�}�j���A��
-�́u11.8 rodata�Z�N�V������RAM�ɒu���ꍇ�v�̐߂��Q�Ɓj�ɂ́C�����̃Z
-�N�V�����̓��e���C�z�u�A�h���X�iROM���̃A�h���X�CLMA�ƌĂԁj����A�N�Z
-�X�A�h���X�iRAM���̃A�h���X�CVMA�ƌĂԁj�ɃR�s�[����K�v������D
+パス3のテンプレートファイルのターゲット依存部でdataセクションからデータ
+を取得する場合や，rodataセクションをRAMに置く場合（ユーザーズマニュアル
+の「11.8 rodataセクションをRAMに置く場合」の節を参照）には，これらのセ
+クションの内容を，配置アドレス（ROM内のアドレス，LMAと呼ぶ）からアクセ
+スアドレス（RAM内のアドレス，VMAと呼ぶ）にコピーする必要がある．
 
-���̃R�s�[�́CLMA.ORDER_LIST�ɁC�R�s�[����Z�N�V�����̔ԍ��ilmano�j�̃�
-�X�g�i�ԍ��͔C�ӂɕt�^���Ă悢�j�CLMA.START_DATA[lmano]�ɃR�s�[����Z�N
-�V�����̃A�N�Z�X�A�h���X�̐擪�̃��x���CLMA.END_DATA[lmano]�ɖ����̃��x
-���CLMA.START_IDATA[lmano]�ɂ��̔z�u�A�h���X�̐擪�̃��x����ݒ肷�邱
-�ƂŁC�p�X3�̃e���v���[�g�t�@�C���̃^�[�Q�b�g��ˑ����Ŏ��{����D
+このコピーは，LMA.ORDER_LISTに，コピーするセクションの番号（lmano）のリ
+スト（番号は任意に付与してよい），LMA.START_DATA[lmano]にコピーするセク
+ションのアクセスアドレスの先頭のラベル，LMA.END_DATA[lmano]に末尾のラベ
+ル，LMA.START_IDATA[lmano]にその配置アドレスの先頭のラベルを設定するこ
+とで，パス3のテンプレートファイルのターゲット非依存部で実施する．
 
-�Ⴆ�΁C�R�s�[����Z�N�V�����̃A�N�Z�X�A�h���X�̐擪�̃��x����
-"__data_start"�C�����̃��x����"__data_end"�C���̔z�u�A�h���X�̐擪�̃�
-�x����"__idata_start"�̏ꍇ�ɂ́C�p�X3�̃e���v���[�g�t�@�C���̃^�[�Q�b
-�g�ˑ����Ɉȉ��̋L�q���܂߂�D
+例えば，コピーするセクションのアクセスアドレスの先頭のラベルが
+"__data_start"，末尾のラベルが"__data_end"，その配置アドレスの先頭のラ
+ベルが"__idata_start"の場合には，パス3のテンプレートファイルのターゲッ
+ト依存部に以下の記述を含める．
 
 ----------------------------------------
 $LMA.ORDER_LIST = { 1 }$
@@ -3444,39 +3444,39 @@ $LMA.START_IDATA[1] = "__idata_start"$
 ----------------------------------------
 
 
-7.3.2 �^�[�Q�b�g�ˑ����ōs���ׂ��G���[�`�F�b�N
+7.3.2 ターゲット依存部で行うべきエラーチェック
 
-�ȉ��̐擪�Ԓn�́C�^�[�Q�b�g��ˑ����Ő�������e�[�u���ɏo�͂���Ȃ���
-�߁C�p�X3�̃^�[�Q�b�g��ˑ����ikernel_check.tf�j�ł́C�v���O�����̊J�n
-�Ԓn�Ƃ��Đ������Ȃ��ꍇ�̃G���[���`�F�b�N���Ȃ��D���̂��߁C�^�[�Q�b�g
-�ˑ����ŃG���[�`�F�b�N���s���K�v������D
+以下の先頭番地は，ターゲット非依存部で生成するテーブルに出力されないた
+め，パス3のターゲット非依存部（kernel_check.tf）では，プログラムの開始
+番地として正しくない場合のエラーをチェックしない．そのため，ターゲット
+依存部でエラーチェックを行う必要がある．
 
-�E�����݃T�[�r�X���[�`���̐擪�Ԓn�iATT_ISR��isr�j
-�E�����݃n���h���̐擪�Ԓn�iDEF_INH��inthdr�j
-�ECPU��O�n���h���̐擪�Ԓn�iDEF_EXC��exchdr�j
-�E���������[�`���̐擪�Ԓn�iATT_INI��inirtn�j
-�E�I���������[�`���̐擪�Ԓn�iATT_TER��terrtn�j
+・割込みサービスルーチンの先頭番地（ATT_ISRのisr）
+・割込みハンドラの先頭番地（DEF_INHのinthdr）
+・CPU例外ハンドラの先頭番地（DEF_EXCのexchdr）
+・初期化ルーチンの先頭番地（ATT_INIのinirtn）
+・終了処理ルーチンの先頭番地（ATT_TERのterrtn）
 
-�������C�^�[�Q�b�g�ˑ����ɂ����Ă��C�����̃G���[�`�F�b�N���s����Ƃ�
-����Ȃ����߁C���[�U�[�Y�}�j���A���́u1.5 ���m�̖��v�̐߂ɂ́C�^�[�Q�b
-�g�ˑ��ł����̃G���[�����o����Ȃ����Ƃ�����|���L�ڂ��Ă���D
+ただし，ターゲット依存部においても，これらのエラーチェックを行えるとは
+限らないため，ユーザーズマニュアルの「1.5 既知の問題」の節には，ターゲッ
+ト依存でこれらのエラーが検出されないことがある旨を記載してある．
 
-7.4 cfg1_out.c�̃����N�ɕK�v�ȃX�^�u�̒�`�t�@�C��
+7.4 cfg1_out.cのリンクに必要なスタブの定義ファイル
 
-�R���t�B�M�����[�^�Ɋւ��ă^�[�Q�b�g�ˑ��ɗp�ӂ���K�v������t�@�C����
-���āC�ݒ�t�@�C���ȊO�ɁCcfg1_out.c�������N���邽�߂ɕK�v�ȃX�^�u�̒�
-�`�t�@�C��������D
+コンフィギュレータに関してターゲット依存に用意する必要があるファイルと
+して，設定ファイル以外に，cfg1_out.cをリンクするために必要なスタブの定
+義ファイルがある．
 
-�R���t�B�M�����[�^�̃p�X1�ł́C�ÓIAPI�̐����萔���p�����[�^�̒l��C�R��
-�p�C����p���ċ��߂邽�߂ɁCcfg1_out.c�𐶐�����D������R���p�C���C��
-���N���ăI�u�W�F�N�g�t�@�C���𐶐�����ۂɁC�X�^�[�g�A�b�v���W���[����
-��Q�Ƃ����V���{���̒�`��^����K�v������D
+コンフィギュレータのパス1では，静的APIの整数定数式パラメータの値をCコン
+パイラを用いて求めるために，cfg1_out.cを生成する．これをコンパイル，リ
+ンクしてオブジェクトファイルを生成する際に，スタートアップモジュールか
+ら参照されるシンボルの定義を与える必要がある．
 
-���̒�`��^���邽�߂ɁCcfg1_out.c����C�^�[�Q�b�g�ˑ�����
-target_cfg1_out.h���C���N���[�h���Ă���Dtarget_cfg1_out.h�i�܂��́C��
-������C���N���[�h�����t�@�C���j�ɂ́C�X�^�[�g�A�b�v���W���[������Q
-�Ƃ����V���{���̃X�^�u�̒�`���܂߂�D�T�^�I�ɂ́C�ȉ��̂悤�Ȓ�`��
-�܂߂�K�v������D
+この定義を与えるために，cfg1_out.cから，ターゲット依存部の
+target_cfg1_out.hをインクルードしている．target_cfg1_out.h（または，そ
+こからインクルードされるファイル）には，スタートアップモジュールから参
+照されるシンボルのスタブの定義を含める．典型的には，以下のような定義を
+含める必要がある．
 
 ----------------------------------------
 void sta_ker(void)
@@ -3496,562 +3496,562 @@ const SIZE		_kernel_istksz = 0;
 STK_T *const	_kernel_istk = NULL;
 ----------------------------------------
 
-�܂��C�R���t�B�M�����[�^��p���ăI�t�Z�b�g�t�@�C���ioffset.h�j�𐶐���
-��ꍇ�ɂ́C���̂��߂̋L�q��target_cfg1_out.h�i�܂��́C��������C���N���[
-�h�����t�@�C���j�ɒǉ�����K�v������D�ڂ����́C�u2.5.1 �R���t�B�M��
-���[�^��p������@�v�̐߂��Q�Ƃ��邱�ƁD
+また，コンフィギュレータを用いてオフセットファイル（offset.h）を生成す
+る場合には，そのための記述をtarget_cfg1_out.h（または，そこからインクルー
+ドされるファイル）に追加する必要がある．詳しくは，「2.5.1 コンフィギュ
+レータを用いる方法」の節を参照すること．
 
 
-�W�D�V�X�e���T�[�r�X���̃^�[�Q�b�g�ˑ���
+８．システムサービス等のターゲット依存部
 
-8.0 �V�X�e���T�[�r�X�̃^�[�Q�b�g�ˑ���
+8.0 システムサービスのターゲット依存部
 
-�V���A���|�[�g����V�X�e�����O�^�X�N�֘A�̒萔�ȂǁC�V�X�e���T�[�r�X��
-�\�������肷�邽�߂̒�`��target_syssvc.h�܂��͂�������C���N���[�h����
-��t�@�C���i�v���Z�b�T�E�`�b�v�E�J�����ˑ����ŗp�ӂ����w�b�_�t�@�C
-���Ȃǁj�Ɋ܂߂�D
+シリアルポート数やシステムログタスク関連の定数など，システムサービスの
+構成を決定するための定義をtarget_syssvc.hまたはそこからインクルードされ
+るファイル（プロセッサ・チップ・開発環境依存部で用意されるヘッダファイ
+ルなど）に含める．
 
-�Ȃ��CTOPPERS�g���݃R���|�[�l���g�V�X�e�������������ƁC���̃t�@�C����
-���e�̓R���|�[�l���g�L�q�t�@�C���ɋL�q����邱�ƂɂȂ�C���̃t�@�C����
-�����Ȃ�i�܂��́C�啝�ɏk�������j�����݂ł���D
+なお，TOPPERS組込みコンポーネントシステムが導入されると，このファイルの
+内容はコンポーネント記述ファイルに記述されることになり，このファイルは
+無くなる（または，大幅に縮小される）見込みである．
 
-8.1 �V�X�e�����O�@�\�̃^�[�Q�b�g�ˑ���`
+8.1 システムログ機能のターゲット依存定義
 
-�V�X�e�����O�@�\���g�p����ꍇ�ŁC�X�^�[�g�A�b�v���W���[����bss�Z�N�V��
-���̃N���A���ȗ����Ă���ꍇ�ɂ́Csyslog_logmask��syslog_lowmask_not��
-0�ɏ���������R�[�h��ǉ�����D����́C�V�X�e�����O�@�\�������������O
-�ɏo�͂��ꂽ���O�����C�჌�x���o�͋@�\��p���ďo�͂��邽�߂ł���D
+システムログ機能を使用する場合で，スタートアップモジュールでbssセクショ
+ンのクリアを省略している場合には，syslog_logmaskとsyslog_lowmask_notを
+0に初期化するコードを追加する．これは，システムログ機能が初期化される前
+に出力されたログ情報を，低レベル出力機能を用いて出力するためである．
 
-�^�[�Q�b�g�ˑ����Œ񋟂��ׂ��V�X�e�����O�@�\�̂��߂̒�`�͎��̒ʂ�ł�
-��D
+ターゲット依存部で提供すべきシステムログ機能のための定義は次の通りであ
+る．
 
 (8-1-1) TCNT_SYSLOG_BUFFER
 
-�V�X�e�����O�@�\�̃��O�o�b�t�@�̃T�C�Y���`����}�N���D��`���Ȃ��ꍇ
-�̃f�t�H���g�l��32�D
+システムログ機能のログバッファのサイズを定義するマクロ．定義しない場合
+のデフォルト値は32．
 
 (8-1-2) void target_fput_log(char c)
 
-�V�X�e�����O�̒჌�x���o�͂̂��߂̕����o�͊֐��D�^�[�Q�b�g�ˑ��̕��@�ŁC
-����c��\��/�o��/�ۑ�����D
+システムログの低レベル出力のための文字出力関数．ターゲット依存の方法で，
+文字cを表示/出力/保存する．
 
-���̊֐��́C���G���g�����g�Ɏ������Ȃ���΂Ȃ�Ȃ��D���̊֐����Ŕr����
-�䂪�K�v�ȏꍇ�ɂ́CSIL��p���đS�����݃��b�N��Ԃɂ��邱�ƁD�܂��C�S��
-���݃��b�N��ԂŌĂ΂��ꍇ�����邽�߁C�S�����݃��b�N��Ԃ���Ăяo��
-���Ƃ��ł��Ȃ��֐����Ă΂Ȃ��悤�Ɏ������Ȃ���΂Ȃ�Ȃ��D
+この関数は，リエントラントに実装しなければならない．この関数内で排他制
+御が必要な場合には，SILを用いて全割込みロック状態にすること．また，全割
+込みロック状態で呼ばれる場合があるため，全割込みロック状態から呼び出す
+ことができない関数を呼ばないように実装しなければならない．
 
-�჌�x���o�͂��V���A���|�[�g�o�R�ōs���ꍇ�ŁC�V���A���C���^�t�F�[�X�h
-���C�o�ƃ|�[�g�����p���Ȃ����Ƃ��]�܂������C�|�[�g��������Ȃ����߂ɂ�
-�ނ��������p����ꍇ�ɂ́C���҂��������Ȃ��悤�ɒ��ӂ��K�v�ł���D���
-�I�ɂ́C���҂������ݒ�ŃV���A��I/O�f�o�C�X���g���悤�ɂ��C�V���A���C��
-�^�t�F�[�X�h���C�o�̓��쒆�ɒ჌�x���o�͂��s���Ă������x���Ȃ��悤��
-�݌v����D�܂��C�჌�x���o�͂�����J�n��ɃV���A���C���^�t�F�[�X�h���C
-�o���V���A��I/O�f�o�C�X������������ƁC�����������N����\�������邽�߁C
-���p����|�[�g�́C�჌�x���o�͋@�\���ŏ��������C�V���A���C���^�t�F�[�X
-�h���C�o�ł͏��������Ȃ��悤�ɂ���Ƃ悢�D
+低レベル出力をシリアルポート経由で行う場合で，シリアルインタフェースド
+ライバとポートを共用しないことが望ましいが，ポート数が足りないためにや
+むをえず共用する場合には，両者が競合しないように注意が必要である．具体
+的には，両者が同じ設定でシリアルI/Oデバイスを使うようにし，シリアルイン
+タフェースドライバの動作中に低レベル出力が行われても差し支えないように
+設計する．また，低レベル出力が動作開始後にシリアルインタフェースドライ
+バがシリアルI/Oデバイスを初期化すると，文字化けが起こる可能性があるため，
+共用するポートは，低レベル出力機能側で初期化し，シリアルインタフェース
+ドライバでは初期化しないようにするとよい．
 
-�Ȃ��C���̊֐��̖{�̂��C�ǂ̃t�@�C���ɋL�q���邩�����ɂȂ�D�V�X�e��
-�T�[�r�X�̃^�[�Q�b�g�ˑ����ɂ́C�W���ł́C�֐���`���L�q���邽�߂̃t�@
-�C����p�ӂ��Ă��Ȃ��D�^�[�Q�b�g�ˑ��ŗp�ӂ��Ă��悢���C��O�I�ɁC�J�[
-�l�������̃^�[�Q�b�g�ˑ����W���[���itarget_config.c�j�ɋL�q���Ă��悢�D
-���̏ꍇ�Ctarget_fput_log���C���l�[���L�q�itarget_rename.def�Ȃǁj�Ɋ�
-�߂Ă͂Ȃ�Ȃ��D
+なお，この関数の本体を，どのファイルに記述するかが問題になる．システム
+サービスのターゲット依存部には，標準では，関数定義を記述するためのファ
+イルを用意していない．ターゲット依存で用意してもよいが，例外的に，カー
+ネル実装のターゲット依存モジュール（target_config.c）に記述してもよい．
+この場合，target_fput_logを，リネーム記述（target_rename.defなど）に含
+めてはならない．
 
-8.2 ���O�^�X�N�̃^�[�Q�b�g�ˑ���`
+8.2 ログタスクのターゲット依存定義
 
-�^�[�Q�b�g�ˑ����Œ񋟂��ׂ����O�^�X�N�̂��߂̒�`�͎��̒ʂ�ł���D��
-���̒�`�́Ctarget_syssvc.h�܂��͂�������C���N���[�h�����t�@�C����
-�܂߂�D
+ターゲット依存部で提供すべきログタスクのための定義は次の通りである．こ
+れらの定義は，target_syssvc.hまたはそこからインクルードされるファイルに
+含める．
 
-(8-2-1) LOGTASK_PRIORITY�i�I�v�V�����j
+(8-2-1) LOGTASK_PRIORITY（オプション）
 
-���O�^�X�N�̗D��x���`����}�N���D��`���Ȃ��ꍇ�̃f�t�H���g�l��3�D
+ログタスクの優先度を定義するマクロ．定義しない場合のデフォルト値は3．
 
-(8-2-2) LOGTASK_STACK_SIZE�i�I�v�V�����j
+(8-2-2) LOGTASK_STACK_SIZE（オプション）
 
-���O�^�X�N�̃X�^�b�N�T�C�Y���`����}�N���D��`���Ȃ��ꍇ�̃f�t�H���g
-�l��1024�D
+ログタスクのスタックサイズを定義するマクロ．定義しない場合のデフォルト
+値は1024．
 
-(8-2-3) LOGTASK_PORTID�i�I�v�V�����j
+(8-2-3) LOGTASK_PORTID（オプション）
 
-���O�^�X�N�̏o�͐�̃V���A���|�[�g�ԍ��D��`���Ȃ��ꍇ�̃f�t�H���g�l��1�D
+ログタスクの出力先のシリアルポート番号．定義しない場合のデフォルト値は1．
 
-(8-2-4) LOGTASK_INTERVAL�i�I�v�V�����j
+(8-2-4) LOGTASK_INTERVAL（オプション）
 
-���O�^�X�N�̓���Ԋu�i�P�ʂ̓~���b�j�D��`���Ȃ��ꍇ�̃f�t�H���g�l��10�D
+ログタスクの動作間隔（単位はミリ秒）．定義しない場合のデフォルト値は10．
 
-(8-2-5) LOGTASK_FLUSH_WAIT�i�I�v�V�����j
+(8-2-5) LOGTASK_FLUSH_WAIT（オプション）
 
-���O�o�͂�҂����킹�鏈���ɂ����āC�^�X�N��҂�����P�ʂƂȂ鎞�ԁi�P
-�ʂ̓~���b�j�D��`���Ȃ��ꍇ�̃f�t�H���g�l��1�D
+ログ出力を待ち合わせる処理において，タスクを待たせる単位となる時間（単
+位はミリ秒）．定義しない場合のデフォルト値は1．
 
-8.3 �V���A���C���^�t�F�[�X�h���C�o�̃^�[�Q�b�g�ˑ���
+8.3 シリアルインタフェースドライバのターゲット依存部
 
-�^�[�Q�b�g�ˑ����Œ񋟂��ׂ��V���A���C���^�t�F�[�X�h���C�o�̂��߂̒�`
-�͎��̒ʂ�ł���D�����̒�`�́C�ʂɎw�肪�Ȃ�����Ctarget_serial.h��
-���͂�������C���N���[�h�����t�@�C���Ɋ܂߁C�K�v�ȃR���t�B�M�����[�V��
-������target_serial.cfg�ɋL�q����D�֐��̎��̂��K�v�ȏꍇ�ɂ́C
-target_serial.c���̃t�@�C����p�ӂ���D
+ターゲット依存部で提供すべきシリアルインタフェースドライバのための定義
+は次の通りである．これらの定義は，別に指定がない限り，target_serial.hま
+たはそこからインクルードされるファイルに含め，必要なコンフィギュレーショ
+ン情報をtarget_serial.cfgに記述する．関数の実体が必要な場合には，
+target_serial.c等のファイルを用意する．
 
-�V���A���C���^�t�F�[�X�h���C�o�̒��ŁC�^�[�Q�b�g�̃V���A��I/O�f�o�C�X��
-�ˑ����镔�����C�V���A��I/O�f�o�C�X�h���C�o�ƌĂԁD�V���A��I/O�f�o�C�X
-�h���C�o�́C�����悻�CITRON�f�o�C�X�h���C�o�݌v�K�C�h���C����PDIC�ɑ���
-����DPDIC�ɑ�������t�@�C���ŁC���̃V�X�e���ɂ����ʂɎg����\������
-��ꍇ�ɂ́Cpdic�f�B���N�g���ɒu���D
+シリアルインタフェースドライバの中で，ターゲットのシリアルI/Oデバイスに
+依存する部分を，シリアルI/Oデバイスドライバと呼ぶ．シリアルI/Oデバイス
+ドライバは，おおよそ，ITRONデバイスドライバ設計ガイドラインのPDICに相当
+する．PDICに相当するファイルで，他のシステムにも共通に使える可能性があ
+る場合には，pdicディレクトリに置く．
 
-8.3.1 �ϐ��C�f�[�^�^�C�Ǘ��֐�
+8.3.1 変数，データ型，管理関数
 
 (8-3-1-1) TNUM_PORT
 
-�V���A���C���^�t�F�[�X�h���C�o���T�|�[�g����V���A���|�[�g�����`����
-�}�N���D���̃}�N���̒�`�́Ctarget_syssvc.h�܂��͂�������C���N���[�h��
-���t�@�C���Ɋ܂߂�D
+シリアルインタフェースドライバがサポートするシリアルポート数を定義する
+マクロ．このマクロの定義は，target_syssvc.hまたはそこからインクルードさ
+れるファイルに含める．
 
-(8-3-1-2) void sio_initialize(intptr_t exinf)�i�I�v�V�����j
+(8-3-1-2) void sio_initialize(intptr_t exinf)（オプション）
 
-�V���A��I/O�f�o�C�X�h���C�o�̏����������Dtarget_serial.cfg�ɁC���̊֐�
-�����������[�`���Ƃ��ēo�^����ÓIAPI���܂߂�D
+シリアルI/Oデバイスドライバの初期化処理．target_serial.cfgに，この関数
+を初期化ルーチンとして登録する静的APIを含める．
 
-(8-3-1-3) void sio_terminate(intptr_t exinf)�i�I�v�V�����j
+(8-3-1-3) void sio_terminate(intptr_t exinf)（オプション）
 
-�V���A��I/O�f�o�C�X�h���C�o�̏I�������Dtarget_serial.cfg�ɁC���̊֐���
-�I���������[�`���Ƃ��ēo�^����ÓIAPI���܂߂�D
+シリアルI/Oデバイスドライバの終了処理．target_serial.cfgに，この関数を
+終了処理ルーチンとして登録する静的APIを含める．
 
 (8-3-1-4) void sio_isr(intptr_t exinf)
 
-�V���A��I/O�f�o�C�X�̊����݃T�[�r�X���[�`���Dtarget_serial.cfg�ɁC����
-�֐��������݃T�[�r�X���[�`���Ƃ��ēo�^����ÓIAPI���܂߂�D�܂��C���̐�
-�IAPI�ɕK�v�ȃV���A��I/O�f�o�C�X�̊����ݔԍ��Ȃǂ́Ctarget_serial.h�Ń}
-�N����`����D�����݃T�[�r�X���[�`���ł͂Ȃ��C�����݃n���h���Ƃ��邱��
-���ł���D
+シリアルI/Oデバイスの割込みサービスルーチン．target_serial.cfgに，この
+関数を割込みサービスルーチンとして登録する静的APIを含める．また，その静
+的APIに必要なシリアルI/Oデバイスの割込み番号などは，target_serial.hでマ
+クロ定義する．割込みサービスルーチンではなく，割込みハンドラとすること
+もできる．
 
 (8-3-1-5) SIOPCB
 
-�V���A��I/O�|�[�g�Ǘ��u���b�N�̃f�[�^�^�itarget_serial.h�ɂ́C�f�[�^�^
-�̐錾�����܂܂�Ă���΂悢�j�D
+シリアルI/Oポート管理ブロックのデータ型（target_serial.hには，データ型
+の宣言だけ含まれていればよい）．
 
-(8-3-1-6) SIO_RDY_SND��SIO_RDY_RCV
+(8-3-1-6) SIO_RDY_SNDとSIO_RDY_RCV
 
-���M�\�R�[���o�b�N�̎��ʔԍ���SIO_RDY_SND�ɁC��M�ʒm�R�[���o�b�N�̎�
-�ʔԍ���SIO_RDY_RCV�Ƀ}�N����`����D�R�[���o�b�N�̋֎~�^�����s�Ȃ��T�[
-�r�X�R�[���isio_ena_cbr��sio_dis_cbr�j�ŗp����D
+送信可能コールバックの識別番号をSIO_RDY_SNDに，受信通知コールバックの識
+別番号をSIO_RDY_RCVにマクロ定義する．コールバックの禁止／許可を行なうサー
+ビスコール（sio_ena_cbrとsio_dis_cbr）で用いる．
 
-8.3.2 �f�o�C�X�T�[�r�X���[�`��
+8.3.2 デバイスサービスルーチン
 
-�ȉ��̃f�o�C�X�T�[�r�����[�`���́C�i���Ȃ��Ƃ��j�V���A��I/O�|�[�g�����
-�����݂��}�X�N���ꂽ��ԂŌĂяo�����D�܂��C�^�X�N�R���e�L�X�g�C��^
-�X�N�R���e�L�X�g�̂�����ŌĂяo�����ꍇ������i������ŌĂяo�����
-�����삷��悤�ɂ��Ȃ���΂Ȃ�Ȃ��j�D
+以下のデバイスサービルルーチンは，（少なくとも）シリアルI/Oポートからの
+割込みがマスクされた状態で呼び出される．また，タスクコンテキスト，非タ
+スクコンテキストのいずれで呼び出される場合もある（いずれで呼び出されて
+も動作するようにしなければならない）．
 
 (8-3-2-1) SIOPCB *sio_opn_por(ID siopid, intptr_t exinf)
 
-siopid�Ŏw�肳���V���A��I/O�|�[�g���I�[�v������֐��Dexinf�̓V���A��
-I/O�|�[�g�ɑ΂���g�����ŁC�R�[���o�b�N���ĂԎ��Ƀ|�[�g����ʂ��邽
-�߂ɓn���D
+siopidで指定されるシリアルI/Oポートをオープンする関数．exinfはシリアル
+I/Oポートに対する拡張情報で，コールバックを呼ぶ時にポートを区別するた
+めに渡す．
 
 (8-3-2-2) void sio_cls_por(SIOPCB *siopcb)
 
-siopcb�Ŏw�肳���V���A��I/O�|�[�g���N���[�Y����֐��D
+siopcbで指定されるシリアルI/Oポートをクローズする関数．
 
 (8-3-2-3) bool_t sio_snd_chr(SIOPCB *siopcb, char c)
 
-siopcb�Ŏw�肳���V���A��I/O�|�[�g�ɁCc�Ŏ�����镶���𑗐M����֐��D
-�����𑗐M���W�X�^�ɓ��ꂽ�ꍇ�ɂ�true���C�O�ɑ��M���������̑��M���I���
-�Ă��Ȃ����߂ɁC�����𑗐M���W�X�^�ɓ�����Ȃ������ꍇ�ɂ�false��Ԃ��D
+siopcbで指定されるシリアルI/Oポートに，cで示される文字を送信する関数．
+文字を送信レジスタに入れた場合にはtrueを，前に送信した文字の送信が終わっ
+ていないために，文字を送信レジスタに入れられなかった場合にはfalseを返す．
 
 (8-3-2-4) int_t sio_rcv_chr(SIOPCB *siopcb)
 
-siopcb�Ŏw�肳���V���A��I/O�|�[�g���當����ǂފ֐��D��������M���Ă�
-���ꍇ�C�ǂ񂾕����̃R�[�h�͐��̒l�Ƃ��ĕԂ��C��������M���Ă��Ȃ��ꍇ
-�ɂ�-1��Ԃ��D
+siopcbで指定されるシリアルI/Oポートから文字を読む関数．文字を受信してい
+た場合，読んだ文字のコードは正の値として返し，文字を受信していない場合
+には-1を返す．
 
 (8-3-2-5) void sio_ena_cbr(SIOPCB *siopcb, uint_t cbrtn)
 
-siopcb�Ŏw�肳���V���A��I/O�|�[�g����́Ccbrtn�Ŏw�肳���R�[���o�b
-�N��������Dcbrtn�ɂ́CSIO_RDY_SND��SIO_RDY_RCV���w��ł���D
+siopcbで指定されるシリアルI/Oポートからの，cbrtnで指定されるコールバッ
+クを許可する．cbrtnには，SIO_RDY_SNDかSIO_RDY_RCVを指定できる．
 
 (8-3-2-6) void sio_dis_cbr(SIOPCB *siopcb, uint_t cbrtn)
 
-siopcb�Ŏw�肳���V���A��I/O�|�[�g����́Ccbrtn�Ŏw�肳���R�[���o�b
-�N���֎~����Dcbrtn�ɂ́CSIO_RDY_SND��SIO_RDY_RCV���w��ł���D
+siopcbで指定されるシリアルI/Oポートからの，cbrtnで指定されるコールバッ
+クを禁止する．cbrtnには，SIO_RDY_SNDかSIO_RDY_RCVを指定できる．
 
-8.3.3 �R�[���o�b�N���[�`��
+8.3.3 コールバックルーチン
 
-�^�[�Q�b�g�ˑ����́C�K�v�ȃ^�C�~���O�ŁC�V���A���C���^�t�F�[�X�h���C�o
-�̃^�[�Q�b�g��ˑ����Ɋ܂܂��ȉ��̃R�[���o�b�N���[�`�����Ăяo�т���
-�Ȃ���΂Ȃ�Ȃ��D�������C���ꂼ��̃R�[���o�b�N���֎~����Ă��鎞�́C
-�R�[���o�b�N���[�`�����Ăяo���Ă͂Ȃ�Ȃ��D
+ターゲット依存部は，必要なタイミングで，シリアルインタフェースドライバ
+のターゲット非依存部に含まれる以下のコールバックルーチンを呼び出びださ
+なければならない．ただし，それぞれのコールバックが禁止されている時は，
+コールバックルーチンを呼び出してはならない．
 
-�R�[���o�b�N���[�`���́C�i���Ȃ��Ƃ��j�V���A��I/O�|�[�g����̊����݂���
-�~���ꂽ��ԂŁC��^�X�N�R���e�L�X�g�ŌĂяo���Dexinf�ɂ́C�V���A��I/O
-�|�[�g�̃I�[�v�����Ɏw�肳�ꂽ�g������n���D
+コールバックルーチンは，（少なくとも）シリアルI/Oポートからの割込みが禁
+止された状態で，非タスクコンテキストで呼び出す．exinfには，シリアルI/O
+ポートのオープン時に指定された拡張情報を渡す．
 
 (8-3-3-1) void sio_irdy_snd(intptr_t exinf)
 
-���M�\�R�[���o�b�N���[�`���D�V���A��I/O�|�[�g�ɑ΂��ĕ��������M�ł���
-��ԂɂȂ����ꍇ�ɌĂяo���D�V���A���C���^�t�F�[�X�h���C�o�́C���̃R�[
-���o�b�N���[�`���̒��ŁCsio_snd_chr���Ăяo���Ď��̕����𑗐M���邩�C��
-�M���ׂ��������Ȃ��ꍇ�ɂ͑��M�\�R�[���o�b�N���֎~����D
+送信可能コールバックルーチン．シリアルI/Oポートに対して文字が送信できる
+状態になった場合に呼び出す．シリアルインタフェースドライバは，このコー
+ルバックルーチンの中で，sio_snd_chrを呼び出して次の文字を送信するか，送
+信すべき文字がない場合には送信可能コールバックを禁止する．
 
 (8-3-3-2) void sio_irdy_rcv(intptr_t exinf)
 
-��M�ʒm�R�[���o�b�N���[�`���D�V���A��I/O�|�[�g���當������M�����ꍇ��
-�Ăяo���D�V���A���C���^�t�F�[�X�h���C�o�́C���̃R�[���o�b�N���[�`����
-���ŁC�K��sio_rcv_chr���Ăяo���Ď�M�������������o���D
+受信通知コールバックルーチン．シリアルI/Oポートから文字を受信した場合に
+呼び出す．シリアルインタフェースドライバは，このコールバックルーチンの
+中で，必ずsio_rcv_chrを呼び出して受信した文字を取り出す．
 
-8.4 �J�[�l���N�����b�Z�[�W�̏o�͂̃^�[�Q�b�g�ˑ���`
+8.4 カーネル起動メッセージの出力のターゲット依存定義
 
-�^�[�Q�b�g�ˑ����Œ񋟂��ׂ��J�[�l���N�����b�Z�[�W�̏o�͂̂��߂̒�`��
-���̒ʂ�ł���D
+ターゲット依存部で提供すべきカーネル起動メッセージの出力のための定義は
+次の通りである．
 
 (8-4-1) TARGET_NAME
 
-�^�[�Q�b�g�̖��̂ɒ�`����D
+ターゲットの名称に定義する．
 
-(8-4-2) TARGET_COPYRIGHT�i�I�v�V�����j
+(8-4-2) TARGET_COPYRIGHT（オプション）
 
-�J�[�l���N�����b�Z�[�W�ɁC�^�[�Q�b�g�ˑ����̒��쌠�\����ǉ����邽�߂�
-�}�N���D�f�t�H���g�ł́C�^�[�Q�b�g�ˑ����̒��쌠�\����ǉ����Ȃ��D
+カーネル起動メッセージに，ターゲット依存部の著作権表示を追加するための
+マクロ．デフォルトでは，ターゲット依存部の著作権表示を追加しない．
 
-8.5 �T���v���v���O�����ƃe�X�g�v���O�����̃^�[�Q�b�g�ˑ���`
+8.5 サンプルプログラムとテストプログラムのターゲット依存定義
 
-�^�[�Q�b�g�ˑ����Œ񋟂��ׂ��T���v���v���O��������уe�X�g�v���O������
-���߂̒�`�͎��̒ʂ�ł���D�����̒�`�́Ctarget_test.h�i�܂��͂����
-����C���N���[�h�����t�@�C���j�Ɋ܂߂�D
+ターゲット依存部で提供すべきサンプルプログラムおよびテストプログラムの
+ための定義は次の通りである．これらの定義は，target_test.h（またはそれら
+からインクルードされるファイル）に含める．
 
-(8-5-1) STACK_SIZE�i�I�v�V�����j
+(8-5-1) STACK_SIZE（オプション）
 
-�T���v���v���O��������уe�X�g�v���O�����̃^�X�N�̃X�^�b�N�T�C�Y���`
-����}�N���D��`���Ȃ��ꍇ�̃f�t�H���g�l��4096�D�f�t�H���g�ݒ�ł̓���
-�����s������ꍇ��C�V�~�����[�V�������Ȃǂő傫���X�^�b�N�̈悪�K�v
-�ȏꍇ�ɂ́C�^�[�Q�b�g�ˑ����ł��̃}�N����ݒ肷��X�^�b�N�T�C�Y�ɒ�`
-����D
+サンプルプログラムおよびテストプログラムのタスクのスタックサイズを定義
+するマクロ．定義しない場合のデフォルト値は4096．デフォルト設定ではメモ
+リが不足する場合や，シミュレーション環境などで大きいスタック領域が必要
+な場合には，ターゲット依存部でこのマクロを設定するスタックサイズに定義
+する．
 
-(8-5-2) CPUEXC1�i�I�v�V�����j
+(8-5-2) CPUEXC1（オプション）
 
-�T���v���v���O��������уe�X�g�v���O�����ŗp����CPU��O��CPU��O�n���h
-���ԍ����`����}�N���D���̃}�N�����`���Ȃ��ꍇ�CCPU��O�n���h�����g
-���������T���v���v���O�������珜�O�����DCPU��O�n���h���̃e�X�g������
-�e�X�g�v���O�����̓R���p�C���ł��Ȃ��D
+サンプルプログラムおよびテストプログラムで用いるCPU例外のCPU例外ハンド
+ラ番号を定義するマクロ．このマクロを定義しない場合，CPU例外ハンドラを使
+う部分がサンプルプログラムから除外される．CPU例外ハンドラのテストをする
+テストプログラムはコンパイルできない．
 
-(8-5-3) RAISE_CPU_EXCEPTION�i�I�v�V�����j
+(8-5-3) RAISE_CPU_EXCEPTION（オプション）
 
-CPUEXC1�ɒ�`����CPU��O�𔭐�������C����̃v���O�������`����}�N���D
-CPUEXC1���`�����ꍇ�ɂ͕K����`���Ȃ���΂Ȃ�Ȃ��D
+CPUEXC1に定義したCPU例外を発生させるC言語のプログラムを定義するマクロ．
+CPUEXC1を定義した場合には必ず定義しなければならない．
 
-(8-5-4) CANNOT_RETURN_CPUEXC�i�I�v�V�����j
+(8-5-4) CANNOT_RETURN_CPUEXC（オプション）
 
-�^�[�Q�b�g�V�X�e���̐���ɂ��CCPU��O�n���h�����烊�^�[��������ɁC�^
-�X�N�̎��s���p���ł��Ȃ��ꍇ�ɒ�`����}�N���D���̃}�N�����`����ƁC
-CPU��O�n���h���̃e�X�g������e�X�g�v���O��������CCPU��O�n���h������
-���^�[��������̏��������O�����D�T���v���v���O�����̊Y�������͐�����
-���삵�Ȃ��D
+ターゲットシステムの制約により，CPU例外ハンドラからリターンした後に，タ
+スクの実行を継続できない場合に定義するマクロ．このマクロを定義すると，
+CPU例外ハンドラのテストをするテストプログラムから，CPU例外ハンドラから
+リターンした後の処理が除外される．サンプルプログラムの該当部分は正しく
+動作しない．
 
-(8-5-5) TASK_PORTID�i�I�v�V�����j
+(8-5-5) TASK_PORTID（オプション）
 
-�T���v���v���O�����ɂ����āC�R�}���h������ǂݍ��ރV���A���|�[�g�ԍ���
-��`����}�N���D��`���Ȃ��ꍇ�̃f�t�H���g�l��1�D
+サンプルプログラムにおいて，コマンド文字を読み込むシリアルポート番号を
+定義するマクロ．定義しない場合のデフォルト値は1．
 
-(8-5-6) LOOP_REF�i�I�v�V�����j
+(8-5-6) LOOP_REF（オプション）
 
-�T���v���v���O�����ɂ����āC�v���Z�b�T�̑��x���v�����邽�߂̃��[�v��
-���`����}�N���D��`���Ȃ��ꍇ�̃f�t�H���g�l��1000000�D�f�t�H���g�ݒ�
-�ł́C�l���傫�߂��Čv���Ɏ��Ԃ������肷����ꍇ��C�l�������߂��Čv��
-���ʂ����肵�Ȃ��ꍇ�ɁC�^�[�Q�b�g�ˑ����ł��̃}�N����ݒ肷�郋�[�v��
-���ɒ�`����D
+サンプルプログラムにおいて，プロセッサの速度を計測するためのループ回数
+を定義するマクロ．定義しない場合のデフォルト値は1000000．デフォルト設定
+では，値が大き過ぎて計測に時間がかかりすぎる場合や，値が小さ過ぎて計測
+結果が安定しない場合に，ターゲット依存部でこのマクロを設定するループ回
+数に定義する．
 
-(8-5-7) MEASURE_TWICE�i�I�v�V�����j
+(8-5-7) MEASURE_TWICE（オプション）
 
-�T���v���v���O�����ɂ����āC�v���Z�b�T�̑��x��2�x�v������ꍇ�ɒ�`����
-�}�N���D�V�~�����[�V�������Ȃǃv���Z�b�T�̑��x���ϓ�������ŁC1�x��
-�v���ł͌v�����ʂ����肵�Ȃ��ꍇ�ɒ�`����D
+サンプルプログラムにおいて，プロセッサの速度を2度計測する場合に定義する
+マクロ．シミュレーション環境などプロセッサの速度が変動する環境で，1度の
+計測では計測結果が安定しない場合に定義する．
 
-(8-5-8) TASK_LOOP�i�I�v�V�����j
+(8-5-8) TASK_LOOP（オプション）
 
-�T���v���v���O�����ɂ����āC�v���Z�b�T�̑��x���v�������ɁC�^�X�N���ł�
-���[�v�񐔂��Œ肷��ꍇ�ɁC���[�v�񐔂��`����}�N���D���[�v�S�̂̎�
-�s���Ԃ�0.4�b���x�ɂȂ�悤�ȃ��[�v�񐔂��C���̃}�N���ɒ�`����D
+サンプルプログラムにおいて，プロセッサの速度を計測せずに，タスク内での
+ループ回数を固定する場合に，ループ回数を定義するマクロ．ループ全体の実
+行時間が0.4秒程度になるようなループ回数を，このマクロに定義する．
 
-8.6 ���s���ԕ��z�W�v���W���[���̃^�[�Q�b�g�ˑ���`
+8.6 実行時間分布集計モジュールのターゲット依存定義
 
-���s���ԕ��z�W�v���W���[���̐ݒ���^�[�Q�b�g�ˑ����ŕύX����ꍇ�ɁC�^�[
-�Q�b�g�ˑ����Œ񋟂��ׂ����s���ԕ��z�W�v���W���[���̂��߂̒�`�͎��̒�
-��ł���D�����̒�`�́Ctarget_test.h�i�܂��͂�������C���N���[�h����
-��t�@�C���j�Ɋ܂߂�D���̑��ɁC�^�[�Q�b�g�ˑ��ŕK�v�ȏ���������������
-�ꍇ�ɂ��C�^�[�Q�b�g�ˑ����Ɋ܂߂�D
+実行時間分布集計モジュールの設定をターゲット依存部で変更する場合に，ター
+ゲット依存部で提供すべき実行時間分布集計モジュールのための定義は次の通
+りである．これらの定義は，target_test.h（またはそこからインクルードされ
+るファイル）に含める．この他に，ターゲット依存で必要な初期化処理がある
+場合にも，ターゲット依存部に含める．
 
-(8-6-1) HISTTIM�i�I�v�V�����j
+(8-6-1) HISTTIM（オプション）
 
-���s���Ԍv���p�̎����̃f�[�^�^���`����}�N���D��`���Ȃ��ꍇ�̃f�t�H
-���g��SYSUTM�D
+実行時間計測用の時刻のデータ型を定義するマクロ．定義しない場合のデフォ
+ルトはSYSUTM．
 
-(8-6-2) void HIST_GET_TIM(HISTTIM *p_time)�i�I�v�V�����j
+(8-6-2) void HIST_GET_TIM(HISTTIM *p_time)（オプション）
 
-���s���Ԍv���p�̌��ݎ�����*p_time�Ɏ擾���鏈���ɒ�`����}�N���D��`��
-�Ȃ��ꍇ�̃f�t�H���g��get_utm�D
+実行時間計測用の現在時刻を*p_timeに取得する処理に定義するマクロ．定義し
+ない場合のデフォルトはget_utm．
 
-(8-6-3) uint_t HIST_CONV_TIM(HISTTIM time)�i�I�v�V�����j
+(8-6-3) uint_t HIST_CONV_TIM(HISTTIM time)（オプション）
 
-���s���Ԍv���p�̎����̍��i���ԁj���C���s���ԕ��z�W�v�p�̒l�ɕϊ����鏈
-���ɒ�`����}�N���D�������ߋ��ɖ߂������I�[�o�t���[�������̋�ʂ���
-�Ȃ��ꍇ�ɂ́C�ŏ�ʃr�b�g��1�̒l�iINT_MAX�����傫���l�j��Ԃ��D��`
-���Ȃ��ꍇ�̃f�t�H���g�́Ctime��uint_t�ɃL���X�g���鏈���D
+実行時間計測用の時刻の差（時間）を，実行時間分布集計用の値に変換する処
+理に定義するマクロ．時刻が過去に戻ったかオーバフローしたかの区別がつか
+ない場合には，最上位ビットが1の値（INT_MAXよりも大きい値）を返す．定義
+しない場合のデフォルトは，timeをuint_tにキャストする処理．
 
-(8-6-4) void HIST_BM_HOOK(void)�i�I�v�V�����j
+(8-6-4) void HIST_BM_HOOK(void)（オプション）
 
-���s���Ԍv�����O�ɍs���ׂ������ɒ�`����}�N���D�L���b�V���̃p�[�W��t�B
-���C�������o���A���������s�������ꍇ�ɂ́C���̃}�N���ɒ�`����D��`��
-�Ȃ��ꍇ�̃f�t�H���g�́C��̏����ɂȂ�D
+実行時間計測直前に行うべき処理に定義するマクロ．キャッシュのパージやフィ
+ル，メモリバリア処理等を行いたい場合には，このマクロに定義する．定義し
+ない場合のデフォルトは，空の処理になる．
 
 
-�X�D���̑�
+９．その他
 
-9.1 �h�L�������g
+9.1 ドキュメント
 
-�^�[�Q�b�g�ˑ����̃��[�U�[�Y�}�j���A�����Ctarget_user.txt�ɗp�ӂ���D�v
-���Z�b�T�E�`�b�v�E�J�����ˑ����̃��[�U�[�Y�}�j���A����؂蕪���Ă���
-�����C�t�@�C�����傫���Ȃ�ꍇ�ɂ͕����̃t�@�C���ɕ������Ă悢���C����
-�ꍇ�ɂ́Ctarget_user.txt���ɂ����̃t�@�C�������L�q���邱�ƁD
+ターゲット依存部のユーザーズマニュアルを，target_user.txtに用意する．プ
+ロセッサ・チップ・開発環境依存部のユーザーズマニュアルを切り分けてもよ
+いし，ファイルが大きくなる場合には複数のファイルに分割してよいが，その
+場合には，target_user.txt中にそれらのファイル名を記述すること．
 
-�^�[�Q�b�g�ˑ����̃��[�U�[�Y�}�j���A���ɂ́C���Ȃ��Ƃ����̂悤�ȓ��e��
-�L�q���邱�Ƃ��]�܂����D
+ターゲット依存部のユーザーズマニュアルには，少なくとも次のような内容を
+記述することが望ましい．
 
-(1) �Ή����Ă���^�[�Q�b�g�V�X�e���̎�ށE�\���C�o�[�W�����ԍ�
-	�E�^�[�Q�b�g�n�[�h�E�F�A�i�{�[�h���j�̖��̂ƑΉ����Ă���\��
-	�E�^�[�Q�b�g����
-	�E�^�[�Q�b�g��ˑ����̃o�[�W�����ԍ�
-	�E�v���Z�b�T�C�`�b�v�C�J�����ˑ����̍\���ƃo�[�W�����ԍ�
-	�E�g�p����PDIC�ƃo�[�W�����ԍ�
+(1) 対応しているターゲットシステムの種類・構成，バージョン番号
+	・ターゲットハードウェア（ボード等）の名称と対応している構成
+	・ターゲット略称
+	・ターゲット非依存部のバージョン番号
+	・プロセッサ，チップ，開発環境依存部の構成とバージョン番号
+	・使用するPDICとバージョン番号
 
-(2) �g�p����J�����Ɠ��쌟�؂��������i�o�[�W�����C�I�v�V�������j
-	�E���ꏈ���n�i�R���p�C���C�A�Z���u���C�����J���j
-	�E�f�o�b�O��
+(2) 使用する開発環境と動作検証した条件（バージョン，オプション等）
+	・言語処理系（コンパイラ，アセンブラ，リンカ等）
+	・デバッグ環境
 
-(3) �^�[�Q�b�g��`�����̋K��
+(3) ターゲット定義事項の規定
 
-(3-1) �f�[�^�^�Ɋւ���K��
-	�Eint_t�^�Clong_t�^�̃T�C�Y
-	�Echar�^�Cint_least8_t�^�Cvoid *�^�Cintptr_t�^�̃T�C�Y
-	�Eint8_t�^�Cuint8_t�^�Cint64_t�^�Cuint64_t�^�Cint128_t�^�C
-	�@uint128_t�^�Cfloat32_t�^�Cdouble64_t�^�̃T�|�[�g�̗L��
+(3-1) データ型に関する規定
+	・int_t型，long_t型のサイズ
+	・char型，int_least8_t型，void *型，intptr_t型のサイズ
+	・int8_t型，uint8_t型，int64_t型，uint64_t型，int128_t型，
+	　uint128_t型，float32_t型，double64_t型のサポートの有無
 
-(3-2) �����ݏ����Ɋւ���K��
-	�E�����݃n���h���ԍ��Ɗ����ݔԍ��̊����āC���҂̑Ή�
-	�E�����ݗD��x�̒i�K���iTMIN_INTPRI�̒l�j
-	�Edis_int��ena_int�̃T�|�[�g�̗L���C���̐�������
-	�ECFG_INT�̐��������Ɗg���i�^�[�Q�b�g��`�Ŏg�p�ł��銄���ݑ����j
-	�ETOPPERS�W�������ݏ������f������̂��̑��̈�E
-	�E�f�t�H���g�̊����݃n���h���idefault_int_handler�j�̗L���Ə������e
+(3-2) 割込み処理に関する規定
+	・割込みハンドラ番号と割込み番号の割当て，両者の対応
+	・割込み優先度の段階数（TMIN_INTPRIの値）
+	・dis_intとena_intのサポートの有無，その制限事項
+	・CFG_INTの制限事項と拡張（ターゲット定義で使用できる割込み属性）
+	・TOPPERS標準割込み処理モデルからのその他の逸脱
+	・デフォルトの割込みハンドラ（default_int_handler）の有無と処理内容
 
-(3-3) �J�[�l���Ǘ��O�̊����݂Ɋւ���K��
-	�ETMIN_INTPRI�͌Œ肩�ݒ�ł��邩�C���̐ݒ���@
-	�ENMI�ȊO�ɃJ�[�l���Ǘ��O�̊����݂�݂��邩�i�݂�����悤�ɂ��邩�j
-	�E�J�[�l���Ǘ��O�̊����݂̐ݒ���@
-	�E�J�[�l���Ǘ��O�̊����݂ɑ΂���DEF_INH�CCFG_INT���T�|�[�g���邩
-	�E�J�[�l���Ǘ��O�̊����݃n���h�������s�J�n����鎞�̃V�X�e����Ԃ�
-	�@�R���e�L�X�g
-	�E�����݃n���h���̏I�����ɍs���鏈��
-	�E�J�[�l���Ǘ��O�̊����݃n���h���̋L�q���@
-	�E�J�[�l�����̊����ݏo���������ŋN����\���̂���CPU��O
+(3-3) カーネル管理外の割込みに関する規定
+	・TMIN_INTPRIは固定か設定できるか，その設定方法
+	・NMI以外にカーネル管理外の割込みを設けるか（設けられるようにするか）
+	・カーネル管理外の割込みの設定方法
+	・カーネル管理外の割込みに対してDEF_INH，CFG_INTをサポートするか
+	・カーネル管理外の割込みハンドラが実行開始される時のシステム状態と
+	　コンテキスト
+	・割込みハンドラの終了時に行われる処理
+	・カーネル管理外の割込みハンドラの記述方法
+	・カーネル内の割込み出入口処理で起こる可能性のあるCPU例外
 
-(3-4) CPU��O�����Ɋւ���K��
-	�ECPU��O�n���h���ԍ��̊�����
-	�E�����ݗD��x�}�X�N��TMIN_INTPRI�Ɠ�����������������l�ɐݒ肵��
-	�@�����ԂŔ�������CPU��O���C�J�[�l���Ǘ��O��CPU��O�ƈ�����
-	�E�J�[�l������CPU��O�o���������ŋN����\���̂���CPU��O
-	�E�f�t�H���g��CPU��O�n���h���idefault_exc_handler�j�̗L���Ə������e
+(3-4) CPU例外処理に関する規定
+	・CPU例外ハンドラ番号の割当て
+	・割込み優先度マスクをTMIN_INTPRIと同じかそれよりも高い値に設定して
+	　いる状態で発生したCPU例外を，カーネル管理外のCPU例外と扱うか
+	・カーネル内のCPU例外出入口処理で起こる可能性のあるCPU例外
+	・デフォルトのCPU例外ハンドラ（default_exc_handler）の有無と処理内容
 
-(3-5) ���\�]���p�V�X�e�������̎Q�ƂɊւ���K��
-	�Eget_utm�̃T�|�[�g�̗L���C���̐�������
+(3-5) 性能評価用システム時刻の参照に関する規定
+	・get_utmのサポートの有無，その制限事項
 
-(3-6) �g���p�b�P�[�W�Ɋւ���K��
-	�E�e�g���p�b�P�[�W�̃T�|�[�g�̗L��
-		- �~���[�e�b�N�X�@�\�g���p�b�P�[�W
-		- �I�[�o�����n���h���@�\�g���p�b�P�[�W
-		- �^�X�N�D��x�g���p�b�P�[�W
-		- ����^�X�N�g���p�b�P�[�W
-		- ���I�����@�\�g���p�b�P�[�W
-	�E�I�[�o�����n���h���@�\�g���p�b�P�[�W���T�|�[�g����ꍇ�ɁC�v���Z�b
-	�@�T���ԂɎw��ł���l�̍ő�l�iTMAX_OVRTIM�̒l�j
-	�E���I�����@�\�g���p�b�P�[�W���T�|�[�g����ꍇ�ɁC���I�������Ǘ���
-	�@���@
+(3-6) 拡張パッケージに関する規定
+	・各拡張パッケージのサポートの有無
+		- ミューテックス機能拡張パッケージ
+		- オーバランハンドラ機能拡張パッケージ
+		- タスク優先度拡張パッケージ
+		- 制約タスク拡張パッケージ
+		- 動的生成機能拡張パッケージ
+	・オーバランハンドラ機能拡張パッケージをサポートする場合に，プロセッ
+	　サ時間に指定できる値の最大値（TMAX_OVRTIMの値）
+	・動的生成機能拡張パッケージをサポートする場合に，動的メモリ管理の
+	　方法
 
-(3-7) ���̑�
-	�E���̑��̐�������
-	�E���̑��̊g���@�\
+(3-7) その他
+	・その他の制限事項
+	・その他の拡張機能
 
-(4) �J�[�l���̋N���^�I�������Ɋւ�����
-	�E�p�ӂ��Ă���X�^�[�g�A�b�v���W���[���̏������e
-	�E�X�^�[�g�A�b�v���W���[������hardware_init_hook���Ăяo���Ă����
-	�@���ɂ́Chardware_init_hook���A�v���P�[�V�����ŗp�ӂ���ꍇ�̍쐬
-	�@���@�␧�������Ȃ�
-	�E�J�[�l�����I��������̐U����
+(4) カーネルの起動／終了処理に関する情報
+	・用意しているスタートアップモジュールの処理内容
+	・スタートアップモジュールからhardware_init_hookを呼び出している場
+	　合には，hardware_init_hookをアプリケーションで用意する場合の作成
+	　方法や制限事項など
+	・カーネルを終了した後の振舞い
 
-(5) �������}�b�v
-	�E�f�t�H���g�̃������}�b�v�C���̕ύX���@
+(5) メモリマップ
+	・デフォルトのメモリマップ，その変更方法
 
-(6) �^�C�}�h���C�o�֘A�̏��
-	�E�^�C���e�B�b�N�̎����C���̕ύX���@
-	�E�g�p���郊�\�[�X�i�^�C�}�j
-	�E�^�C�}�����݂̊����ݗD��x�̕ύX���@
-	�E�I�[�o�����^�C�}�����݂̊����ݗD��x�̕ύX���@
+(6) タイマドライバ関連の情報
+	・タイムティックの周期，その変更方法
+	・使用するリソース（タイマ）
+	・タイマ割込みの割込み優先度の変更方法
+	・オーバランタイマ割込みの割込み優先度の変更方法
 
-(7) �V���A���C���^�t�F�[�X�h���C�o�̏��
-	�E�g�p���郊�\�[�X�iSIO�R���g���[���j
-	�E�ʐM�p�����[�^�i�{�[���[�g�C�r�b�g���C�p���e�B�̗L���C�X�g�b�v�r�b�g�j
+(7) シリアルインタフェースドライバの情報
+	・使用するリソース（SIOコントローラ）
+	・通信パラメータ（ボーレート，ビット数，パリティの有無，ストップビット）
 
-(8) �V�X�e�����O�@�\�̏��
-	�E�V�X�e�����O�̒჌�x���o�͂̎������@
-	�E�ʐM�p�����[�^�i�{�[���[�g�C�r�b�g���C�p���e�B�̗L���C�X�g�b�v�r�b�g�j
+(8) システムログ機能の情報
+	・システムログの低レベル出力の実現方法
+	・通信パラメータ（ボーレート，ビット数，パリティの有無，ストップビット）
 
-(9) �V�X�e���\�z�菇
+(9) システム構築手順
 
-(10) �^�[�Q�b�g�V�X�e���ŗL�̒��ӎ���
-	�E�^�X�N�R���e�L�X�g�Ɋ܂܂�郌�W�X�^�C�܂܂�Ȃ����W�X�^
+(10) ターゲットシステム固有の注意事項
+	・タスクコンテキストに含まれるレジスタ，含まれないレジスタ
 
-(11) �ގ��̃^�[�Q�b�g�Ƀ|�[�e�B���O����J���Ҍ����̎Q�l���
+(11) 類似のターゲットにポーティングする開発者向けの参考情報
 
-(12) �f�B���N�g���\���E�t�@�C���\��
+(12) ディレクトリ構成・ファイル構成
 
-(13) �o�[�W��������
+(13) バージョン履歴
 
-�܂��C�K�v�ɉ����āC�^�[�Q�b�g�ˑ����̐݌v�������Ctarget_design.txt�ɗp
-�ӂ���D�v���Z�b�T�E�`�b�v�E�J�����ˑ����Ɋւ���݌v������؂蕪����
-���悢���C�t�@�C�����傫���Ȃ�ꍇ�ɂ͕����̃t�@�C���ɕ������Ă��悢���C
-���̏ꍇ�ɂ́Ctarget_design.txt���ɂ����̃t�@�C�������L�q���邱�ƁD
+また，必要に応じて，ターゲット依存部の設計メモを，target_design.txtに用
+意する．プロセッサ・チップ・開発環境依存部に関する設計メモを切り分けて
+もよいし，ファイルが大きくなる場合には複数のファイルに分割してもよいが，
+その場合には，target_design.txt中にそれらのファイル名を記述すること．
 
-9.2 �p�b�P�[�W�L�q�t�@�C��
+9.2 パッケージ記述ファイル
 
-�����[�X�p�b�P�[�W�i�ʃp�b�P�[�W����ъȈՃp�b�P�[�W�j���쐬���邽��
-�ɁC�p�b�P�[�W�Ɋ܂߂�t�@�C�����L�q�����p�b�P�[�W�L�q�t�@�C����p�ӂ�
-��D�p�b�P�[�W�L�q�t�@�C���̖��̂́C�ʃp�b�P�[�W�p��MANIFEST�C�ȈՃp�b
-�P�[�W�p��E_PACKAGE�Ƃ���D
+リリースパッケージ（個別パッケージおよび簡易パッケージ）を作成するため
+に，パッケージに含めるファイルを記述したパッケージ記述ファイルを用意す
+る．パッケージ記述ファイルの名称は，個別パッケージ用をMANIFEST，簡易パッ
+ケージ用をE_PACKAGEとする．
 
-�Ⴆ�΁Carch/arm_gcc�f�B���N�g���ɒu���ꂽMANIFEST�t�@�C����p���Č�
-�p�b�P�[�W���쐬����ꍇ�ɂ́C���̃R�}���h�����s����D
+例えば，arch/arm_gccディレクトリに置かれたMANIFESTファイルを用いて個別
+パッケージを作成する場合には，次のコマンドを実行する．
 
 	% utils/makerelease arch/arm_gcc/MANIFEST
 
-���̃R�}���h�ɂ��CRELEASE/asp_arch_arm_gcc-<�o�[�W�����ԍ�>.tar.gz��
-�쐬�����D�܂��Ctarget/at91skyeye_gcc�f�B���N�g���ɒu���ꂽE_PACKAGE
-�t�@�C����p���ĊȈՃp�b�P�[�W���쐬����ꍇ�ɂ́C���̃R�}���h�����s��
-��D
+このコマンドにより，RELEASE/asp_arch_arm_gcc-<バージョン番号>.tar.gzが
+作成される．また，target/at91skyeye_gccディレクトリに置かれたE_PACKAGE
+ファイルを用いて簡易パッケージを作成する場合には，次のコマンドを実行す
+る．
 
 	% utils/makerelease target/at91skyeye_gcc/E_PACKAGE
 
-���̃R�}���h�ɂ��CRELEASE/asp_at91skyeye_gcc-<�o�[�W�����ԍ�>.tar.gz
-���쐬�����iRELEASE�f�B���N�g�����Ȃ��ꍇ�ɂ́C�f�B���N�g��������
-��j�D
+このコマンドにより，RELEASE/asp_at91skyeye_gcc-<バージョン番号>.tar.gz
+が作成される（RELEASEディレクトリがない場合には，ディレクトリが作られ
+る）．
 
-�Ȃ��Cmakerelease���[�e�B���e�B�́CASP�J�[�l���̃\�[�X�t�@�C�����u����
-���f�B���N�g�����Casp�Ƃ������̂ł��邱�Ƃ����肵�Ă���i�قȂ閼�̂̏�
-���ł��p�b�P�[�W�͍쐬�ł��邪�C�p�b�P�[�W��W�J�������ɓW�J�����f�B
-���N�g����asp�łȂ��Ȃ�j�D�܂��C�W����tar�R�}���h��GNU tar�ł��邱��
-�i���m�ɂ́Cz�I�v�V�����ɑΉ����Ă��邱�Ɓj��z�肵�Ă���D
+なお，makereleaseユーティリティは，ASPカーネルのソースファイルが置かれ
+たディレクトリが，aspという名称であることを仮定している（異なる名称の場
+合でもパッケージは作成できるが，パッケージを展開した時に展開されるディ
+レクトリがaspでなくなる）．また，標準のtarコマンドがGNU tarであること
+（正確には，zオプションに対応していること）を想定している．
 
-�p�b�P�[�W�L�q�t�@�C���ɂ́C�p�b�P�[�W�Ɋ܂߂�t�@�C�������C�p�b�P�[�W
-�L�q�t�@�C�����u���ꂽ�f�B���N�g������̑��΃p�X���ŁC1�s��1���L�q
-����D�܂��C�K�v�ɉ����āC�ȉ��̃f�B���N�e�B�u���܂߂�D
+パッケージ記述ファイルには，パッケージに含めるファイル名を，パッケージ
+記述ファイルが置かれたディレクトリからの相対パス名で，1行に1つずつ記述
+する．また，必要に応じて，以下のディレクティブを含める．
 
-(a) E_PACKAGE <�ȈՃp�b�P�[�W��>
+(a) E_PACKAGE <簡易パッケージ名>
 
-�ȈՃp�b�P�[�W�����w�肷��D�ȈՃp�b�P�[�W�L�q�t�@�C���iE_PACKAGE�j�̐�
-���ɋL�q����D�ȈՃp�b�P�[�W���́Casp_<�^�[�Q�b�g����>�Ƃ���D�Ⴆ�΁C
-�^�[�Q�b�g���̂�at91skyeye_gcc�̏ꍇ�ɂ́Casp_at91skyeye_gcc�ƂȂ�D��
-�ʃp�b�P�[�W�Ƌ�ʂ��邽�߂ɁC�ȈՃp�b�P�[�W�̃t�@�C�����ɂ�"target"��
-�܂߂Ȃ��D
+簡易パッケージ名を指定する．簡易パッケージ記述ファイル（E_PACKAGE）の先
+頭に記述する．簡易パッケージ名は，asp_<ターゲット略称>とする．例えば，
+ターゲット略称がat91skyeye_gccの場合には，asp_at91skyeye_gccとなる．個
+別パッケージと区別するために，簡易パッケージのファイル名には"target"を
+含めない．
 
-(b) PACKAGE <�ʃp�b�P�[�W��>
+(b) PACKAGE <個別パッケージ名>
 
-�ʃp�b�P�[�W�����w�肷��D�ʃp�b�P�[�W�L�q�t�@�C���iMANIFEST�j�̐�
-���ɋL�q����D�܂��C��������C���N���[�h�����e�t�@�C���̐擪�ɂ��L�q
-���C������C���N���[�h���Ă���ʃp�b�P�[�W�����w�肷��D�^�[�Q�b�g��
-�����̌ʃp�b�P�[�W���́C�ʃp�b�P�[�W�L�q�t�@�C�����u���ꂽ�f�B���N
-�g���̑��΃p�X����"/"��"_"�ɒu����������������C"asp_"�̌�ɂȂ�����
-�̂Ƃ���D�Ⴆ�΁C�ʃp�b�P�[�W�L�q�t�@�C����arch/arm_gcc/MANIFEST�̏�
-���ɂ́Casp_arch_arm_gcc�ƂȂ�D
+個別パッケージ名を指定する．個別パッケージ記述ファイル（MANIFEST）の先
+頭に記述する．また，そこからインクルードされる各ファイルの先頭にも記述
+し，それをインクルードしている個別パッケージ名を指定する．ターゲット依
+存部の個別パッケージ名は，個別パッケージ記述ファイルが置かれたディレク
+トリの相対パス中の"/"を"_"に置き換えた文字列を，"asp_"の後につなげたも
+のとする．例えば，個別パッケージ記述ファイルがarch/arm_gcc/MANIFESTの場
+合には，asp_arch_arm_gccとなる．
 
-(c) VERSION <�o�[�W�����ԍ�>
+(c) VERSION <バージョン番号>
 
-�p�b�P�[�W�̃o�[�W�����ԍ����w�肷��D�ȈՃp�b�P�[�W�L�q�t�@�C�������
-�ʃp�b�P�[�W�L�q�t�@�C���̒��ɋL�q����D�ȈՃp�b�P�[�W�ɂ����āC�o�[
-�W�����ԍ����p�b�P�[�W���������t�Ƃ���ꍇ�ɂ́C�p�b�P�[�W�ԍ��̑���
-��%date�ƋL�q����D
+パッケージのバージョン番号を指定する．簡易パッケージ記述ファイルおよび
+個別パッケージ記述ファイルの中に記述する．簡易パッケージにおいて，バー
+ジョン番号をパッケージ化した日付とする場合には，パッケージ番号の代わり
+に%dateと記述する．
 
-�o�[�W�����ԍ��̕t�^���@�ɂ��ẮC�uTOPPERS/ASP�J�[�l�� ���[�U�[�Y�}
-�j���A���v�́u2.2 �ȈՃp�b�P�[�W�v����сu2.3 �ʃp�b�P�[�W�v�̐߂��Q
-�Ƃ��邱�ƁD
+バージョン番号の付与方法については，「TOPPERS/ASPカーネル ユーザーズマ
+ニュアル」の「2.2 簡易パッケージ」および「2.3 個別パッケージ」の節を参
+照すること．
 
-(d) INCLUDE <�t�@�C����>
+(d) INCLUDE <ファイル名>
 
-�ʂ̃p�b�P�[�W�L�q�t�@�C�����C���N���[�h����D�ȈՃp�b�P�[�W�L�q�t�@�C
-������́C�ʃp�b�P�[�W�L�q�t�@�C���݂̂��C���N���[�h����̂������Ƃ�
-��D�ʃp�b�P�[�W�L�q�t�@�C������C���N���[�h�����t�@�C�����Ŏw�肳
-���ʃp�b�P�[�W���́C���ׂĈ�v���Ă��Ȃ���΂Ȃ�Ȃ��D
+別のパッケージ記述ファイルをインクルードする．簡易パッケージ記述ファイ
+ルからは，個別パッケージ記述ファイルのみをインクルードするのを原則とす
+る．個別パッケージ記述ファイルからインクルードされるファイル中で指定さ
+れる個別パッケージ名は，すべて一致していなければならない．
 
 
-�P�O�D���t�@�����X
+１０．リファレンス
 
-10.1 �^�[�Q�b�g�ˑ����̃t�@�C���ꗗ
+10.1 ターゲット依存部のファイル一覧
 
-�W���I�ȃ^�[�Q�b�g�ˑ����̃t�@�C���\���͎��̒ʂ�ł���D
+標準的なターゲット依存部のファイル構成は次の通りである．
 
-Makefile.target		Makefile�̃^�[�Q�b�g�ˑ����i�Q�́j�D
-target_offset.tf	�I�t�Z�b�g�t�@�C�������p�e���v���[�g�t�@�C���i2.5.1�߁C
-					�I�v�V�����j
+Makefile.target		Makefileのターゲット依存部（２章）．
+target_offset.tf	オフセットファイル生成用テンプレートファイル（2.5.1節，
+					オプション）
 
-target_stddef.h		TOPPERS���ʒ�`�it_stddef.h�j�̃^�[�Q�b�g�ˑ����i�R
-					�́j�D�A�v���P�[�V�����ƃJ�[�l���̗�������C���N���[
-					�h�����D
-target_sil.h		�V�X�e���C���^�t�F�[�X���C���isil.h�j�̃^�[�Q�b�g��
-					�����i�S�́j�D�A�v���P�[�V�����ƃJ�[�l���̗�������
-					�C���N���[�h�����D
-target_kernel.h		�J�[�l��API�ikernel.h�j�̃^�[�Q�b�g�ˑ����i�T�́j�D
-					�A�v���P�[�V�����ƃJ�[�l���̗�������C���N���[�h��
-					���D
+target_stddef.h		TOPPERS共通定義（t_stddef.h）のターゲット依存部（３
+					章）．アプリケーションとカーネルの両方からインクルー
+					ドされる．
+target_sil.h		システムインタフェースレイヤ（sil.h）のターゲット依
+					存部（４章）．アプリケーションとカーネルの両方から
+					インクルードされる．
+target_kernel.h		カーネルAPI（kernel.h）のターゲット依存部（５章）．
+					アプリケーションとカーネルの両方からインクルードさ
+					れる．
 
-target_config.h		�J�[�l�������̃^�[�Q�b�g�ˑ����̃w�b�_�t�@�C���i�U
-					�́j�D�J�[�l���݂̂���C���N���[�h�����D
-target_config.c		�J�[�l�������̃^�[�Q�b�g�ˑ�����C����ŋL�q�����
-					�����i�U�́C�I�v�V�����j�D
-target_support.S	�J�[�l�������̃^�[�Q�b�g�ˑ����̃A�Z���u������ŋL
-					�q����镔���i�U�́C�I�v�V�����j�D
-target_rename.def	�J�[�l�������̃^�[�Q�b�g�ˑ����̂��߂̃��l�[���L�q
-					�i6.12�߁j�D
-target_rename.h		target_rename.def���琶�������t�@�C���i6.12�߁j�D
-target_unrename.h	target_rename.def���琶�������t�@�C���i6.12�߁j�D
-target_timer.cfg	�^�C�}�h���C�o�̃V�X�e���R���t�B�M�����[�V�����t�@
-					�C���i6.13�߁j�D
-target_timer.h		�^�C�}�h���C�o�̃w�b�_�t�@�C���i6.13�߁j�D�J�[�l��
-					�݂̂���C���N���[�h�����D
-target_timer.c		�^�C�}�h���C�o�̎����t�@�C���i6.13�߁C�I�v�V�����j�D
-�V�X�e������.h		�^�[�Q�b�g�̃n�[�h�E�F�A�����i�����݃n���h���ԍ���
-					CPU��O�n���h���ԍ��C�f�o�C�X���W�X�^�̔Ԓn�Ȃǁj��
-					��`���܂ރw�b�_�t�@�C���D�A�v���P�[�V�����ƃJ�[�l
-					���̗�������C���N���[�h�����i�U�́C�I�v�V�����j�D
+target_config.h		カーネル実装のターゲット依存部のヘッダファイル（６
+					章）．カーネルのみからインクルードされる．
+target_config.c		カーネル実装のターゲット依存部のC言語で記述される
+					部分（６章，オプション）．
+target_support.S	カーネル実装のターゲット依存部のアセンブリ言語で記
+					述される部分（６章，オプション）．
+target_rename.def	カーネル実装のターゲット依存部のためのリネーム記述
+					（6.12節）．
+target_rename.h		target_rename.defから生成されるファイル（6.12節）．
+target_unrename.h	target_rename.defから生成されるファイル（6.12節）．
+target_timer.cfg	タイマドライバのシステムコンフィギュレーションファ
+					イル（6.13節）．
+target_timer.h		タイマドライバのヘッダファイル（6.13節）．カーネル
+					のみからインクルードされる．
+target_timer.c		タイマドライバの実装ファイル（6.13節，オプション）．
+システム略称.h		ターゲットのハードウェア資源（割込みハンドラ番号や
+					CPU例外ハンドラ番号，デバイスレジスタの番地など）の
+					定義を含むヘッダファイル．アプリケーションとカーネ
+					ルの両方からインクルードされる（６章，オプション）．
 
-target_def.csv		�R���t�B�M�����[�^�̒l�擾�V���{���e�[�u���̃^�[�Q�b
-					�g�ˑ����i�V�́C�I�v�V�����j�D
-target.tf			�R���t�B�M�����[�^�̃p�X2�̃e���v���[�g�t�@�C����
-					�^�[�Q�b�g�ˑ����i7.2�߁j�D
-target_check.tf		�R���t�B�M�����[�^�̃p�X3�̃e���v���[�g�t�@�C���i7.3
-					�߁j�D
-target_cfg1_out.h	cfg1_out.c�̃����N�ɕK�v�ȃX�^�u�̒�`�t�@�C���i7.4
-					�߁j�D
+target_def.csv		コンフィギュレータの値取得シンボルテーブルのターゲッ
+					ト依存部（７章，オプション）．
+target.tf			コンフィギュレータのパス2のテンプレートファイルの
+					ターゲット依存部（7.2節）．
+target_check.tf		コンフィギュレータのパス3のテンプレートファイル（7.3
+					節）．
+target_cfg1_out.h	cfg1_out.cのリンクに必要なスタブの定義ファイル（7.4
+					節）．
 
-target_syssvc.h		�V�X�e���T�[�r�X�̃^�[�Q�b�g�ˑ���`�i8.0�߁j�D
-target_serial.cfg	�V���A���h���C�o�̃V�X�e���R���t�B�M�����[�V�����t�@
-					�C���i8.3�߁j�D
-target_serial.h		�V���A���h���C�o�̃w�b�_�t�@�C���i8.3�߁j�D�V���A��
-					�h���C�o�݂̂���C���N���[�h�����D
-target_serial.c		�V���A���h���C�o�̎����t�@�C���i8.3�߁C�I�v�V�����j�D
-target_test.h		�e�X�g�v���O�����̃^�[�Q�b�g�ˑ���`�i8.4�߁j�D
+target_syssvc.h		システムサービスのターゲット依存定義（8.0節）．
+target_serial.cfg	シリアルドライバのシステムコンフィギュレーションファ
+					イル（8.3節）．
+target_serial.h		シリアルドライバのヘッダファイル（8.3節）．シリアル
+					ドライバのみからインクルードされる．
+target_serial.c		シリアルドライバの実装ファイル（8.3節，オプション）．
+target_test.h		テストプログラムのターゲット依存定義（8.4節）．
 
-target_user.txt		���[�U�[�Y�}�j���A���i9.1�߁j
-target_design.txt	�݌v�����i9.1�߁C�I�v�V�����j
-MANIFEST			�ʃp�b�P�[�W�Ɋ܂߂�t�@�C���̃��X�g�i9.2�߁C�I�v
-					�V�����j
-E_PACKAGE			�ȈՃp�b�P�[�W�Ɋ܂߂�t�@�C���̃��X�g�i9.2�߁C�I�v
-					�V�����j
+target_user.txt		ユーザーズマニュアル（9.1節）
+target_design.txt	設計メモ（9.1節，オプション）
+MANIFEST			個別パッケージに含めるファイルのリスト（9.2節，オプ
+					ション）
+E_PACKAGE			簡易パッケージに含めるファイルのリスト（9.2節，オプ
+					ション）
 
-�ȏ�
+以上

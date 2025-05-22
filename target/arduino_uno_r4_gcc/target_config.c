@@ -8,39 +8,39 @@
  *  Copyright (C) 2005-2015 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  *
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  *
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  *
  */
 
 /*
- *  �^�[�Q�b�g�ˑ����W���[���iArduino UNO R4�p�j
+ *  ターゲット依存モジュール（Arduino UNO R4用）
  */
 #include "kernel_impl.h"
 #include <sil.h>
@@ -49,21 +49,21 @@
 #include "hal_data.h"
 
 /*
- * �@PRCR���W�X�^�ɏ������ނ��߂̃L�[�R�[�h
+ * 　PRCRレジスタに書き込むためのキーコード
  */
 #define BSP_PRV_PRCR_KEY                              (0xA500U)
 #define BSP_PRV_PRCR_PRC1_UNLOCK                      ((BSP_PRV_PRCR_KEY) | 0x2U)
 #define BSP_PRV_PRCR_LOCK                             ((BSP_PRV_PRCR_KEY) | 0x0U)
 
 /*
- * �@bsp_lock_cfg.h��HOCO ���g���ݒ��bsp_cfg.h��OFS1�ݒ��OR
+ * 　bsp_lock_cfg.hのHOCO 周波数設定とbsp_cfg.hのOFS1設定のOR
  */
 #define BSP_ROM_REG_OFS1_SETTING                                             \
     (((uint32_t) BSP_CFG_ROM_REG_OFS1 & BSP_FEATURE_BSP_OFS1_HOCOFRQ_MASK) | \
      ((uint32_t) BSP_CFG_HOCO_FREQUENCY << BSP_FEATURE_BSP_OFS1_HOCOFRQ_OFFSET))
 
 /*
- * �@MPU�̐ݒ�Ɋ�Â���SECMPUAC���W�X�^�̍\�z���܂�
+ * 　MPUの設定に基づいたSECMPUACレジスタの構築します
  */
 #define BSP_ROM_REG_MPU_CONTROL_SETTING                     \
     ((0xFFFFFCF0U) |                                        \
@@ -75,29 +75,29 @@
      ((uint32_t) BSP_CFG_ROM_REG_MPU_REGION3_ENABLE << 3))
 
 /*
- *  �G���[���̏���
+ *  エラー時の処理
  */
 extern void Error_Handler(void);
 
 /*
- *  hal_entry.c��R_BSP_WarmStart()�Q��
+ *  hal_entry.cのR_BSP_WarmStart()参照
  */
 extern void R_BSP_WarmStart(bsp_warm_start_event_t event);
 
 /*
- *  �V�X�e���N���b�N
+ *  システムクロック
  */
 uint32_t SystemCoreClock;
 
 /*
- *  �o�[�i�o�͗p��UART�̏�����
+ *  バーナ出力用のUARTの初期化
  */
 static void usart_early_init(void);
 
 /*
- * �@ROM���W�X�^�̒�`
+ * 　ROMレジスタの定義
  *
- *  BSP_SECTION_ROM_REGISTERS�Ŏ����Z�N�V�����i�ʏ�́u.rom_registers�v�j�ɔz�u�����D
+ *  BSP_SECTION_ROM_REGISTERSで示すセクション（通常は「.rom_registers」）に配置される．
  */
 BSP_DONT_REMOVE static const uint32_t g_bsp_rom_registers[] BSP_PLACE_IN_SECTION (BSP_SECTION_ROM_REGISTERS) =
 {
@@ -119,9 +119,9 @@ BSP_DONT_REMOVE static const uint32_t g_bsp_rom_registers[] BSP_PLACE_IN_SECTION
 };
 
 /*
- * �@ID�R�[�h�̒�`
+ * 　IDコードの定義
  *
- *  BSP_SECTION_ID_CODE�Ŏ����Z�N�V�����i�ʏ�́u.id_code�v�j�ɔz�u�����D
+ *  BSP_SECTION_ID_CODEで示すセクション（通常は「.id_code」）に配置される．
  */
 BSP_DONT_REMOVE static const uint32_t g_bsp_id_codes[] BSP_PLACE_IN_SECTION (BSP_SECTION_ID_CODE) =
 {
@@ -141,13 +141,13 @@ BSP_DONT_REMOVE static const uint32_t g_bsp_id_codes[] BSP_PLACE_IN_SECTION (BSP
 };
 
 /*
- * �@�q�[�v�̈�̐ݒ�
+ * 　ヒープ領域の設定
  *
- *  BSP_SECTION_HEAP�Ŏ����Z�N�V�����i�ʏ�́u.heap�v�j�ɔz�u�����D
- * �@�W�����C�u�������g�p����q�[�v�̈�́C�ʏ�C���݂̃X�^�b�N�|�C���^�����Ⴂ�A�h���X�ɔz�u����Ȃ���΂Ȃ�Ȃ��D
- *  TOPPERS/ASP���g�p����ꍇ�C�X�^�b�N�|�C���^�͏��BSS�̈���ړ�����D
- *  ���̂��߁u.heap�v�Z�N�V������,�ʏ�Ƃ͋t�Ɂu.bss�v�Z�N�V�����̑O�ɔz�u�����悤�Ɂuarduino_uno_r4.ld�v��
- *  �L�q���Ă���.
+ *  BSP_SECTION_HEAPで示すセクション（通常は「.heap」）に配置される．
+ * 　標準ライブラリが使用するヒープ領域は，通常，現在のスタックポインタよりも若いアドレスに配置されなければならない．
+ *  TOPPERS/ASPを使用する場合，スタックポインタは常にBSS領域を移動する．
+ *  そのため「.heap」セクションは,通常とは逆に「.bss」セクションの前に配置されるように「arduino_uno_r4.ld」に
+ *  記述している.
  */
 #if (BSP_CFG_HEAP_BYTES > 0)
 
@@ -156,77 +156,77 @@ BSP_DONT_REMOVE static uint8_t g_heap[BSP_CFG_HEAP_BYTES] BSP_ALIGN_VARIABLE(BSP
 #endif
 
 /*
- *  �N�����̃n�[�h�E�F�A����������
+ *  起動時のハードウェア初期化処理
  */
 void
 hardware_init_hook(void) {
 	/*
-	 *  -fdata-sections���g�p�����istk���폜����C
-	 *  cfg�̃p�X3�̃`�F�b�N���G���[�ƂȂ邽�߁C
-	 *  �폜����Ȃ��悤�ɂ���
+	 *  -fdata-sectionsを使用するとistkが削除され，
+	 *  cfgのパス3のチェックがエラーとなるため，
+	 *  削除されないようにする
 	 */
 	SystemCoreClock = (uint32_t)istk;
 }
 
 /*
- *  �^�[�Q�b�g�ˑ��� ����������
+ *  ターゲット依存部 初期化処理
  */
 void
 target_initialize(void)
 {
 #if BSP_FEATURE_BSP_RESET_TRNG
     volatile uint8_t read_port = 0U;
-    FSP_PARAMETER_NOT_USED(read_port);	/* �R���p�C����'unused'�x����h�� */
+    FSP_PARAMETER_NOT_USED(read_port);	/* コンパイラの'unused'警告を防ぐ */
 #endif
 
 #if BSP_FEATURE_BSP_VBATT_HAS_VBTCR1_BPWSWSTP
 
     /*
-     *�@ VBTCR1���W�X�^�̃A�����b�N
+     *　 VBTCR1レジスタのアンロック
      */
     R_SYSTEM->PRCR = (uint16_t)BSP_PRV_PRCR_PRC1_UNLOCK;
 
     /*
-     *  VBTCR1.BPWSWSTP������MCU�ł́C���Z�b�g���VBTCR1.BPWSWSTP��ݒ肷��K�v������D
-     *  RA4M1�}�j���A��R01UM0007EU0110�́u11.2.1 VBATT�R���g���[�����W�X�^1(VBTCR1)�v�����
-     *  �u�}11.2 VBTCR1.BPWSWSTP�r�b�g�̐ݒ�t���[�v���Q�Ƃ̂��ƁD
-     *  VBTSR.VBTRVLD���ݒ肳���܂�LOCOCR�ALOCOUTCR�ASOSCCR�C�����SOMCR�ɃA�N�Z�X�ł��Ȃ����߁C
-     *  �����bsp_lock_init()�̑O�ɍs���K�v������D
+     *  VBTCR1.BPWSWSTPを持つMCUでは，リセット後にVBTCR1.BPWSWSTPを設定する必要がある．
+     *  RA4M1マニュアルR01UM0007EU0110の「11.2.1 VBATTコントロールレジスタ1(VBTCR1)」および
+     *  「図11.2 VBTCR1.BPWSWSTPビットの設定フロー」を参照のこと．
+     *  VBTSR.VBTRVLDが設定されるまでLOCOCR、LOCOUTCR、SOSCCR，およびSOMCRにアクセスできないため，
+     *  これはbsp_lock_init()の前に行う必要がある．
      */
     R_SYSTEM->VBTCR1 = 1U;
     FSP_HARDWARE_REGISTER_WAIT(R_SYSTEM->VBTSR_b.VBTRVLD, 1U);
 
     /*
-     * �@VBTCR1���W�X�^�̃��b�N
+     * 　VBTCR1レジスタのロック
      */
     R_SYSTEM->PRCR = (uint16_t)BSP_PRV_PRCR_LOCK;
 #endif
 
     /*
-     *  �N���b�N�������O�ɕK�v�ȏ���
+     *  クロック初期化前に必要な処理
      */
     R_BSP_WarmStart(BSP_WARM_START_RESET);
 
     /*
-     *�@ �V�X�e���N���b�N�̐ݒ�
+     *　 システムクロックの設定
      */
     bsp_clock_init();
 
 #if BSP_FEATURE_BSP_RESET_TRNG
 
     /*
-     *  �]�܂����Ȃ��d���̈������݂�h�����߂ɁC����MCU�ł̓N���b�N�̏��������
-     *  TRNG��H�����Z�b�g����K�v������D
+     *  望ましくない電流の引き込みを防ぐために，このMCUではクロックの初期化後に
+     *  TRNG回路をリセットする必要がある．
      */
 
     /*
-     *  �����d�̓��[�h���̃��W�X�^�ی�����iRA2A1���[�U�[�Y�}�j���A���iR01UH0888JJ0100�j
-     *  �}11.13�u���g�p��H�̏����ݒ�t���[��v�ɂ��j
+     *  低消費電力モード時のレジスタ保護解除（RA2A1ユーザーズマニュアル（R01UH0888JJ0100）
+     *  図11.13「未使用回路の初期設定フロー例」による）
      */
     R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_OM_LPC_BATT);
 
     /*
-     *  TRNG�@�\�̗L�����i�X�g�b�v�@�\�̖������j
+     *  TRNG機能の有効化（ストップ機能の無効化）
      */
  #if BSP_FEATURE_BSP_HAS_SCE_ON_RA2
     R_BSP_MODULE_START(FSP_IP_TRNG, 0); // for RA2 series.
@@ -237,14 +237,14 @@ target_initialize(void)
  #endif
 
     /*
-     *  �Œ�3PCLKB�T�C�N���ҋ@
+     *  最低3PCLKBサイクル待機
      */
     read_port = R_PFS->PORT[0].PIN[0].PmnPFS_b.PODR;
     read_port = R_PFS->PORT[0].PIN[0].PmnPFS_b.PODR;
     read_port = R_PFS->PORT[0].PIN[0].PmnPFS_b.PODR;
 
     /*
-     *  TRNG�@�\�̖�����
+     *  TRNG機能の無効化
      */
  #if BSP_FEATURE_BSP_HAS_SCE_ON_RA2
     R_BSP_MODULE_STOP(FSP_IP_TRNG, 0); // for RA2 series.
@@ -255,24 +255,24 @@ target_initialize(void)
  #endif
 
     /*
-     *  ��d�̓��[�h�p���W�X�^�ی�̍ēK�p�iRA2A1���[�U�[�Y�}�j���A���iR01UH0888JJ0100�j
-     *  �}11.13�u���g�p��H�̏����ݒ�t���[��v�ɂ��j
+     *  低電力モード用レジスタ保護の再適用（RA2A1ユーザーズマニュアル（R01UH0888JJ0100）
+     *  図11.13「未使用回路の初期設定フロー例」による）
      */
     R_BSP_RegisterProtectEnable(BSP_REG_PROTECT_OM_LPC_BATT);
 #endif
 
     /*
-     *  �N���b�N��������ɕK�v�ȏ���
+     *  クロック初期化後に必要な処理
      */
     R_BSP_WarmStart(BSP_WARM_START_POST_CLOCK);
 
     /*
-     *  MSP�Ď��𖳌���
+     *  MSP監視を無効化
      */
     R_MPU_SPMON->SP[0].CTL = 0;
 
     /*
-     *  SystemCoreClock�ϐ��̏�����
+     *  SystemCoreClock変数の初期化
      */
     SystemCoreClockUpdate();
 
@@ -282,34 +282,34 @@ target_initialize(void)
 #endif
 
     /*
-     *  C�����^�C����ɕK�v�ȏ���
+     *  Cランタイム後に必要な処理
      */
     R_BSP_WarmStart(BSP_WARM_START_POST_C);
 
 	/*
-	 *  target_fput_log���g����悤��UART��������
+	 *  target_fput_logが使えるようにUARTを初期化
 	 */
 #if (SIO_PORTID == 2)
 	/*
-	 * �@SCI1���W���[���X�g�b�v�ݒ�
+	 * 　SCI1モジュールストップ設定
 	 */
-	R_MSTP->MSTPCRB_b.MSTPB30 = 0;	/* ���W���[���X�g�b�v�̉��� */
+	R_MSTP->MSTPCRB_b.MSTPB30 = 0;	/* モジュールストップの解除 */
 #endif
 
 	/*
-	 *  �o�[�i�[�o�͗p�̃V���A��������
+	 *  バーナー出力用のシリアル初期化
 	 */
 	usart_early_init();
 }
 
 /*
- * �^�[�Q�b�g�ˑ��� �I������
+ * ターゲット依存部 終了処理
  */
 void
 target_exit(void)
 {
 	/*
-	 *�@�@�`�b�v�ˑ����̏I������
+	 *　　チップ依存部の終了処理
 	 */
 	core_terminate();
 	while(1);
@@ -325,7 +325,7 @@ static void usart_early_init()
 	uint32_t brr = 0;
 	uint8_t semr = 0;
 
-	/* �{�[���[�g�̌v�Z */
+	/* ボーレートの計算 */
 	for (i = 0; i < NUM_SEMR_MODE; i++) {
 		tmp = semr_mode[i].tmp;
 		for (cks = 0; cks < 3; cks++) {
@@ -342,28 +342,28 @@ static void usart_early_init()
 		}
 	}
 	if (brr >= 0x100UL)
-		target_exit();	// �p�����[�^�[�G���[
+		target_exit();	// パラメーターエラー
 
 #if (SIO_PORTID == 2)
 	/*
-	 *  SCI1�̏�����
+	 *  SCI1の初期化
 	 */
-	/* SCI1��~ */
+	/* SCI1停止 */
 	R_SCI1->SCR = 0;
-	/*  8�f�[�^,1�X�g�b�v�r�b�g,no parity */
+	/*  8データ,1ストップビット,no parity */
 	R_SCI1->SMR = (uint8_t)cks;
 	R_SCI1->SEMR = semr;
-	/* �{�[���[�g��ݒ� */
+	/* ボーレートを設定 */
 	R_SCI1->BRR = (uint8_t)brr;
-	/* �X�e�[�^�X�̃N���A */
+	/* ステータスのクリア */
 	if (R_SCI1->SSR)
 		R_SCI1->SSR = 0;
-	/* UART�J�n */
+	/* UART開始 */
 	R_SCI1->SCR_b.RE = 1;
 	R_SCI1->SCR_b.TE = 1;
 
 	/*
-	 *  �C�x���g�i���荞�݁j�����N�ݒ�
+	 *  イベント（割り込み）リンク設定
 	 */
 	R_ICU->IELSR_b[30].IELS = 0x9E;
 	R_ICU->IELSR_b[31].IELS = 0xA0;
@@ -371,7 +371,7 @@ static void usart_early_init()
 }
 
 /*
- * �@�V�X�e�����O�̒჌�x���o�͂̂��߂̕����o��
+ * 　システムログの低レベル出力のための文字出力
  */
 void
 target_fput_log(char c)
@@ -389,7 +389,7 @@ target_fput_log(char c)
 }
 
 /*
- *�@ ���������̃G���[�������̏���
+ *　 初期化時のエラー発生時の処理
  */
 void
 Error_Handler(void){

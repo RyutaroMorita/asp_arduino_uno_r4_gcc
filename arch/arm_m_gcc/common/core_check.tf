@@ -1,8 +1,8 @@
 $ 
-$ 		ƒpƒX3‚ÌƒvƒƒZƒbƒTˆË‘¶ƒeƒ“ƒvƒŒ[ƒgiARM-M—pj
+$ 		ãƒ‘ã‚¹3ã®ãƒ—ãƒ­ã‚»ãƒƒã‚µä¾å­˜ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆï¼ˆARM-Mç”¨ï¼‰
 $ 
 
 $ 
-$  •W€ƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh
+$  æ¨™æº–ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 $ 
 $INCLUDE "kernel/kernel_check.tf"$

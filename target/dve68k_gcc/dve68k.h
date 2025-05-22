@@ -8,40 +8,40 @@
  *  Copyright (C) 2005-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  ��L���쌠�҂́C�ȉ���(1)�`(4)�̏����𖞂����ꍇ�Ɍ���C�{�\�t�g�E�F
- *  �A�i�{�\�t�g�E�F�A�����ς������̂��܂ށD�ȉ������j���g�p�E�����E��
- *  �ρE�Ĕz�z�i�ȉ��C���p�ƌĂԁj���邱�Ƃ𖳏��ŋ�������D
- *  (1) �{�\�t�g�E�F�A���\�[�X�R�[�h�̌`�ŗ��p����ꍇ�ɂ́C��L�̒���
- *      ���\���C���̗��p��������щ��L�̖��ۏ؋K�肪�C���̂܂܂̌`�Ń\�[
- *      �X�R�[�h���Ɋ܂܂�Ă��邱�ƁD
- *  (2) �{�\�t�g�E�F�A���C���C�u�����`���ȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł���`�ōĔz�z����ꍇ�ɂ́C�Ĕz�z�ɔ����h�L�������g�i���p
- *      �҃}�j���A���Ȃǁj�ɁC��L�̒��쌠�\���C���̗��p��������щ��L
- *      �̖��ۏ؋K����f�ڂ��邱�ƁD
- *  (3) �{�\�t�g�E�F�A���C�@��ɑg�ݍ��ނȂǁC���̃\�t�g�E�F�A�J���Ɏg
- *      �p�ł��Ȃ��`�ōĔz�z����ꍇ�ɂ́C���̂����ꂩ�̏����𖞂�����
- *      �ƁD
- *    (a) �Ĕz�z�ɔ����h�L�������g�i���p�҃}�j���A���Ȃǁj�ɁC��L�̒�
- *        �쌠�\���C���̗��p��������щ��L�̖��ۏ؋K����f�ڂ��邱�ƁD
- *    (b) �Ĕz�z�̌`�Ԃ��C�ʂɒ�߂���@�ɂ���āCTOPPERS�v���W�F�N�g��
- *        �񍐂��邱�ƁD
- *  (4) �{�\�t�g�E�F�A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����邢���Ȃ鑹
- *      �Q������C��L���쌠�҂����TOPPERS�v���W�F�N�g��Ɛӂ��邱�ƁD
- *      �܂��C�{�\�t�g�E�F�A�̃��[�U�܂��̓G���h���[�U����̂����Ȃ闝
- *      �R�Ɋ�Â�����������C��L���쌠�҂����TOPPERS�v���W�F�N�g��
- *      �Ɛӂ��邱�ƁD
+ *  上記著作権者は，以下の(1)～(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �{�\�t�g�E�F�A�́C���ۏ؂Œ񋟂���Ă�����̂ł���D��L���쌠�҂�
- *  ���TOPPERS�v���W�F�N�g�́C�{�\�t�g�E�F�A�Ɋւ��āC����̎g�p�ړI
- *  �ɑ΂���K�������܂߂āC�����Ȃ�ۏ؂��s��Ȃ��D�܂��C�{�\�t�g�E�F
- *  �A�̗��p�ɂ�蒼�ړI�܂��͊ԐړI�ɐ����������Ȃ鑹�Q�Ɋւ��Ă��C��
- *  �̐ӔC�𕉂�Ȃ��D
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: dve68k.h 2728 2015-12-30 01:46:11Z ertl-honda $
  */
 
 /*
- *		DVE-68K/40 CPU�{�[�h�̃n�[�h�E�F�A�����̒�`
+ *		DVE-68K/40 CPUボードのハードウェア資源の定義
  */
 
 #ifndef TOPPERS_DVE68K_H
@@ -50,84 +50,84 @@
 #include <sil.h>
 
 /*
- *  �����ݔԍ��iintno�j�̒�`
+ *  割込み番号（intno）の定義
  */
-#define TINTNO_ACF		1U			/* ACFAIL������ */
-#define TINTNO_ABT		2U			/* �A�{�[�g������ */
-#define TINTNO_SF		3U			/* SYSFAIL������ */
-#define TINTNO_BER		4U			/* �o�X�G���[������ */
-#define TINTNO_IAK		5U			/* IAK������ */
-#define TINTNO_SRQ		6U			/* SRQ������ */
-#define TINTNO_SAK		7U			/* SAK������ */
-#define TINTNO_GP7		9U			/* GP7������ */
-#define TINTNO_DMA		10U			/* DMA������ */
-#define TINTNO_TT1		11U			/* �^�C�}1������ */
-#define TINTNO_TT0		12U			/* �^�C�}0������ */
-#define TINTNO_GP3		13U			/* �t���b�V�������������� */
-#define TINTNO_GP2		14U			/* SCSI������ */
-#define TINTNO_GP1		15U			/* Ethernet������ */
-#define TINTNO_GP0		16U			/* �V���A��I/O������ */
-#define TINTNO_SWI7		17U			/* �\�t�g�E�F�A������7 */
-#define TINTNO_SWI6		18U			/* �\�t�g�E�F�A������6 */
-#define TINTNO_SWI5		19U			/* �\�t�g�E�F�A������5 */
-#define TINTNO_SWI4		20U			/* �\�t�g�E�F�A������4 */
-#define TINTNO_SWI3		21U			/* �\�t�g�E�F�A������3 */
-#define TINTNO_SWI2		22U			/* �\�t�g�E�F�A������2 */
-#define TINTNO_SWI1		23U			/* �\�t�g�E�F�A������1 */
-#define TINTNO_SWI0		24U			/* �\�t�g�E�F�A������0 */
-#define TINTNO_VM7		25U			/* VME������7 */
-#define TINTNO_VM6		26U			/* VME������6 */
-#define TINTNO_VM5		27U			/* VME������5 */
-#define TINTNO_VM4		28U			/* VME������4 */
-#define TINTNO_VM3		29U			/* VME������3 */
-#define TINTNO_VM2		30U			/* VME������2 */
-#define TINTNO_VM1		31U			/* VME������1 */
+#define TINTNO_ACF		1U			/* ACFAIL割込み */
+#define TINTNO_ABT		2U			/* アボート割込み */
+#define TINTNO_SF		3U			/* SYSFAIL割込み */
+#define TINTNO_BER		4U			/* バスエラー割込み */
+#define TINTNO_IAK		5U			/* IAK割込み */
+#define TINTNO_SRQ		6U			/* SRQ割込み */
+#define TINTNO_SAK		7U			/* SAK割込み */
+#define TINTNO_GP7		9U			/* GP7割込み */
+#define TINTNO_DMA		10U			/* DMA割込み */
+#define TINTNO_TT1		11U			/* タイマ1割込み */
+#define TINTNO_TT0		12U			/* タイマ0割込み */
+#define TINTNO_GP3		13U			/* フラッシュメモリ割込み */
+#define TINTNO_GP2		14U			/* SCSI割込み */
+#define TINTNO_GP1		15U			/* Ethernet割込み */
+#define TINTNO_GP0		16U			/* シリアルI/O割込み */
+#define TINTNO_SWI7		17U			/* ソフトウェア割込み7 */
+#define TINTNO_SWI6		18U			/* ソフトウェア割込み6 */
+#define TINTNO_SWI5		19U			/* ソフトウェア割込み5 */
+#define TINTNO_SWI4		20U			/* ソフトウェア割込み4 */
+#define TINTNO_SWI3		21U			/* ソフトウェア割込み3 */
+#define TINTNO_SWI2		22U			/* ソフトウェア割込み2 */
+#define TINTNO_SWI1		23U			/* ソフトウェア割込み1 */
+#define TINTNO_SWI0		24U			/* ソフトウェア割込み0 */
+#define TINTNO_VM7		25U			/* VME割込み7 */
+#define TINTNO_VM6		26U			/* VME割込み6 */
+#define TINTNO_VM5		27U			/* VME割込み5 */
+#define TINTNO_VM4		28U			/* VME割込み4 */
+#define TINTNO_VM3		29U			/* VME割込み3 */
+#define TINTNO_VM2		30U			/* VME割込み2 */
+#define TINTNO_VM1		31U			/* VME割込み1 */
 
 /*
- *  �����݃x�N�g���̐ݒ�l�̒�`
+ *  割込みベクトルの設定値の定義
  */
-#define TVEC_G0I		0x40U		/* �O���[�v0�����݃x�N�g�� */
-#define TVEC_G1I		0x48U		/* �O���[�v1�����݃x�N�g�� */
-#define TVEC_SWI		0x50U		/* �\�t�g�E�F�A�����݃x�N�g�� */
-#define TVEC_SPRI		0x40U		/* �X�v���A�X�����݃x�N�g�� */
+#define TVEC_G0I		0x40U		/* グループ0割込みベクトル */
+#define TVEC_G1I		0x48U		/* グループ1割込みベクトル */
+#define TVEC_SWI		0x50U		/* ソフトウェア割込みベクトル */
+#define TVEC_SPRI		0x40U		/* スプリアス割込みベクトル */
 
 /*
- *  �����݃n���h���ԍ��iinhno�j�̒�`
+ *  割込みハンドラ番号（inhno）の定義
  */
-#define TINHNO_ACF		0x47U		/* ACFAIL������ */
-#define TINHNO_ABT		0x46U		/* �A�{�[�g������ */
-#define TINHNO_SF		0x45U		/* SYSFAIL������ */
-#define TINHNO_BER		0x44U		/* �o�X�G���[������ */
-#define TINHNO_IAK		0x43U		/* IAK������ */
-#define TINHNO_SRQ		0x42U		/* SRQ������ */
-#define TINHNO_SAK		0x41U		/* SAK������ */
-#define TINHNO_GP7		0x4fU		/* GP7������ */
-#define TINHNO_DMA		0x4eU		/* DMA������ */
-#define TINHNO_TT1		0x4dU		/* �^�C�}1������ */
-#define TINHNO_TT0		0x4cU		/* �^�C�}0������ */
-#define TINHNO_GP3		0x4bU		/* �t���b�V�������������� */
-#define TINHNO_GP2		0x4aU		/* SCSI������ */
-#define TINHNO_GP1		0x49U		/* Ethernet������ */
-#define TINHNO_GP0		0x48U		/* �V���A��I/O������ */
-#define TINHNO_SWI7		0x57U		/* �\�t�g�E�F�A������7 */
-#define TINHNO_SWI6		0x56U		/* �\�t�g�E�F�A������6 */
-#define TINHNO_SWI5		0x55U		/* �\�t�g�E�F�A������5 */
-#define TINHNO_SWI4		0x54U		/* �\�t�g�E�F�A������4 */
-#define TINHNO_SWI3		0x53U		/* �\�t�g�E�F�A������3 */
-#define TINHNO_SWI2		0x52U		/* �\�t�g�E�F�A������2 */
-#define TINHNO_SWI1		0x51U		/* �\�t�g�E�F�A������1 */
-#define TINHNO_SWI0		0x50U		/* �\�t�g�E�F�A������0 */
-#define TINHNO_SPRI		0x40U		/* �X�v���A�X������ */
+#define TINHNO_ACF		0x47U		/* ACFAIL割込み */
+#define TINHNO_ABT		0x46U		/* アボート割込み */
+#define TINHNO_SF		0x45U		/* SYSFAIL割込み */
+#define TINHNO_BER		0x44U		/* バスエラー割込み */
+#define TINHNO_IAK		0x43U		/* IAK割込み */
+#define TINHNO_SRQ		0x42U		/* SRQ割込み */
+#define TINHNO_SAK		0x41U		/* SAK割込み */
+#define TINHNO_GP7		0x4fU		/* GP7割込み */
+#define TINHNO_DMA		0x4eU		/* DMA割込み */
+#define TINHNO_TT1		0x4dU		/* タイマ1割込み */
+#define TINHNO_TT0		0x4cU		/* タイマ0割込み */
+#define TINHNO_GP3		0x4bU		/* フラッシュメモリ割込み */
+#define TINHNO_GP2		0x4aU		/* SCSI割込み */
+#define TINHNO_GP1		0x49U		/* Ethernet割込み */
+#define TINHNO_GP0		0x48U		/* シリアルI/O割込み */
+#define TINHNO_SWI7		0x57U		/* ソフトウェア割込み7 */
+#define TINHNO_SWI6		0x56U		/* ソフトウェア割込み6 */
+#define TINHNO_SWI5		0x55U		/* ソフトウェア割込み5 */
+#define TINHNO_SWI4		0x54U		/* ソフトウェア割込み4 */
+#define TINHNO_SWI3		0x53U		/* ソフトウェア割込み3 */
+#define TINHNO_SWI2		0x52U		/* ソフトウェア割込み2 */
+#define TINHNO_SWI1		0x51U		/* ソフトウェア割込み1 */
+#define TINHNO_SWI0		0x50U		/* ソフトウェア割込み0 */
+#define TINHNO_SPRI		0x40U		/* スプリアス割込み */
 
 /*
- *  CPU�{�[�h��̃��W�X�^
+ *  CPUボード上のレジスタ
  */
 #define TADR_BOARD_REG0		0xfff48000
 #define TADR_BOARD_REG1		0xfff48004
 #define TADR_BOARD_REG2		0xfff48008
 
 /*
- *  DGA-001�̃��W�X�^�̃A�h���X
+ *  DGA-001のレジスタのアドレス
  */
 #define TADR_DGA_CSR0		0xfff44000
 #define TADR_DGA_CSR1		0xfff44004
@@ -148,24 +148,24 @@
 #define TADR_DGA_IFR3		0xfff4407c
 
 /*
- *  DGA-001�̊����ݗD��x�ݒ�̂��߂̒�`
+ *  DGA-001の割込み優先度設定のための定義
  */
-#define TIRQ_NMI		(-7)		/* �m���}�X�J�u�������� */
-#define TIRQ_LEVEL6		(-6)		/* �����݃��x��6 */
-#define TIRQ_LEVEL5		(-5)		/* �����݃��x��5 */
-#define TIRQ_LEVEL4		(-4)		/* �����݃��x��4 */
-#define TIRQ_LEVEL3		(-3)		/* �����݃��x��3 */
-#define TIRQ_LEVEL2		(-2)		/* �����݃��x��2 */
-#define TIRQ_LEVEL1		(-1)		/* �����݃��x��1 */
+#define TIRQ_NMI		(-7)		/* ノンマスカブル割込み */
+#define TIRQ_LEVEL6		(-6)		/* 割込みレベル6 */
+#define TIRQ_LEVEL5		(-5)		/* 割込みレベル5 */
+#define TIRQ_LEVEL4		(-4)		/* 割込みレベル4 */
+#define TIRQ_LEVEL3		(-3)		/* 割込みレベル3 */
+#define TIRQ_LEVEL2		(-2)		/* 割込みレベル2 */
+#define TIRQ_LEVEL1		(-1)		/* 割込みレベル1 */
 
 /*
- *  DGA�ւ̃A�N�Z�X�֐�
+ *  DGAへのアクセス関数
  */
 #define dga_rew_reg(addr)			sil_rew_mem(((uint32_t *) addr))
 #define dga_wrw_reg(addr, val)		sil_wrw_mem(((uint32_t *) addr), val)
 
 /*
- *  DGA�̃��W�X�^�ւ̃A�N�Z�X�֐�
+ *  DGAのレジスタへのアクセス関数
  */
 #ifndef TOPPERS_MACRO_ONLY
 
@@ -202,7 +202,7 @@ dga_set_ilv(void *addr, uint_t shift, uint_t level)
 #endif /* TOPPERS_MACRO_ONLY */
 
 /*
- *  ��PD72001�iMPSC�j�̃��W�X�^�̃A�h���X
+ *  μPD72001（MPSC）のレジスタのアドレス
  */
 #define TADR_UPD72001_DATAA		0xfff45003U
 #define TADR_UPD72001_CTRLA		0xfff45007U
@@ -210,16 +210,16 @@ dga_set_ilv(void *addr, uint_t shift, uint_t level)
 #define TADR_UPD72001_CTRLB		0xfff4500fU
 
 /*
- *  ��PD72001�ւ̃A�N�Z�X�֐�
+ *  μPD72001へのアクセス関数
  */
 #define upd72001_reb_reg(addr)			sil_reb_mem(((uint8_t *) addr))
 #define upd72001_wrb_reg(addr, val)		sil_wrb_mem(((uint8_t *) addr), val)
 
 /*
- *  �J�����ˑ��̏���
+ *  開発環境依存の処理
  */
 #ifndef TOPPERS_MACRO_ONLY
-#ifdef TOPPERS_GDB_STUB				/* GDB�X�^�u */
+#ifdef TOPPERS_GDB_STUB				/* GDBスタブ */
 
 Inline void
 dve68k_exit(void)
@@ -236,7 +236,7 @@ dve68k_putc(char c)
 	  : "d0", "d1", "d2", "d6", "d7");
 }
 
-#else /* TOPPERS_GDB_STUB */		/* ���̑��̊J���� */
+#else /* TOPPERS_GDB_STUB */		/* その他の開発環境 */
 
 extern void		dve68k_exit(void) NoReturn;
 extern void		dve68k_putc(char c);
